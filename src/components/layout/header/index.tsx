@@ -1,7 +1,6 @@
-import { Search } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { Input } from "@/components/ui/input"
+import { Search } from "@/components/layout/header/search"
 import { UserNav } from "./user-nav"
 import { config } from "@/config"
 
@@ -19,18 +18,7 @@ export const Header = () => {
           </Link>
         </div>
         <div className="flex w-full items-center justify-center">
-          <div className="relative flex items-center">
-            <Input
-              placeholder="Гарри поттер..."
-              className="w-full max-w-[300px]"
-            />
-            <button className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full text-sm font-medium text-foreground/75 shadow-sm">
-              <Search
-                className="transition-colors duration-200 hover:text-foreground/75"
-                size={18}
-              />
-            </button>
-          </div>
+          <Search />
         </div>
         <div className="flex w-full max-w-[130px] justify-end">
           <UserNav />
