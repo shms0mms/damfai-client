@@ -1,20 +1,20 @@
-import { CTAWithGithub } from "@/components/blocks/cta";
-import Footer from "@/components/layout/footer";
+import { CTAWithGithub } from "@/components/blocks/cta"
+import { Footer } from "@/components/layout/footer"
 
 export default function AuthLayout({
-  children,
+  children
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <>
-      <div className="w-full h-full grid grid-cols-2">
+      <div className="grid h-full w-full grid-cols-2">
         <CTAWithGithub />
-        <div className="flex w-full h-full items-center justify-center relative z-10 ">
+        <div className="relative z-10 flex h-full w-full items-center justify-center">
           {children}
         </div>
       </div>
       <Footer />
     </>
-  );
+  )
 }
