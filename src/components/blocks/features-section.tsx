@@ -1,19 +1,13 @@
-import { IconEaseInOut, IconRouteAltLeft } from "@tabler/icons-react"
 import { cn } from "@/lib/utils"
 
+type TFeature = {
+  title: string
+  description: string
+  icon: string
+}
+
 export function FeaturesSection() {
-  const features = [
-    {
-      title: "Просто и интуитивно",
-      description:
-        "Наше приложение довольно простое и интуитивное в использовании. Вы можете легко начать использовать его и не потерять время на настройку и конфигурацию.",
-      icon: <IconEaseInOut />
-    },
-    {
-      title: "Ищите уже существующие книги",
-      description: "Найдите свою книгу, не волнуясь о добавлении своей.",
-      icon: <IconRouteAltLeft />
-    }
+  const features: TFeature[] = [
     // {
     //   title: "Personal Productivity Checklists",
     //   description:
@@ -60,17 +54,11 @@ export function FeaturesSection() {
   )
 }
 
-const Feature = ({
-  title,
-  description,
-  icon,
-  index
-}: {
-  title: string
-  description: string
-  icon: React.ReactNode
+type FeatureProps = TFeature & {
   index: number
-}) => {
+}
+
+const Feature = ({ title, description, icon, index }: FeatureProps) => {
   return (
     <div
       className={cn(
