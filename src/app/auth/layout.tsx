@@ -1,5 +1,4 @@
-import { CTAWithGithub } from "@/components/blocks/cta"
-import { Footer } from "@/components/layout/footer"
+import { CTAWithGithub } from "@/components/blocks/cta";
 
 export default function AuthLayout({
   children
@@ -14,7 +13,6 @@ export default function AuthLayout({
           {children}
         </div>
       </div>
-      <Footer />
     </>
   )
 }
