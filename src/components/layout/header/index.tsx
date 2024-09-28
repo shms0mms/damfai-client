@@ -20,7 +20,7 @@ export const Header = () => {
         <div className="flex w-full items-center justify-center">
           <Search />
         </div>
-        <div className="flex w-full justify-end md:max-w-[130px]">
+        <div className="flex w-full max-w-fit justify-end md:max-w-[130px]">
           <UserNav />
         </div>
       </div>
