@@ -63,7 +63,6 @@ export default function HomePage() {
             <Icons.placeholder className="absolute left-1/2 top-1/2 h-1/2 w-1/2 -translate-x-1/2 -translate-y-1/2 text-muted-foreground/25 grayscale" />
           </section>
         </div>
-
         <section className="relative flex w-full flex-col justify-center">
           <Beam className="-mt-[5rem] hidden xl:ml-28 xl:block" />
           <h2 className="mb-4 text-center text-2xl font-bold md:mb-6 md:text-4xl">
