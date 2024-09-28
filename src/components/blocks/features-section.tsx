@@ -1,9 +1,16 @@
 import { IconEaseInOut, IconRouteAltLeft } from "@tabler/icons-react"
+import { Album, ChartNoAxesColumn, Heart, Library, User } from "lucide-react"
+import React from "react"
 import { cn } from "@/lib/utils"
-import { Album, ChartNoAxesColumn, Heart, Icon, Library, User } from "lucide-react"
+
+type TFeature = {
+  title: string
+  description: string
+  icon: React.ReactNode
+}
 
 export function FeaturesSection() {
-  const features = [
+  const features: TFeature[] = [
     {
       title: "Просто и интуитивно",
       description:
@@ -19,34 +26,36 @@ export function FeaturesSection() {
       title: "Удобное использование",
       description:
         "Наш сервис специально постарался для графического интерфейса и теперь вы можете читать книги в любое время.",
-        icon: <Heart />
+      icon: <Heart />
     },
     {
       title: "Статистика",
       icon: <ChartNoAxesColumn />,
-      description:  "Статистика поможет вам отследить свою успеваемость и продуктивность."
+      description:
+        "Статистика поможет вам отследить свою успеваемость и продуктивность."
     },
     {
       title: "Профиль",
       icon: <User />,
-      description: 'Способность просмотра книг в любое время и сохранение их в закладках для быстрого доступа.'
+      description:
+        "Способность просмотра книг в любое время и сохранение их в закладках для быстрого доступа."
     },
     {
       title: "Рекомендации",
-      icon:<Library/>,
-      description: 'Получайте рекомендации по книгам и подборкам для чтения.'
+      icon: <Library />,
+      description: "Получайте рекомендации по книгам и подборкам для чтения."
     },
     {
       title: "Чаппи",
-      icon:  <></>, // иконка чаппи
-      description: "Чаппи поможет обрезать текст, подготовить вопросы и прочее.",
+      icon: <></>, // иконка чаппи
+      description: "Чаппи поможет обрезать текст, подготовить вопросы и прочее."
     },
     {
       title: "Закладки",
-      icon: <Album/>,
-      description: "Сохраняйте свои книги в закладках для быстрого доступа в любое время.",
+      icon: <Album />,
+      description:
+        "Сохраняйте свои книги в закладках для быстрого доступа в любое время."
     }
-   
   ]
   return (
     <div className="bg-grid-black/[0.02] relative z-10 mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
@@ -57,17 +66,11 @@ export function FeaturesSection() {
   )
 }
 
-const Feature = ({
-  title,
-  description,
-  icon,
-  index
-}: {
-  title: string
-  description: string
-  icon: React.ReactNode
+type FeatureProps = TFeature & {
   index: number
-}) => {
+}
+
+const Feature = ({ title, description, icon, index }: FeatureProps) => {
   return (
     <div
       className={cn(

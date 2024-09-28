@@ -20,8 +20,8 @@ export const NavItem = ({  title,  items, }: NavItemProps) => {
        </h2>
        <ul className="flex flex-col gap-2">
         
-          {items.map(i =>  
-              <li> <Link target="_blank" className="flex items-center gap-2 text-muted-foreground/60 transition-colors hover:text-foreground" href={i.href}>
+          {items.map((i,pk) =>  
+              <li key={pk}> <Link target="_blank" className="flex items-center gap-2 text-muted-foreground/60 transition-colors hover:text-foreground" href={i.href}>
                   {i.children}
                   {i?.linked && <ExternalLink size={14} />}
               </Link></li>
