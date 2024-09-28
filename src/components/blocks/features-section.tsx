@@ -49,7 +49,7 @@ export function FeaturesSection() {
    
   ]
   return (
-    <div className="bg-grid-black/[0.02] relative z-10 mx-auto grid max-w-7xl grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="bg-grid-black/[0.02] relative z-10 mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
       {features.map((feature, index) => (
         <Feature key={feature.title} {...feature} index={index} />
       ))}

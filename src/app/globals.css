@@ -2,11 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var('--font-didact-gothic'), var('--font-geist-sans'), var('--font-geist-mono');
 }
 
 h1 {
   @apply text-2xl font-semibold;
+}
+h2 {
+  @apply text-sm font-medium;
 }
 
 @layer utilities {
@@ -83,4 +86,7 @@ h1 {
     width: 100%;
     height: 100%;
   }
+}
+.container {
+  @apply mx-auto;
 }
