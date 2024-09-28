@@ -1,48 +1,49 @@
-"use client";
+"use client"
 
-import { Button } from "@/components/ui/button";
-import { OPTIONS } from "@/config/options.config";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import { OPTIONS } from "@/config/options.config"
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+  FormMessage
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+
 const schema = z.object({
   email: z
     .string({
-      message: OPTIONS.required,
+      message: OPTIONS.required
     })
     .email("Введите правильный email"),
   password: z
     .string({
-      message: OPTIONS.required,
+      message: OPTIONS.required
     })
-    .min(6, "Пароль должен быть не менее 6 символов"),
-});
-type FormSchema = z.infer<typeof schema>;
+    .min(6, "Пароль должен быть не менее 6 символов")
+})
+
+type FormSchema = z.infer<typeof schema>
+
 export default function SignInPage() {
   const form = useForm<FormSchema>({
-    resolver: zodResolver(schema),
-  });
-  const onSubmit = () => {};
-  const passwordError = form.formState.errors.password?.message;
-  const emailError = form.formState.errors.email?.message;
+    resolver: zodResolver(schema)
+  })
+  const onSubmit = () => {}
+  const passwordError = form.formState.errors.password?.message
+  const emailError = form.formState.errors.email?.message
   return (
     <Form {...form}>
       <form
         method="post"
-        className="flex flex-col min-w-[340px] gap-5 rounded-xl"
+        className="flex min-w-[340px] flex-col gap-5 rounded-xl"
         onSubmit={form.handleSubmit(onSubmit)}
       >
-        {" "}
         <h1>Добро пожаловать</h1>
         <FormField
           control={form.control}
@@ -73,5 +74,5 @@ export default function SignInPage() {
         <Button type="submit">Войти</Button>
       </form>
     </Form>
-  );
+  )
 }

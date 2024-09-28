@@ -1,5 +1,6 @@
 import { IconEaseInOut, IconRouteAltLeft } from "@tabler/icons-react"
 import { cn } from "@/lib/utils"
+import { Album, ChartNoAxesColumn, Heart, Icon, Library, User } from "lucide-react"
 
 export function FeaturesSection() {
   const features = [
@@ -13,43 +14,39 @@ export function FeaturesSection() {
       title: "Ищите уже существующие книги",
       description: "Найдите свою книгу, не волнуясь о добавлении своей.",
       icon: <IconRouteAltLeft />
+    },
+    {
+      title: "Удобное использование",
+      description:
+        "Наш сервис специально постарался для графического интерфейса и теперь вы можете читать книги в любое время.",
+        icon: <Heart />
+    },
+    {
+      title: "Статистика",
+      icon: <ChartNoAxesColumn />,
+      description:  "Статистика поможет вам отследить свою успеваемость и продуктивность."
+    },
+    {
+      title: "Профиль",
+      icon: <User />,
+      description: 'Способность просмотра книг в любое время и сохранение их в закладках для быстрого доступа.'
+    },
+    {
+      title: "Рекомендации",
+      icon:<Library/>,
+      description: 'Получайте рекомендации по книгам и подборкам для чтения.'
+    },
+    {
+      title: "Чаппи",
+      icon:  <></>, // иконка чаппи
+      description: "Чаппи поможет обрезать текст, подготовить вопросы и прочее.",
+    },
+    {
+      title: "Закладки",
+      icon: <Album/>,
+      description: "Сохраняйте свои книги в закладках для быстрого доступа в любое время.",
     }
-    // {
-    //   title: "Personal Productivity Checklists",
-    //   description:
-    //     "Boost your daily productivity with pre-made checklists for planning, morning routines, and preparing for time off.",
-    //   icon: <IconHeart />
-    // },
-    // {
-    //   title: "Task Management Made Easy",
-    //   description:
-    //     "Create tasks, break them down into subtasks, and set deadlines with ease. No unnecessary features, just what you need to get work done.",
-    //   icon: <IconTerminal2 />
-    // },
-    // {
-    //   title: "Integration with Popular Services",
-    //   description:
-    //     "Seamlessly integrate with your favorite services, including [list popular services].",
-    //   icon: <IconCloud />
-    // },
-    // {
-    //   title: "Affordable Pricing",
-    //   description:
-    //     "Get access to our premium features at an affordable price, with no credit card required.",
-    //   icon: <IconCurrencyDollar />
-    // },
-    // {
-    //   title: "24/7 Customer Support",
-    //   description:
-    //     "Our support team is available around the clock to help you with any questions or issues.",
-    //   icon: <IconHelp />
-    // },
-    // {
-    //   title: "Money-Back Guarantee",
-    //   description:
-    //     "If you're not satisfied with our tool, we'll refund your money. No questions asked.",
-    //   icon: <IconAdjustmentsBolt />
-    // }
+   
   ]
   return (
     <div className="bg-grid-black/[0.02] relative z-10 mx-auto grid max-w-7xl grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">

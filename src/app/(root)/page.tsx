@@ -1,18 +1,12 @@
-import Link from "next/link"
 import Balance from "react-wrap-balancer"
 import { FeaturesSection } from "@/components/blocks/features-section"
-import { Button } from "@/components/ui/button"
 import { Beam } from "@/components/ui/grid-beam"
-import { Icons } from "@/components/ui/icons"
-import { Spotlight } from "@/components/ui/spotlight"
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect"
 import { config } from "@/config"
-import { cn } from "@/lib/utils"
 
 export default function HomePage() {
   return (
-    <div className="dark:bg-grid-white/[0.02] container relative mx-auto">
-      <Spotlight className="hidden dark:block" fill="rgba(255,255,255,0.2)" />
+    <div className="dark:bg-grid-white/[0.02] relative mx-auto">
       <div className="px-4 py-20">
         <div className="mb-52 flex w-full flex-col">
           <section className="py-6 text-center md:py-10">
@@ -28,7 +22,7 @@ export default function HomePage() {
             </Balance>
           </section>
 
-          <section className="relative pt-8 text-center md:pt-12">
+          {/* <section className="relative pt-8 text-center md:pt-12">
             <div className="relative z-10">
               <h2 className="mb-2 text-xl font-bold md:mb-4 md:text-2xl">
                 Готовы погрузиться в мир книг?
@@ -50,20 +44,15 @@ export default function HomePage() {
               >
                 <Link href="/auth/sign-in">
                   Начать
-                  {/* gives shiny effect on hover */}
+                  gives shiny effect on hover
                   <span className="absolute inset-0 flex size-full justify-center [transform:skew(-14deg)_translateX(-100%)] group-hover:duration-1000 group-hover:[transform:skew(-14deg)_translateX(100%)]">
                     <span className="relative h-full w-8 bg-white/20 dark:bg-black/10" />
                   </span>
                 </Link>
               </Button>
             </div>
-          </section>
-
-          <section className="relative my-10 min-h-[800px] rounded-lg border-2 bg-muted/50 p-2 md:my-20">
-            <Icons.placeholder className="absolute left-1/2 top-1/2 h-1/2 w-1/2 -translate-x-1/2 -translate-y-1/2 text-muted-foreground/25 grayscale" />
-          </section>
+          </section>  */}
         </div>
-
         <section className="relative flex w-full flex-col justify-center">
           <Beam className="-mt-[5rem] hidden xl:ml-28 xl:block" />
           <h2 className="mb-4 text-center text-2xl font-bold md:mb-6 md:text-4xl">
