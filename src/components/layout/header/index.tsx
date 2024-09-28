@@ -6,7 +6,7 @@ import { config } from "@/config"
 
 export const Header = () => {
   return (
-    <header className="font-comfortaa sticky top-0 z-50 w-full border-b bg-muted backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:bg-muted/25 dark:shadow-secondary">
+    <header className="font-comfortaa sticky top-0 z-50 w-full bg-muted backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:bg-muted/25 dark:shadow-secondary">
       <div className="mx-4 flex h-14 items-center justify-between gap-8 sm:mx-8">
         <div className="flex w-full max-w-[130px] items-center gap-x-4 max-md:hidden">
           <Link
