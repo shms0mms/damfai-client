@@ -5,6 +5,10 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+h1 {
+  @apply text-2xl font-semibold;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -73,5 +77,10 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+  }
+  body,
+  html {
+    width: 100%;
+    height: 100%;
   }
 }

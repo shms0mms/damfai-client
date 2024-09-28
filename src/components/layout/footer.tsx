@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+export default function Footer() {
+    return <div></div>
+}
+=======
 import { config } from "@/config"
 
 export const Footer = () => {
@@ -11,3 +16,4 @@ export const Footer = () => {
     </footer>
   )
 }
+>>>>>>> 0e8d4dbaaacbf24ff45c87e7e3f5ee01c243a863
