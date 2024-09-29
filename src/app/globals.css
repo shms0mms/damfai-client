@@ -89,7 +89,3 @@ h2 {
     height: 100%;
   }
 }
-
-.container {
-  @apply mx-auto;
-}
