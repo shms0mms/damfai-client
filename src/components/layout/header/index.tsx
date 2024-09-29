@@ -1,9 +1,9 @@
 import Image from "next/image"
 import Link from "next/link"
+import { LoginButton } from "./login-button"
 import { MobileNavigation } from "./mobile-navigation"
 import { Navigation } from "./navigation"
 import { Search } from "./search"
-import { UserNav } from "./user-nav"
 import { config } from "@/config"
 
 export const Header = () => {
@@ -32,7 +32,8 @@ export const Header = () => {
           <Search />
         </div>
         <div className="flex w-full max-w-fit justify-end md:max-w-[250px]">
-          <UserNav />
+          <LoginButton />
+          {/* <UserNav /> */}
         </div>
       </div>
     </header>
