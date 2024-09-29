@@ -2,12 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 body {
-  font-family: var('--font-didact-gothic'), var('--font-geist-sans'), var('--font-geist-mono');
+  font-family: var(--font-didact-gothic), var(--font-geist-sans),
+    var(--font-geist-mono);
 }
 
 h1 {
   @apply text-2xl font-semibold;
 }
+
 h2 {
   @apply text-sm font-medium;
 }
@@ -87,6 +89,7 @@ h2 {
     height: 100%;
   }
 }
+
 .container {
   @apply mx-auto;
 }
