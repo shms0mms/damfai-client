@@ -9,14 +9,14 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      container: {
+        center: true,
+        padding: "2rem"
+      },
       fontFamily: {
         "geist-sans": "var(--font-geist-sans)",
         "geist-mono": "var(--font-geist-mono)",
         "didact-gothic": "var(--font-didact-gothic)"
-      },
-      container: {
-        center: true,
-        padding: "2rem"
       },
       colors: {
         background: "hsl(var(--background))",
