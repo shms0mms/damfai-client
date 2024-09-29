@@ -1,7 +1,8 @@
 export type User = {
-  id: number
+  id: string
   name: string
   surname: string
   email: string
   dob: Date
+  created_at: Date
 }

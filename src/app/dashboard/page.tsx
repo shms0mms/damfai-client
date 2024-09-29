@@ -1,13 +1,6 @@
 "use client"
 
-import {
-  BookOpen,
-  ChevronRight,
-  Library,
-  Star,
-  TrendingUp,
-  User
-} from "lucide-react"
+import { BookOpen, ChevronRight, Star, TrendingUp, User } from "lucide-react"
 import * as React from "react"
 import {
   Bar,
@@ -18,6 +11,7 @@ import {
   XAxis,
   YAxis
 } from "recharts"
+import { type User as UserType } from "@/types/user"
 import { Header } from "@/components/layout/header"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
@@ -75,11 +69,13 @@ const readingData = [
 ]
 
 export default function Dashboard() {
-  const [user, setUser] = React.useState({
-    name: "Jane Doe",
+  const [user, setUser] = React.useState<UserType>({
+    name: "Jane",
     email: "jane.doe@example.com",
-    memberSince: "January 2023",
-    avatar: "/placeholder.svg?height=96&width=96"
+    created_at: new Date(),
+    dob: new Date(),
+    id: "ERGOPRKEHKOER",
+    surname: "Doe"
   })
 
   const handleProfileUpdate = (event: React.FormEvent<HTMLFormElement>) => {
@@ -104,7 +100,7 @@ export default function Dashboard() {
             </CardHeader>
             <CardContent className="flex flex-col items-center space-y-4">
               <Avatar className="h-24 w-24">
-                <AvatarImage src={user.avatar} alt="Profile picture" />
+                <AvatarImage alt="Icon of profile" />
                 <AvatarFallback>
                   <User className="h-12 w-12" />
                 </AvatarFallback>
@@ -113,7 +109,7 @@ export default function Dashboard() {
                 <h2 className="text-xl font-bold">{user.name}</h2>
                 <p className="text-sm text-muted-foreground">{user.email}</p>
                 <p className="text-sm text-muted-foreground">
-                  Дата регистрации: {user?.created_at}
+                  Дата регистрации: {user?.created_at.getDate()}
                 </p>
               </div>
               <Dialog>
