@@ -29,7 +29,7 @@ export const Header = () => {
           <Navigation />
         </div>
         <div className="flex w-full items-center justify-center">
-          <Search />
+          {/* <Search /> */}
         </div>
         <div className="flex w-full max-w-fit justify-end md:max-w-[250px]">
           <UserNav />
