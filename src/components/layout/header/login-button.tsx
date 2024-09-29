@@ -1,14 +1,10 @@
-"use client"
-
-import { LogIn } from "lucide-react"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 
 export const LoginButton = () => {
-  const login = () => {}
-
   return (
-    <Button className="gap-2" onClick={login}>
-      Войти <LogIn />
+    <Button asChild className="gap-2">
+      <Link href="/auth/sign-in">Войти</Link>
     </Button>
   )
 }
