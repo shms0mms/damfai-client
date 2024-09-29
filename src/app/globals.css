@@ -9,6 +9,7 @@ body {
 h1 {
   @apply text-2xl font-semibold;
 }
+
 h2 {
   @apply text-sm font-medium;
 }
@@ -87,4 +88,8 @@ h2 {
     width: 100%;
     height: 100%;
   }
+}
+
+.container {
+  @apply mx-auto;
 }
