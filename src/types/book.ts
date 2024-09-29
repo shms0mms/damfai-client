@@ -3,7 +3,7 @@ export type Book = {
   title: string
   author: string
   desc: string
-  writen_datre?: Date
+  writen_date?: Date
   chapters: number
   ratings: number // float
 }

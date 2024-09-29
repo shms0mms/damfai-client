@@ -15,16 +15,15 @@ class BookService {
   async getAll(options?: GetAllBooksOptions): Promise<GetAllBooksResponse> {
     return new Promise(res =>
       res({
-        books: [
-          {
-            id: 1,
-            title: "Book 1",
-            author: "Author 1",
-            desc: "Description 1",
-            chapters: 101,
-            ratings: 5.0
-          }
-        ],
+        books: new Array(100).fill(1).map<Book>((_, i) => ({
+          id: i + 1,
+          title: `Book ${i + 1}`,
+          author: "John Doe",
+          writen_date: new Date(),
+          chapters: i * 100 + 1,
+          desc: `Description ${i + 1}`,
+          ratings: Math.random() * 5
+        })),
         total: 100
       })
     )

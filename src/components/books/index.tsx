@@ -35,7 +35,7 @@ export function BookList({ initialBooks, totalBooks }: BookListProps) {
 
   return (
     <div className="flex min-h-[80vh] flex-col justify-between">
-      <div>
+      <div className="grid grid-cols-[10rem_1fr] gap-4">
         <BooksFilters />
         <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {books.map(book => (
