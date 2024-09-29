@@ -1,6 +1,17 @@
+"use client"
+
 import { ExternalLink } from "lucide-react"
 import Link from "next/link"
+import { PropsWithChildren } from "react"
+import { useMediaQuery } from "usehooks-ts"
+import { MEDIA } from "@/config/media.config"
 import { ROUTES } from "@/config/route.config"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger
+} from "@/components/ui/accordion"
 import { config } from "@/config"
 
 interface NavItemLinkProps {
@@ -12,28 +23,41 @@ interface NavItemProps {
   title: string
   items: NavItemLinkProps[]
 }
-export const NavItem = ({ title, items }: NavItemProps) => {
+const NavItemLinks = ({ items }: Pick<NavItemProps, "items">) => {
   return (
-    <div className="flex flex-col gap-3">
-      <h2>{title}</h2>
-      <ul className="flex flex-col gap-2">
-        {items.map((i, pk) => (
-          <li key={pk}>
-            {" "}
-            <Link
-              target="_blank"
-              className="flex items-center gap-2 text-muted-foreground/60 transition-colors hover:text-foreground"
-              href={i.href}
-            >
-              {i.children}
-              {i?.linked && <ExternalLink size={14} />}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ul className="flex flex-col gap-2">
+      {items.map((i, pk) => (
+        <li key={pk}>
+          {" "}
+          <Link
+            target="_blank"
+            className="flex items-center gap-2 text-muted-foreground/60 transition-colors hover:text-foreground"
+            href={i.href}
+          >
+            {i.children}
+            {i?.linked && <ExternalLink size={14} />}
+          </Link>
+        </li>
+      ))}
+    </ul>
   )
 }
+const NavItemTrigger = ({ title }: Pick<NavItemProps, "title">) => {
+  return <h2>{title}</h2>
+}
+const NavItemWrapper = ({ children }: PropsWithChildren) => {
+  return <div className="flex flex-col gap-3">{children}</div>
+}
+
+const NavItem = ({ title, items }: NavItemProps) => {
+  return (
+    <NavItemWrapper>
+      <NavItemTrigger title={title} />
+      <NavItemLinks items={items} />
+    </NavItemWrapper>
+  )
+}
+
 export const Footer = () => {
   const navItems: NavItemProps[] = [
     {
@@ -112,14 +136,32 @@ export const Footer = () => {
       ]
     }
   ]
+  const isResponsive = useMediaQuery(MEDIA.md)
   return (
     <footer className="py-20 md:px-8">
       <div className="container py-4">
         <div className="flex flex-col items-end justify-between gap-4">
-          <nav className="grid w-full grid-cols-8 gap-5">
-            {navItems.map(i => (
-              <NavItem key={i.title} {...i} />
-            ))}
+          <nav className="w-full">
+            {isResponsive ? (
+              <Accordion type="multiple">
+                {navItems.map(i => (
+                  <AccordionItem value={i.title} key={i.title}>
+                    <AccordionTrigger>
+                      <NavItemTrigger title={i.title} />
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <NavItemLinks items={i.items} />
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            ) : (
+              <div className="grid w-full grid-cols-8 gap-5">
+                {navItems.map(i => (
+                  <NavItem key={i.title} {...i} />
+                ))}
+              </div>
+            )}
           </nav>
           <p className="text-balance text-right text-sm leading-loose text-muted-foreground md:text-left">
             Built by {config.author}.
