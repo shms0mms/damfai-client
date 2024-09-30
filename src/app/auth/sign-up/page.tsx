@@ -70,9 +70,13 @@ export default function AuthForm() {
     }
   })
   const onSubmit: SubmitHandler<FormSchema> = values => {
-    console.log(values)
-
-    mutate(values)
+    const _dob = values.dob.toLocaleDateString()
+    const dob = _dob.replaceAll(".", "-").split("-").reverse().join("-")
+    mutate({
+      ...values,
+      // @ts-expect-error asd
+      dob
+    })
   }
   const isLoading = form.formState.isLoading
   return (
