@@ -10,7 +10,8 @@ class UserService {
         name: "John",
         surname: "Doe",
         email: "johndoe@example.com",
-        dob: new Date()
+        dob: new Date(),
+        created_at: new Date()
       })
     )
   }

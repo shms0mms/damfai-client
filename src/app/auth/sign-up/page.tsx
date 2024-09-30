@@ -6,7 +6,6 @@ import { format } from "date-fns"
 import { CalendarIcon, Loader } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import * as React from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
@@ -62,7 +61,7 @@ export default function AuthForm() {
     mutationFn: (data: User) => authService.register(data),
     onSuccess(data) {
       toast.success("Вы успешно зарегистрировались!")
-      saveAccessToken(data.data.token)
+      saveAccessToken(data.token)
       push(ROUTES.DASHBOARD)
     },
     onError(error) {

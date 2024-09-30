@@ -1,4 +1,5 @@
 import { BookList } from "@/components/books"
+import { MainTitle } from "@/components/ui/main-title"
 import { bookService } from "@/services/book.service"
 
 export default async function BooksPage() {
@@ -6,7 +7,7 @@ export default async function BooksPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="mb-6 text-3xl font-bold">Рекомендации</h1>
+      <MainTitle>Рекомендации</MainTitle>
       <BookList books={data.items} />
     </div>
   )
