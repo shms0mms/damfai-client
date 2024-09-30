@@ -1,12 +1,17 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useMutation } from "@tanstack/react-query"
 import { format } from "date-fns"
 import { CalendarIcon, Loader } from "lucide-react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import * as React from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
+import { toast } from "sonner"
 import * as z from "zod"
+import { User } from "@/types/user"
+import { saveAccessToken } from "@/utils/auth"
 import { OPTIONS } from "@/config/options.config"
 import { ROUTES } from "@/config/route.config"
 import { Button } from "@/components/ui/button"
@@ -26,6 +31,7 @@ import {
   PopoverTrigger
 } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
+import { authService } from "@/services/auth.service"
 
 const formSchema = z.object({
   email: z
@@ -51,9 +57,22 @@ export default function AuthForm() {
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema)
   })
-
+  const { push } = useRouter()
+  const { mutate } = useMutation({
+    mutationFn: (data: User) => authService.register(data),
+    onSuccess(data) {
+      toast.success("Вы успешно зарегистрировались!")
+      saveAccessToken(data.data.token)
+      push(ROUTES.DASHBOARD)
+    },
+    onError(error) {
+      toast.error(error.message)
+    }
+  })
   const onSubmit: SubmitHandler<FormSchema> = values => {
     console.log(values)
+
+    mutate(values)
   }
   const isLoading = form.formState.isLoading
   return (
@@ -136,6 +155,7 @@ export default function AuthForm() {
                       mode="single"
                       selected={field.value}
                       onSelect={field.onChange}
+                      toDate={field.value}
                       initialFocus
                     />
                   </PopoverContent>
