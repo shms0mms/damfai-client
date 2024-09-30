@@ -13,6 +13,7 @@ import {
   AccordionItem,
   AccordionTrigger
 } from "@/components/ui/accordion"
+import ThemeSwitcher from "../ui/theme-switcher"
 
 interface NavItemLinkProps {
   href: string
@@ -163,8 +164,9 @@ export const Footer = () => {
               </div>
             )}
           </nav>
-          <p className="text-balance text-right text-sm leading-loose text-muted-foreground md:text-left">
+          <p className="flex items-center gap-2 text-balance text-right text-sm leading-loose text-muted-foreground md:text-left">
             Built by {siteConfig.author}.
+            <ThemeSwitcher />
           </p>
         </div>
       </div>
