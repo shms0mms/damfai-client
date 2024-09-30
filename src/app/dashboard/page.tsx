@@ -1,17 +1,11 @@
 "use client"
 
-import { BookOpen, ChevronRight, Star, TrendingUp, User } from "lucide-react"
+import { BookOpen, ChevronRight, Star, User } from "lucide-react"
 import * as React from "react"
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis
-} from "recharts"
 import { type User as UserType } from "@/types/user"
+import BarChart1 from "@/components/dashboard/bar-chart-1"
+import BarChart2 from "@/components/dashboard/bar-chart-2"
+import BarChart3 from "@/components/dashboard/bar-chart-3"
 import { Header } from "@/components/layout/header"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
@@ -59,15 +53,6 @@ const bookmarks = [
   { id: 3, title: "The Hobbit", author: "J.R.R. Tolkien", page: 89 }
 ]
 
-const readingData = [
-  { month: "Jan", books: 3 },
-  { month: "Feb", books: 2 },
-  { month: "Mar", books: 4 },
-  { month: "Apr", books: 3 },
-  { month: "May", books: 5 },
-  { month: "Jun", books: 4 }
-]
-
 export default function Dashboard() {
   const [user, setUser] = React.useState<UserType>({
     name: "Jane",
@@ -78,15 +63,7 @@ export default function Dashboard() {
     surname: "Doe"
   })
 
-  const handleProfileUpdate = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const formData = new FormData(event.currentTarget)
-    setUser(prevUser => ({
-      ...prevUser,
-      name: (formData.get("name") as string) || prevUser.name,
-      email: (formData.get("email") as string) || prevUser.email
-    }))
-  }
+  const handleProfileUpdate = (event: React.FormEvent<HTMLFormElement>) => {}
 
   return (
     <>
@@ -109,12 +86,12 @@ export default function Dashboard() {
                 <h2 className="text-xl font-bold">{user.name}</h2>
                 <p className="text-sm text-muted-foreground">{user.email}</p>
                 <p className="text-sm text-muted-foreground">
-                  Дата регистрации: {user?.created_at.getDate()}
+                  На сайте с: {user?.created_at.toLocaleDateString()}
                 </p>
               </div>
               <Dialog>
                 <DialogTrigger asChild>
-                  <Button className="w-full">Редактировать</Button>
+                  <Button className="">Редактировать</Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                   <DialogHeader>
@@ -158,8 +135,6 @@ export default function Dashboard() {
               </Dialog>
             </CardContent>
           </Card>
-
-          {/* Analytics Section */}
           <Card className="col-span-2">
             <CardHeader>
               <CardTitle>Чтение аналитических материалов</CardTitle>
@@ -182,40 +157,41 @@ export default function Dashboard() {
               </div>
               <div className="space-y-2">
                 <p className="text-sm font-medium text-muted-foreground">
-                  Полоса чтения
+                  Книги, прочитанные в этом месяце
                 </p>
-                <p className="text-3xl font-bold">7 дней</p>
+                <p className="text-3xl font-bold">17</p>
               </div>
+
               <div className="space-y-2">
                 <p className="text-sm font-medium text-muted-foreground">
                   Среднее время считывания
                 </p>
                 <p className="text-3xl font-bold">45 мин/день</p>
               </div>
+              <div className="space-y-2">
+                <p className="text-sm font-medium text-muted-foreground">
+                  Скорость чтения в минуту
+                </p>
+                <p className="text-3xl font-bold">45 слов/мин</p>
+              </div>
+              <div className="space-y-2">
+                <p className="text-sm font-medium text-muted-foreground">
+                  Скорость чтения в час
+                </p>
+                <p className="text-3xl font-bold">45 слов/час</p>
+              </div>
             </CardContent>
           </Card>
-
-          {/* Reading Progress Chart */}
           <Card className="col-span-2">
             <CardHeader>
               <CardTitle>Прогресс чтения</CardTitle>
               <CardDescription>Книги прочитанные за месяц</CardDescription>
             </CardHeader>
             <CardContent className="h-[300px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={readingData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="month" />
-                  <YAxis />
-                  <Tooltip />
-                  <Bar dataKey="books" fill="#3b82f6" />
-                </BarChart>
-              </ResponsiveContainer>
+              <BarChart1 />
             </CardContent>
-          </Card>
-
-          {/* Books and Bookmarks Tabs */}
-          <Card className="col-span-2">
+          </Card>{" "}
+          <Card className="">
             <Tabs defaultValue="current" className="w-full">
               <CardHeader>
                 <div className="flex items-center justify-between">
@@ -282,19 +258,22 @@ export default function Dashboard() {
               </CardContent>
             </Tabs>
           </Card>
-
-          {/* Reading Goal Card */}
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Цель чтения</CardTitle>
-              <TrendingUp className="h-4 w-4 text-muted-foreground" />
+          <Card className="">
+            <CardHeader>
+              <CardTitle>Прогресс чтения</CardTitle>
+              <CardDescription>Статистика чтения</CardDescription>
             </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">12 / 30 книг</div>
-              <Progress value={40} className="mt-2" />
-              <p className="mt-2 text-xs text-muted-foreground">
-                40% о достижении годовой цели
-              </p>
+            <CardContent className="h-[300px]">
+              <BarChart2 />
+            </CardContent>
+          </Card>
+          <Card className="">
+            <CardHeader>
+              <CardTitle>Прогресс чтения</CardTitle>
+              <CardDescription>Статистика чтения за год</CardDescription>
+            </CardHeader>
+            <CardContent className="h-[400px]">
+              <BarChart3 />
             </CardContent>
           </Card>
         </div>
