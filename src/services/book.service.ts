@@ -29,7 +29,7 @@ class BookService {
             author: "John Doe",
             writen_date: new Date(),
             chapters: i * 100 + 1,
-            desc: `Description ${i + 1}`,
+            desc: `Lorem LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem`,
             ratings: Math.random() * 5,
             ganres: [mockGanres[randomNumber(0, mockGanres.length - 1)]],
             image: "https://ir.ozone.ru/s3/multimedia-1-s/c1000/7039699840.jpg"
