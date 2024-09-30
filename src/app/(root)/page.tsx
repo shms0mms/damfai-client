@@ -1,9 +1,29 @@
+import Image from "next/image"
 import Balance from "react-wrap-balancer"
 import { siteConfig } from "@/config/site.config"
 import { FeaturesSection } from "@/components/blocks/features-section"
 import { Beam } from "@/components/ui/grid-beam"
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect"
+import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect"
 
+const words = [
+  {
+    text: "Build"
+  },
+  {
+    text: "awesome"
+  },
+  {
+    text: "apps"
+  },
+  {
+    text: "with"
+  },
+  {
+    text: "Aceternity.",
+    className: "text-blue-500 dark:text-blue-500"
+  }
+]
 export default function HomePage() {
   return (
     <div className="dark:bg-grid-white/[0.02] relative mx-auto">
@@ -21,6 +41,18 @@ export default function HomePage() {
               />
             </Balance>
           </section>
+
+          <div className="container">
+            <div className="flex items-center gap-2">
+              <Image
+                alt="speaking"
+                width={300}
+                height={300}
+                src={"/speaking.gif"}
+              />
+              <TypewriterEffectSmooth words={words} />
+            </div>
+          </div>
 
           {/* <section className="relative pt-8 text-center md:pt-12">
             <div className="relative z-10">
