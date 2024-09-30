@@ -1,11 +1,15 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useMutation } from "@tanstack/react-query"
 import { Loader } from "lucide-react"
 import Link from "next/link"
-import * as React from "react"
+import { useRouter } from "next/navigation"
 import { SubmitHandler, useForm } from "react-hook-form"
-import * as z from "zod"
+import { toast } from "sonner"
+import { z } from "zod"
+import { UserSignIn } from "@/types/user"
+import { saveAccessToken } from "@/utils/auth"
 import { OPTIONS } from "@/config/options.config"
 import { ROUTES } from "@/config/route.config"
 import { Button } from "@/components/ui/button"
@@ -18,6 +22,7 @@ import {
   FormMessage
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { authService } from "@/services/auth.service"
 
 const formSchema = z.object({
   email: z
@@ -36,9 +41,20 @@ export default function AuthForm() {
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema)
   })
-
+  const { push } = useRouter()
+  const { mutate } = useMutation({
+    mutationFn: (data: UserSignIn) => authService.login(data),
+    onSuccess(data) {
+      toast.success("Вы успешно вошли в систему!")
+      saveAccessToken(data.data.token)
+      push(ROUTES.DASHBOARD)
+    },
+    onError(error) {
+      toast.error(error.message)
+    }
+  })
   const onSubmit: SubmitHandler<FormSchema> = values => {
-    console.log(values)
+    mutate(values)
   }
   const isLoading = form.formState.isLoading
   return (

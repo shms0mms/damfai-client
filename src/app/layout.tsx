@@ -2,8 +2,10 @@ import type { Metadata } from "next"
 import { Didact_Gothic } from "next/font/google"
 import localFont from "next/font/local"
 import { siteConfig } from "@/config/site.config"
+import AuthProvider from "@/providers/auth"
 import { ReactQueryProvider } from "@/components/react-query-provider"
 import { ThemeProvider } from "@/components/theme-provider"
+import { Toaster } from "@/components/ui/sonner"
 import "./globals.css"
 
 const geistSans = localFont({
@@ -44,7 +46,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ReactQueryProvider>{children}</ReactQueryProvider>
+          <ReactQueryProvider>
+            <AuthProvider>{children}</AuthProvider>
+            <Toaster />
+          </ReactQueryProvider>
         </ThemeProvider>
       </body>
     </html>

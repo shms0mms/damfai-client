@@ -34,31 +34,29 @@ export function BookList({ books }: BookListProps) {
                 <CarouselContent>
                   {books.map(book => (
                     <CarouselItem className="basis-[40%]" key={book.id}>
-                      <li>
-                        <Link
-                          className="grid grid-cols-[1fr_7rem] rounded-lg p-6 shadow-md"
-                          href={`/book/${book.id}`}
-                        >
-                          <div className="">
-                            <h3 className="mb-2 text-xl font-semibold">
-                              {book.title}
-                            </h3>
-                            <p className="mb-2 text-gray-600">
-                              Автор: {book.author}
-                            </p>
-                            <p className="mb-4 text-sm text-gray-500">
-                              {book.desc}
-                            </p>
-                            <span className="text-muted">
-                              {book.chapters} страниц(а)
-                            </span>
-                          </div>
-                          <div className="flex flex-col items-end gap-2">
-                            <img src={book.image} alt={book.title} />
-                            <Rating rating={4.5} showText={false} disabled />
-                          </div>
-                        </Link>
-                      </li>
+                      <Link
+                        className="grid grid-cols-[1fr_7rem] rounded-lg p-6 shadow-md"
+                        href={`/book/${book.id}`}
+                      >
+                        <div className="">
+                          <h3 className="mb-2 text-xl font-semibold">
+                            {book.title}
+                          </h3>
+                          <p className="mb-2 text-gray-600">
+                            Автор: {book.author}
+                          </p>
+                          <p className="mb-4 text-sm text-gray-500">
+                            {book.desc}
+                          </p>
+                          <span className="text-muted">
+                            {book.chapters} страниц(а)
+                          </span>
+                        </div>
+                        <div className="flex flex-col items-end gap-2">
+                          <img src={book.image} alt={book.title} />
+                          <Rating rating={4.5} showText={false} disabled />
+                        </div>
+                      </Link>
                     </CarouselItem>
                   ))}
                 </CarouselContent>
