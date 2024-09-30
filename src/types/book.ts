@@ -6,6 +6,8 @@ export type Book = {
   writen_date?: Date
   chapters: number
   ratings: number // float
+  ganres: string[]
+  image: string
 }
 
 export type BooksFilters = {}

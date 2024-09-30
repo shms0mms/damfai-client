@@ -1,7 +1,8 @@
 import type { Book, BooksFilters } from "@/types/book"
+import { randomNumber } from "@/lib/utils"
 
 type GetAllBooksResponse = {
-  books: Book[]
+  items: Book[]
   total: number
 }
 type GetAllBooksOptions = {
@@ -10,20 +11,29 @@ type GetAllBooksOptions = {
   filters?: BooksFilters
 }
 
+const mockGanres = ["Фэнтези", "Романтика", "Психологическое"]
+
 class BookService {
   private BASE_URL = "/books"
+  async getAllGenres(): Promise<string[]> {
+    return new Promise(res => res([]))
+  }
   async getAll(options?: GetAllBooksOptions): Promise<GetAllBooksResponse> {
     return new Promise(res =>
       res({
-        books: new Array(100).fill(1).map<Book>((_, i) => ({
-          id: i + 1,
-          title: `Book ${i + 1}`,
-          author: "John Doe",
-          writen_date: new Date(),
-          chapters: i * 100 + 1,
-          desc: `Description ${i + 1}`,
-          ratings: Math.random() * 5
-        })),
+        items: new Array(options?.perPage ? options.perPage : 100)
+          .fill(1)
+          .map<Book>((_, i) => ({
+            id: i + 1,
+            title: `Book ${i + 1}`,
+            author: "John Doe",
+            writen_date: new Date(),
+            chapters: i * 100 + 1,
+            desc: `Description ${i + 1}`,
+            ratings: Math.random() * 5,
+            ganres: [mockGanres[randomNumber(0, mockGanres.length - 1)]],
+            image: "https://ir.ozone.ru/s3/multimedia-1-s/c1000/7039699840.jpg"
+          })),
         total: 100
       })
     )

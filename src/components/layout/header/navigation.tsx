@@ -12,7 +12,7 @@ export const Navigation = () => {
     <nav className="hidden md:block">
       <ul className="flex items-center gap-6 lg:gap-10">
         {items.map(item => (
-          <li>
+          <li key={item.title}>
             <a
               key={item.href}
               href={item.href}

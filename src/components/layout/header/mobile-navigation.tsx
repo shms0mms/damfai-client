@@ -3,6 +3,7 @@
 import { Menu } from "lucide-react"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
+import { siteConfig } from "@/config/site.config"
 import {
   Sheet,
   SheetContent,
@@ -10,7 +11,6 @@ import {
   SheetTitle,
   SheetTrigger
 } from "@/components/ui/sheet"
-import { config } from "@/config"
 import { getMainNav } from "@/lib/main-nav"
 import { cn } from "@/lib/utils"
 
@@ -26,8 +26,13 @@ export const MobileNavigation = () => {
       <SheetContent side="left" className="flex flex-col gap-4">
         <SheetHeader>
           <SheetTitle className="flex items-center gap-1">
-            <Image src={config.icon} alt={config.name} width={36} height={36} />
-            {config.name}
+            <Image
+              src={siteConfig.icon}
+              alt={siteConfig.name}
+              width={36}
+              height={36}
+            />
+            {siteConfig.name}
           </SheetTitle>
         </SheetHeader>
         <nav>

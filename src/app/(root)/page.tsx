@@ -1,8 +1,8 @@
 import Balance from "react-wrap-balancer"
+import { siteConfig } from "@/config/site.config"
 import { FeaturesSection } from "@/components/blocks/features-section"
 import { Beam } from "@/components/ui/grid-beam"
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect"
-import { config } from "@/config"
 
 export default function HomePage() {
   return (
@@ -11,11 +11,11 @@ export default function HomePage() {
         <div className="mb-52 flex w-full flex-col">
           <section className="py-6 text-center md:py-10">
             <h1 className="bg-gradient-to-b from-foreground/25 to-foreground bg-clip-text text-5xl font-bold text-transparent dark:from-neutral-200 dark:to-neutral-600 lg:text-7xl">
-              {config.name}
+              {siteConfig.name}
             </h1>
             <Balance>
               <TextGenerateEffect
-                words={config.description}
+                words={siteConfig.description}
                 duration={0.5}
                 className="max-w-[40rem] !text-sm sm:!text-base md:!text-lg"
               />

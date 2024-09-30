@@ -1,67 +1,74 @@
-"use client"
-
 import Link from "next/link"
-import { useState } from "react"
+import { Book } from "@/types/book"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious
+} from "../ui/carousel"
 import { Rating } from "../ui/rating"
-import { BooksFilters } from "./books-filters"
-import { Pagination } from "./pagination"
-import { bookService } from "@/services/book.service"
-
-interface Book {
-  id: number
-  title: string
-  author: string
-  desc: string
-  written_date?: Date
-  chapters: number
-  ratings: number
-}
+import { Separator } from "../ui/separator"
 
 interface BookListProps {
-  initialBooks: Book[]
-  totalBooks: number
+  books: Book[]
 }
 
-export function BookList({ initialBooks, totalBooks }: BookListProps) {
-  const [books, setBooks] = useState(initialBooks)
-  const [currentPage, setCurrentPage] = useState(1)
-  const booksPerPage = 10
-
-  const fetchBooks = async (page: number) => {
-    const data = await bookService.getAll({ page, perPage: booksPerPage })
-    setBooks(data.books)
-    setCurrentPage(page)
-  }
+export function BookList({ books }: BookListProps) {
+  const bookGanres = Array.from(new Set(books.map(book => book.ganres).flat()))
+  const ganreAndBook: Record<string, Book[]> = {}
+  bookGanres.forEach(ganre => {
+    ganreAndBook[ganre] = books.filter(book => book.ganres.includes(ganre))
+  })
 
   return (
-    <div className="flex min-h-[80vh] flex-col justify-between">
-      <div className="grid grid-cols-[10rem_1fr] gap-4">
-        <BooksFilters />
-        <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {books.map(book => (
-            <li key={book.id}>
-              <Link
-                className="block rounded-lg bg-white p-6 shadow-md"
-                href={`/book/${book.id}`}
-              >
-                <h2 className="mb-2 text-xl font-semibold">{book.title}</h2>
-                <p className="mb-2 text-gray-600">by {book.author}</p>
-                <p className="mb-4 text-sm text-gray-500">{book.desc}</p>
-                <div className="flex justify-between text-sm text-gray-500">
-                  <span>{book.chapters} страниц(а)</span>
-                  <Rating rating={4.5} showText={false} disabled />
-                </div>
-              </Link>
+    <div className="container flex min-h-[80vh] flex-col justify-between">
+      <ul>
+        {Object.keys(ganreAndBook).map(ganre => {
+          const books = ganreAndBook[ganre]
+          return (
+            <li className="w-full" key={ganre}>
+              <h2 className="mb-2 text-3xl font-semibold">{ganre}</h2>
+              <Separator />
+              <Carousel className="[&>div]:!overflow-y-visible">
+                <CarouselContent>
+                  {books.map(book => (
+                    <CarouselItem className="basis-[40%]" key={book.id}>
+                      <li>
+                        <Link
+                          className="grid grid-cols-[1fr_7rem] rounded-lg p-6 shadow-md"
+                          href={`/book/${book.id}`}
+                        >
+                          <div className="">
+                            <h3 className="mb-2 text-xl font-semibold">
+                              {book.title}
+                            </h3>
+                            <p className="mb-2 text-gray-600">
+                              Автор: {book.author}
+                            </p>
+                            <p className="mb-4 text-sm text-gray-500">
+                              {book.desc}
+                            </p>
+                            <span className="text-muted">
+                              {book.chapters} страниц(а)
+                            </span>
+                          </div>
+                          <div className="flex flex-col items-end gap-2">
+                            <img src={book.image} alt={book.title} />
+                            <Rating rating={4.5} showText={false} disabled />
+                          </div>
+                        </Link>
+                      </li>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselNext />
+                <CarouselPrevious />
+              </Carousel>
             </li>
-          ))}
-        </ul>
-      </div>
-      <Pagination
-        currentPage={currentPage}
-        totalItems={totalBooks}
-        itemsPerPage={booksPerPage}
-        onPageChange={fetchBooks}
-      />
+          )
+        })}
+      </ul>
     </div>
   )
 }

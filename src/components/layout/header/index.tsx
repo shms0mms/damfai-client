@@ -1,10 +1,9 @@
 import Image from "next/image"
 import Link from "next/link"
+import { siteConfig } from "@/config/site.config"
 import { LoginButton } from "./login-button"
 import { MobileNavigation } from "./mobile-navigation"
 import { Navigation } from "./navigation"
-import { Search } from "./search"
-import { config } from "@/config"
 
 export const Header = () => {
   return (
@@ -17,12 +16,12 @@ export const Header = () => {
               className="text-baselg:text-lg flex items-center gap-2"
             >
               <Image
-                src={config.icon}
-                alt={config.name}
+                src={siteConfig.icon}
+                alt={siteConfig.name}
                 width={36}
                 height={36}
               />
-              <span>{config.name}</span>
+              <span>{siteConfig.name}</span>
             </Link>
           </div>
           <MobileNavigation />
