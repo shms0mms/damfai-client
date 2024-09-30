@@ -58,7 +58,6 @@ export default function Dashboard() {
   const { user } = React.useContext(AuthContext)
 
   const handleProfileUpdate = (event: React.FormEvent<HTMLFormElement>) => {}
-
   return (
     <>
       <Header />
@@ -80,7 +79,8 @@ export default function Dashboard() {
                 <h2 className="text-xl font-bold">{user?.name}</h2>
                 <p className="text-sm text-muted-foreground">{user?.email}</p>
                 <p className="text-sm text-muted-foreground">
-                  На сайте с: {user?.created_at?.toLocaleDateString?.()}
+                  На сайте с:{" "}
+                  {new Date(user?.created_at)?.toLocaleDateString?.()}
                 </p>
               </div>
               <Dialog>

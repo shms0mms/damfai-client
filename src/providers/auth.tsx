@@ -28,9 +28,10 @@ export default function AuthProvider({
     if (status === 426) {
       setUser(undefined)
     } else {
-      setUser(data?.data)
+      // @ts-expect-error asd
+      setUser(data)
     }
-  }, [status, data?.data])
+  }, [status, data])
   const value = { setUser, user, isLoading } as AuthContext
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
