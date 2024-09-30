@@ -46,7 +46,7 @@ export default function AuthForm() {
     mutationFn: (data: UserSignIn) => authService.login(data),
     onSuccess(data) {
       toast.success("Вы успешно вошли в систему!")
-      saveAccessToken(data.data.token)
+      saveAccessToken(data?.token)
       push(ROUTES.DASHBOARD)
     },
     onError(error) {

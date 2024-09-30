@@ -1,8 +1,9 @@
 "use client"
 
-import { BookOpen, ChevronRight, Star, User } from "lucide-react"
+import { BookOpen, ChevronRight, Heart, Star, User } from "lucide-react"
 import * as React from "react"
 import { type User as UserType } from "@/types/user"
+import { AuthContext } from "@/providers/auth"
 import BarChart1 from "@/components/dashboard/bar-chart-1"
 import BarChart2 from "@/components/dashboard/bar-chart-2"
 import BarChart3 from "@/components/dashboard/bar-chart-3"
@@ -27,6 +28,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Progress } from "@/components/ui/progress"
+import { Skeleton } from "@/components/ui/skeleton"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 // Mock data
@@ -54,22 +56,14 @@ const bookmarks = [
 ]
 
 export default function Dashboard() {
-  const [user, setUser] = React.useState<UserType>({
-    name: "Jane",
-    email: "jane.doe@example.com",
-    created_at: new Date(),
-    dob: new Date(),
-    id: "ERGOPRKEHKOER",
-    surname: "Doe"
-  })
+  const { user } = React.useContext(AuthContext)
 
   const handleProfileUpdate = (event: React.FormEvent<HTMLFormElement>) => {}
-
   return (
     <>
       <Header />
       <div className="container mx-auto space-y-8 p-6">
-        <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
+        <div className="grid grid-cols-1 gap-y-4 xl:grid-cols-3 xl:gap-x-4">
           {/* Profile Section */}
           <Card className="col-span-1 max-xl:col-span-2">
             <CardHeader>
@@ -82,12 +76,29 @@ export default function Dashboard() {
                   <User className="h-12 w-12" />
                 </AvatarFallback>
               </Avatar>
-              <div className="text-center">
-                <h2 className="text-xl font-bold">{user.name}</h2>
-                <p className="text-sm text-muted-foreground">{user.email}</p>
-                <p className="text-sm text-muted-foreground">
-                  На сайте с: {user?.created_at.toLocaleDateString()}
-                </p>
+              <div className="flex flex-col items-center gap-1 text-center">
+                <h2 className="text-xl font-bold">
+                  {user?.name ? (
+                    user?.name
+                  ) : (
+                    <Skeleton className="h-[20px] w-[100px]" />
+                  )}
+                </h2>
+                <div className="text-sm text-muted-foreground">
+                  {user?.email ? (
+                    user.email
+                  ) : (
+                    <Skeleton className="h-[20px] w-[200px]" />
+                  )}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  На сайте с:{" "}
+                  {user?.created_at ? (
+                    new Date(user?.created_at)?.toLocaleDateString?.()
+                  ) : (
+                    <Skeleton className="h-[20px] w-[200px]" />
+                  )}
+                </div>
               </div>
               <Dialog>
                 <DialogTrigger asChild>
@@ -112,7 +123,7 @@ export default function Dashboard() {
                       <Input
                         id="name"
                         name="name"
-                        defaultValue={user.name}
+                        defaultValue={user?.name}
                         className="col-span-3"
                       />
                     </div>
@@ -123,7 +134,7 @@ export default function Dashboard() {
                       <Input
                         id="email"
                         name="email"
-                        defaultValue={user.email}
+                        defaultValue={user?.email}
                         className="col-span-3"
                       />
                     </div>
@@ -182,23 +193,24 @@ export default function Dashboard() {
               </div>
             </CardContent>
           </Card>
-          <Card className="col-span-2">
+          <Card className="col-span-1">
             <CardHeader>
               <CardTitle>Прогресс чтения</CardTitle>
               <CardDescription>Книги прочитанные за месяц</CardDescription>
             </CardHeader>
-            <CardContent className="h-[300px]">
+            <CardContent className="min-h-[300px]">
               <BarChart1 />
             </CardContent>
           </Card>{" "}
           <Card className="max-xl:col-span-2">
             <Tabs defaultValue="current" className="w-full">
               <CardHeader>
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between gap-2 max-md:flex-col max-md:items-start">
                   <CardTitle>Книги</CardTitle>
                   <TabsList>
                     <TabsTrigger value="current">Текущие</TabsTrigger>
                     <TabsTrigger value="bookmarks">Закладки</TabsTrigger>
+                    <TabsTrigger value="favourite">Избранное</TabsTrigger>
                   </TabsList>
                 </div>
               </CardHeader>
@@ -257,6 +269,29 @@ export default function Dashboard() {
                     ))}
                   </div>
                 </TabsContent>
+                <TabsContent value="favourite">
+                  <div className="space-y-4">
+                    {bookmarks.map(bookmark => (
+                      <div
+                        key={bookmark.id}
+                        className="flex items-center space-x-4"
+                      >
+                        <Heart className="h-6 w-6 shrink-0 text-red-500" />
+                        <div className="min-w-0 flex-1">
+                          <h3 className="truncate text-sm font-medium">
+                            {bookmark.title}
+                          </h3>
+                          <p className="text-sm text-muted-foreground">
+                            {bookmark.author}
+                          </p>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </TabsContent>
               </CardContent>
             </Tabs>
           </Card>
@@ -265,7 +300,7 @@ export default function Dashboard() {
               <CardTitle>Прогресс чтения</CardTitle>
               <CardDescription>Статистика чтения</CardDescription>
             </CardHeader>
-            <CardContent className="h-[300px]">
+            <CardContent className="min-h-[300px]">
               <BarChart2 />
             </CardContent>
           </Card>
@@ -274,7 +309,7 @@ export default function Dashboard() {
               <CardTitle>Прогресс чтения</CardTitle>
               <CardDescription>Статистика чтения за год</CardDescription>
             </CardHeader>
-            <CardContent className="h-[400px]">
+            <CardContent className="h-[350px]">
               <BarChart3 />
             </CardContent>
           </Card>

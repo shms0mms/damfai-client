@@ -1,6 +1,12 @@
 "use client"
 
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts"
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent
+} from "../ui/chart"
 
 const data = [
   { name: "Январь", value: 5 },
@@ -19,13 +25,16 @@ const COLORS = [
   "#9966FF",
   "#FF9F40"
 ]
+const chartConfig = {
+  data: {}
+} satisfies ChartConfig
 
 export default function BarChart3() {
   const total = data.reduce((sum, entry) => sum + entry.value, 0)
 
   return (
-    <ResponsiveContainer width="100%" height="100%">
-      <PieChart>
+    <ChartContainer config={chartConfig}>
+      <PieChart className="min-h-[330px]">
         <Pie
           data={data}
           cx="50%"
@@ -42,13 +51,14 @@ export default function BarChart3() {
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>
-        <Tooltip
+        <ChartTooltip
           formatter={(value, name) => [
             `${value} книг (${((+value / total) * 100).toFixed(1)}%)`,
             name
           ]}
+          content={<ChartTooltipContent />}
         />
       </PieChart>
-    </ResponsiveContainer>
+    </ChartContainer>
   )
 }
