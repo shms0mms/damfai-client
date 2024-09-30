@@ -6,7 +6,7 @@ import { ACCESS_TOKEN } from "../config/access-token.config"
 import { env } from "../env"
 
 const options: CreateAxiosDefaults = {
-  baseURL: env.SERVER_URL,
+  baseURL: env.NEXT_PUBLIC_SERVER_URL,
   headers: {
     "Content-Type": "application/json"
   },

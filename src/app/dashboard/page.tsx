@@ -69,9 +69,9 @@ export default function Dashboard() {
     <>
       <Header />
       <div className="container mx-auto space-y-8 p-6">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
           {/* Profile Section */}
-          <Card className="col-span-1 md:row-span-2">
+          <Card className="col-span-1 max-xl:col-span-2">
             <CardHeader>
               <CardTitle>Профиль</CardTitle>
             </CardHeader>
@@ -142,7 +142,7 @@ export default function Dashboard() {
                 Краткий обзор вашей статистики чтения
               </CardDescription>
             </CardHeader>
-            <CardContent className="grid grid-cols-2 gap-4">
+            <CardContent className="grid grid-cols-2 gap-4 max-md:grid-cols-1 max-md:gap-8">
               <div className="space-y-2">
                 <p className="text-sm font-medium text-muted-foreground">
                   Общее количество прочитанных книг
@@ -191,7 +191,7 @@ export default function Dashboard() {
               <BarChart1 />
             </CardContent>
           </Card>{" "}
-          <Card className="">
+          <Card className="max-xl:col-span-2">
             <Tabs defaultValue="current" className="w-full">
               <CardHeader>
                 <div className="flex items-center justify-between">
@@ -208,16 +208,18 @@ export default function Dashboard() {
                     {books.map(book => (
                       <div
                         key={book.id}
-                        className="flex items-center space-x-4"
+                        className="flex items-center space-x-4 max-md:flex-col max-md:items-start"
                       >
-                        <BookOpen className="h-6 w-6 shrink-0 text-blue-500" />
-                        <div className="min-w-0 flex-1">
-                          <h3 className="truncate text-sm font-medium">
-                            {book.title}
-                          </h3>
-                          <p className="text-sm text-muted-foreground">
-                            {book.author}
-                          </p>
+                        <div className="flex flex-1 items-center gap-2">
+                          <BookOpen className="h-6 w-6 shrink-0 text-blue-500" />
+                          <div>
+                            <h3 className="truncate text-sm font-medium">
+                              {book.title}
+                            </h3>
+                            <p className="text-sm text-muted-foreground">
+                              {book.author}
+                            </p>
+                          </div>
                         </div>
                         <div className="flex items-center space-x-2">
                           <Progress value={book.progress} className="w-24" />
@@ -258,7 +260,7 @@ export default function Dashboard() {
               </CardContent>
             </Tabs>
           </Card>
-          <Card className="">
+          <Card className="max-xl:col-span-2">
             <CardHeader>
               <CardTitle>Прогресс чтения</CardTitle>
               <CardDescription>Статистика чтения</CardDescription>
@@ -267,7 +269,7 @@ export default function Dashboard() {
               <BarChart2 />
             </CardContent>
           </Card>
-          <Card className="">
+          <Card className="max-xl:col-span-2">
             <CardHeader>
               <CardTitle>Прогресс чтения</CardTitle>
               <CardDescription>Статистика чтения за год</CardDescription>

@@ -1,5 +1,5 @@
 export const config = {
-  name: "Damfai",
+  name: "damfAI",
   description: "Приложения для чтения книг разного жанра, с AI ассистентом.",
   icon: "/placeholder.svg",
   apiUrl: "http://localhost:8000",

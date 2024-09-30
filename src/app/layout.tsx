@@ -4,6 +4,7 @@ import localFont from "next/font/local"
 import AuthProvider from "@/providers/auth"
 import { ReactQueryProvider } from "@/components/react-query-provider"
 import { ThemeProvider } from "@/components/theme-provider"
+import { Toaster } from "@/components/ui/sonner"
 import "./globals.css"
 import { config } from "@/config"
 
@@ -47,6 +48,7 @@ export default function RootLayout({
         >
           <ReactQueryProvider>
             <AuthProvider>{children}</AuthProvider>
+            <Toaster />
           </ReactQueryProvider>
         </ThemeProvider>
       </body>

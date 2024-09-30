@@ -50,6 +50,9 @@ importers:
       '@react-three/fiber':
         specifier: ^8.17.8
         version: 8.17.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(three@0.169.0)
+      '@t3-oss/env-nextjs':
+        specifier: ^0.11.1
+        version: 0.11.1(typescript@5.6.2)(zod@3.23.8)
       '@tabler/icons-react':
         specifier: ^3.19.0
         version: 3.19.0(react@18.3.1)
@@ -101,6 +104,9 @@ importers:
       recharts:
         specifier: ^2.12.7
         version: 2.12.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      sonner:
+        specifier: ^1.5.0
+        version: 1.5.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       tailwind-merge:
         specifier: ^2.5.2
         version: 2.5.2
@@ -803,6 +809,24 @@ packages:
 
   '@swc/helpers@0.5.5':
     resolution: {integrity: sha512-KGYxvIOXcceOAbEk4bi/dVLEK9z8sZ0uBB3Il5b1rhfClSpcX0yfRO0KmTkqR2cnQDymwLB+25ZyMzICg/cm/A==}
+
+  '@t3-oss/env-core@0.11.1':
+    resolution: {integrity: sha512-MaxOwEoG1ntCFoKJsS7nqwgcxLW1SJw238AJwfJeaz3P/8GtkxXZsPPolsz1AdYvUTbe3XvqZ/VCdfjt+3zmKw==}
+    peerDependencies:
+      typescript: '>=5.0.0'
+      zod: ^3.0.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
+  '@t3-oss/env-nextjs@0.11.1':
+    resolution: {integrity: sha512-rx2XL9+v6wtOqLNJbD5eD8OezKlQD1BtC0WvvtHwBgK66jnF5+wGqtgkKK4Ygie1LVmoDClths2T4tdFmRvGrQ==}
+    peerDependencies:
+      typescript: '>=5.0.0'
+      zod: ^3.0.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
 
   '@tabler/icons-react@3.19.0':
     resolution: {integrity: sha512-AqEWGI0tQWgqo6ZjMO5yJ9sYT8oXLuAM/up0hN9iENS6IdtNZryKrkNSiMgpwweNTpl8wFFG/dAZ959S91A/uQ==}
@@ -1792,6 +1816,12 @@ packages:
   simplesignal@2.1.7:
     resolution: {integrity: sha512-PEo2qWpUke7IMhlqiBxrulIFvhJRLkl1ih52Rwa+bPjzhJepcd4GIjn2RiQmFSx3dQvsEAgF0/lXMwMN7vODaA==}
 
+  sonner@1.5.0:
+    resolution: {integrity: sha512-FBjhG/gnnbN6FY0jaNnqZOMmB73R+5IiyYAw8yBj7L54ER7HB3fOSE5OFiQiE2iXWxeXKvg6fIP4LtVppHEdJA==}
+    peerDependencies:
+      react: ^18.0.0
+      react-dom: ^18.0.0
+
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
     engines: {node: '>=0.10.0'}
@@ -2731,6 +2761,19 @@ snapshots:
       '@swc/counter': 0.1.3
       tslib: 2.7.0
 
+  '@t3-oss/env-core@0.11.1(typescript@5.6.2)(zod@3.23.8)':
+    dependencies:
+      zod: 3.23.8
+    optionalDependencies:
+      typescript: 5.6.2
+
+  '@t3-oss/env-nextjs@0.11.1(typescript@5.6.2)(zod@3.23.8)':
+    dependencies:
+      '@t3-oss/env-core': 0.11.1(typescript@5.6.2)(zod@3.23.8)
+      zod: 3.23.8
+    optionalDependencies:
+      typescript: 5.6.2
+
   '@tabler/icons-react@3.19.0(react@18.3.1)':
     dependencies:
       '@tabler/icons': 3.19.0
@@ -3581,6 +3624,11 @@ snapshots:
   signal-exit@4.1.0: {}
 
   simplesignal@2.1.7: {}
+
+  sonner@1.5.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
   source-map-js@1.2.1: {}
 
