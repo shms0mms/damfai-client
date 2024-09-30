@@ -6,13 +6,13 @@ import { PropsWithChildren } from "react"
 import { useMediaQuery } from "usehooks-ts"
 import { MEDIA } from "@/config/media.config"
 import { ROUTES } from "@/config/route.config"
+import { siteConfig } from "@/config/site.config"
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger
 } from "@/components/ui/accordion"
-import { config } from "@/config"
 
 interface NavItemLinkProps {
   href: string
@@ -164,7 +164,7 @@ export const Footer = () => {
             )}
           </nav>
           <p className="text-balance text-right text-sm leading-loose text-muted-foreground md:text-left">
-            Built by {config.author}.
+            Built by {siteConfig.author}.
           </p>
         </div>
       </div>
