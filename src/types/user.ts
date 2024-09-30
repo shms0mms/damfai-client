@@ -6,3 +6,7 @@ export type User = {
   dob: Date
   created_at: Date
 }
+export type UserSignIn = {
+  email: string
+  password: string
+}
