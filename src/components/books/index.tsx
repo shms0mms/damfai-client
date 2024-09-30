@@ -36,7 +36,7 @@ export function BookList({ books }: BookListProps) {
                   {books.map((book, i) => (
                     <CarouselItem
                       className={cn("basis-[16rem] md:basis-[20rem]", {
-                        "pl-0": i === 0
+                        "max-sm:pl-0": i === 0
                       })}
                       key={book.id}
                     >
