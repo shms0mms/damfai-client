@@ -1,9 +1,11 @@
 "use client"
 
-import { useQuery } from "@tanstack/react-query"
 import { LogOut, UserIcon } from "lucide-react"
 import Link from "next/link"
-import { type User } from "@/types/user"
+import { useContext } from "react"
+import { logout } from "@/utils/auth"
+import { ROUTES } from "@/config/route.config"
+import { AuthContext } from "@/providers/auth"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
@@ -24,14 +26,9 @@ import {
   TooltipTrigger
 } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
-import { userService } from "@/services/user.service"
 
 export const UserNav = () => {
-  const { data: user, isLoading } = useQuery<User>({
-    initialData: undefined,
-    queryKey: ["user"],
-    queryFn: userService.get
-  })
+  const { user, isLoading } = useContext(AuthContext)
 
   return !isLoading && user ? (
     <DropdownMenu>
@@ -45,7 +42,7 @@ export const UserNav = () => {
               >
                 <Avatar className="h-8 w-8">
                   <AvatarFallback>
-                    {user.name.slice(0, 2).toUpperCase()}
+                    {user?.name?.slice(0, 2)?.toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
                 <span className="sr-only">Открыть ваше меню</span>
@@ -72,7 +69,7 @@ export const UserNav = () => {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem className="hover:cursor-pointer" asChild>
-            <Link href="/profile" className="flex items-center">
+            <Link href={ROUTES.DASHBOARD} className="flex items-center">
               <UserIcon className="mr-3 h-4 w-4 text-muted-foreground" />
               Профиль
             </Link>
@@ -83,7 +80,7 @@ export const UserNav = () => {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem className="hover:cursor-pointer">
+          <DropdownMenuItem onClick={logout} className="hover:cursor-pointer">
             <LogOut className="mr-3 h-4 w-4 text-muted-foreground" />
             Выйти
           </DropdownMenuItem>

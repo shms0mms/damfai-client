@@ -3,6 +3,7 @@
 import { BookOpen, ChevronRight, Star, User } from "lucide-react"
 import * as React from "react"
 import { type User as UserType } from "@/types/user"
+import { AuthContext } from "@/providers/auth"
 import BarChart1 from "@/components/dashboard/bar-chart-1"
 import BarChart2 from "@/components/dashboard/bar-chart-2"
 import BarChart3 from "@/components/dashboard/bar-chart-3"
@@ -54,14 +55,7 @@ const bookmarks = [
 ]
 
 export default function Dashboard() {
-  const [user, setUser] = React.useState<UserType>({
-    name: "Jane",
-    email: "jane.doe@example.com",
-    created_at: new Date(),
-    dob: new Date(),
-    id: "ERGOPRKEHKOER",
-    surname: "Doe"
-  })
+  const { user } = React.useContext(AuthContext)
 
   const handleProfileUpdate = (event: React.FormEvent<HTMLFormElement>) => {}
 
@@ -83,10 +77,10 @@ export default function Dashboard() {
                 </AvatarFallback>
               </Avatar>
               <div className="text-center">
-                <h2 className="text-xl font-bold">{user.name}</h2>
-                <p className="text-sm text-muted-foreground">{user.email}</p>
+                <h2 className="text-xl font-bold">{user?.name}</h2>
+                <p className="text-sm text-muted-foreground">{user?.email}</p>
                 <p className="text-sm text-muted-foreground">
-                  На сайте с: {user?.created_at.toLocaleDateString()}
+                  На сайте с: {user?.created_at?.toLocaleDateString?.()}
                 </p>
               </div>
               <Dialog>
@@ -112,7 +106,7 @@ export default function Dashboard() {
                       <Input
                         id="name"
                         name="name"
-                        defaultValue={user.name}
+                        defaultValue={user?.name}
                         className="col-span-3"
                       />
                     </div>
@@ -123,7 +117,7 @@ export default function Dashboard() {
                       <Input
                         id="email"
                         name="email"
-                        defaultValue={user.email}
+                        defaultValue={user?.email}
                         className="col-span-3"
                       />
                     </div>
