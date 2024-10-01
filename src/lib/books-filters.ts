@@ -2,7 +2,7 @@ export type BookFilter = {
   id: string
   label: string
 } & (
-  | { type: "number-range"; defaultValue: number }
+  | { type: "number-range"; maxValue: number; minValue: number }
   | {
       type: "enum"
       options: string[]
@@ -12,6 +12,9 @@ export type BookFilter = {
       defaultValue?: string
     }
 )
+export type MinValue = number
+export type MaxValue = number
+export type RangeValue = [MinValue, MaxValue]
 
 export const getBooksFilter = async (): Promise<BookFilter[]> => {
   return [
@@ -29,7 +32,8 @@ export const getBooksFilter = async (): Promise<BookFilter[]> => {
       id: "rating",
       label: "Рейтинг",
       type: "number-range",
-      defaultValue: 0
+      minValue: 0.0,
+      maxValue: 5.0
     },
     {
       id: "ganre",

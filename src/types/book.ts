@@ -1,3 +1,5 @@
+import { RangeValue } from "@/lib/books-filters"
+
 export type Book = {
   id: number
   title: string // can be filtered
@@ -10,4 +12,4 @@ export type Book = {
   image: string
 }
 
-export type BooksFilters = Record<string, string | number>
+export type BooksFilters = Record<string, string | RangeValue>
