@@ -7,6 +7,7 @@ import { ReactQueryProvider } from "@/components/react-query-provider"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/sonner"
 import "./globals.css"
+import { Providers } from "./providers"
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -40,17 +41,7 @@ export default function RootLayout({
       <body
         className={`${didactGothic.variable} ${geistMono.variable} ${geistSans.variable} antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          // enableSystem
-          disableTransitionOnChange
-        >
-          <ReactQueryProvider>
-            <AuthProvider>{children}</AuthProvider>
-            <Toaster />
-          </ReactQueryProvider>
-        </ThemeProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   )

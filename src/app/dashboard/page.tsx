@@ -198,7 +198,7 @@ export default function Dashboard() {
               <CardTitle>Прогресс чтения</CardTitle>
               <CardDescription>Книги прочитанные за месяц</CardDescription>
             </CardHeader>
-            <CardContent className="min-h-[300px]">
+            <CardContent className="min-h-[300px] max-md:min-h-[200px]">
               <BarChart1 />
             </CardContent>
           </Card>{" "}
@@ -300,7 +300,7 @@ export default function Dashboard() {
               <CardTitle>Прогресс чтения</CardTitle>
               <CardDescription>Статистика чтения</CardDescription>
             </CardHeader>
-            <CardContent className="min-h-[300px]">
+            <CardContent className="min-h-[300px] max-md:min-h-[200px]">
               <BarChart2 />
             </CardContent>
           </Card>
