@@ -1,9 +1,10 @@
 "use client"
 
 import { useQuery } from "@tanstack/react-query"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { BooksFilters } from "@/types/book"
+import { useFiltersFromParams } from "@/hooks/useFiltersFromParams"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -38,15 +39,14 @@ import {
 } from "@/lib/books-filters"
 
 function BooksFiltersComponent() {
-  const { data: booksFilters } = useQuery({
+  const { data: booksFilters, isLoading } = useQuery({
     initialData: undefined,
     queryKey: ["book-filters"],
     queryFn: getBooksFilter
   })
-  const filtersAsParams = useSearchParams()
-  const defaultFilters: BooksFilters = {}
+  const defaultFilters = useFiltersFromParams()
+  const [filters, setFilters] = useState<BooksFilters>(defaultFilters)
 
-  const [filters, setFilters] = useState<BooksFilters>({})
   const router = useRouter()
 
   const onSubmit = () => {
@@ -71,10 +71,7 @@ function BooksFiltersComponent() {
   const handleFilterChange = (
     key: keyof BooksFilters,
     value: string | RangeValue
-  ) => {
-    const newFilters = { ...filters, [key]: value }
-    setFilters(newFilters)
-  }
+  ) => setFilters(prev => ({ ...prev, [key]: value }))
 
   const renderFilter = (filter: BookFilter) => {
     switch (filter.type) {
@@ -84,6 +81,7 @@ function BooksFiltersComponent() {
             <Label htmlFor={filter.id}>{filter.label}</Label>
             <Input
               id={filter.id}
+              value={filters[filter.id] as string}
               onChange={e => handleFilterChange(filter.id, e.target.value)}
             />
           </div>
@@ -96,7 +94,7 @@ function BooksFiltersComponent() {
               min={filter.minValue}
               max={filter.maxValue}
               step={0.1}
-              value={[filter.minValue, filter.maxValue]}
+              value={filters[filter.id] as RangeValue}
               // @ts-expect-error adsfg
               onValueChange={value => handleFilterChange(filter.id, value)}
               minStepsBetweenThumbs={0.1}
@@ -108,7 +106,7 @@ function BooksFiltersComponent() {
           <div key={filter.label} className="space-y-2">
             <Label>{filter.label}</Label>
             <Select
-              value={filters[filter.id]?.toString()}
+              value={filters[filter.id] as string}
               onValueChange={value => handleFilterChange(filter.id, value)}
             >
               <SelectTrigger>
@@ -128,9 +126,9 @@ function BooksFiltersComponent() {
   }
 
   const filterContent = (
-    <>
+    <div>
       <div className="flex flex-col gap-4">
-        {booksFilters
+        {booksFilters && !isLoading
           ? booksFilters.map(renderFilter)
           : new Array(4).fill(null).map((_, i) => (
               <div className="flex flex-col gap-[0.725rem]" key={i}>
@@ -142,7 +140,7 @@ function BooksFiltersComponent() {
           Применить
         </Button>
       </div>
-    </>
+    </div>
   )
 
   return (
