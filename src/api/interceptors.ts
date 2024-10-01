@@ -1,9 +1,7 @@
-"use client"
-
 import axios, { AxiosError, type CreateAxiosDefaults } from "axios"
 import Cookies from "js-cookie"
-import { ACCESS_TOKEN } from "../config/access-token.config"
-import { env } from "../env"
+import { ACCESS_TOKEN } from "@/config/access-token.config"
+import { env } from "@/env"
 
 const options: CreateAxiosDefaults = {
   baseURL: env.NEXT_PUBLIC_SERVER_URL,
