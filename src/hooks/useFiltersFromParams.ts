@@ -25,7 +25,6 @@ export function useFiltersFromParams() {
   const processedFilters: BooksFilters = {}
 
   for (const [key, value] of Object.entries(filters)) {
-    console.log(key, value)
     if (key.endsWith("__lte") || key.endsWith("__gte")) {
       const [keyWithoutSuffix, suffix] = key.split("__") as [
         string,
@@ -45,7 +44,5 @@ export function useFiltersFromParams() {
       }
     } else processedFilters[key] = value
   }
-  console.log(processedFilters)
-
   return processedFilters
 }

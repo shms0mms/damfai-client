@@ -81,7 +81,7 @@ function BooksFiltersComponent() {
             <Label htmlFor={filter.id}>{filter.label}</Label>
             <Input
               id={filter.id}
-              value={filters[filter.id] as string}
+              value={(filters[filter.id] as string | undefined) ?? ""}
               onChange={e => handleFilterChange(filter.id, e.target.value)}
             />
           </div>
@@ -144,33 +144,33 @@ function BooksFiltersComponent() {
   )
 
   return (
-    <div>
-      <Card className="hidden md:block">
+    <>
+      <Card className="sticky top-20 hidden lg:block">
         <CardHeader>
           <CardTitle>Фильтрация книг</CardTitle>
           <CardDescription>
-            найдите книгу по вашим вкусам, импользуя фильтры ниже
+            Найдите книгу по вашим вкусам, импользуя фильтры ниже
           </CardDescription>
         </CardHeader>
         <CardContent>{filterContent}</CardContent>
       </Card>
-      <div className="md:hidden">
+      <div className="lg:hidden">
         <Sheet>
           <SheetTrigger asChild>
             <Button variant="outline">Фильтры</Button>
           </SheetTrigger>
           <SheetContent side="left">
             <SheetHeader className="mb-4">
-              <SheetTitle>Фильтры книг</SheetTitle>
+              <SheetTitle>Фильтрация книг</SheetTitle>
               <SheetDescription>
-                Настройте фильтры для поиска книг
+                Найдите книгу по вашим вкусам, импользуя фильтры ниже
               </SheetDescription>
             </SheetHeader>
             {filterContent}
           </SheetContent>
         </Sheet>
       </div>
-    </div>
+    </>
   )
 }
 export { BooksFiltersComponent as BooksFilters }

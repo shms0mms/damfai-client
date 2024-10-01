@@ -9,6 +9,7 @@ import {
 } from "../ui/carousel"
 import { Rating } from "../ui/rating"
 import { Separator } from "../ui/separator"
+import { env } from "@/env"
 import { cn } from "@/lib/utils"
 
 interface BookListProps {
@@ -46,7 +47,7 @@ export function BookList({ books }: BookListProps) {
                       >
                         <img
                           className="overflow-hidden rounded-md"
-                          src={book.image}
+                          src={`${env.NEXT_PUBLIC_SERVER_URL}/books/img/${book.id}`}
                           alt={book.title}
                         />
                         <div className="flex justify-between">

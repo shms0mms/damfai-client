@@ -9,7 +9,6 @@ export type Book = {
   chapters: number
   ratings: number // float, can be filtered
   ganres: string[]
-  image: string
 }
 
 export type BooksFilters = Record<string, string | RangeValue>

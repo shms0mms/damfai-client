@@ -1,27 +1,39 @@
-import type { Book, BooksFilters } from "@/types/book"
+import type { Book } from "@/types/book"
 import { randomNumber } from "@/lib/utils"
+
+type GetAllGanresResponse = {
+  id: number
+  ganre: string
+}[]
 
 type GetAllBooksResponse = {
   items: Book[]
   total: number
+  page: number
+  size: number
+  pages: number
 }
 type GetAllBooksOptions = {
-  page?: number
-  perPage?: number
-  filters?: BooksFilters
+  page: number
+  size: number
+  filters?: Record<string, string>
 }
 
 const mockGanres = ["Фэнтези", "Романтика", "Психологическое"]
 
 class BookService {
   private BASE_URL = "/books"
-  async getAllGenres(): Promise<string[]> {
-    return new Promise(res => res([]))
+  async getAllGanres(): Promise<string[]> {
+    const response = await new Promise<GetAllGanresResponse>(res =>
+      res([{ id: 1, ganre: "Фэнтези" }])
+    )
+
+    return response.map(r => r.ganre)
   }
   async getAll(options?: GetAllBooksOptions): Promise<GetAllBooksResponse> {
     return new Promise(res =>
       res({
-        items: new Array(options?.perPage ? options.perPage : 100)
+        items: new Array(options?.size ? options.size : 100)
           .fill(1)
           .map<Book>((_, i) => ({
             id: i + 1,
@@ -31,10 +43,12 @@ class BookService {
             chapters: i * 100 + 1,
             desc: `Lorem LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem`,
             ratings: Math.random() * 5,
-            ganres: [mockGanres[randomNumber(0, mockGanres.length - 1)]],
-            image: "https://ir.ozone.ru/s3/multimedia-1-s/c1000/7039699840.jpg"
+            ganres: [mockGanres[randomNumber(0, mockGanres.length - 1)]]
           })),
-        total: 100
+        total: options?.size ?? 100 * 10,
+        page: options?.page ?? 0,
+        size: options?.size ?? 10,
+        pages: options?.size ?? (100 * 10) / (options?.size ?? 10)
       })
     )
   }
