@@ -75,7 +75,7 @@ export default function AuthForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>Почта</FormLabel>
                 <FormControl>
                   <Input placeholder="m@example.com" {...field} />
                 </FormControl>
@@ -88,7 +88,7 @@ export default function AuthForm() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>Пароль</FormLabel>
                 <FormControl>
                   <Input placeholder="Ваш пароль" type="password" {...field} />
                 </FormControl>

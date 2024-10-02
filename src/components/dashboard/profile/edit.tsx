@@ -21,7 +21,6 @@ import {
   FormMessage
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 
 const formSchema = z.object({
   name: z.string({
@@ -70,7 +69,7 @@ export default function EditProfile() {
               defaultValue={user?.email}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>Почта</FormLabel>
                   <FormControl>
                     <Input placeholder="m@example.com" {...field} />
                   </FormControl>
@@ -84,7 +83,7 @@ export default function EditProfile() {
               defaultValue={user?.name}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Имя</FormLabel>
                   <FormControl>
                     <Input placeholder="Ваше имя" {...field} />
                   </FormControl>
@@ -98,7 +97,7 @@ export default function EditProfile() {
               defaultValue={user?.name}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Surname</FormLabel>
+                  <FormLabel>Фамилия</FormLabel>
                   <FormControl>
                     <Input placeholder="Ваша фамилия" {...field} />
                   </FormControl>
@@ -111,7 +110,7 @@ export default function EditProfile() {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>Пароль</FormLabel>
                   <FormControl>
                     <Input placeholder="Новый пароль" {...field} />
                   </FormControl>

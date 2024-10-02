@@ -93,23 +93,10 @@ export default function AuthForm() {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField
             control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input placeholder="m@example.com" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Name</FormLabel>
+                <FormLabel>Имя</FormLabel>
                 <FormControl>
                   <Input placeholder="Ваше имя" {...field} />
                 </FormControl>
@@ -122,7 +109,7 @@ export default function AuthForm() {
             name="surname"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Surname</FormLabel>
+                <FormLabel>Фамилия</FormLabel>
                 <FormControl>
                   <Input placeholder="Ваша фамилия" {...field} />
                 </FormControl>
@@ -171,10 +158,23 @@ export default function AuthForm() {
           />
           <FormField
             control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Почта</FormLabel>
+                <FormControl>
+                  <Input placeholder="m@example.com" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>Пароль</FormLabel>
                 <FormControl>
                   <Input placeholder="Ваш пароль" type="password" {...field} />
                 </FormControl>
