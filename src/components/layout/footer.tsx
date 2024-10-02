@@ -65,8 +65,13 @@ export const Footer = () => {
       title: "Продукты",
       items: [
         {
-          children: "Lama model",
-          href: ROUTES.LAMA_MODEL,
+          children: "Model GigaChat",
+          href: ROUTES.GIGA_CHAT,
+          linked: true
+        },
+        {
+          children: "GigaChain",
+          href: ROUTES.GIGA_CHAIN,
           linked: true
         },
         {
