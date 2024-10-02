@@ -13,30 +13,29 @@ interface Item {
 
 let notifications = [
   {
-    name: "Payment received",
-    description: "Magic UI",
+    name: "Доброе утро!",
+    description: "Самое время чтобы дочитать недочитанное.",
     time: "15m ago",
-
-    icon: "💸",
-    color: "#00C9A7"
+    icon: "☀️",
+    color: "#00FFFF"
   },
   {
-    name: "User signed up",
-    description: "Magic UI",
+    name: "Вы обязаны прочитать эту книгу!",
+    description: "Вышел новый хит...",
     time: "10m ago",
-    icon: "👤",
-    color: "#FFB800"
+    icon: "🎯",
+    color: "#efc62c"
   },
   {
-    name: "New message",
-    description: "Magic UI",
+    name: "Напоминание.",
+    description: "Сегодня вы должны прочитать хотябы 20 страниц.",
     time: "5m ago",
     icon: "💬",
     color: "#FF3D71"
   },
   {
-    name: "New event",
-    description: "Magic UI",
+    name: "Взгляните на вашу статистику!",
+    description: "В последнее время вы хорошо читали книги...",
     time: "2m ago",
     icon: "🗞️",
     color: "#1E86FF"

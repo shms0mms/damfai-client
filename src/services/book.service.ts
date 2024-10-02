@@ -1,5 +1,5 @@
 import type { Book } from "@/types/book"
-import { axiosDefault, axiosWithAuth } from "@/api/interceptors"
+import { axiosDefault } from "@/api/interceptors"
 
 type GetAllGanresResponse = {
   id: number
@@ -36,7 +36,7 @@ class BookService {
       ...options.filters
     }).toString()
 
-    const response = await axiosWithAuth.post<GetAllBooksResponse>(
+    const response = await axiosDefault.post<GetAllBooksResponse>(
       `${this.BASE_URL}?${queryParams}`,
       [0]
     )
