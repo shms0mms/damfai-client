@@ -63,7 +63,10 @@ export function BooksPagination({
       for (let i = startPage; i <= endPage; i++) {
         pageNumbers.push(
           <PaginationItem key={i}>
-            <PaginationLink href={""} isActive={pagination.page === i}>
+            <PaginationLink
+              href={`?page=${i}&${searchParamsAsString}`}
+              isActive={pagination.page === i}
+            >
               {i}
             </PaginationLink>
           </PaginationItem>
@@ -76,7 +79,11 @@ export function BooksPagination({
         }
         pageNumbers.push(
           <PaginationItem key={pagination.pages}>
-            <PaginationLink href="">{pagination.pages}</PaginationLink>
+            <PaginationLink
+              href={`?page=${pagination.pages}&${searchParamsAsString}`}
+            >
+              {pagination.pages}
+            </PaginationLink>
           </PaginationItem>
         )
       }
@@ -90,7 +97,7 @@ export function BooksPagination({
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
-            href=""
+            href={`?page=${pagination.page > 0 ? pagination.page : 1}&${searchParamsAsString}`}
             aria-disabled={pagination.page === 1}
             tabIndex={pagination.page === 1 ? -1 : 0}
           />
@@ -98,7 +105,7 @@ export function BooksPagination({
         {renderPageNumbers()}
         <PaginationItem>
           <PaginationNext
-            href={""}
+            href={`?page=${pagination.page < pagination.pages ? pagination.page : pagination.pages}&${searchParamsAsString}`}
             aria-disabled={pagination.page === pagination.pages}
             tabIndex={pagination.page === pagination.pages ? -1 : 0}
           />
