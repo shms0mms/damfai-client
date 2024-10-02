@@ -32,9 +32,11 @@ const formSchema = z.object({
     .email({
       message: "Введите правильный адрес электронной почты"
     }),
-  password: z.string({ message: OPTIONS.required }).min(8, {
-    message: "Пароль должен содержать не менее 8 символов"
-  })
+  password: z
+    .string({ message: OPTIONS.required })
+    .min(OPTIONS.password.value, {
+      message: OPTIONS.password.message
+    })
 })
 type FormSchema = z.infer<typeof formSchema>
 export default function AuthForm() {

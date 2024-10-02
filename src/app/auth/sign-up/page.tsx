@@ -40,9 +40,11 @@ const formSchema = z.object({
     .email({
       message: "Введите правильный адрес электронной почты"
     }),
-  password: z.string({ message: OPTIONS.required }).min(8, {
-    message: "Пароль должен содержать не менее 8 символов"
-  }),
+  password: z
+    .string({ message: OPTIONS.required })
+    .min(OPTIONS.password.value, {
+      message: OPTIONS.password.message
+    }),
   name: z.string({ message: OPTIONS.required }),
   surname: z.string({
     message: OPTIONS.required

@@ -5,6 +5,7 @@ export type User = {
   email: string
   dob: Date
   created_at: Date
+  ganre: string
 }
 
 export type UserSignIn = {

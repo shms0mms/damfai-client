@@ -8,7 +8,7 @@ import { FeaturesSection } from "@/components/blocks/features-section"
 import Speaking from "@/components/blocks/speaking"
 import { FlipWords } from "@/components/ui/flip-words"
 import { Beam } from "@/components/ui/grid-beam"
-import { MacbookScroll } from "@/components/ui/mackbook-scroll"
+import { LaptopScroll } from "@/components/ui/laptop-scroll"
 import { VelocityScroll } from "@/components/ui/scroll-based-velocity"
 import { SparklesCore } from "@/components/ui/sparkles"
 import SparklesText from "@/components/ui/sparkles-text"
@@ -55,7 +55,7 @@ const sections = [
             </span>
           </h2>
         </div>
-        <MacbookScroll src={"/dashboard.png"} />
+        <LaptopScroll src={"/dashboard.png"} />
       </div>
     )
   },
@@ -89,29 +89,29 @@ const sections = [
         <BentoDemo />
       </div>
     )
-  },
-
-  {
-    id: "4",
-    content: (
-      <div className="relative flex h-full w-full items-center justify-center">
-        <div className="flex flex-col items-center gap-3">
-          <CardSkeletonContainer>
-            <AISlider />
-          </CardSkeletonContainer>
-
-          {/* <div className="flex items-center gap-2">
-            <Button size={"lg"} asChild>
-              <Link href={ROUTES.RECOMMEND}>Начать</Link>
-            </Button>
-            <Button size={"lg"} variant={"outline"} asChild>
-              <Link href={ROUTES.SIGN_IN}>Войти</Link>
-            </Button>
-          </div> */}
-        </div>
-      </div>
-    )
   }
+
+  // {
+  //   id: "4",
+  //   content: (
+  //     <div className="relative flex h-full w-full items-center justify-center">
+  //       <div className="flex flex-col items-center gap-3">
+  //         <CardSkeletonContainer>
+  //           <AISlider />
+  //         </CardSkeletonContainer>
+
+  //         {/* <div className="flex items-center gap-2">
+  //           <Button size={"lg"} asChild>
+  //             <Link href={ROUTES.RECOMMEND}>Начать</Link>
+  //           </Button>
+  //           <Button size={"lg"} variant={"outline"} asChild>
+  //             <Link href={ROUTES.SIGN_IN}>Войти</Link>
+  //           </Button>
+  //         </div> */}
+  //       </div>
+  //     </div>
+  //   )
+  // }
 ]
 
 export default function HomePage() {

@@ -26,7 +26,7 @@ import Image from "next/image"
 import React, { useEffect, useMemo, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 
-export const MacbookScroll = ({
+export const LaptopScroll = ({
   src,
   showGradient,
   title,
