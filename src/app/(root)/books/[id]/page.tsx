@@ -2,6 +2,7 @@ import { CardDescription, CardTitle } from "@/components/blocks/ai-slider"
 import { BookForm } from "@/components/books/book-form"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Rating } from "@/components/ui/rating"
+import { env } from "@/env"
 import { cn } from "@/lib/utils"
 import { bookService } from "@/services/book.service"
 
@@ -12,8 +13,8 @@ export default async function BookPage({ params }: BookPageProps) {
 
   const BookImage = ({ className }: { className?: string }) => (
     <img
-      // src={`${env.NEXT_PUBLIC_SERVER_URL}/books/img/${book.id}`}
-      src="https://cdn.respublica.ru/uploads/01/00/00/i6/2x/197509fcc8ae563e.jpg?1685001108"
+      src={`${env.NEXT_PUBLIC_SERVER_URL}/books/img/${book.id}`}
+      // src="https://cdn.respublica.ru/uploads/01/00/00/i6/2x/197509fcc8ae563e.jpg?1685001108"
       alt={book.title}
       className={cn("block overflow-hidden rounded-lg", className)}
     />

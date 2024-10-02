@@ -4,7 +4,6 @@ export const ROUTES = {
   SIGN_UP: "/auth/sign-up",
   V0: "https://v0.dev/",
   FIGMA: "https://www.figma.com/",
-  LAMA_MODEL: "https://github.com/advimman/lama?ysclid=m1lvxz7qlp312176308",
   GITHUB: "https://github.com/shms0mms/damfai-client",
   NEXT_JS: "https://nextjs.org/",
   DASHBOARD: "/dashboard",
