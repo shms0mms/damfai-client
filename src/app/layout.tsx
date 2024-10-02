@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { Didact_Gothic } from "next/font/google"
 import localFont from "next/font/local"
+import { PropsWithChildren } from "react"
 import { siteConfig } from "@/config/site.config"
 import "./globals.css"
 import { Providers } from "./providers"
@@ -28,16 +29,19 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({
-  children
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+  children,
+  modal
+}: PropsWithChildren<{ modal: React.ReactNode }>) {
+  console.log(modal)
   return (
     <html lang="en">
       <body
         className={`${didactGothic.variable} ${geistMono.variable} ${geistSans.variable} antialiased`}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          {modal}
+        </Providers>
       </body>
     </html>
   )

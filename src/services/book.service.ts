@@ -29,6 +29,20 @@ class BookService {
     )
     return response.map(r => r.ganre)
   }
+  async getById(id: number) {
+    return new Promise<Book>(res =>
+      res({
+        id,
+        title: `Книга ${id}`,
+        desc: "Lorem LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem",
+        writen_date: new Date(),
+        ratings: Math.random() * 5,
+        ganres: [mockGanres[randomNumber(0, mockGanres.length - 1)]],
+        author: "Иван Иванов",
+        chapters: randomNumber(10, 100)
+      })
+    )
+  }
   async getAll(options: GetAllBooksOptions) {
     // const queryParams = new URLSearchParams({
     //   page: `${options.page}`,
@@ -64,6 +78,9 @@ class BookService {
     //   [0]
     // )
     // return response.data
+  }
+  async startReading(options: { id: number; dates: [Date, Date] }) {
+    return true
   }
 }
 

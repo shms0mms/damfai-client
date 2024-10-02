@@ -43,7 +43,7 @@ export function BookList({ books }: BookListProps) {
                     >
                       <Link
                         className="flex flex-col gap-2 rounded-lg p-6 shadow-md"
-                        href={`/book/${book.id}`}
+                        href={`/books/${book.id}`}
                       >
                         <img
                           className="overflow-hidden rounded-md"
