@@ -3,6 +3,7 @@ import {
   ChevronRightIcon,
   DotsHorizontalIcon
 } from "@radix-ui/react-icons"
+import Link, { LinkProps } from "next/link"
 import * as React from "react"
 import { ButtonProps, buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -39,8 +40,12 @@ PaginationItem.displayName = "PaginationItem"
 
 type PaginationLinkProps = {
   isActive?: boolean
+  className?: string
 } & Pick<ButtonProps, "size"> &
-  React.ComponentProps<"a">
+  Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof LinkProps> &
+  LinkProps & {
+    children?: React.ReactNode
+  } & React.RefAttributes<HTMLAnchorElement>
 
 const PaginationLink = ({
   className,
@@ -48,7 +53,7 @@ const PaginationLink = ({
   size = "icon",
   ...props
 }: PaginationLinkProps) => (
-  <a
+  <Link
     aria-current={isActive ? "page" : undefined}
     className={cn(
       buttonVariants({

@@ -17,7 +17,10 @@ export const Catalog: FC<CatalogProps> = async options => {
       <BooksFilters />
       <div className="space-y-6 lg:px-4">
         <Books books={books} />
-        <BooksPagination pagination={pagination} />
+        <BooksPagination
+          pagination={pagination}
+          searchParams={options.filters}
+        />
       </div>
     </div>
   )

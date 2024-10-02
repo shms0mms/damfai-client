@@ -146,13 +146,13 @@ function BooksFiltersComponent() {
   return (
     <>
       <Card className="sticky top-20 hidden lg:block">
-        <CardHeader>
+        <CardHeader className="p-1.5">
           <CardTitle>Фильтрация книг</CardTitle>
           <CardDescription>
             Найдите книгу по вашим вкусам, импользуя фильтры ниже
           </CardDescription>
         </CardHeader>
-        <CardContent>{filterContent}</CardContent>
+        <CardContent className="p-1.5">{filterContent}</CardContent>
       </Card>
       <div className="lg:hidden">
         <Sheet>
