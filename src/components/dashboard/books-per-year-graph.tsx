@@ -9,12 +9,12 @@ import {
 } from "../ui/chart"
 
 const data = [
-  { name: "Январь", value: 5 },
-  { name: "Февраль", value: 3 },
-  { name: "Март", value: 7 },
-  { name: "Апрель", value: 4 },
-  { name: "Май", value: 6 },
-  { name: "Июнь", value: 2 }
+  { name: "Январь", books_per_year: 5 },
+  { name: "Февраль", books_per_year: 3 },
+  { name: "Март", books_per_year: 7 },
+  { name: "Апрель", books_per_year: 4 },
+  { name: "Май", books_per_year: 6 },
+  { name: "Июнь", books_per_year: 2 }
 ]
 
 const COLORS = [
@@ -29,8 +29,8 @@ const chartConfig = {
   data: {}
 } satisfies ChartConfig
 
-export default function BarChart3() {
-  const total = data.reduce((sum, entry) => sum + entry.value, 0)
+export default function BooksPerYearGraph() {
+  const total = data.reduce((sum, entry) => sum + entry.books_per_year, 0)
 
   return (
     <ChartContainer config={chartConfig}>
@@ -42,7 +42,7 @@ export default function BarChart3() {
           labelLine={false}
           outerRadius={150}
           fill="#8884d8"
-          dataKey="value"
+          dataKey="books_per_year"
           label={({ name, percent }) =>
             `${name} ${(percent * 100).toFixed(0)}%`
           }
@@ -52,8 +52,8 @@ export default function BarChart3() {
           ))}
         </Pie>
         <ChartTooltip
-          formatter={(value, name) => [
-            `${value} книг (${((+value / total) * 100).toFixed(1)}%)`,
+          formatter={(books_per_year, name) => [
+            `${books_per_year} книг (${((+books_per_year / total) * 100).toFixed(1)}%)`,
             name
           ]}
           content={<ChartTooltipContent />}

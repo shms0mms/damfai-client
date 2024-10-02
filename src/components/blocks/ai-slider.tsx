@@ -65,7 +65,7 @@ const AISlider = () => {
           <GigaChatLogo className="h-4 w-4" />
         </Container>
         <Container className="circle-2 h-12 w-12">
-          <GoCopilot />
+          <Sber />
         </Container>
         <Container className="circle-3">
           <OpenAILogo className="h-8 w-8 dark:text-white" />
@@ -269,7 +269,27 @@ export const YandexGPT = ({ className }: { className?: string }) => {
     </svg>
   )
 }
-
+const Sber = ({ className }: { className?: string }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 48 48"
+      id="Layer_2"
+      data-name="Layer 2"
+    >
+      <path
+        className="cls-1"
+        d="M38.21,7.85,16,20.62,5.21,14.39M34.34,6.56,16,17.13,7.42,12.25M41.08,9.91,16,24.35,3.85,17.41"
+      />
+      <path
+        className="cls-1"
+        d="M43.39,15.46A19.36,19.36,0,0,1,44.5,22a20.25,20.25,0,0,1-1.11,6.64L42.89,30a20.87,20.87,0,0,1-4.38,6.54A20.23,20.23,0,0,1,32,40.87a20.19,20.19,0,0,1-8,1.66,19.93,19.93,0,0,1-8-1.66,21,21,0,0,1-6.49-4.33A19.74,19.74,0,0,1,5.11,30,20.71,20.71,0,0,1,3.5,22V20.64L16,27.73,42.29,12.64Z"
+      />
+    </svg>
+  )
+}
 export const Bing = ({ className }: { className?: string }) => {
   return (
     <svg

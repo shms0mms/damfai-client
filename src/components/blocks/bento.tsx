@@ -38,7 +38,7 @@ const features = [
     description:
       "На нашем сайте вы можете найти книги каждого жанра на свой вкус.",
     href: ROUTES.BOOKS,
-    cta: "Learn more",
+    cta: "Подробнее",
     className: "col-span-3 lg:col-span-1",
     background: (
       <Marquee
@@ -72,8 +72,8 @@ const features = [
     Icon: BellIcon,
     name: "Уведомления",
     description: "Получайте уведомления о прочтении книги.",
-    href: "#",
-    cta: "Learn more",
+    href: ROUTES.DASHBOARD,
+    cta: "Подробнее",
     className: "col-span-3 lg:col-span-2",
     background: (
       <AnimatedListDemo className="absolute right-2 top-4 h-[300px] w-full border-none transition-all duration-300 ease-out [mask-image:linear-gradient(to_top,transparent_10%,#000_100%)] group-hover:scale-105" />

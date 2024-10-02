@@ -1,14 +1,6 @@
 "use client"
 
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis
-} from "recharts"
+import { Bar, BarChart, XAxis } from "recharts"
 import {
   ChartConfig,
   ChartContainer,
@@ -18,25 +10,25 @@ import {
   ChartTooltipContent
 } from "../ui/chart"
 
-const readingData = [
-  { month: "Jan", books: 3 },
-  { month: "Feb", books: 2 },
-  { month: "Mar", books: 4 },
-  { month: "Apr", books: 3 },
-  { month: "May", books: 5 },
-  { month: "Jun", books: 4 }
+const data = [
+  { month: "Jan", books_per_months: 3 },
+  { month: "Feb", books_per_months: 2 },
+  { month: "Mar", books_per_months: 4 },
+  { month: "Apr", books_per_months: 3 },
+  { month: "May", books_per_months: 5 },
+  { month: "Jun", books_per_months: 4 }
 ]
 const chartConfig = {
-  books: {
-    label: "books",
+  books_per_months: {
+    label: "books_per_months",
     color: "#2563eb"
   }
 } satisfies ChartConfig
 
-const BarChart1 = () => {
+const BooksPerMonthsGraph = () => {
   return (
     <ChartContainer config={chartConfig} className="">
-      <BarChart accessibilityLayer data={readingData}>
+      <BarChart accessibilityLayer data={data}>
         <XAxis
           dataKey="month"
           tickLine={false}
@@ -46,10 +38,14 @@ const BarChart1 = () => {
         />
         <ChartTooltip content={<ChartTooltipContent />} />
         <ChartLegend content={<ChartLegendContent />} />
-        <Bar dataKey="books" fill="var(--color-books)" radius={4} />
+        <Bar
+          dataKey="books_per_months"
+          fill="var(--color-books_per_months)"
+          radius={4}
+        />
       </BarChart>
     </ChartContainer>
   )
 }
 
-export default BarChart1
+export default BooksPerMonthsGraph

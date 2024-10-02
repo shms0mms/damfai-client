@@ -10,18 +10,18 @@ import {
   ChartTooltipContent
 } from "@/components/ui/chart"
 
-const chartData = [
-  { month: "January", books: 186, pages: 80 },
-  { month: "February", books: 305, pages: 200 },
-  { month: "March", books: 237, pages: 120 },
-  { month: "April", books: 73, pages: 190 },
-  { month: "May", books: 209, pages: 130 },
-  { month: "June", books: 214, pages: 140 }
+const data = [
+  { month: "January", pages_per_week: 186 },
+  { month: "February", pages_per_week: 305 },
+  { month: "March", pages_per_week: 237 },
+  { month: "April", pages_per_week: 73 },
+  { month: "May", pages_per_week: 209 },
+  { month: "June", pages_per_week: 214 }
 ]
 
 const chartConfig = {
-  books: {
-    label: "books",
+  pages_per_week: {
+    label: "pages_per_week",
     color: "#2563eb"
   },
   pages: {
@@ -30,10 +30,10 @@ const chartConfig = {
   }
 } satisfies ChartConfig
 
-export default function BarChart2() {
+export default function PagesPerWeekGraph() {
   return (
-    <ChartContainer config={chartConfig} className="">
-      <BarChart accessibilityLayer data={chartData}>
+    <ChartContainer config={chartConfig}>
+      <BarChart accessibilityLayer data={data}>
         <CartesianGrid vertical={false} />
         <XAxis
           dataKey="month"
@@ -44,7 +44,11 @@ export default function BarChart2() {
         />
         <ChartTooltip content={<ChartTooltipContent />} />
         <ChartLegend content={<ChartLegendContent />} />
-        <Bar dataKey="books" fill="var(--color-books)" radius={4} />
+        <Bar
+          dataKey="pages_per_week"
+          fill="var(--color-pages_per_week)"
+          radius={4}
+        />
         <Bar dataKey="pages" fill="var(--color-pages)" radius={4} />
       </BarChart>
     </ChartContainer>

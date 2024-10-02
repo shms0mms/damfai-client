@@ -1,19 +1,41 @@
 "use client"
 
+import Image from "next/image"
+import { useEffect } from "react"
 import Balance from "react-wrap-balancer"
+import { toast } from "sonner"
 import { siteConfig } from "@/config/site.config"
-import AISlider, { CardSkeletonContainer } from "@/components/blocks/ai-slider"
 import { BentoDemo } from "@/components/blocks/bento"
 import { FeaturesSection } from "@/components/blocks/features-section"
-import Speaking from "@/components/blocks/speaking"
 import { FlipWords } from "@/components/ui/flip-words"
 import { Beam } from "@/components/ui/grid-beam"
-import { MacbookScroll } from "@/components/ui/mackbook-scroll"
+import { LaptopScroll } from "@/components/ui/laptop-scroll"
 import { VelocityScroll } from "@/components/ui/scroll-based-velocity"
 import { SparklesCore } from "@/components/ui/sparkles"
 import SparklesText from "@/components/ui/sparkles-text"
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect"
+import { TypingAnimation } from "@/components/ui/typing-animation"
 
+const words = [
+  {
+    text: "Добро пожаловать"
+  },
+  {
+    text: "в систему"
+  },
+  {
+    text: "damfAI"
+  },
+  {
+    text: "для"
+  },
+  {
+    text: "чтения"
+  },
+  {
+    text: "книг"
+  }
+]
 const sections = [
   {
     id: "1",
@@ -55,7 +77,7 @@ const sections = [
             </span>
           </h2>
         </div>
-        <MacbookScroll src={"/dashboard.png"} />
+        <LaptopScroll src={"/dashboard.jpeg"} />
       </div>
     )
   },
@@ -89,35 +111,48 @@ const sections = [
         <BentoDemo />
       </div>
     )
-  },
-
-  {
-    id: "4",
-    content: (
-      <div className="relative flex h-full w-full items-center justify-center">
-        <div className="flex flex-col items-center gap-3">
-          <CardSkeletonContainer>
-            <AISlider />
-          </CardSkeletonContainer>
-
-          {/* <div className="flex items-center gap-2">
-            <Button size={"lg"} asChild>
-              <Link href={ROUTES.RECOMMEND}>Начать</Link>
-            </Button>
-            <Button size={"lg"} variant={"outline"} asChild>
-              <Link href={ROUTES.SIGN_IN}>Войти</Link>
-            </Button>
-          </div> */}
-        </div>
-      </div>
-    )
   }
+
+  // {
+  //   id: "4",
+  //   content: (
+  //     <div className="relative flex h-full w-full items-center justify-center">
+  //       <div className="flex flex-col items-center gap-3">
+  //         <CardSkeletonContainer>
+  //           <AISlider />
+  //         </CardSkeletonContainer>
+
+  //         {/* <div className="flex items-center gap-2">
+  //           <Button size={"lg"} asChild>
+  //             <Link href={ROUTES.RECOMMEND}>Начать</Link>
+  //           </Button>
+  //           <Button size={"lg"} variant={"outline"} asChild>
+  //             <Link href={ROUTES.SIGN_IN}>Войти</Link>
+  //           </Button>
+  //         </div> */}
+  //       </div>
+  //     </div>
+  //   )
+  // }
 ]
 
 export default function HomePage() {
+  const html = (
+    <div className="flex items-center gap-2">
+      <TypingAnimation
+        className="text-4xl font-bold text-black dark:text-white"
+        text="Добро пожаловать в мир книг damfai с ассистентом Чаппи!"
+      />
+      <Image alt="speaking" width={60} height={60} src={"/speaking.gif"} />
+    </div>
+  )
+  useEffect(() => {
+    toast(html, {
+      position: "top-right"
+    })
+  }, [])
   return (
     <div className="dark:bg-grid-white/[0.02] h-full">
-      <Speaking />
       <div className="overflow-hidden">{sections[0].content}</div>
 
       <div className="">
