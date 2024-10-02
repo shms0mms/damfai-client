@@ -8,7 +8,7 @@ import {
   ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent
-} from "../ui/chart"
+} from "@/components/ui/chart"
 
 const data = [
   { month: "Jan", books_per_months: 3 },

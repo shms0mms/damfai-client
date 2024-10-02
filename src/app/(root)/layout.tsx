@@ -1,6 +1,6 @@
-import { Layout as SiteLayout } from "@/components/layout";
-import { type PropsWithChildren } from "react";
+import { type PropsWithChildren } from "react"
+import { RootLayout } from "@/components/layouts/root"
 
 export default function Layout({ children }: PropsWithChildren) {
-	return <SiteLayout>{children}</SiteLayout>;
+  return <RootLayout>{children}</RootLayout>
 }

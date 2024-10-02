@@ -1,14 +1,14 @@
 import Link from "next/link"
-import { Book } from "@/types/book"
+import type { Book } from "@/types/book"
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious
-} from "../ui/carousel"
-import { Rating } from "../ui/rating"
-import { Separator } from "../ui/separator"
+} from "@/components/ui/carousel"
+import { Rating } from "@/components/ui/rating"
+import { Separator } from "@/components/ui/separator"
 import { env } from "@/env"
 import { cn } from "@/lib/utils"
 

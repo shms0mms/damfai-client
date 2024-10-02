@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { type FC } from "react"
 import { type Book } from "@/types/book"
-import { DirectionAwareHover } from "../ui/direction-aware-hover"
+import { DirectionAwareHover } from "@/components/ui/direction-aware-hover"
 import { env } from "@/env"
 
 type BooksProps = {

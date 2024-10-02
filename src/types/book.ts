@@ -10,5 +10,12 @@ export type Book = {
   ratings: number // float, can be filtered
   ganres: string[]
 }
+export type Chapter = {
+  id: number
+  title: string
+  numberOfChapter: number
+  pages: number
+}
+export type Page = { id: number; numberOfPage: number; text: string }
 
 export type BooksFilters = Record<string, string | RangeValue>

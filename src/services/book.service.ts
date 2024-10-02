@@ -1,18 +1,12 @@
-import type { Book } from "@/types/book"
+import type { Book, Chapter, Page } from "@/types/book"
 import { randomNumber } from "@/lib/utils"
+import type { Pagination } from "@/types"
 
 type GetAllGanresResponse = {
   id: number
   ganre: string
 }[]
 
-type GetAllBooksResponse = {
-  items: Book[]
-  total: number
-  page: number
-  size: number
-  pages: number
-}
 type GetAllBooksOptions = {
   page: number
   size: number
@@ -49,8 +43,7 @@ class BookService {
     //   size: `${options.size}`,
     //   ...options.filters
     // }).toString()
-
-    return new Promise<GetAllBooksResponse>(res =>
+    return new Promise<Pagination<Book>>(res =>
       res({
         items: new Array(options?.size ? options.size : 100)
           .fill(1)
@@ -81,6 +74,40 @@ class BookService {
   }
   async startReading(options: { id: number; dates: [Date, Date] }) {
     return true
+  }
+  async getAllChapters(id: number) {
+    return new Promise<Chapter[]>(res =>
+      res([
+        {
+          id: 1,
+          title: "Chapter 1",
+          numberOfChapter: 1,
+          pages: 10
+        }
+      ])
+    )
+  }
+  async getPagesByChapterId(options: {
+    chapterId: number
+    page: number
+    size: number
+  }) {
+    return new Promise<Pagination<Page>>(res =>
+      res({
+        items: new Array(10).map<Page>((_, i) => ({
+          id: i,
+          numberOfPage: i + 1,
+          text: `
+          LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem 
+          
+          LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem`
+        })),
+        total: 10,
+        page: 1,
+        size: 10,
+        pages: 1
+      })
+    )
   }
 }
 

@@ -2,7 +2,7 @@ import { type FC, type PropsWithChildren } from "react"
 import { Footer } from "./footer"
 import { Header } from "./header"
 
-export const Layout: FC<PropsWithChildren> = ({ children }) => {
+export const RootLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <div className="relative flex h-full flex-col">
       <Header />

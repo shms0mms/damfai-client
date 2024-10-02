@@ -1,6 +1,5 @@
 "use client"
 
-import { type Statistics } from "@/types/statistics"
 import { useStatistics } from "@/hooks/useStatistics"
 import StatisticsItemComponent from "@/components/dashboard/statistics-item"
 import {
@@ -9,7 +8,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle
-} from "../ui/card"
+} from "@/components/ui/card"
 
 export default function Statistics() {
   const { statistics, isLoading } = useStatistics()

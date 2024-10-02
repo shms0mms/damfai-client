@@ -23,9 +23,9 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 exports.__esModule = true;
 exports.buttonVariants = exports.Button = void 0;
-var React = require("react");
 var react_slot_1 = require("@radix-ui/react-slot");
 var class_variance_authority_1 = require("class-variance-authority");
+var React = require("react");
 var utils_1 = require("@/lib/utils");
 var buttonVariants = class_variance_authority_1.cva("inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50", {
     variants: {

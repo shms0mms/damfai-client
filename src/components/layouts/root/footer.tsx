@@ -13,7 +13,7 @@ import {
   AccordionItem,
   AccordionTrigger
 } from "@/components/ui/accordion"
-import ThemeSwitcher from "../ui/theme-switcher"
+import ThemeSwitcher from "@/components/ui/theme-switcher"
 
 interface NavItemLinkProps {
   href: string

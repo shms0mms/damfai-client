@@ -32,7 +32,6 @@ export default function RootLayout({
   children,
   modal
 }: PropsWithChildren<{ modal: React.ReactNode }>) {
-  console.log(modal)
   return (
     <html lang="en">
       <body

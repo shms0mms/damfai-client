@@ -1,27 +1,20 @@
 import {
-  Pagination,
   PaginationContent,
   PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
-  PaginationPrevious
+  PaginationPrevious,
+  Pagination as PaginationRoot
 } from "@/components/ui/pagination"
+import type { Pagination as TPagination } from "@/types"
 
-type BooksPaginationProps = {
-  pagination: {
-    total: number
-    page: number
-    size: number
-    pages: number
-  }
+type PaginationProps = {
+  pagination: TPagination
   searchParams: Record<string, string>
 }
 
-export function BooksPagination({
-  pagination,
-  searchParams
-}: BooksPaginationProps) {
+export function Pagination({ pagination, searchParams }: PaginationProps) {
   const searchParamsAsString = new URLSearchParams(searchParams).toString()
 
   const renderPageNumbers = () => {
@@ -93,7 +86,7 @@ export function BooksPagination({
   }
 
   return (
-    <Pagination>
+    <PaginationRoot>
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
@@ -111,6 +104,6 @@ export function BooksPagination({
           />
         </PaginationItem>
       </PaginationContent>
-    </Pagination>
+    </PaginationRoot>
   )
 }

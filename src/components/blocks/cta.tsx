@@ -1,11 +1,10 @@
-"use client";
+"use client"
 
-import { motion } from "framer-motion";
-import Image from "next/image";
-import Balancer from "react-wrap-balancer";
-import { OssChip } from "../ui/oss-chips";
-import { OssLight } from "../ui/oss-lights";
-import { HeroMainboardStuff } from "../ui/shiny-lights";
+import { motion } from "framer-motion"
+import Image from "next/image"
+import { OssChip } from "@/components/ui/oss-chips"
+import { OssLight } from "@/components/ui/oss-lights"
+import { HeroMainboardStuff } from "@/components/ui/shiny-lights"
 
 export const CTAWithGithub = () => {
   return (
@@ -38,5 +37,5 @@ export const CTAWithGithub = () => {
         </motion.div>
       </div>
     </div>
-  );
-};
+  )
+}

@@ -1,12 +1,12 @@
 "use client"
 
-import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts"
+import { Cell, Pie, PieChart } from "recharts"
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent
-} from "../ui/chart"
+} from "@/components/ui/chart"
 
 const data = [
   { name: "Январь", books_per_year: 5 },

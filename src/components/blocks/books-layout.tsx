@@ -1,7 +1,6 @@
 "use client"
 
-import React from "react"
-import { LayoutGrid } from "../ui/layout-grid"
+import { LayoutGrid } from "@/components/ui/layout-grid"
 
 export function BooksLayout() {
   return (
