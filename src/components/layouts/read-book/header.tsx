@@ -8,7 +8,7 @@ export const Header = () => {
   const navigation = useReadBooksNavigation()
 
   return (
-    <header className="border-b py-2">
+    <header className="sticky left-0 top-0 w-full border-b py-2 backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:bg-muted/25 dark:shadow-secondary">
       <div className="container flex items-center justify-between gap-4">
         <Logo />
         <nav>
