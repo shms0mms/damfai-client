@@ -1,5 +1,5 @@
 import { BackgroundLinesDemo } from "@/components/blocks/background-lines"
-import { Header } from "@/components/layout/header"
+import { Header } from "@/components/layouts/root/header"
 
 export default function AuthLayout({
   children

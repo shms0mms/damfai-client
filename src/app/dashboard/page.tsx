@@ -8,7 +8,7 @@ import MinutesPerWeekGraph from "@/components/dashboard/minutes-per-week-graph"
 import PagesPerWeekGraph from "@/components/dashboard/pages-per-week-graph"
 import Profile from "@/components/dashboard/profile"
 import Statistics from "@/components/dashboard/statistics"
-import { Header } from "@/components/layout/header"
+import { Header } from "@/components/layouts/root/header"
 
 export default function Dashboard() {
   return (
