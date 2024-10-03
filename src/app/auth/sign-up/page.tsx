@@ -264,7 +264,7 @@ export default function AuthForm() {
                           max={8}
                           minStepsBetweenThumbs={0.5}
                           step={0.5}
-                          {...field}
+                          onValueChange={v => field.onChange(v[0])}
                           value={[field.value]}
                         />
                       </FormControl>
