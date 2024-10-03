@@ -83,6 +83,12 @@ class BookService {
           title: "Chapter 1",
           numberOfChapter: 1,
           pages: 10
+        },
+        {
+          id: 2,
+          title: "Chapter 2",
+          numberOfChapter: 2,
+          pages: 5
         }
       ])
     )

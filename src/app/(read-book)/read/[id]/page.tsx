@@ -1,6 +1,7 @@
 "use client"
 
 import { useQuery } from "@tanstack/react-query"
+import { ChapterNavigation } from "@/components/read-book/chapter-navigation"
 import { bookService } from "@/services/book.service"
 import { type Pagination } from "@/types"
 
@@ -24,7 +25,9 @@ export default function ReadBookPage({
     queryFn: async () => {
       const chapters = await bookService.getAllChapters(+params.id)
       const pagesResponse = await bookService.getPagesByChapterId({
-        chapterId: searchParams.chapter ? +searchParams.chapter : 1,
+        chapterId: searchParams.chapter
+          ? +searchParams.chapter
+          : chapters[0].id,
         page: searchParams.page ? +searchParams.page : 1,
         size: 1
       })
@@ -35,4 +38,18 @@ export default function ReadBookPage({
       }
     }
   })
+
+  console.log(data)
+
+  return (
+    <>
+      <ChapterNavigation
+        chapters={data?.chapters}
+        isLoading={isLoading}
+        currentChapterId={
+          searchParams.chapter ? +searchParams.chapter : data?.chapters[0].id!
+        }
+      />
+    </>
+  )
 }
