@@ -1,6 +1,9 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useContext } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
+import { toast } from "sonner"
 import { z } from "zod"
+import { User, UserUpdate } from "@/types/user"
 import { OPTIONS } from "@/config/options.config"
 import { AuthContext } from "@/providers/auth"
 import { Button } from "@/components/ui/button"
@@ -21,6 +24,7 @@ import {
   FormMessage
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { authService } from "@/services/auth.service"
 
 const formSchema = z.object({
   name: z.string({
@@ -44,7 +48,22 @@ type FormSchema = z.infer<typeof formSchema>
 export default function EditProfile() {
   const { user } = useContext(AuthContext)
   const form = useForm<FormSchema>()
-  const onSubmit: SubmitHandler<FormSchema> = data => {}
+  const queryClient = useQueryClient()
+  const { mutate } = useMutation({
+    mutationFn: (data: UserUpdate) => authService.update(data),
+    onSuccess() {
+      toast.success("Профиль успешно обновлен!")
+      queryClient.invalidateQueries({
+        queryKey: ["/user/me"]
+      })
+    },
+    onError(error) {
+      toast.error(error.message)
+    }
+  })
+  const onSubmit: SubmitHandler<FormSchema> = data => {
+    mutate(data)
+  }
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -94,7 +113,7 @@ export default function EditProfile() {
             <FormField
               control={form.control}
               name="surname"
-              defaultValue={user?.name}
+              defaultValue={user?.surname}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Фамилия</FormLabel>

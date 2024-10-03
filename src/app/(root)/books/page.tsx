@@ -7,7 +7,7 @@ export default async function BooksPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <MainTitle>Рекомендации</MainTitle>
+      {/* <MainTitle>Рекомендации</MainTitle> */}
       <BookList books={data.items} />
     </div>
   )

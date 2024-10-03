@@ -1,4 +1,4 @@
-import type { User, UserSignIn, UserSignUp } from "@/types/user"
+import type { User, UserSignIn, UserSignUp, UserUpdate } from "@/types/user"
 import { axiosDefault, axiosWithAuth } from "@/api/interceptors"
 
 type ResponseWithToken = {
@@ -31,6 +31,12 @@ class AuthService {
       data
     )
     return response.data
+  }
+  async update(data: UserUpdate) {
+    return await axiosWithAuth.put<UserUpdate & ResponseWithToken>(
+      `${this.BASE_URL}/update`,
+      data
+    )
   }
 }
 

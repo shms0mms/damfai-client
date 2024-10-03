@@ -49,34 +49,34 @@ class BookService {
       size: `${options.size}`,
       ...options.filters
     }).toString()
-    // return new Promise<Pagination<Book>>(res =>
-    //   res({
-    //     items: new Array(options?.size ? options.size : 100)
-    //       .fill(1)
-    //       .map<Book>((_, i) => ({
-    //         id: i + 1,
-    //         title: `Book ${i + 1}`,
-    //         author: "John Doe",
-    //         writen_date: new Date(),
-    //         chapters: i * 100 + 1,
-    //         desc: `Lorem LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem`,
+    return new Promise<Pagination<Book>>(res =>
+      res({
+        items: new Array(options?.size ? options.size : 100)
+          .fill(1)
+          .map<Book>((_, i) => ({
+            id: i + 1,
+            title: `Book ${i + 1}`,
+            author: "John Doe",
+            writen_date: new Date(),
+            chapters: i * 100 + 1,
+            desc: `Lorem LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem`,
 
-    //         ratings: Math.random() * 5,
+            ratings: Math.random() * 5,
 
-    //         ganres: [mockGanres[randomNumber(0, mockGanres.length - 1)]]
-    //       })),
+            ganres: [mockGanres[randomNumber(0, mockGanres.length - 1)]]
+          })),
 
-    //     total: options?.size ?? 100 * 10,
-    //     page: options?.page ?? 0,
-    //     size: options?.size ?? 10,
-    //     pages: options?.size ?? (100 * 10) / (options?.size ?? 10)
-    //   })
-    // )
-    const response = await axiosDefault.post<Pagination<Book>>(
-      `${this.BASE_URL}?${queryParams}`,
-      [0]
+        total: options?.size ?? 100 * 10,
+        page: options?.page ?? 0,
+        size: options?.size ?? 10,
+        pages: options?.size ?? (100 * 10) / (options?.size ?? 10)
+      })
     )
-    return response.data
+    // const response = await axiosDefault.post<Pagination<Book>>(
+    //   `${this.BASE_URL}?${queryParams}`,
+    //   [0]
+    // )
+    // return response.data
   }
   async startReading(options: { id: number; dates: [Date, Date] }) {
     return true

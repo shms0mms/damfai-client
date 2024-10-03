@@ -1,9 +1,6 @@
 "use client"
 
-import Image from "next/image"
-import { useEffect } from "react"
 import Balance from "react-wrap-balancer"
-import { toast } from "sonner"
 import { siteConfig } from "@/config/site.config"
 import { BentoDemo } from "@/components/blocks/bento"
 import { FeaturesSection } from "@/components/blocks/features-section"
@@ -14,7 +11,6 @@ import { VelocityScroll } from "@/components/ui/scroll-based-velocity"
 import { SparklesCore } from "@/components/ui/sparkles"
 import SparklesText from "@/components/ui/sparkles-text"
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect"
-import { TypingAnimation } from "@/components/ui/typing-animation"
 
 const words = [
   {
@@ -137,20 +133,6 @@ const sections = [
 ]
 
 export default function HomePage() {
-  const html = (
-    <div className="flex items-center gap-2">
-      <TypingAnimation
-        className="text-4xl font-bold text-black dark:text-white"
-        text="Добро пожаловать в мир книг damfai с ассистентом Чаппи!"
-      />
-      <Image alt="speaking" width={60} height={60} src={"/speaking.gif"} />
-    </div>
-  )
-  useEffect(() => {
-    toast(html, {
-      position: "top-right"
-    })
-  }, [])
   return (
     <div className="dark:bg-grid-white/[0.02] h-full">
       <div className="overflow-hidden">{sections[0].content}</div>
