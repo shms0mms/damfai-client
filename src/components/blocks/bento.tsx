@@ -8,26 +8,31 @@ import { Calendar } from "@/components/ui/calendar"
 import Marquee from "@/components/ui/marquee"
 import { cn } from "@/lib/utils"
 
-const files = [
+const books = [
   {
-    name: "bitcoin.pdf",
-    body: "Bitcoin is a cryptocurrency invented in 2008 by an unknown person or group of people using the name Satoshi Nakamoto."
+    author: "Достоевский",
+    title: "Идиот",
+    body: "Это история о несчастном князе Мышкине, который всегда был «белой вороной», выделялся на фоне своего окружения красотой души и мягкостью, за что и был прозван идиотом."
   },
   {
-    name: "finances.xlsx",
-    body: "A spreadsheet or worksheet is a file made of rows and columns that help sort data, arrange data easily, and calculate numerical data."
+    author: "Джордж Оруэлл",
+    title: "1984",
+    body: "Культовый роман Джорджа Оруэлла, действие которого разворачивается в тоталитарном, бюрократическом государстве, где процветает пропаганда и цензура, а тотальная слежка ведется круглосуточно, и где один человек решил побороться за право быть индивидуальной личностью."
   },
   {
-    name: "logo.svg",
-    body: "Scalable Vector Graphics is an Extensible Markup Language-based vector image format for two-dimensional graphics with support for interactivity and animation."
+    author: "Ф. С. Фицджеральд",
+    title: "Великий Гэтсби",
+    body: "Смесь любовной драмы и детектива с фешенебельными районами Нью‑Йорка в качестве декораций. Главный герой и рассказчик Ник Каррауэй перебирается на Средний Запад."
   },
   {
-    name: "keys.gpg",
-    body: "GPG keys are used to encrypt and decrypt email, files, directories, and whole disk partitions and to authenticate messages."
+    author: "Рэй Брэдбери",
+    title: "451° по Фаренгейту",
+    body: "Научно-фантастический роман-антиутопия Рэя Брэдбери, изданный в 1953 году. Роман описывает американское общество близкого будущего, в котором книги находятся под запретом; «пожарные», к числу которых принадлежит и главный герой Гай Монтэг, сжигают любые найденные книги."
   },
   {
-    name: "seed.txt",
-    body: "A seed phrase, seed recovery phrase or backup seed phrase is a list of words which store all the information needed to recover Bitcoin funds on-chain."
+    author: "Маргарет Митчелл",
+    title: "Унесенные ветром",
+    body: "История о молодой южанке, дочери состоятельного владельца плантаций в Джорджии, чья беззаботная юность прекращается с началом Гражданской войны. В один миг девушке пришлось повзрослеть: мать умерла, отец болен, а родное поместье разграбили янки."
   }
 ]
 
@@ -45,11 +50,11 @@ const features = [
         pauseOnHover
         className="absolute top-10 [--duration:20s] [mask-image:linear-gradient(to_top,transparent_40%,#000_100%)]"
       >
-        {files.map((f, idx) => (
+        {books.map((book, idx) => (
           <figure
             key={idx}
             className={cn(
-              "relative w-32 cursor-pointer overflow-hidden rounded-xl border p-4",
+              "relative w-44 cursor-pointer overflow-hidden rounded-xl border p-4",
               "border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05]",
               "dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]",
               "transform-gpu blur-[1px] transition-all duration-300 ease-out hover:blur-none"
@@ -58,11 +63,14 @@ const features = [
             <div className="flex flex-row items-center gap-2">
               <div className="flex flex-col">
                 <figcaption className="text-sm font-medium dark:text-white">
-                  {f.name}
+                  {book.title}
+                </figcaption>
+                <figcaption className="font-norml text-xs dark:text-white">
+                  {book.author}
                 </figcaption>
               </div>
             </div>
-            <blockquote className="mt-2 text-xs">{f.body}</blockquote>
+            <blockquote className="mt-2 text-xs">{book.body}</blockquote>
           </figure>
         ))}
       </Marquee>
@@ -90,7 +98,7 @@ const features = [
   },
   {
     Icon: CalendarIcon,
-    name: "Каледнарь",
+    name: "Календарь",
     description: "Используйте календарь чтобы поставить цель чтения книги.",
     className: "col-span-3 lg:col-span-1",
     href: ROUTES.DASHBOARD,
