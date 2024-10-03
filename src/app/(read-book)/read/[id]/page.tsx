@@ -57,7 +57,6 @@ export default function ReadBookPage({
           searchParams.chapter ? +searchParams.chapter : data?.chapters[0].id!
         }
       />
-
       {data && !isLoading ? (
         <div className="container px-4 py-2 font-sans text-[1.075rem]">
           <h1>{data.title}</h1>
