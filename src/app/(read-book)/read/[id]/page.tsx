@@ -50,15 +50,15 @@ export default function ReadBookPage({
 
   return (
     <>
-      <ChapterNavigation
+      {/* <ChapterNavigation
         chapters={data?.chapters}
         isLoading={isLoading}
         currentChapterId={
           searchParams.chapter ? +searchParams.chapter : data?.chapters[0].id!
         }
-      />
+      /> */}
       {data && !isLoading ? (
-        <div className="container px-4 py-2 font-sans text-[1.075rem]">
+        <div className="mx-auto max-w-5xl px-4 py-2 font-sans text-[1.075rem]">
           <h1>{data.title}</h1>
           <p>{data.author}</p>
           <h3 className="font-bold">{currentChapter?.title}</h3>
