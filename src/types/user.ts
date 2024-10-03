@@ -20,3 +20,10 @@ export type UserSignUp = {
   /** !!! In hours !!! */
   readingTime: number
 }
+
+export type UserUpdate = {
+  name?: string
+  surname?: string
+  email?: string
+  password?: string
+}
