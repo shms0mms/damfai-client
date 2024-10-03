@@ -31,7 +31,6 @@ export default function ReadBookPage({
         page: searchParams.page ? +searchParams.page : 1,
         size: 1
       })
-      console.log(pagesResponse)
       return {
         title: chaptersResponse.title,
         author: chaptersResponse.author,
@@ -63,13 +62,32 @@ export default function ReadBookPage({
           <h1>{data.title}</h1>
           <p>{data.author}</p>
           <h3 className="font-bold">{currentChapter?.title}</h3>
-          <p
-            dangerouslySetInnerHTML={{
-              __html: data.page.text.replaceAll("\n", "<br />")
-            }}
-          />
+
+          <p className="selection">asdfa</p>
+          {data.page.text.split("\n").map(paragraph => (
+            <>
+              <br />
+              <p>{paragraph}</p>
+              {/* <SelectionMenu> */}
+              {/* <SelectionMenuTrigger>{paragraph}</SelectionMenuTrigger> */}
+              {/* <SelectionMenuContent>
+                  <SelectionMenuItem onSelect={a => console.log(true)}>
+                    asdasd
+                  </SelectionMenuItem>
+                </SelectionMenuContent> */}
+              {/* </SelectionMenu> */}
+            </>
+          ))}
         </div>
       ) : null}
     </>
   )
+}
+
+{
+  /* <p
+  dangerouslySetInnerHTML={{
+    __html: data.page.text.replaceAll("\n", "<br />")
+  }}
+/> */
 }

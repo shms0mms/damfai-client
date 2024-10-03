@@ -1,5 +1,5 @@
 import type { Book, Chapter, Page } from "@/types/book"
-import { axiosDefault } from "@/api/interceptors"
+import { books } from "@/components/blocks/bento"
 import { randomNumber } from "@/lib/utils"
 import type { Pagination } from "@/types"
 
@@ -19,7 +19,22 @@ type GetAllChaptersResponse = {
   chapters: Chapter[]
 }
 
-const mockGanres = ["Фэнтези", "Романтика", "Психологическое"]
+const mockGanres = [
+  "Фэнтези",
+  "Романтика",
+  "Психологическое",
+  "Вам может понравиться",
+  "Затягивает с первой главы",
+  "Суперхиты",
+  "Комиксы"
+]
+const mockBookImages = [
+  "https://api.bookmate.ru/assets/books-covers/cf/22/Bg3mdZVe-ipad.jpeg",
+  "https://api.bookmate.ru/assets/books-covers/fc/3b/dlAQzzzK-ipad.jpeg",
+  "https://api.bookmate.ru/assets/books-covers/41/d1/ApOv8ISe-ipad.jpeg",
+  "https://api.bookmate.ru/assets/books-covers/2c/57/kE83yj2S-ipad.jpeg",
+  "https://api.bookmate.ru/assets/books-covers/99/03/cfhkKhXr-ipad.jpeg"
+]
 
 class BookService {
   private BASE_URL = "/books"
@@ -37,9 +52,10 @@ class BookService {
         desc: "Lorem LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem",
         writen_date: new Date(),
         ratings: Math.random() * 5,
-        ganres: [mockGanres[randomNumber(0, mockGanres.length - 1)]],
+        ganres: [mockGanres[randomNumber(0, mockGanres.length - 1)]!],
         author: "Иван Иванов",
-        chapters: randomNumber(10, 100)
+        chapters: randomNumber(10, 100),
+        image: mockBookImages[randomNumber(0, mockBookImages.length - 1)]
       })
     )
   }
@@ -52,18 +68,17 @@ class BookService {
     return new Promise<Pagination<Book>>(res =>
       res({
         items: new Array(options?.size ? options.size : 100)
-          .fill(1)
+          .fill(null)
           .map<Book>((_, i) => ({
             id: i + 1,
-            title: `Book ${i + 1}`,
-            author: "John Doe",
+            title: books[randomNumber(0, books.length - 1)!]!.title,
+            author: books[randomNumber(0, books.length - 1)!]!.author,
             writen_date: new Date(),
             chapters: i * 100 + 1,
-            desc: `Lorem LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem`,
-
+            desc: books[randomNumber(0, books.length - 1)!]!.body,
             ratings: Math.random() * 5,
-
-            ganres: [mockGanres[randomNumber(0, mockGanres.length - 1)]]
+            ganres: [mockGanres[randomNumber(0, mockGanres.length - 1)]!],
+            image: mockBookImages[randomNumber(0, mockBookImages.length - 1)]
           })),
 
         total: options?.size ?? 100 * 10,

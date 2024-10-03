@@ -1,9 +1,8 @@
 import { BookList } from "@/components/books"
-import { MainTitle } from "@/components/ui/main-title"
 import { bookService } from "@/services/book.service"
 
 export default async function BooksPage() {
-  const data = await bookService.getAll({ page: 1, size: 10 })
+  const data = await bookService.getAll({ page: 1, size: 100 })
 
   return (
     <div className="container mx-auto px-4 py-8">
