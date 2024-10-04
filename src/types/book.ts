@@ -10,6 +10,7 @@ export type Book = {
   chapters: number
   ratings: number // float, can be filtered
   ganres: string[]
+  progress: number
 }
 export type Chapter = {
   id: number
@@ -17,6 +18,12 @@ export type Chapter = {
   numberOfChapter: number
   pages: number
 }
+
+export interface BookComponent extends Book {
+  icon: React.ReactNode
+  isLoading?: boolean
+}
+
 export type Page = { id: number; numberOfPage: number; text: string }
 
 export type BooksFilters = Record<string, string | RangeValue>

@@ -1,8 +1,8 @@
 "use client"
 
-import Books from "@/components/dashboard/books"
 import BooksPerMonthsGraph from "@/components/dashboard/books-per-months-graph"
 import BooksPerYearGraph from "@/components/dashboard/books-per-year-graph"
+import Books from "@/components/dashboard/books/books"
 import ChartWrapper from "@/components/dashboard/chart-wrapper"
 import MinutesPerWeekGraph from "@/components/dashboard/minutes-per-week-graph"
 import PagesPerWeekGraph from "@/components/dashboard/pages-per-week-graph"
