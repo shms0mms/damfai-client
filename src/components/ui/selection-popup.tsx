@@ -11,19 +11,19 @@ import {
   TooltipTrigger
 } from "@/components/ui/tooltip"
 
-interface SelectionPopupProps {
+interface SelectionMenuProps {
   onCopy?: (text: string) => void
   onShare?: (text: string) => void
   onSpeak?: (text: string) => void
 }
 
-export default function SelectionPopup({
+export default function SelectionMenu({
   onCopy,
   onShare,
   onSpeak
-}: SelectionPopupProps) {
+}: SelectionMenuProps) {
   const [selectedText, setSelectedText] = useState("")
-  const [popupPosition, setPopupPosition] = useState({ x: 0, y: 0 })
+  const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 })
   const [isVisible, setIsVisible] = useState(false)
 
   const handleSelection = useCallback(() => {
@@ -32,7 +32,7 @@ export default function SelectionPopup({
       const range = selection.getRangeAt(0)
       const rect = range.getBoundingClientRect()
       setSelectedText(selection.toString().trim())
-      setPopupPosition({
+      setMenuPosition({
         x: rect.left + rect.width / 2,
         y: rect.top - 10
       })
@@ -76,8 +76,8 @@ export default function SelectionPopup({
             exit={{ opacity: 0, y: 10 }}
             style={{
               position: "fixed",
-              left: popupPosition.x,
-              top: popupPosition.y,
+              left: menuPosition.x,
+              top: menuPosition.y,
               transform: "translate(-50%, -100%)",
               zIndex: 1000
             }}
