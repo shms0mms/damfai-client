@@ -1,7 +1,6 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import React from "react"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { Button } from "@/components/ui/button"
@@ -15,6 +14,7 @@ import {
   FormMessage
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { cn } from "@/lib/utils"
 
 // Определение схемы валидации
 const purposeSchema = z
@@ -36,13 +36,15 @@ interface PurposeProps {
   onSubmit?: (data: PurposeFormData) => void
   initialMinDays?: number
   initialMaxDays?: number
+  className?: string
 }
 
 export default function Purpose({
   type,
   onSubmit,
   initialMinDays = 1,
-  initialMaxDays = 7
+  initialMaxDays = 7,
+  className
 }: PurposeProps) {
   const form = useForm<PurposeFormData>({
     resolver: zodResolver(purposeSchema),
@@ -58,7 +60,10 @@ export default function Purpose({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
+      <form
+        onSubmit={form.handleSubmit(handleSubmit)}
+        className={cn("space-y-4", className)}
+      >
         <div className="flex space-x-4">
           <FormField
             control={form.control}
@@ -70,7 +75,7 @@ export default function Purpose({
                   <Input
                     type="number"
                     {...field}
-                    onChange={e => field.onChange(Number(e.target.value))}
+                    onChange={e => field.onChange(+e.target.value)}
                     min={1}
                   />
                 </FormControl>
