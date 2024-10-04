@@ -1,7 +1,6 @@
 "use client"
 
 import { useQuery } from "@tanstack/react-query"
-import { ChapterNavigation } from "@/components/read-book/chapter-navigation"
 import { bookService } from "@/services/book.service"
 import { type Pagination } from "@/types"
 
@@ -61,9 +60,7 @@ export default function ReadBookPage({
           <h1>{data.title}</h1>
           <p>{data.author}</p>
           <h3 className="font-bold">{currentChapter?.title}</h3>
-
-          <p className="selection">asdfa</p>
-          {data.page.text.split("\n").map(paragraph => (
+          {data.page?.text.split("\n").map(paragraph => (
             <>
               <br />
               <p>{paragraph}</p>

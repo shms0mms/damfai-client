@@ -93,6 +93,23 @@ class BookService {
     // )
     // return response.data
   }
+  async getUserBooks() {
+    return new Promise<Book[]>(res =>
+      res(
+        new Array(10).fill(null).map((_, i) => ({
+          id: i + 1,
+          title: books[randomNumber(0, books.length - 1)!]!.title,
+          author: books[randomNumber(0, books.length - 1)!]!.author,
+          writen_date: new Date(),
+          chapters: randomNumber(0, 500),
+          desc: books[randomNumber(0, books.length - 1)!]!.body,
+          ratings: Math.random() * 5,
+          ganres: [mockGanres[randomNumber(0, mockGanres.length - 1)]!],
+          image: mockBookImages[randomNumber(0, mockBookImages.length - 1)]
+        }))
+      )
+    )
+  }
   async startReading(options: { id: number; dates: [Date, Date] }) {
     return true
   }

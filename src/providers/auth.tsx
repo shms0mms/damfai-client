@@ -25,12 +25,9 @@ export default function AuthProvider({
     accessToken && refetch()
   }, [accessToken])
   useEffect(() => {
-    if (status === 426) {
-      setUser(undefined)
-    } else {
-      // @ts-expect-error asd
-      setUser(data)
-    }
+    if (status === 426) setUser(undefined)
+    // @ts-expect-error asd
+    else setUser(data)
   }, [status, data])
   const value = { setUser, user, isLoading } as AuthContext
 
