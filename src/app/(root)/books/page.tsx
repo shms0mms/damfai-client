@@ -9,7 +9,9 @@ export default async function BooksPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       {/* <MainTitle>Рекомендации</MainTitle> */}
-      <UserBookList className="mb-12" books={userBooks} />
+      {userBooks?.length ? (
+        <UserBookList className="mb-12 md:mb-20" books={userBooks} />
+      ) : null}
       <BookList books={data.items} />
     </div>
   )

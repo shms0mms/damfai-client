@@ -50,7 +50,7 @@ export const UserBookList: FC<UserBookList> = ({ className, books }) => {
                     {book.title}
                   </h3>
                   <div className="flex justify-between">
-                    <p className="text-gray-600">{book.author}</p>
+                    <p className="text-foreground/75">{book.author}</p>
                   </div>
                 </div>
                 <UserBookProgress value={randomNumber(0, 100)} />
