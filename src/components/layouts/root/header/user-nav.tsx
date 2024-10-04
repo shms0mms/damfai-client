@@ -3,7 +3,6 @@
 import { LogOut, UserIcon } from "lucide-react"
 import Link from "next/link"
 import { useContext } from "react"
-import { logout } from "@/utils/auth"
 import { ROUTES } from "@/config/route.config"
 import { AuthContext } from "@/providers/auth"
 import { ThemeToggle } from "@/components/theme-toggle"
@@ -25,6 +24,7 @@ import {
   TooltipProvider,
   TooltipTrigger
 } from "@/components/ui/tooltip"
+import { logout } from "@/lib/auth"
 import { cn } from "@/lib/utils"
 
 export const UserNav = () => {

@@ -1,6 +1,6 @@
 import { BookmarkIcon } from "@radix-ui/react-icons"
 import React, { type FC } from "react"
-import { Chappi } from "@/components/read-book/chappi"
+import { Menu } from "@/components/read-book/menu"
 import { ThemeToggle } from "@/components/theme-toggle"
 
 type ReadBookNavItem = {
@@ -13,10 +13,10 @@ type ReadBookNavItem = {
 )
 
 export const useReadBooksNavigation = (): ReadBookNavItem[] => [
-  {
-    id: "chappi",
-    component: Chappi
-  },
+  // {
+  //   id: "chappi",
+  //   component: Chappi
+  // },
   {
     id: "book-mark",
     action: () => {},
@@ -25,5 +25,9 @@ export const useReadBooksNavigation = (): ReadBookNavItem[] => [
   {
     id: "theme",
     component: ThemeToggle
+  },
+  {
+    id: "menu",
+    component: Menu
   }
 ]

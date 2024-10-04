@@ -37,5 +37,41 @@ export const Icons = {
         fill="#FFF"
       />
     </svg>
+  ),
+  arrowDown: (props: {}) => (
+    <svg
+      width={20}
+      height={24}
+      viewBox="0 0 30 30"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M12 4L12 20M12 20L5 13M12 20L19 13"
+        stroke={"currentColor"}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <animate
+          attributeName="stroke-dasharray"
+          from="1 30"
+          to="30 30"
+          dur="1s"
+          begin="1s"
+          fill="freeze"
+          repeatCount="indefinite"
+        />
+        <animate
+          attributeName="stroke-dashoffset"
+          from="30"
+          to="0"
+          dur="1s"
+          begin="1s"
+          fill="freeze"
+          repeatCount="indefinite"
+        />
+      </path>
+    </svg>
   )
 }

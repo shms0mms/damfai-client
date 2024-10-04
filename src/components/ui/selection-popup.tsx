@@ -1,7 +1,7 @@
 "use client"
 
 import { AnimatePresence, motion } from "framer-motion"
-import { Copy, Share, Volume } from "lucide-react"
+import { Hammer, MessageCircleQuestion, Mic } from "lucide-react"
 import React, { useCallback, useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import {
@@ -12,14 +12,14 @@ import {
 } from "@/components/ui/tooltip"
 
 interface SelectionMenuProps {
-  onCopy?: (text: string) => void
-  onShare?: (text: string) => void
+  onZip?: (text: string) => void
+  onAsk?: (text: string) => void
   onSpeak?: (text: string) => void
 }
 
 export default function SelectionMenu({
-  onCopy,
-  onShare,
+  onZip,
+  onAsk,
   onSpeak
 }: SelectionMenuProps) {
   const [selectedText, setSelectedText] = useState("")
@@ -33,7 +33,7 @@ export default function SelectionMenu({
       const rect = range.getBoundingClientRect()
       setSelectedText(selection.toString().trim())
       setMenuPosition({
-        x: rect.left + rect.width / 2,
+        x: rect.left + rect.width,
         y: rect.top - 10
       })
       setIsVisible(true)
@@ -51,12 +51,12 @@ export default function SelectionMenu({
 
   const handleCopy = () => {
     navigator.clipboard.writeText(selectedText)
-    onCopy && onCopy(selectedText)
+    onZip && onZip(selectedText)
     setIsVisible(false)
   }
 
   const handleShare = () => {
-    onShare && onShare(selectedText)
+    onAsk && onAsk(selectedText)
     setIsVisible(false)
   }
 
@@ -86,31 +86,31 @@ export default function SelectionMenu({
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button variant="ghost" size="icon" onClick={handleCopy}>
-                  <Copy className="h-4 w-4" />
-                  <span className="sr-only">Копировать</span>
+                  <Hammer />
+                  <span className="sr-only">Сжать</span>
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Копировать</p>
+                <p>Сжать</p>
               </TooltipContent>
             </Tooltip>
 
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button variant="ghost" size="icon" onClick={handleShare}>
-                  <Share className="h-4 w-4" />
-                  <span className="sr-only">Поделиться</span>
+                  <MessageCircleQuestion />
+                  <span className="sr-only">Спросить</span>
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Поделиться</p>
+                <p>Спросить</p>
               </TooltipContent>
             </Tooltip>
 
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button variant="ghost" size="icon" onClick={handleSpeak}>
-                  <Volume className="h-4 w-4" />
+                  <Mic />
                   <span className="sr-only">Озвучить</span>
                 </Button>
               </TooltipTrigger>

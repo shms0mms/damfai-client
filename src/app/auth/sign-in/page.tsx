@@ -9,7 +9,6 @@ import { SubmitHandler, useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
 import { UserSignIn } from "@/types/user"
-import { saveAccessToken } from "@/utils/auth"
 import { OPTIONS } from "@/config/options.config"
 import { ROUTES } from "@/config/route.config"
 import { Button } from "@/components/ui/button"
@@ -22,6 +21,7 @@ import {
   FormMessage
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { saveAccessToken } from "@/lib/auth"
 import { authService } from "@/services/auth.service"
 
 const formSchema = z.object({

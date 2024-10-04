@@ -1,26 +1,14 @@
 "use client"
 
 import { type DialogProps } from "@radix-ui/react-dialog"
-import { MoonIcon, SunIcon } from "lucide-react"
-import { useTheme } from "next-themes"
-import { useRouter } from "next/navigation"
-import { useCallback, useEffect, useState } from "react"
+import { motion } from "framer-motion"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
-import {
-  CommandDialog,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator
-} from "@/components/ui/command"
-import { cn } from "@/lib/utils"
+import LogoCircle from "../ui/logo-circle"
+import ChappiChat from "./chappi-chat"
 
 export function Chappi({ ...props }: DialogProps) {
-  const router = useRouter()
   const [open, setOpen] = useState(false)
-  const { setTheme } = useTheme()
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -43,44 +31,30 @@ export function Chappi({ ...props }: DialogProps) {
     return () => document.removeEventListener("keydown", down)
   }, [])
 
-  const runCommand = useCallback((command: () => unknown) => {
-    setOpen(false)
-    command()
-  }, [])
-
   return (
-    <>
-      <Button
-        variant="outline"
-        className={cn(
-          "relative h-8 w-full justify-start rounded-[0.5rem] bg-muted/50 text-sm font-normal text-muted-foreground shadow-none sm:pr-12 md:w-40 lg:w-64"
-        )}
-        onClick={() => setOpen(true)}
-        {...props}
-      >
-        <span className="hidden lg:inline-flex">Спросить чаппи...</span>
-        <span className="inline-flex lg:hidden">Спросить...</span>
-        <kbd className="pointer-events-none absolute right-[0.3rem] top-1/2 hidden -translate-y-1/2 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-xs font-medium opacity-100 sm:flex">
-          <span className="py-0.5">⌘</span>K
-        </kbd>
-      </Button>
-      <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder="Напиши команду или спроси что нибудь по тексту..." />
-        <CommandList>
-          <CommandEmpty>Не найдено.</CommandEmpty>
-          <CommandSeparator />
-          <CommandGroup heading="Цветовая тема">
-            <CommandItem onSelect={() => runCommand(() => setTheme("light"))}>
-              <SunIcon className="mr-2 h-4 w-4" />
-              Светлая
-            </CommandItem>
-            <CommandItem onSelect={() => runCommand(() => setTheme("dark"))}>
-              <MoonIcon className="mr-2 h-4 w-4" />
-              Темная
-            </CommandItem>
-          </CommandGroup>
-        </CommandList>
-      </CommandDialog>
-    </>
+    <div className="fixed bottom-6 right-6 max-2xl:static">
+      <div className="flex flex-col items-end gap-4">
+        {" "}
+        <motion.div
+          initial={{ opacity: 0, scale: 0, pointerEvents: "none" }}
+          transition={{
+            duration: 0.2
+          }}
+          className="origin-bottom-right overflow-hidden rounded-md"
+          animate={open ? { opacity: 1, scale: 1, pointerEvents: "auto" } : {}}
+        >
+          <ChappiChat />
+        </motion.div>
+        <Button
+          size="icon"
+          className="h-14 w-14 rounded-[50%]"
+          variant="outline"
+          onClick={() => setOpen(!open)}
+          asChild
+        >
+          <LogoCircle size={46} />
+        </Button>
+      </div>
+    </div>
   )
 }

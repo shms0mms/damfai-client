@@ -1,7 +1,8 @@
 "use client"
 
 import { useQuery } from "@tanstack/react-query"
-import { ChapterNavigation } from "@/components/read-book/chapter-navigation"
+import SelectionMenu from "@/components/ui/selection-popup"
+import TextReveal from "@/components/ui/text-reveal"
 import { bookService } from "@/services/book.service"
 import { type Pagination } from "@/types"
 
@@ -58,15 +59,21 @@ export default function ReadBookPage({
         }
       /> */}
       {data && !isLoading ? (
-        <div className="mx-auto max-w-5xl px-4 py-2 font-sans text-[1.075rem]">
-          <h1>{data.title}</h1>
-          <p>{data.author}</p>
-          <h3 className="font-bold">{currentChapter?.title}</h3>
-          <p
-            dangerouslySetInnerHTML={{
-              __html: data.page.text.replaceAll("\n", "<br />")
-            }}
-          />
+        <div className="mx-auto flex max-w-5xl flex-col gap-5 px-4 py-2 font-sans text-[1.075rem]">
+          <div className="flex flex-col gap-1">
+            <h2 className="text-xl">{data.title}</h2>
+            <p>{data.author}</p>
+          </div>
+          <h1 className="text-center font-bold">{currentChapter?.title}</h1>
+          <div className="relative pb-[100px]">
+            <p
+              dangerouslySetInnerHTML={{
+                __html: data.page.text.replaceAll("\n", "<br />")
+              }}
+            />
+
+            <SelectionMenu />
+          </div>
         </div>
       ) : null}
     </>
