@@ -2,8 +2,8 @@
 
 import React, { createContext, useEffect, useState } from "react"
 import { User } from "@/types/user"
-import { getAccessToken } from "@/utils/auth"
 import useProfile from "@/hooks/useProfile"
+import { getAccessToken } from "@/lib/auth"
 
 type AuthContext = {
   user?: User

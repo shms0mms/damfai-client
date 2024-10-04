@@ -13,7 +13,6 @@ import { SubmitHandler, useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
 import { UserSignUp } from "@/types/user"
-import { saveAccessToken } from "@/utils/auth"
 import { OPTIONS } from "@/config/options.config"
 import { ROUTES } from "@/config/route.config"
 import { Button } from "@/components/ui/button"
@@ -33,6 +32,7 @@ import {
   PopoverTrigger
 } from "@/components/ui/popover"
 import { Slider } from "@/components/ui/slider"
+import { saveAccessToken } from "@/lib/auth"
 import { cn } from "@/lib/utils"
 import { authService } from "@/services/auth.service"
 

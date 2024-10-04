@@ -1,5 +1,5 @@
 import { CardDescription, CardTitle } from "@/components/blocks/ai-slider"
-import { BookForm } from "@/components/books/book-form"
+import Purpose from "@/components/read-book/purpose"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Rating } from "@/components/ui/rating"
 import { env } from "@/env"
@@ -43,7 +43,8 @@ export default async function BookPage({ params }: BookPageProps) {
           />
         </CardHeader>
         <CardContent className="pl-5">
-          <BookForm book={book} className="mt-auto" />
+          {/* <BookForm book={book} className="mt-auto" /> */}
+          <Purpose type="set" />
         </CardContent>
       </div>
       <BookImage className="hidden md:block" />
