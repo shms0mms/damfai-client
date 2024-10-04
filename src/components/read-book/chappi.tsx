@@ -40,7 +40,7 @@ export function Chappi({ ...props }: DialogProps) {
           transition={{
             duration: 0.2
           }}
-          className="origin-bottom-right overflow-hidden rounded-md"
+          className="origin-bottom-right"
           animate={open ? { opacity: 1, scale: 1, pointerEvents: "auto" } : {}}
         >
           <ChappiChat />

@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion"
 import { Send } from "lucide-react"
+import Image from "next/image"
 import React, { useEffect, useRef, useState } from "react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
@@ -85,20 +86,22 @@ export default function ChappiChat() {
   }, [messages])
 
   return (
-    <div className="flex h-96 w-80 flex-col rounded-lg border border-gray-200 shadow-lg">
-      <div className="flex items-center space-x-3 bg-primary p-4 text-primary-foreground">
-        <div className="flex items-center justify-center rounded-full p-1">
-          <Avatar className="">
-            <AvatarImage src="/chappi-white.png" alt="chappi" />
-            <AvatarFallback>SP</AvatarFallback>
-          </Avatar>
+    <div className="flex h-96 w-80 flex-col rounded-lg shadow-lg dark:shadow-none">
+      <div className="flex items-center space-x-3 bg-black p-4">
+        <div className="">
+          <Image
+            src={"/chappi-white.png"}
+            alt="chappi"
+            width={40}
+            height={40}
+          />
         </div>
-        <div>
+        <div className="text-white">
           <h2 className="font-semibold">Чаппи</h2>
           <p className="text-sm opacity-75">Всегда онлайн</p>
         </div>
       </div>
-      <ScrollArea className="flex-grow p-4" ref={scrollAreaRef}>
+      <ScrollArea className="flex-grow bg-white p-4" ref={scrollAreaRef}>
         {messages.map(message => (
           <div
             key={message.id}
@@ -125,7 +128,7 @@ export default function ChappiChat() {
           </div>
         )}
       </ScrollArea>
-      <div className="flex space-x-2 border-t border-gray-200 p-4">
+      <div className="flex space-x-2 border-t border-gray-200 bg-white p-4">
         <Input
           type="text"
           placeholder="Введите сообщение..."
