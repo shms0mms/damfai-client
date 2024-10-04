@@ -66,7 +66,6 @@ export default function ChappiChat() {
       setInputMessage("")
       setIsTyping(true)
 
-      // Симуляция ответа поддержки
       setTimeout(() => {
         const supportMessage: Message = {
           id: Date.now(),

@@ -33,7 +33,7 @@ type PurposeFormData = z.infer<typeof purposeSchema>
 
 interface PurposeProps {
   type: "set" | "edit"
-  onSubmit: (data: PurposeFormData) => void
+  onSubmit?: (data: PurposeFormData) => void
   initialMinDays?: number
   initialMaxDays?: number
 }
@@ -53,7 +53,7 @@ export default function Purpose({
   })
 
   const handleSubmit = (data: PurposeFormData) => {
-    onSubmit(data)
+    onSubmit?.(data)
   }
 
   return (
