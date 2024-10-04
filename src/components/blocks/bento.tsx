@@ -8,7 +8,7 @@ import { Calendar } from "@/components/ui/calendar"
 import Marquee from "@/components/ui/marquee"
 import { cn } from "@/lib/utils"
 
-const books = [
+export const books = [
   {
     author: "Достоевский",
     title: "Идиот",

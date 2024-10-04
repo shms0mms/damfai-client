@@ -13,10 +13,14 @@ export default async function BookPage({ params }: BookPageProps) {
 
   const BookImage = ({ className }: { className?: string }) => (
     <img
-      src={`${env.NEXT_PUBLIC_SERVER_URL}/books/img/${book.id}`}
+      src={
+        book.image
+          ? book.image
+          : `${env.NEXT_PUBLIC_SERVER_URL}/books/img/${book.id}`
+      }
       // src="https://cdn.respublica.ru/uploads/01/00/00/i6/2x/197509fcc8ae563e.jpg?1685001108"
       alt={book.title}
-      className={cn("block overflow-hidden rounded-lg", className)}
+      className={cn("overflow-hidden rounded-lg", className)}
     />
   )
   return (

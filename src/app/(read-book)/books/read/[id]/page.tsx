@@ -1,8 +1,11 @@
 "use client"
 
 import { useQuery } from "@tanstack/react-query"
+<<<<<<< HEAD
 import SelectionMenu from "@/components/ui/selection-popup"
 import TextReveal from "@/components/ui/text-reveal"
+=======
+>>>>>>> 785851ba19ccc7cf5ef343e749e0bcc8df974f90
 import { bookService } from "@/services/book.service"
 import { type Pagination } from "@/types"
 
@@ -32,7 +35,6 @@ export default function ReadBookPage({
         page: searchParams.page ? +searchParams.page : 1,
         size: 1
       })
-      console.log(pagesResponse)
       return {
         title: chaptersResponse.title,
         author: chaptersResponse.author,
@@ -59,6 +61,7 @@ export default function ReadBookPage({
         }
       /> */}
       {data && !isLoading ? (
+<<<<<<< HEAD
         <div className="mx-auto flex max-w-5xl flex-col gap-5 px-4 py-2 font-sans text-[1.075rem]">
           <div className="flex flex-col gap-1">
             <h2 className="text-xl">{data.title}</h2>
@@ -74,8 +77,36 @@ export default function ReadBookPage({
 
             <SelectionMenu />
           </div>
+=======
+        <div className="mx-auto max-w-5xl px-4 py-2 font-sans text-[1.075rem]">
+          <h1>{data.title}</h1>
+          <p>{data.author}</p>
+          <h3 className="font-bold">{currentChapter?.title}</h3>
+          {data.page?.text.split("\n").map(paragraph => (
+            <>
+              <br />
+              <p>{paragraph}</p>
+              {/* <SelectionMenu> */}
+              {/* <SelectionMenuTrigger>{paragraph}</SelectionMenuTrigger> */}
+              {/* <SelectionMenuContent>
+                  <SelectionMenuItem onSelect={a => console.log(true)}>
+                    asdasd
+                  </SelectionMenuItem>
+                </SelectionMenuContent> */}
+              {/* </SelectionMenu> */}
+            </>
+          ))}
+>>>>>>> 785851ba19ccc7cf5ef343e749e0bcc8df974f90
         </div>
       ) : null}
     </>
   )
+}
+
+{
+  /* <p
+  dangerouslySetInnerHTML={{
+    __html: data.page.text.replaceAll("\n", "<br />")
+  }}
+/> */
 }

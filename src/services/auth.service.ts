@@ -12,9 +12,16 @@ class AuthService {
     return response.data
   }
   async register(data: UserSignUp) {
+    const dob = data.dob
+      .toLocaleDateString()
+      .replaceAll(".", "-")
+      .split("-")
+      .reverse()
+      .join("-")
+
     const response = await axiosDefault.post<User & ResponseWithToken>(
       `${this.BASE_URL}/register`,
-      data
+      { ...data, dob }
     )
     return response.data
   }

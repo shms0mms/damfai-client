@@ -5,6 +5,7 @@ export type Book = {
   title: string // can be filtered
   author: string // can be filtered
   desc: string
+  image?: string
   writen_date?: Date
   chapters: number
   ratings: number // float, can be filtered

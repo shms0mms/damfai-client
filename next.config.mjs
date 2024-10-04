@@ -1,5 +1,16 @@
-/** @type {import('next').NextConfig} */
+await import("./src/env.js")
 
-const nextConfig = {}
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        hostname: "api.bookmate.ru",
+        protocol: "https",
+        pathname: "/assets/books-covers/**"
+      }
+    ]
+  }
+}
 
 export default nextConfig

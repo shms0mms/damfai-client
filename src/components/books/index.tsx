@@ -8,7 +8,6 @@ import {
   CarouselPrevious
 } from "@/components/ui/carousel"
 import { Rating } from "@/components/ui/rating"
-import { Separator } from "@/components/ui/separator"
 import { env } from "@/env"
 import { cn } from "@/lib/utils"
 
@@ -27,7 +26,7 @@ export function BookList({ books }: BookListProps) {
     <div className="flex min-h-[80vh] flex-col justify-between sm:container">
       <ul className="flex flex-col gap-4">
         {Object.keys(ganreAndBook).map(ganre => {
-          const books = ganreAndBook[ganre]
+          const books = ganreAndBook[ganre]!
           return (
             <li className="w-full" key={ganre}>
               <h2 className="mb-2 text-3xl font-semibold">{ganre}</h2>
@@ -36,40 +35,40 @@ export function BookList({ books }: BookListProps) {
                 <CarouselContent className="mx-4 py-2">
                   {books.map((book, i) => (
                     <CarouselItem
-                      className={cn("basis-[16rem] md:basis-[20rem]", {
+                      className={cn("basis-[16rem] md:basis-[16rem]", {
                         "max-sm:pl-0": i === 0
                       })}
                       key={book.id}
                     >
                       <Link
-                        className="flex flex-col gap-2 rounded-lg p-6 shadow-md"
+                        className="flex h-full flex-col gap-2 rounded-lg p-3 shadow-md"
                         href={`/books/${book.id}`}
                       >
                         <img
                           className="overflow-hidden rounded-md"
-                          src={`${env.NEXT_PUBLIC_SERVER_URL}/books/img/${book.id}`}
+                          src={
+                            book.image
+                              ? book.image
+                              : `${env.NEXT_PUBLIC_SERVER_URL}/books/img/${book.id}`
+                          }
                           alt={book.title}
+                          width={220}
+                          height={300}
                         />
-                        <div className="flex justify-between">
-                          <h3 className="mb-4 text-lg font-semibold sm:text-xl">
+                        <div className="flex items-center justify-between">
+                          <h3 className="text-lg font-semibold sm:text-xl">
                             {book.title}
                           </h3>
-                          <span className="text-foreground/75">
-                            {book.chapters} страниц(а)
-                          </span>
-                        </div>
-                        <div className="flex justify-between">
-                          <p className="text-gray-600">Автор: {book.author}</p>
                           <Rating
                             rating={4.5}
                             showText={false}
                             disabled
-                            size={18}
+                            size={10}
                           />
                         </div>
-                        <p className="max-w-[calc(20rem-1.5rem)] overflow-hidden truncate text-sm text-gray-500">
-                          {book.desc}
-                        </p>
+                        <div className="flex justify-between">
+                          <p className="text-gray-600">{book.author}</p>
+                        </div>
                       </Link>
                     </CarouselItem>
                   ))}

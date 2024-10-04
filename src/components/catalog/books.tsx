@@ -17,7 +17,11 @@ export const Books: FC<BooksProps> = ({ books }) => {
             <DirectionAwareHover
               className="relative w-auto max-sm:h-[30rem] min-[700px]:h-[30rem] md:h-96 md:w-auto xl:h-[36rem]"
               imageClassName="scale-[1.15]"
-              imageUrl={`${env.NEXT_PUBLIC_SERVER_URL}/books/img/${book.id}`}
+              imageUrl={
+                book.image
+                  ? book.image
+                  : `${env.NEXT_PUBLIC_SERVER_URL}/books/img/${book.id}`
+              }
             >
               <h4 className="text-lg font-semibold">{book.title}</h4>
               <p className="max-w-[calc(14rem-20px)] overflow-hidden truncate text-muted md:max-w-[calc(15rem-20px)] lg:max-w-[calc(16rem-20px)]">
