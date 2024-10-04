@@ -67,7 +67,7 @@ export function BookList({ books }: BookListProps) {
                           />
                         </div>
                         <div className="flex justify-between">
-                          <p className="text-gray-600">{book.author}</p>
+                          <p className="text-foreground/75">{book.author}</p>
                         </div>
                       </Link>
                     </CarouselItem>

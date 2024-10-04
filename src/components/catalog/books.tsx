@@ -10,7 +10,7 @@ type BooksProps = {
 
 export const Books: FC<BooksProps> = ({ books }) => {
   return (
-    <ul className="lg:gap- grid min-h-[72.5vh] grid-cols-1 gap-2 min-[500px]:grid-cols-2 min-[700px]:grid-cols-3 2xl:grid-cols-4">
+    <ul className="grid min-h-[72.5vh] grid-cols-1 gap-2 min-[500px]:grid-cols-2 min-[700px]:grid-cols-3 2xl:grid-cols-4">
       {books.map(book => (
         <li key={book.id}>
           <Link href={`/books/${book.id}`}>
