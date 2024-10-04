@@ -257,7 +257,9 @@ export default function AuthForm() {
                   name="readingTime"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Скорость чтения</FormLabel>
+                      <FormLabel>
+                        Сколько вы читаете в день? (в часах)
+                      </FormLabel>
                       <FormControl>
                         <Slider
                           min={1}
