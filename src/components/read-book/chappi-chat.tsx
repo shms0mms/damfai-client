@@ -3,7 +3,9 @@
 import { AnimatePresence, motion } from "framer-motion"
 import { Send } from "lucide-react"
 import Image from "next/image"
+import { useParams } from "next/navigation"
 import React, { useEffect, useRef, useState } from "react"
+import useChappiChat from "@/hooks/useChappiChat"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -84,7 +86,8 @@ export default function ChappiChat() {
       scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight
     }
   }, [messages])
-
+  const { id: book_id } = useParams()
+  const { message, send } = useChappiChat(String(book_id))
   return (
     <div className="flex h-96 w-80 flex-col rounded-lg shadow-lg dark:shadow-none">
       <div className="flex items-center space-x-3 bg-black p-4">
