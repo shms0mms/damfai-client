@@ -4,9 +4,12 @@ import { useEffect } from "react"
 import useWebSocket from "react-use-websocket"
 import { env } from "@/env"
 
-const useGenerateQuestions = (book_id: string, questionsCount: number) => {
+export const useGenerateQuestions = (
+  bookId: number,
+  questionsCount: number
+) => {
   const { sendMessage, getWebSocket, lastMessage } = useWebSocket(
-    `${env.NEXT_PUBLIC_WS_URL}/gigachat/ws/generate_questions/${book_id}`,
+    `${env.NEXT_PUBLIC_WS_URL}/gigachat/ws/generate_questions/${bookId}`,
     {
       // onOpen: () => {
       //   sendMessage(String(questionsCount))
@@ -23,9 +26,7 @@ const useGenerateQuestions = (book_id: string, questionsCount: number) => {
     socket?.close()
   }
   useEffect(() => {
-    return () => {
-      disconnect()
-    }
+    return () => disconnect()
   }, [])
   const message = lastMessage?.data ? eval(lastMessage?.data) : null
   return {
@@ -36,5 +37,3 @@ const useGenerateQuestions = (book_id: string, questionsCount: number) => {
     socket
   }
 }
-
-export default useGenerateQuestions

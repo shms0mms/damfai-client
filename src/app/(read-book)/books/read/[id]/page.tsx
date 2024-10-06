@@ -1,14 +1,14 @@
 "use client"
 
 import { useQuery } from "@tanstack/react-query"
-import { AnimatePresence, motion } from "framer-motion"
-import { useState } from "react"
-import { useEffect } from "react"
+import { motion } from "framer-motion"
+import { useEffect, useState } from "react"
 import { useMediaQuery } from "usehooks-ts"
 import { MEDIA } from "@/config/media.config"
 import { MenuBar, MenuBarProps } from "@/components/layouts/read-book/menu-bar"
 import { MenuBarMobile } from "@/components/layouts/read-book/menu-bar-mobile"
 import { SideBar } from "@/components/layouts/read-book/sidebar"
+import { Modal } from "@/components/modal"
 import Questions from "@/components/read-book/questions"
 import SelectionMenu from "@/components/ui/selection-popup"
 import { bookService } from "@/services/book.service"
@@ -87,6 +87,17 @@ export default function ReadBookPage({
         </>
       ) : null}
 
+      {isExistsQuestionsInParams ? (
+        <Modal
+          title="Викторина"
+          classNames={{
+            content: "mt-4"
+          }}
+        >
+          <Questions />
+        </Modal>
+      ) : null}
+
       {data && !isLoading ? (
         <main className="flex h-full w-full gap-5">
           {!isExistsQuestionsInParams && (
@@ -104,37 +115,30 @@ export default function ReadBookPage({
                 <p>{data.author}</p>
               </div>
               <div className="relative flex h-full w-full flex-col gap-4 pb-[100px]">
-                <AnimatePresence mode="wait">
-                  {isExistsQuestionsInParams ? (
-                    <Questions />
-                  ) : (
-                    <>
-                      <motion.h1
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.5 }}
-                        className="text-center font-bold"
-                      >
-                        {currentChapter?.title}
-                      </motion.h1>
-                      <motion.p
-                        key={key}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -15 }}
-                        transition={{ duration: 0.5 }}
-                        dangerouslySetInnerHTML={{
-                          __html: data!.page!.text.replaceAll("\n", "<br />")
-                        }}
-                      />
-                    </>
-                  )}
-                </AnimatePresence>
+                <motion.h1
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="text-center font-bold"
+                >
+                  {currentChapter?.title}
+                </motion.h1>
+                <motion.p
+                  key={key}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -15 }}
+                  transition={{ duration: 0.5 }}
+                  dangerouslySetInnerHTML={{
+                    __html: data!.page!.text.replaceAll("\n", "<br />")
+                  }}
+                />
 
                 <SelectionMenu
                   onAsk={() => setOpen(true)}
                   onSpeak={text => {}}
+                  disabled={isExistsQuestionsInParams}
                 />
               </div>
             </div>
