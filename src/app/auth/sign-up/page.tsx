@@ -96,7 +96,14 @@ export default function AuthForm() {
     }
   })
 
-  const onSubmit = () => setStep(2)
+  const onSubmit: SubmitHandler<FormSchema> = values => {
+    const formData = form.getValues()
+    mutate({
+      ...formData,
+      ...values
+    })
+    // setStep(2)
+  }
 
   const onAdditionalFormSubmit: SubmitHandler<
     AdditionalFormSchema
@@ -122,179 +129,174 @@ export default function AuthForm() {
         </p>
       </div>
       <AnimatePresence mode="wait">
-        {step === 1 ? (
+        {/* {step === 1 ? (
           <motion.div
             key="step1"
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             className="w-full"
-          >
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-4"
-              >
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Имя</FormLabel>
+          > */}
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Имя</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Ваше имя" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="surname"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Фамилия</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Ваша фамилия" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="dob"
+              render={({ field }) => (
+                <FormItem className="flex w-full flex-col">
+                  <FormLabel>Дата рождения</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
                       <FormControl>
-                        <Input placeholder="Ваше имя" {...field} />
+                        <Button
+                          variant={"outline"}
+                          className={cn(
+                            "pl-3 text-left font-normal",
+                            !field.value && "text-muted-foreground"
+                          )}
+                        >
+                          {field.value ? (
+                            format(field.value, "PPP")
+                          ) : (
+                            <span>Выберите дату</span>
+                          )}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        </Button>
                       </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="surname"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Фамилия</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Ваша фамилия" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="dob"
-                  render={({ field }) => (
-                    <FormItem className="flex w-full flex-col">
-                      <FormLabel>Дата рождения</FormLabel>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant={"outline"}
-                              className={cn(
-                                "pl-3 text-left font-normal",
-                                !field.value && "text-muted-foreground"
-                              )}
-                            >
-                              {field.value ? (
-                                format(field.value, "PPP")
-                              ) : (
-                                <span>Выберите дату</span>
-                              )}
-                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
-                          <Calendar
-                            mode="single"
-                            selected={field.value}
-                            onSelect={field.onChange}
-                            toDate={field.value}
-                            initialFocus
-                          />
-                        </PopoverContent>
-                      </Popover>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Почта</FormLabel>
-                      <FormControl>
-                        <Input placeholder="m@example.com" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Пароль</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Ваш пароль"
-                          type="password"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button type="submit" className="w-full" disabled={isLoading}>
-                  {isLoading && (
-                    <Loader className="mr-2 h-4 w-4 animate-spin" />
-                  )}
-                  Далее
-                </Button>
-              </form>
-            </Form>
-          </motion.div>
-        ) : (
-          <motion.div
-            key="step2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <Form {...readingSpeedForm}>
-              <form
-                onSubmit={readingSpeedForm.handleSubmit(onAdditionalFormSubmit)}
-                className="space-y-10"
-              >
-                <FormField
-                  control={readingSpeedForm.control}
-                  name="readingTime"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>
-                        Сколько вы читаете в день? (в часах)
-                      </FormLabel>
-                      <FormControl>
-                        <Slider
-                          min={1}
-                          max={8}
-                          minStepsBetweenThumbs={0.5}
-                          step={0.5}
-                          onValueChange={v => field.onChange(v[0])}
-                          value={[field.value]}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <div className="grid grid-cols-[2.25rem_1fr] gap-2">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    className="w-full"
-                    onClick={() => setStep(1)}
-                    size="icon"
-                  >
-                    <ArrowLeftIcon />
-                  </Button>
-                  <Button type="submit" className="w-full" disabled={isLoading}>
-                    {isLoading && (
-                      <Loader className="mr-2 h-4 w-4 animate-spin" />
-                    )}
-                    Зарегистрироваться
-                  </Button>
-                </div>
-              </form>
-            </Form>
-          </motion.div>
-        )}
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        toDate={field.value}
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Почта</FormLabel>
+                  <FormControl>
+                    <Input placeholder="m@example.com" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Пароль</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Ваш пароль"
+                      type="password"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button type="submit" className="w-full" disabled={isLoading}>
+              {isLoading && <Loader className="mr-2 h-4 w-4 animate-spin" />}
+              Зарегистрироваться
+            </Button>
+          </form>
+        </Form>
+        {/* </motion.div> */}
+        {/* ) : (
+           <motion.div
+             key="step2"
+             initial={{ opacity: 0 }}
+             animate={{ opacity: 1 }}
+             exit={{ opacity: 0 }}
+             transition={{ duration: 0.3 }}
+           >
+             <Form {...readingSpeedForm}>
+               <form
+                 onSubmit={readingSpeedForm.handleSubmit(onAdditionalFormSubmit)}
+                 className="space-y-10"
+               >
+                 <FormField
+                   control={readingSpeedForm.control}
+                   name="readingTime"
+                   render={({ field }) => (
+                     <FormItem>
+                       <FormLabel>
+                         Сколько вы читаете в день? (в часах)
+                       </FormLabel>
+                       <FormControl>
+                         <Slider
+                           min={1}
+                           max={8}
+                           minStepsBetweenThumbs={0.5}
+                           step={0.5}
+                           onValueChange={v => field.onChange(v[0])}
+                           value={[field.value]}
+                         />
+                       </FormControl>
+                       <FormMessage />
+                     </FormItem>
+                   )}
+                 />
+                 <div className="grid grid-cols-[2.25rem_1fr] gap-2">
+                   <Button
+                     type="button"
+                     variant="outline"
+                     className="w-full"
+                     onClick={() => setStep(1)}
+                     size="icon"
+                   >
+                     <ArrowLeftIcon />
+                   </Button>
+                   <Button type="submit" className="w-full" disabled={isLoading}>
+                     {isLoading && (
+                       <Loader className="mr-2 h-4 w-4 animate-spin" />
+                     )}
+                     Зарегистрироваться
+                   </Button>
+                 </div>
+               </form>
+             </Form>
+           </motion.div>
+         )} */}
       </AnimatePresence>
 
       <div className="text-center text-sm text-muted-foreground">

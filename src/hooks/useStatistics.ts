@@ -13,28 +13,28 @@ export function useStatistics() {
   const statistics: StatisticsItem[] = [
     {
       title: "Общее количество прочитанных книг",
-      count: _data?.books_count!
+      count: _data?.books_count! || "0"
     },
     {
       title: "Общее количество прочитанных страниц",
-      count: _data?.pages_count!
+      count: _data?.pages_count! || "0"
     },
 
     {
       title: "Книги, прочитанные в этом месяце",
-      count: _data?.books_per_month!
+      count: _data?.books_per_month! || "0"
     },
     {
       title: "Страницы, прочитанные в этом месяце",
-      count: _data?.pages_per_month!
+      count: _data?.pages_per_month! || "0"
     },
     {
       title: "Среднее время считывания",
-      count: `${_data?.minutes_per_day!}мин/день`
+      count: `${_data?.minutes_per_day! || "0"}мин/день`
     },
     {
       title: "Скорость чтения в минуту",
-      count: `${_data?.words_per_min!}слов/мин`
+      count: `${_data?.words_per_min! || "0"}слов/мин`
     }
   ]
 

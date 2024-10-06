@@ -1,5 +1,6 @@
 "use client"
 
+import { Loader } from "lucide-react"
 import { useStatistics } from "@/hooks/useStatistics"
 import StatisticsItemComponent from "@/components/dashboard/statistics-item"
 import {
@@ -22,13 +23,17 @@ export default function Statistics() {
           </CardDescription>
         </CardHeader>
         <CardContent className="mt-6 grid grid-cols-2 gap-4 max-md:grid-cols-1 max-md:gap-8">
-          {statistics.map(item => (
-            <StatisticsItemComponent
-              isLoading={isLoading}
-              key={item.title}
-              {...item}
-            />
-          ))}
+          {statistics?.length ? (
+            statistics?.map(item => (
+              <StatisticsItemComponent
+                isLoading={isLoading}
+                key={item.title}
+                {...item}
+              />
+            ))
+          ) : (
+            <Loader className="animate-spin" size={20} />
+          )}
         </CardContent>
       </Card>
     </>

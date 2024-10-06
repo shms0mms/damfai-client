@@ -1,8 +1,11 @@
+import { zodResolver } from "@hookform/resolvers/zod"
 import { motion } from "framer-motion"
 import { Loader } from "lucide-react"
 import { useParams } from "next/navigation"
 import { useEffect } from "react"
 import { useState } from "react"
+import { useFieldArray, useForm } from "react-hook-form"
+import { z } from "zod"
 import useGenerateQuestions from "@/hooks/useGenerateQuestions"
 import { Button } from "../ui/button"
 import { Label } from "../ui/label"
@@ -63,23 +66,28 @@ const itemVariants = {
     }
   }
 }
-interface Question {
+type Question = {
   question: string
   options: Record<string, string>
   answer: string
 }
+
+const formSchema = z.object({})
+
 export default function Questions() {
-  const { id } = useParams()
-  const [questions, setQuestions] = useState<Question[]>(data)
   const questionsCount = 2
+  const { id } = useParams()
+  const form = useForm({
+    resolver: zodResolver(formSchema)
+  })
+  const { fields: questions } = useFieldArray({
+    name: "questions",
+    control: form.control
+  })
   const { message } = useGenerateQuestions(String(id), questionsCount)
 
-  // useEffect(() => {
-  //   if (message?.length) {
-  //     setQuestions(prev => [...prev, ...message])
-  //   }
-  // }, [message?.length])
   const [isChecking, setChecking] = useState(false)
+
   return (
     <motion.div
       key={"questions"}

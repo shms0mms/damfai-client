@@ -10,7 +10,7 @@ type LogoProps = {
 export default function Logo({ size = 130 }: LogoProps) {
   return (
     <>
-      <Link href={ROUTES.HOME} className="">
+      <Link href={ROUTES.HOME} className="block">
         <Image
           src={"/logo-white.png"}
           alt={siteConfig.name}

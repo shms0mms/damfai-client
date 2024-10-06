@@ -3,23 +3,23 @@ import { Graph, Statistics } from "@/types/statistics"
 import { axiosWithAuth } from "@/api/interceptors"
 
 class StatisticsService {
-  private BASE_URL = "/statistics"
+  private BASE_URL = "/analytics"
 
   // Statistics
   async getStatistics(): Promise<Partial<AxiosResponse<Statistics>>> {
-    // return await axiosWithAuth.get<Statistics>(`${this.BASE_URL}`)
-    return new Promise(resolve =>
-      resolve({
-        data: {
-          books_count: 10,
-          pages_count: 100,
-          words_per_min: 10,
-          minutes_per_day: 10,
-          pages_per_month: 10,
-          books_per_month: 10
-        } satisfies Statistics
-      })
-    )
+    return await axiosWithAuth.get<Statistics>(`${this.BASE_URL}/reading_info`)
+    // return new Promise(resolve =>
+    //   resolve({
+    //     data: {
+    //       books_count: 10,
+    //       pages_count: 100,
+    //       words_per_min: 10,
+    //       minutes_per_day: 10,
+    //       pages_per_month: 10,
+    //       books_per_month: 10
+    //     } satisfies Statistics
+    //   })
+    // )
   }
 
   // Получение графика прочтения книг за последние 6 месяцев
