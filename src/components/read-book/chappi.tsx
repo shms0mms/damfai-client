@@ -7,12 +7,12 @@ import { Button } from "@/components/ui/button"
 import LogoCircle from "../ui/logo-circle"
 import ChappiChat from "./chappi-chat"
 
-export function Chappi({ ...props }: DialogProps) {
+export function Chappi({}: DialogProps) {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
-      if ((e.key === "k" && (e.metaKey || e.ctrlKey)) || e.key === "/") {
+      if ((e.key === "Enter" && (e.metaKey || e.ctrlKey)) || e.key === "/") {
         if (
           (e.target instanceof HTMLElement && e.target.isContentEditable) ||
           e.target instanceof HTMLInputElement ||
@@ -30,9 +30,13 @@ export function Chappi({ ...props }: DialogProps) {
     document.addEventListener("keydown", down)
     return () => document.removeEventListener("keydown", down)
   }, [])
-
   return (
-    <div className="fixed bottom-6 right-6 max-2xl:static">
+    <div
+      className={`fixed bottom-6 right-6 max-2xl:static`}
+      style={{
+        zIndex: open ? 50 : 1
+      }}
+    >
       <div className="flex flex-col items-end gap-4">
         {" "}
         <motion.div
@@ -47,7 +51,7 @@ export function Chappi({ ...props }: DialogProps) {
         </motion.div>
         <Button
           size="icon"
-          className="h-14 w-14 rounded-[50%]"
+          className="relative z-50 h-14 w-14 rounded-[50%]"
           variant="outline"
           onClick={() => setOpen(!open)}
           asChild

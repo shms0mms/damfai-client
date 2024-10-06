@@ -6,7 +6,8 @@ export const ReadBookLayout: FC<React.PropsWithChildren> = ({ children }) => {
   return (
     <>
       <Header />
-      <div className="">{children}</div>
+
+      <div className="h-full w-full">{children}</div>
       <div className="hidden 2xl:block">
         <Chappi />
       </div>

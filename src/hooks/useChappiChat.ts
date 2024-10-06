@@ -5,13 +5,15 @@ import useWebSocket from "react-use-websocket"
 import { env } from "@/env"
 
 const useChappiChat = (book_id: string) => {
-  const { sendMessage, getWebSocket, lastJsonMessage } = useWebSocket(
-    `${env.NEXT_PUBLIC_WS_URL}/gigachat/ws/ask_question/${book_id}`
-  )
+  const { sendMessage, getWebSocket, lastJsonMessage, lastMessage } =
+    useWebSocket(
+      `${env.NEXT_PUBLIC_WS_URL}/gigachat/ws/ask_question/${book_id}`
+    )
   const socket = getWebSocket()
   const send = (message: string) => {
     sendMessage(message)
   }
+
   const connect = () => {}
   const disconnect = () => {
     socket?.close()
@@ -21,10 +23,7 @@ const useChappiChat = (book_id: string) => {
       disconnect()
     }
   }, [])
-
-  const message = JSON.parse(JSON.stringify(lastJsonMessage || ""))
-
-  return { send, connect, disconnect, message }
+  return { send, connect, disconnect, message: lastMessage }
 }
 
 export default useChappiChat

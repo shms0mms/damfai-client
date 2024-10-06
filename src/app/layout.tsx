@@ -41,6 +41,7 @@ export default function RootLayout({
           {children}
           {modal}
         </Providers>
+        {/* <script src="https://code.responsivevoice.org/responsivevoice.js?key=CBModmt3"></script> */}
       </body>
     </html>
   )

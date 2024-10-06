@@ -1,21 +1,16 @@
 "use client"
 
+import { createId } from "@paralleldrive/cuid2"
 import { AnimatePresence, motion } from "framer-motion"
 import { Send } from "lucide-react"
 import Image from "next/image"
 import { useParams } from "next/navigation"
 import React, { useEffect, useRef, useState } from "react"
+import { Message } from "@/types/chat"
 import useChappiChat from "@/hooks/useChappiChat"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
-
-interface Message {
-  id: number
-  text: string
-  sender: "user" | "support"
-}
 
 interface TypingAnimationProps {
   isVisible: boolean
@@ -57,39 +52,38 @@ export default function ChappiChat() {
   const [inputMessage, setInputMessage] = useState("")
   const [isTyping, setIsTyping] = useState(false)
   const scrollAreaRef = useRef<HTMLDivElement>(null)
-
+  const { id: book_id } = useParams()
+  const { message, send } = useChappiChat(String(book_id))
   const handleSendMessage = () => {
     if (inputMessage.trim() !== "") {
       const newMessage: Message = {
-        id: Date.now(),
-        text: inputMessage,
-        sender: "user"
+        id: createId(),
+        content: inputMessage,
+        sender: "me"
       }
       setMessages([...messages, newMessage])
       setInputMessage("")
+      send(inputMessage)
       setIsTyping(true)
-
-      setTimeout(() => {
-        const supportMessage: Message = {
-          id: Date.now(),
-          text: "Спасибо за ваше сообщение. Чем я могу вам помочь?",
-          sender: "support"
-        }
-        setMessages(prevMessages => [...prevMessages, supportMessage])
-        setIsTyping(false)
-      }, 2000)
     }
   }
-
+  useEffect(() => {
+    if (message?.data) {
+      setMessages(prevMessages => [
+        ...prevMessages,
+        { content: message.data, id: createId(), sender: "chappi" }
+      ])
+      setIsTyping(false)
+    }
+  }, [message])
   useEffect(() => {
     if (scrollAreaRef.current) {
       scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight
     }
   }, [messages])
-  const { id: book_id } = useParams()
-  const { message, send } = useChappiChat(String(book_id))
+
   return (
-    <div className="flex h-96 w-80 flex-col rounded-lg shadow-lg dark:shadow-none">
+    <div className="relative flex h-[600px] w-[400px] flex-col rounded-lg shadow-lg dark:shadow-none">
       <div className="flex items-center space-x-3 bg-black p-4">
         <div className="">
           <Image
@@ -109,17 +103,17 @@ export default function ChappiChat() {
           <div
             key={message.id}
             className={`mb-4 ${
-              message.sender === "user" ? "text-right" : "text-left"
+              message.sender === "me" ? "text-right" : "text-left"
             }`}
           >
             <span
-              className={`inline-block rounded-lg p-2 ${
-                message.sender === "user"
+              className={`inline-block max-w-[80%] rounded-lg p-2 ${
+                message.sender === "me"
                   ? "bg-primary text-primary-foreground"
                   : "bg-secondary text-secondary-foreground"
               }`}
             >
-              {message.text}
+              {message.content}
             </span>
           </div>
         ))}
@@ -136,6 +130,7 @@ export default function ChappiChat() {
           type="text"
           placeholder="Введите сообщение..."
           value={inputMessage}
+          className="text-black"
           onChange={e => setInputMessage(e.target.value)}
           onKeyPress={e => e.key === "Enter" && handleSendMessage()}
         />

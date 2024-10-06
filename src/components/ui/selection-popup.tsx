@@ -13,8 +13,10 @@ import {
 
 interface SelectionMenuProps {
   onZip?: (text: string) => void
-  onAsk?: (text: string) => void
+  onAsk?: () => void
   onSpeak?: (text: string) => void
+  selectedText?: string
+  setSelectedText?: React.Dispatch<React.SetStateAction<string>>
 }
 
 export default function SelectionMenu({
@@ -22,10 +24,9 @@ export default function SelectionMenu({
   onAsk,
   onSpeak
 }: SelectionMenuProps) {
-  const [selectedText, setSelectedText] = useState("")
   const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 })
   const [isVisible, setIsVisible] = useState(false)
-
+  const [selectedText, setSelectedText] = useState("")
   const handleSelection = useCallback(() => {
     const selection = window.getSelection()
     if (selection && selection.toString().trim().length > 0) {
@@ -50,19 +51,18 @@ export default function SelectionMenu({
   }, [handleSelection])
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(selectedText)
     onZip && onZip(selectedText)
     setIsVisible(false)
   }
 
-  const handleShare = () => {
-    onAsk && onAsk(selectedText)
+  const handleAsk = () => {
+    onAsk && onAsk()
     setIsVisible(false)
   }
 
   const handleSpeak = () => {
-    const utterance = new SpeechSynthesisUtterance(selectedText)
-    window.speechSynthesis.speak(utterance)
+    // const utterance = new SpeechSynthesisUtterance(selectedText)
+    // window.speechSynthesis.speak(utterance)
     onSpeak && onSpeak(selectedText)
   }
 
@@ -97,7 +97,7 @@ export default function SelectionMenu({
 
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button variant="ghost" size="icon" onClick={handleShare}>
+                <Button variant="ghost" size="icon" onClick={handleAsk}>
                   <MessageCircleQuestion />
                   <span className="sr-only">Спросить</span>
                 </Button>
