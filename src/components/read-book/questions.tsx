@@ -10,22 +10,53 @@ import { RadioGroup, RadioGroupItem } from "../ui/radio-group"
 
 const variants = {
   open: {
-    transition: { staggerChildren: 0.07, delayChildren: 0.2 }
+    transition: {
+      staggerChildren: 0.07,
+
+      delayChildren: 0.8
+    }
   },
   closed: {
     transition: { staggerChildren: 0.05, staggerDirection: -1 }
   }
 }
+const data = [
+  {
+    answer: "a",
+    options: {
+      a: "Князь Мышь",
+      b: "Князь Олег",
+      c: "Князь Кирилл"
+    },
+    question: "Кто главный герой?"
+  },
+  {
+    answer: "a",
+    options: {
+      a: "Мышь",
+      b: "Кирилла",
+      c: "Олега"
+    },
+    question: "Кого убили в конце?"
+  }
+  // {
+  //   answer: "b",
+  //   options: {
+  //     a: "Грустный",
+  //     b: "Веселый",
+  //     c: "Супер грустный"
+  //   },
+  //   question: "Какой был конец?"
+  // }
+]
 const itemVariants = {
   open: {
-    y: 0,
     opacity: 1,
     transition: {
       y: { stiffness: 1000, velocity: -100 }
     }
   },
   closed: {
-    y: 50,
     opacity: 0,
     transition: {
       y: { stiffness: 1000 }
@@ -39,96 +70,106 @@ interface Question {
 }
 export default function Questions() {
   const { id } = useParams()
-  const [questions, setQuestions] = useState<Question[]>([
-    {
-      answer: "a",
-      options: {
-        a: "Князь Мышь",
-        b: "Князь Мышь",
-        c: "Князь Мышь"
-      },
-      question: "Кто главный герой?"
-    },
-    {
-      answer: "a",
-      options: {
-        a: "Князь Мышь",
-        b: "Князь Мышь",
-        c: "Князь Мышь"
-      },
-      question: "Кто главный герой?"
-    },
-    {
-      answer: "b",
-      options: {
-        a: "Князь Мышь",
-        b: "Князь Мышь",
-        c: "Князь Мышь"
-      },
-      question: "Кто главный герой?"
-    }
-  ])
-  const { message } = useGenerateQuestions(String(id))
+  const [questions, setQuestions] = useState<Question[]>(data)
+  const questionsCount = 2
+  const { message } = useGenerateQuestions(String(id), questionsCount)
 
   // useEffect(() => {
   //   if (message?.length) {
   //     setQuestions(prev => [...prev, ...message])
   //   }
   // }, [message?.length])
-  const [currentAnswer, setCurrentAnswer] = useState<string>("")
-
+  const [isChecking, setChecking] = useState(false)
   return (
     <motion.div
       key={"questions"}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -15 }}
       transition={{ duration: 0.5 }}
+      className="flex min-h-full flex-col gap-5"
     >
       {questions.length ? (
         <>
           <motion.ul
-            className="flex h-full w-full flex-col gap-2"
+            className="flex w-full flex-col gap-2"
             variants={variants}
+            initial={"closed"}
+            animate="open"
           >
             {questions
               .filter((item, index, arr) => arr.indexOf(item) === index)
-              .map(question => (
-                <>
-                  {" "}
-                  <motion.li
-                    className=""
-                    key={question.question}
-                    variants={itemVariants}
-                  >
-                    <Label className="font-normal opacity-60">
-                      {question.question}
-                    </Label>
-                  </motion.li>
-                  <RadioGroup
-                    value={currentAnswer}
-                    onValueChange={setCurrentAnswer}
-                  >
-                    {Object.keys(question.options).map((key, k) => (
-                      <div
-                        onClick={() => setCurrentAnswer(key)}
-                        className="flex w-full cursor-pointer items-center gap-5 rounded-md bg-foreground/5 p-3"
-                      >
-                        <RadioGroupItem value={key} key={k}></RadioGroupItem>
-                        <Label>{question.options[key]}</Label>
-                      </div>
-                    ))}
-                  </RadioGroup>
-                </>
-              ))}
+              .map(question => {
+                return (
+                  <>
+                    <motion.li key={question.question} variants={itemVariants}>
+                      <Label className="font-normal opacity-60">
+                        {question.question}
+                      </Label>
+                    </motion.li>
+                    <motion.div
+                      variants={variants}
+                      initial="closed"
+                      animate="open"
+                    >
+                      <RadioGroup>
+                        {Object.keys(question.options).map((key, k) => {
+                          const isCorrectAnswer = answers.find(
+                            i => i.answer == key
+                          )
+                          const isUseAnswer = !!answers.find(
+                            a => a.id == question.question
+                          )
+                          return (
+                            <motion.div
+                              key={k}
+                              variants={itemVariants}
+                              className={`flex w-full cursor-pointer items-center gap-5 rounded-md p-3 ${isChecking && isCorrectAnswer ? "bg-muted" : isChecking && !isCorrectAnswer && isUseAnswer ? "border border-red-400" : "bg-foreground/5"}`}
+                            >
+                              <RadioGroupItem
+                                value={key}
+                                key={k}
+                              ></RadioGroupItem>
+                              <Label>{question.options[key]}</Label>
+                            </motion.div>
+                          )
+                        })}
+                      </RadioGroup>
+                    </motion.div>
+                  </>
+                )
+              })}
           </motion.ul>
 
-          <Button
-            className="w-full"
-            variant={"outline"}
-            disabled={!questions?.length || !currentAnswer}
+          <motion.div
+            initial={{
+              opacity: 0
+            }}
+            animate={{
+              opacity: 1,
+              transition: {
+                delay: 0.8
+              }
+            }}
           >
-            Завершить опрос
-          </Button>
+            <Button
+              className="flex w-full items-center gap-2"
+              variant={"outline"}
+              onClick={() => setChecking(true)}
+              disabled={
+                questionsCount != questions?.length ||
+                answers.length != questions?.length
+              }
+            >
+              {questionsCount != questions?.length ? (
+                <>
+                  Остальные вопросы генерируются..
+                  <Loader className="animate-spin" size={20} />
+                </>
+              ) : (
+                "Завершить опрос"
+              )}
+            </Button>
+          </motion.div>
         </>
       ) : (
         <div className="flex h-full w-full flex-col items-center justify-center gap-2 text-sm text-foreground/60">
@@ -139,3 +180,24 @@ export default function Questions() {
     </motion.div>
   )
 }
+
+// setAnswers(p => {
+//   const copy = structuredClone(p)
+//   if (
+//     copy.findIndex(
+//       c => c.id === question.question
+//     ) === -1
+//   )
+//     copy.push({
+//       answer: key,
+//       id: question.question
+//     })
+//   else {
+//     const index = copy.findIndex(
+//       c => c.id === question.question
+//     )
+//     // copy.splice(index, 1)
+//     copy[index]!.answer = key
+//   }
+//   return copy
+// })
