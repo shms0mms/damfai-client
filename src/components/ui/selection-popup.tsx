@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion"
 import { Hammer, MessageCircleQuestion, Mic } from "lucide-react"
-import React, { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import {
   Tooltip,
@@ -15,15 +15,17 @@ interface SelectionMenuProps {
   onZip?: (text: string) => void
   onAsk?: () => void
   onSpeak?: (text: string) => void
-  selectedText?: string
-  setSelectedText?: React.Dispatch<React.SetStateAction<string>>
+  disabled?: boolean
 }
 
 export default function SelectionMenu({
   onZip,
   onAsk,
-  onSpeak
+  onSpeak,
+  disabled = false
 }: SelectionMenuProps) {
+  if (disabled) return null
+
   const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 })
   const [isVisible, setIsVisible] = useState(false)
   const [selectedText, setSelectedText] = useState("")
