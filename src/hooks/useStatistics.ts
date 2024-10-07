@@ -2,12 +2,12 @@
 
 import { useQuery } from "@tanstack/react-query"
 import { StatisticsItem } from "@/types/statistics"
-import { statisticsService } from "@/services/statistics.service"
+import { analyticsService } from "@/services/analytics.service"
 
 export function useStatistics() {
   const { data, ...props } = useQuery({
     queryKey: ["/statistics"],
-    queryFn: () => statisticsService.getStatistics()
+    queryFn: () => analyticsService.getStatistics()
   })
   const _data = data?.data
   const statistics: StatisticsItem[] = [

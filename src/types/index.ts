@@ -8,3 +8,5 @@ export type Pagination<TItem = undefined> = (TItem extends undefined
   pages: number
   size: number
 }
+
+export type RecordOf<T> = Record<string, T>

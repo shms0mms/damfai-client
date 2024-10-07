@@ -1,17 +1,25 @@
-import { User } from "lucide-react"
+import { KeyboardIcon, User } from "lucide-react"
 import { useContext } from "react"
+import { useFavouriteGanres } from "@/hooks/useFavouriteGanres"
 import { AuthContext } from "@/providers/auth"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
+import Hotkeys from "../hotkeys"
 import EditProfile from "./edit"
+import { getMaxKey } from "@/lib/utils"
 
 export default function Profile() {
   const { user, isLoading } = useContext(AuthContext)
+  const { data, isLoading: isLoadingGanre } = useFavouriteGanres()
+  const ganreKey = getMaxKey(data?.data || {})
   return (
     <Card className="col-span-1 max-xl:col-span-2">
       <CardHeader>
-        <CardTitle>Профиль</CardTitle>
+        <div className="flex w-full items-center justify-between gap-5">
+          <CardTitle>Профиль</CardTitle>
+          <Hotkeys />
+        </div>
       </CardHeader>
       <CardContent className="flex flex-col items-center space-y-4">
         <Avatar className="h-24 w-24">
@@ -41,9 +49,9 @@ export default function Profile() {
           </div>
           <div className="text-sm text-muted-foreground">
             Любимый жанр:{" "}
-            {user?.ganre ? (
-              user.ganre
-            ) : isLoading ? (
+            {ganreKey ? (
+              ganreKey
+            ) : isLoadingGanre ? (
               <Skeleton className="h-[20px] w-[100px]" />
             ) : (
               "Отсутствует"

@@ -22,11 +22,11 @@ export default function ChartWrapper({
 }: PropsWithChildren<ChartWrapperProps>) {
   return (
     <Card className={cn("col-span-2 max-xl:col-span-2", className)}>
-      <CardHeader>
+      <CardHeader className="pb-2">
         <CardTitle>{title}</CardTitle>
         <CardDescription>{subtitle}</CardDescription>
       </CardHeader>
-      <CardContent className="min-h-[340px] max-md:min-h-[200px]">
+      <CardContent className="min-h-[340px] w-full max-md:min-h-[200px]">
         {children}
       </CardContent>
     </Card>

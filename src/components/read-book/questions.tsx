@@ -1,19 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod"
-<<<<<<< HEAD
-import { motion } from "framer-motion"
-=======
->>>>>>> a09e3c3a83c199a85e7b63ee3f83169b02398dc8
 import { Loader } from "lucide-react"
 import { useParams } from "next/navigation"
 import { useState } from "react"
 import { useFieldArray, useForm } from "react-hook-form"
 import { z } from "zod"
-<<<<<<< HEAD
-import useGenerateQuestions from "@/hooks/useGenerateQuestions"
-import { Button } from "../ui/button"
-import { Label } from "../ui/label"
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group"
-=======
 import { useGenerateQuestions } from "@/hooks/useGenerateQuestions"
 import { Button } from "@/components/ui/button"
 import {
@@ -27,7 +17,6 @@ import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Skeleton } from "@/components/ui/skeleton"
 import { randomNumber } from "@/lib/utils"
->>>>>>> a09e3c3a83c199a85e7b63ee3f83169b02398dc8
 
 const data = [
   {
@@ -50,22 +39,6 @@ const data = [
     question: "Какой был конец?"
   }
 ]
-<<<<<<< HEAD
-const itemVariants = {
-  open: {
-    opacity: 1,
-    transition: {
-      y: { stiffness: 1000, velocity: -100 }
-    }
-  },
-  closed: {
-    opacity: 0,
-    transition: {
-      y: { stiffness: 1000 }
-    }
-  }
-}
-=======
 
 const formSchema = z.object({
   answers: z.array(
@@ -79,7 +52,6 @@ const formSchema = z.object({
 
 type FormSchema = z.infer<typeof formSchema>
 
->>>>>>> a09e3c3a83c199a85e7b63ee3f83169b02398dc8
 type Question = {
   question: string
   options: Record<string, string>
@@ -89,21 +61,6 @@ type Question = {
 const formSchema = z.object({})
 
 export default function Questions() {
-<<<<<<< HEAD
-  const questionsCount = 2
-  const { id } = useParams()
-  const form = useForm({
-    resolver: zodResolver(formSchema)
-  })
-  const { fields: questions } = useFieldArray({
-    name: "questions",
-    control: form.control
-  })
-  const { message } = useGenerateQuestions(String(id), questionsCount)
-
-  const [isChecking, setChecking] = useState(false)
-
-=======
   const { id } = useParams<{ id: string }>()
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema)
@@ -134,7 +91,6 @@ export default function Questions() {
   //     setQuestions(prev => [...prev, ...message])
   //   }
   // }, [message?.length])
->>>>>>> a09e3c3a83c199a85e7b63ee3f83169b02398dc8
   return (
     <div className="flex min-h-full flex-col gap-10">
       {questions.length ? (

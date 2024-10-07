@@ -1,5 +1,6 @@
 "use client"
 
+import { useQuery } from "@tanstack/react-query"
 import {
   CartesianGrid,
   Line,
@@ -9,34 +10,21 @@ import {
   XAxis,
   YAxis
 } from "recharts"
+import { analyticsService } from "@/services/analytics.service"
+import { RecordOf } from "@/types"
 
-const data = [
-  {
-    month: "Апрель",
-    minutes_per_week: 1213
-  },
-  {
-    month: "Май",
-    minutes_per_week: 3242
-  },
-  {
-    month: "Июнь",
-    minutes_per_week: 333
-  },
-  {
-    month: "Июль",
-    minutes_per_week: 2332
-  },
-  {
-    month: "Август",
-    minutes_per_week: 3325
-  },
-  {
-    month: "Сентябрь",
-    minutes_per_week: 2352
-  }
-]
 export default function MinutesPerWeekGraph() {
+  const { data: _data } = useQuery({
+    queryFn: () => analyticsService.getGraphMinutesPerWeek(),
+    queryKey: ["/graph/minutes-per-week"]
+  })
+  const weekDays = _data?.data ? _data?.data : {}
+  const data = Object.keys(weekDays)
+    .slice(2)
+    .map(day => ({
+      weekDay: day,
+      количество: (weekDays as RecordOf<number>)[day]
+    }))
   return (
     <div className="h-[400px] w-full">
       <ResponsiveContainer width="100%" height="100%">
@@ -50,7 +38,7 @@ export default function MinutesPerWeekGraph() {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="month" tick={{ fill: "hsl(var(--foreground))" }} />
+          <XAxis dataKey="weekDay" tick={{ fill: "hsl(var(--foreground))" }} />
           <YAxis tick={{ fill: "hsl(var(--foreground))" }} />
           <Tooltip
             contentStyle={{
@@ -62,7 +50,7 @@ export default function MinutesPerWeekGraph() {
           />
           <Line
             type="monotone"
-            dataKey="minutes_per_week"
+            dataKey="количество"
             stroke="hsl(var(--primary))"
             activeDot={{ r: 8 }}
           />
