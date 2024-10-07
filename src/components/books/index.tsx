@@ -8,6 +8,7 @@ import {
   CarouselPrevious
 } from "@/components/ui/carousel"
 import { Rating } from "@/components/ui/rating"
+import { FavouriteButton } from "./favourite-button"
 import { env } from "@/env"
 import { cn } from "@/lib/utils"
 
@@ -28,20 +29,23 @@ export function BookList({ books }: BookListProps) {
         {Object.keys(ganreAndBook).map(ganre => {
           const books = ganreAndBook[ganre]!
           return (
-            <li className="w-full" key={ganre}>
+            <li className="h-full w-full" key={ganre}>
               <h2 className="mb-2 text-3xl font-semibold">{ganre}</h2>
               {/* <Separator /> */}
               <Carousel>
                 <CarouselContent className="mx-4 py-2">
                   {books.map((book, i) => (
                     <CarouselItem
-                      className={cn("basis-[16rem] md:basis-[16rem]", {
-                        "max-sm:pl-0": i === 0
-                      })}
+                      className={cn(
+                        "basis-[16rem] rounded-lg px-3 py-8 shadow-md",
+                        {
+                          "max-sm:pl-0": i === 0
+                        }
+                      )}
                       key={book.id}
                     >
                       <Link
-                        className="flex h-full flex-col gap-2 rounded-lg p-3 shadow-md"
+                        className="flex h-full flex-col gap-2"
                         href={`/books/${book.id}`}
                       >
                         <img
@@ -56,20 +60,21 @@ export function BookList({ books }: BookListProps) {
                           height={300}
                         />
                         <div className="flex items-center justify-between">
-                          <h3 className="text-lg font-semibold sm:text-xl">
+                          <h3 className="overflow-hidden text-ellipsis whitespace-nowrap text-lg font-semibold sm:text-xl">
                             {book.title}
                           </h3>
-                          <Rating
-                            rating={4.5}
-                            showText={false}
-                            disabled
-                            size={10}
-                          />
                         </div>
                         <div className="flex justify-between">
                           <p className="text-foreground/75">{book.author}</p>
                         </div>
+                        <Rating
+                          rating={4.5}
+                          showText={false}
+                          disabled
+                          size={10}
+                        />
                       </Link>
+                      <FavouriteButton book={book} />
                     </CarouselItem>
                   ))}
                 </CarouselContent>

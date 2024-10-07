@@ -127,6 +127,7 @@ export default function EditProfile() {
             <FormField
               control={form.control}
               name="password"
+              defaultValue=""
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Пароль</FormLabel>

@@ -11,6 +11,7 @@ export type Book = {
   ratings: number // float, can be filtered
   ganres: string[]
   progress: number
+  is_favourite?: boolean
 }
 export type Chapter = {
   id: number

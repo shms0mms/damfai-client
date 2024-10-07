@@ -20,7 +20,7 @@ export default function BookItem({
   id
 }: BookItemProps) {
   const href = current_page
-    ? `/books/read/?page=${current_page}&chapter=${id_current_chapter}`
+    ? `/books/read/${id}/?page=${current_page}&chapter=${id_current_chapter}`
     : `/books/${id}`
   return (
     <>

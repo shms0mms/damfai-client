@@ -1,17 +1,17 @@
 import { Bookmark } from "@/types/bookmarks"
 import { axiosWithAuth } from "@/api/interceptors"
 
-type Page = {
-  id: number
-}
 class BookmarksService {
-  private BASE_URL = "/bookmarks/"
+  private BASE_URL = "/bookmarks"
 
   async getAll() {
-    return await axiosWithAuth.get<Bookmark[]>(this.BASE_URL)
+    return await axiosWithAuth.get<Bookmark[]>(`${this.BASE_URL}/`)
   }
-  async add(id: number) {
-    return await axiosWithAuth.post(`${this.BASE_URL}?page_id=${id}`)
+  async update(id: number, page: number) {
+    return await axiosWithAuth.put(`${this.BASE_URL}?page_id=${page}`)
+  }
+  async is_favourite(id: number) {
+    return await axiosWithAuth.get(`${this.BASE_URL}/is_bookmark?book_id=${id}`)
   }
 }
 

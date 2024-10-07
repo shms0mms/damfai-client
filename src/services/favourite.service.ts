@@ -5,10 +5,15 @@ class FavouriteService {
   private BASE_URL = "/bookmarks/favourite"
 
   async getAll() {
-    return await axiosWithAuth.get<Favourite[]>(this.BASE_URL)
+    return await axiosWithAuth.get<Favourite[]>(`${this.BASE_URL}/`)
   }
-  async add(id: number) {
-    return await axiosWithAuth.post(`${this.BASE_URL}?book_id=${id}`)
+  async update(id: number) {
+    return await axiosWithAuth.put(`${this.BASE_URL}?book_id=${id}`)
+  }
+  async is_favourite(id: number) {
+    return await axiosWithAuth.get(
+      `${this.BASE_URL}/is_favourite?book_id=${id}`
+    )
   }
 }
 

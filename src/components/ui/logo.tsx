@@ -1,4 +1,3 @@
-import Image from "next/image"
 import Link from "next/link"
 import { ROUTES } from "@/config/route.config"
 import { siteConfig } from "@/config/site.config"
@@ -10,15 +9,15 @@ type LogoProps = {
 export default function Logo({ size = 130 }: LogoProps) {
   return (
     <>
-      <Link href={ROUTES.HOME} className="block">
-        <Image
+      <Link href={ROUTES.HOME} className="">
+        <img
           src={"/logo-white.png"}
           alt={siteConfig.name}
           width={size}
           height={size}
           className="hidden dark:block"
         />
-        <Image
+        <img
           src={"/logo-black.png"}
           alt={siteConfig.name}
           width={size}

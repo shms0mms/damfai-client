@@ -11,8 +11,10 @@ interface CalloutProps {
 export function Callout({ title, children, icon, ...props }: CalloutProps) {
   return (
     <Alert {...props}>
-      {icon && <span className="">{icon}</span>}
-      {title && <AlertTitle>{title}</AlertTitle>}
+      <div className="flex h-full w-full items-center gap-2">
+        {icon && <span className="">{icon}</span>}
+        {title && <AlertTitle>{title}</AlertTitle>}
+      </div>
       <AlertDescription>{children}</AlertDescription>
     </Alert>
   )

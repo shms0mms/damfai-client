@@ -14,13 +14,16 @@ import {
   FormMessage
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { Checkbox } from "../ui/checkbox"
+import { Label } from "../ui/label"
 import { cn } from "@/lib/utils"
 
 // Определение схемы валидации
 const purposeSchema = z
   .object({
     minDays: z.number().min(1, "Минимальное количество дней - 1"),
-    maxDays: z.number().min(1, "Минимальное количество дней - 1")
+    maxDays: z.number().min(1, "Минимальное количество дней - 1"),
+    isChecking: z.boolean().default(false).optional()
   })
   .refine(data => data.maxDays >= data.minDays, {
     message:
@@ -50,7 +53,8 @@ export default function Purpose({
     resolver: zodResolver(purposeSchema),
     defaultValues: {
       minDays: initialMinDays,
-      maxDays: initialMaxDays
+      maxDays: initialMaxDays,
+      isChecking: true
     }
   })
 
@@ -62,8 +66,24 @@ export default function Purpose({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(handleSubmit)}
-        className={cn("space-y-4", className)}
+        className={cn("flex flex-col space-y-4", className)}
       >
+        <FormField
+          control={form.control}
+          name="isChecking"
+          render={({ field }) => (
+            <FormItem className="flex items-center gap-2 space-y-0">
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <FormLabel>Поставить цель</FormLabel>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <div className="flex space-x-4">
           <FormField
             control={form.control}
@@ -73,6 +93,7 @@ export default function Purpose({
                 <FormLabel>Минимум дней</FormLabel>
                 <FormControl>
                   <Input
+                    disabled={!form.getValues("isChecking")}
                     type="number"
                     {...field}
                     onChange={e => field.onChange(+e.target.value)}
@@ -91,6 +112,7 @@ export default function Purpose({
                 <FormLabel>Максимум дней</FormLabel>
                 <FormControl>
                   <Input
+                    disabled={!form.getValues("isChecking")}
                     type="number"
                     {...field}
                     onChange={e => field.onChange(Number(e.target.value))}
