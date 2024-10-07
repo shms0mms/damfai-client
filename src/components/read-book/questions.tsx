@@ -58,8 +58,6 @@ type Question = {
   answer: string
 }
 
-const formSchema = z.object({})
-
 export default function Questions() {
   const { id } = useParams<{ id: string }>()
   const form = useForm<FormSchema>({
