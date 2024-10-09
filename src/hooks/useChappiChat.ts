@@ -4,7 +4,7 @@ import { useEffect } from "react"
 import useWebSocket from "react-use-websocket"
 import { env } from "@/env"
 
-const useChappiChat = (book_id: string) => {
+export const useChappiChat = (book_id: string) => {
   const { sendMessage, getWebSocket, lastJsonMessage, lastMessage } =
     useWebSocket(
       `${env.NEXT_PUBLIC_WS_URL}/gigachat/ws/ask_question/${book_id}`
@@ -25,5 +25,3 @@ const useChappiChat = (book_id: string) => {
   }, [])
   return { send, connect, disconnect, message: lastMessage }
 }
-
-export default useChappiChat

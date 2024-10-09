@@ -5,17 +5,17 @@ import { ChevronDown, ChevronUp } from "lucide-react"
 import React, { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 
-interface Section {
+type Section = {
   id: string
   content: React.ReactNode
   background: string
 }
 
-interface EnhancedSectionSliderProps {
+type EnhancedSectionSliderProps = {
   sections: Section[]
 }
 
-export default function EnhancedSectionSlider({
+export function EnhancedSectionSlider({
   sections
 }: EnhancedSectionSliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -78,7 +78,7 @@ export default function EnhancedSectionSlider({
             opacity: { duration: 0.6 }
           }}
           className="absolute inset-0 flex items-center justify-center"
-          style={{ background: sections[currentIndex].background }}
+          style={{ background: sections[currentIndex]?.background }}
         >
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
@@ -86,7 +86,7 @@ export default function EnhancedSectionSlider({
             transition={{ delay: 0.2, duration: 1 }}
             className="w-full p-8"
           >
-            {sections[currentIndex].content}
+            {sections[currentIndex]?.content}
           </motion.div>
         </motion.div>
       </AnimatePresence>

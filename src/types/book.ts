@@ -20,7 +20,7 @@ export type Chapter = {
   pages: number
 }
 
-export interface BookComponent extends Book {
+export type BookComponent = Book & {
   icon: React.ReactNode
   isLoading?: boolean
 }

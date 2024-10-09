@@ -3,7 +3,7 @@ import { useContext } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
-import { User, UserUpdate } from "@/types/user"
+import type { UserUpdate } from "@/types/user"
 import { OPTIONS } from "@/config/options.config"
 import { AuthContext } from "@/providers/auth"
 import { Button } from "@/components/ui/button"
@@ -45,7 +45,7 @@ const formSchema = z.object({
     })
 })
 type FormSchema = z.infer<typeof formSchema>
-export default function EditProfile() {
+export function EditProfile() {
   const { user } = useContext(AuthContext)
   const form = useForm<FormSchema>()
   const queryClient = useQueryClient()

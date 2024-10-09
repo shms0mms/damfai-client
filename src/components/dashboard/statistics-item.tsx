@@ -1,7 +1,7 @@
 import { type StatisticsItem } from "@/types/statistics"
 import { Skeleton } from "@/components/ui/skeleton"
 
-export default function StatisticsItem({
+export function StatisticsItem({
   count,
   title,
   isLoading

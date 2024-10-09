@@ -2,7 +2,7 @@
 
 import { Loader } from "lucide-react"
 import { useStatistics } from "@/hooks/useStatistics"
-import StatisticsItemComponent from "@/components/dashboard/statistics-item"
+import { StatisticsItem } from "@/components/dashboard/statistics-item"
 import {
   Card,
   CardContent,
@@ -11,7 +11,7 @@ import {
   CardTitle
 } from "@/components/ui/card"
 
-export default function Statistics() {
+export function Statistics() {
   const { statistics, isLoading } = useStatistics()
   return (
     <>
@@ -25,7 +25,7 @@ export default function Statistics() {
         <CardContent className="mt-6 grid grid-cols-2 gap-4 max-md:grid-cols-1 max-md:gap-8">
           {statistics?.length ? (
             statistics?.map(item => (
-              <StatisticsItemComponent
+              <StatisticsItem
                 isLoading={isLoading}
                 key={item.title}
                 {...item}

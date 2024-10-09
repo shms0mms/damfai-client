@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/chart"
 import { GraphFallback } from "./graph-fallback"
 import { analyticsService } from "@/services/analytics.service"
-import { RecordOf } from "@/types"
+import type { RecordOf } from "@/types"
 
 const chartConfig = {
   количество: {
@@ -25,7 +25,7 @@ const chartConfig = {
   }
 } satisfies ChartConfig
 
-export default function PagesPerWeekGraph() {
+export function PagesPerWeekGraph() {
   const { data: _data } = useQuery({
     queryFn: () => analyticsService.getGraphMinutesPerWeek(),
     queryKey: ["/graph/pages-per-week"]

@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react"
+import { type PropsWithChildren } from "react"
 import {
   Card,
   CardContent,
@@ -14,7 +14,7 @@ type ChartWrapperProps = {
   className?: string
 }
 
-export default function ChartWrapper({
+export function ChartWrapper({
   title,
   subtitle,
   children,

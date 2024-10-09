@@ -9,7 +9,7 @@ import { Beam } from "@/components/ui/grid-beam"
 import { LaptopScroll } from "@/components/ui/laptop-scroll"
 import { VelocityScroll } from "@/components/ui/scroll-based-velocity"
 import { SparklesCore } from "@/components/ui/sparkles"
-import SparklesText from "@/components/ui/sparkles-text"
+import { SparklesText } from "@/components/ui/sparkles-text"
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect"
 
 const words = [
@@ -135,7 +135,7 @@ const sections = [
 export default function HomePage() {
   return (
     <div className="dark:bg-grid-white/[0.02] h-full">
-      <div className="overflow-hidden">{sections[0].content}</div>
+      <div className="overflow-hidden">{sections[0]?.content}</div>
 
       <div className="">
         <div className="relative h-full w-full">

@@ -24,7 +24,7 @@ const chartConfig = {
   data: {}
 } satisfies ChartConfig
 
-export default function BooksPerYearGraph() {
+export function BooksPerYearGraph() {
   const { data: _data } = useQuery({
     queryFn: () => analyticsService.getGraphBooksPerYear(),
     queryKey: ["/graph/books-per-year"]

@@ -1,6 +1,6 @@
 import { BookForm } from "@/components/books/book-form"
 import { Modal } from "@/components/modal"
-import Purpose from "@/components/read-book/purpose"
+import { Purpose } from "@/components/read-book/purpose"
 import { bookService } from "@/services/book.service"
 
 type BookModalPageProps = { params: { id: string } }

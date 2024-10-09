@@ -1,63 +1,63 @@
-"use client";
+"use client"
 
-import React from "react";
 import {
   motion,
   useMotionValueEvent,
   useScroll,
-  useTransform,
-} from "framer-motion";
-import { cn } from "@/lib/utils";
+  useTransform
+} from "framer-motion"
+import React from "react"
+import { cn } from "@/lib/utils"
 
-interface ScrollProgressBarType {
-  type?: "circle" | "bar";
-  position?: "top-right" | "bottom-right" | "top-left" | "bottom-left";
-  color?: string;
-  strokeSize?: number;
-  showPercentage?: boolean;
+type ScrollProgressBarType = {
+  type?: "circle" | "bar"
+  position?: "top-right" | "bottom-right" | "top-left" | "bottom-left"
+  color?: string
+  strokeSize?: number
+  showPercentage?: boolean
 }
 
-export default function ScrollProgressBar({
+export function ScrollProgressBar({
   type = "circle",
   position = "bottom-right",
   color = "hsl(var(--primary))",
   strokeSize = 2,
-  showPercentage = false,
+  showPercentage = false
 }: ScrollProgressBarType) {
-  const { scrollYProgress } = useScroll();
+  const { scrollYProgress } = useScroll()
 
-  const scrollPercentage = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const scrollPercentage = useTransform(scrollYProgress, [0, 1], [0, 100])
 
-  const [percentage, setPercentage] = React.useState(0);
+  const [percentage, setPercentage] = React.useState(0)
 
-  useMotionValueEvent(scrollPercentage, "change", (latest) => {
-    setPercentage(Math.round(latest));
-  });
+  useMotionValueEvent(scrollPercentage, "change", latest => {
+    setPercentage(Math.round(latest))
+  })
 
   if (type === "bar") {
     return (
       <div
-        className="fixed start-0 end-0 top-0 pointer-events-none"
+        className="pointer-events-none fixed end-0 start-0 top-0"
         style={{ height: `${strokeSize + 2}px` }}
       >
         <span
-          className="bg-primary h-full w-full block"
+          className="block h-full w-full bg-primary"
           style={{
             backgroundColor: color,
-            width: `${percentage}%`,
+            width: `${percentage}%`
           }}
         ></span>
       </div>
-    );
+    )
   }
 
   return (
     <div
       className={cn("fixed flex items-center justify-center", {
-        "top-0 end-0": position === "top-right",
+        "end-0 top-0": position === "top-right",
         "bottom-0 end-0": position === "bottom-right",
-        "top-0 start-0": position === "top-left",
-        "bottom-0 start-0": position === "bottom-left",
+        "start-0 top-0": position === "top-left",
+        "bottom-0 start-0": position === "bottom-left"
       })}
     >
       {percentage > 0 && (
@@ -83,10 +83,10 @@ export default function ScrollProgressBar({
             />
           </svg>
           {showPercentage && (
-            <span className="text-sm absolute ml-2">{percentage}%</span>
+            <span className="absolute ml-2 text-sm">{percentage}%</span>
           )}
         </>
       )}
     </div>
-  );
+  )
 }

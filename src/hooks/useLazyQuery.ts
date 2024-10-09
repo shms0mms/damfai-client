@@ -1,20 +1,19 @@
-"use client"
-
 import {
-  DefaultError,
-  QueryKey,
-  UseQueryOptions,
+  type DefaultError,
+  type QueryFunction,
+  type QueryKey,
+  type UseQueryOptions,
   useQuery
 } from "@tanstack/react-query"
 
-const useLazyQuery = <
+export const useLazyQuery = <
   TQueryFnData = unknown,
   TError = DefaultError,
   TData = TQueryFnData,
   TQueryKey extends QueryKey = QueryKey
 >(
-  queryKey: string[],
-  queryFn: () => void,
+  queryKey: TQueryKey,
+  queryFn: QueryFunction<TQueryFnData, TQueryKey, never>,
   options?: UseQueryOptions<TQueryFnData, TError, TData, TQueryKey>
 ) => {
   const { refetch, ...props } = useQuery<
@@ -35,5 +34,3 @@ const useLazyQuery = <
 
   return { query, ...props }
 }
-
-export default useLazyQuery

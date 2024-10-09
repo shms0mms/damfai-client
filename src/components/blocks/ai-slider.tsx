@@ -1,11 +1,10 @@
 "use client"
 
 import { animate, motion } from "framer-motion"
-import React, { useEffect } from "react"
-import { GoCopilot } from "react-icons/go"
+import { useEffect } from "react"
 import { cn } from "@/lib/utils"
 
-const AISlider = () => {
+export const AISlider = () => {
   const scale = [1, 1.1, 1]
   const transform = ["translateY(0px)", "translateY(-4px)", "translateY(0px)"]
   const sequence = [
@@ -315,4 +314,3 @@ export const Bing = ({ className }: { className?: string }) => {
     </svg>
   )
 }
-export default AISlider

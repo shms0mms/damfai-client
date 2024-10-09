@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion"
 import { FC, ReactNode, useRef } from "react"
 import { cn } from "@/lib/utils"
 
-interface TextRevealByWordProps {
+type TextRevealByWordProps = {
   text: string
   className?: string
 }
@@ -43,7 +43,7 @@ export const TextRevealByWord: FC<TextRevealByWordProps> = ({
   )
 }
 
-interface WordProps {
+type WordProps = {
   children: ReactNode
   progress: any
   range: [number, number]
@@ -63,5 +63,3 @@ const Word: FC<WordProps> = ({ children, progress, range }) => {
     </span>
   )
 }
-
-export default TextRevealByWord

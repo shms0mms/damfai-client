@@ -4,12 +4,12 @@ import { BookComponent } from "@/types/book"
 import { BookmarkComponent } from "@/types/bookmarks"
 import { FavouriteComponent } from "@/types/favourites"
 import { Progress } from "@/components/ui/progress"
-import { Skeleton } from "../../ui/skeleton"
+import { Skeleton } from "@/components/ui/skeleton"
 
 export type BookItemProps = BookmarkComponent &
   FavouriteComponent &
   BookComponent
-export default function BookItem({
+export function BookItem({
   title,
   author,
   icon,

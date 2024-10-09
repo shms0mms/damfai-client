@@ -59,7 +59,7 @@ function BooksFiltersComponent() {
 
         delete processedFilters[key]
       } else {
-        processedFilters[key] = processedFilters[key].toString()
+        processedFilters[key] = processedFilters[key]!.toString()
       }
     }
     const filtersAsMatrix = Object.entries(processedFilters).map(

@@ -1,6 +1,5 @@
 import { Squash as Hamburger } from "hamburger-react"
 import Link from "next/link"
-import { Button } from "../ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,15 +8,20 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger
-} from "../ui/dropdown-menu"
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover"
+} from "@/components/ui/dropdown-menu"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from "@/components/ui/popover"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger
-} from "../ui/tooltip"
-import Purpose from "./purpose"
+} from "@/components/ui/tooltip"
+import { Button } from "../ui/button"
+import { Purpose } from "./purpose"
 import { cn } from "@/lib/utils"
 
 export function Menu() {

@@ -1,14 +1,12 @@
 import Image from "next/image"
-import Link from "next/link"
 import { ButtonHTMLAttributes } from "react"
-import { ROUTES } from "@/config/route.config"
 import { siteConfig } from "@/config/site.config"
 
 type LogoProps = {
   size?: number
 }
 
-export default function LogoCircle({
+export function LogoCircle({
   size = 130,
   ...buttonProps
 }: LogoProps & ButtonHTMLAttributes<HTMLButtonElement>) {

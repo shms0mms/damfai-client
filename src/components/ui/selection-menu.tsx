@@ -12,12 +12,12 @@ import { cn } from "@/lib/utils"
 
 type Side = "top" | "right" | "bottom" | "left"
 
-interface SelectionMenuProps {
+type SelectionMenuProps = {
   children: React.ReactNode
   side?: Side
 }
 
-interface SelectionMenuContextType {
+type SelectionMenuContextType = {
   isOpen: boolean
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
   referenceElement: HTMLElement | null

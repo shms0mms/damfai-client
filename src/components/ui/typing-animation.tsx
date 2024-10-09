@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { cn } from "@/lib/utils"
 
-interface TypingAnimationProps {
+type TypingAnimationProps = {
   text: string
   duration?: number
   className?: string

@@ -21,7 +21,7 @@ const chartConfig = {
   }
 } satisfies ChartConfig
 
-const BooksPerMonthsGraph = () => {
+export const BooksPerMonthsGraph = () => {
   const { data: _data } = useQuery({
     queryFn: () => analyticsService.getGraphBooksPerMonths(),
     queryKey: ["/graph/books-per-months"]
@@ -61,5 +61,3 @@ const BooksPerMonthsGraph = () => {
     </>
   )
 }
-
-export default BooksPerMonthsGraph

@@ -2,14 +2,14 @@ import { KeyboardIcon, User } from "lucide-react"
 import { useContext } from "react"
 import { useFavouriteGanres } from "@/hooks/useFavouriteGanres"
 import { AuthContext } from "@/providers/auth"
+import { Hotkeys } from "@/components/dashboard/hotkeys"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
-import Hotkeys from "../hotkeys"
-import EditProfile from "./edit"
+import { EditProfile } from "./edit"
 import { getMaxKey } from "@/lib/utils"
 
-export default function Profile() {
+export function Profile() {
   const { user, isLoading } = useContext(AuthContext)
   const { data, isLoading: isLoadingGanre } = useFavouriteGanres()
   const ganreKey = getMaxKey(data?.data || {})

@@ -69,7 +69,8 @@ class BookService {
         desc: books[randomNumber(0, books.length - 1)!]!.body,
         ratings: Math.random() * 5,
         ganres: [mockGanres[randomNumber(0, mockGanres.length - 1)]!],
-        image: mockBookImages[randomNumber(0, mockBookImages.length - 1)]
+        image: mockBookImages[randomNumber(0, mockBookImages.length - 1)],
+        progress: 10.01
       })
     )
   }
@@ -119,7 +120,8 @@ class BookService {
           desc: books[randomNumber(0, books.length - 1)!]!.body,
           ratings: Math.random() * 5,
           ganres: [mockGanres[randomNumber(0, mockGanres.length - 1)]!],
-          image: mockBookImages[randomNumber(0, mockBookImages.length - 1)]
+          image: mockBookImages[randomNumber(0, mockBookImages.length - 1)],
+          progress: 100.0
         }))
       )
     )

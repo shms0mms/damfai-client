@@ -1,10 +1,8 @@
 "use client"
 
 import { Menu } from "lucide-react"
-import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { siteConfig } from "@/config/site.config"
-import Logo from "@/components/ui/logo"
+import { Logo } from "@/components/ui/logo"
 import {
   Sheet,
   SheetContent,

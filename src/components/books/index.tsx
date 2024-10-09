@@ -12,7 +12,7 @@ import { FavouriteButton } from "./favourite-button"
 import { env } from "@/env"
 import { cn } from "@/lib/utils"
 
-interface BookListProps {
+type BookListProps = {
   books: Book[]
 }
 

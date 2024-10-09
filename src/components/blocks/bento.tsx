@@ -5,7 +5,7 @@ import { AnimatedBeamDemo } from "@/components/ui/animated-beam-demo"
 import { AnimatedListDemo } from "@/components/ui/animated-list-demo"
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid"
 import { Calendar } from "@/components/ui/calendar"
-import Marquee from "@/components/ui/marquee"
+import { Marquee } from "@/components/ui/marquee"
 import { cn } from "@/lib/utils"
 
 export const books = [

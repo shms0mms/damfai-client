@@ -6,7 +6,7 @@ type LogoProps = {
   size?: number
 }
 
-export default function Logo({ size = 130 }: LogoProps) {
+export function Logo({ size = 130 }: LogoProps) {
   return (
     <>
       <Link href={ROUTES.HOME} className="">

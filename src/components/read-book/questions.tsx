@@ -58,7 +58,7 @@ type Question = {
   answer: string
 }
 
-export default function Questions() {
+export function Questions() {
   const { id } = useParams<{ id: string }>()
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema)

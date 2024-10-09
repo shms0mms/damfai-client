@@ -11,7 +11,7 @@ import {
   DialogTitle,
   DialogTrigger
 } from "@/components/ui/dialog"
-import HotkeyModal from "./modal"
+import { HotkeyModal } from "./modal"
 
 type Hotkey = {
   symbol: string
@@ -19,7 +19,7 @@ type Hotkey = {
   text: string
   id: string
 }
-export default function Hotkeys() {
+export function Hotkeys() {
   const keys = [
     {
       symbol: "⌘",

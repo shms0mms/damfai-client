@@ -3,7 +3,7 @@
 import { AnimatedList } from "@/components/ui/animated-list"
 import { cn } from "@/lib/utils"
 
-interface Item {
+type Item = {
   name: string
   description: string
   icon: string

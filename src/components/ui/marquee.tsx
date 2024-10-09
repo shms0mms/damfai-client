@@ -1,16 +1,16 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils"
 
-interface MarqueeProps {
-  className?: string;
-  reverse?: boolean;
-  pauseOnHover?: boolean;
-  children?: React.ReactNode;
-  vertical?: boolean;
-  repeat?: number;
-  [key: string]: any;
+type MarqueeProps = {
+  className?: string
+  reverse?: boolean
+  pauseOnHover?: boolean
+  children?: React.ReactNode
+  vertical?: boolean
+  repeat?: number
+  [key: string]: any
 }
 
-export default function Marquee({
+export function Marquee({
   className,
   reverse,
   pauseOnHover = false,
@@ -26,9 +26,9 @@ export default function Marquee({
         "group flex overflow-hidden p-2 [--duration:40s] [--gap:1rem] [gap:var(--gap)]",
         {
           "flex-row": !vertical,
-          "flex-col": vertical,
+          "flex-col": vertical
         },
-        className,
+        className
       )}
     >
       {Array(repeat)
@@ -40,12 +40,12 @@ export default function Marquee({
               "animate-marquee flex-row": !vertical,
               "animate-marquee-vertical flex-col": vertical,
               "group-hover:[animation-play-state:paused]": pauseOnHover,
-              "[animation-direction:reverse]": reverse,
+              "[animation-direction:reverse]": reverse
             })}
           >
             {children}
           </div>
         ))}
     </div>
-  );
+  )
 }

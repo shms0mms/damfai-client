@@ -11,14 +11,14 @@ import {
   TooltipTrigger
 } from "@/components/ui/tooltip"
 
-interface SelectionMenuProps {
+type SelectionMenuProps = {
   onZip?: (text: string) => void
   onAsk?: () => void
   onSpeak?: (text: string) => void
   disabled?: boolean
 }
 
-export default function SelectionMenu({
+export function SelectionMenu({
   onZip,
   onAsk,
   onSpeak,

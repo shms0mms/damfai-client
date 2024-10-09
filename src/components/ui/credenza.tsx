@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/drawer"
 import { cn } from "@/lib/utils"
 
-interface BaseProps {
+type BaseProps = {
   children: React.ReactNode
 }
 

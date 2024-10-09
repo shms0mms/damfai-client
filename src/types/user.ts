@@ -17,8 +17,6 @@ export type UserSignUp = {
   surname: string
   email: string
   dob: Date
-  /** !!! In hours !!! */
-  readingTime: number
 }
 
 export type UserUpdate = {

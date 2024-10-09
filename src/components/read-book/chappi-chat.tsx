@@ -5,14 +5,14 @@ import { AnimatePresence, motion } from "framer-motion"
 import { Send } from "lucide-react"
 import Image from "next/image"
 import { useParams } from "next/navigation"
-import React, { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Message } from "@/types/chat"
-import useChappiChat from "@/hooks/useChappiChat"
+import { useChappiChat } from "@/hooks/useChappiChat"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
 
-interface TypingAnimationProps {
+type TypingAnimationProps = {
   isVisible: boolean
 }
 
@@ -47,7 +47,7 @@ const TypingAnimation: React.FC<TypingAnimationProps> = ({ isVisible }) => {
   )
 }
 
-export default function ChappiChat() {
+export function ChappiChat() {
   const [messages, setMessages] = useState<Message[]>([])
   const [inputMessage, setInputMessage] = useState("")
   const [isTyping, setIsTyping] = useState(false)

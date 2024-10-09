@@ -7,13 +7,13 @@ import { useSearchParams } from "next/navigation"
 import React, { createContext, useContext, useState } from "react"
 import { cn } from "@/lib/utils"
 
-interface Links {
+type Links = {
   label: string
   href: string
   icon?: React.JSX.Element | React.ReactNode
 }
 
-interface SidebarContextProps {
+type SidebarContextProps = {
   open: boolean
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
   animate: boolean

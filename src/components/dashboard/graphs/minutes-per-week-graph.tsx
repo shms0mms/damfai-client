@@ -13,7 +13,7 @@ import {
 import { analyticsService } from "@/services/analytics.service"
 import { RecordOf } from "@/types"
 
-export default function MinutesPerWeekGraph() {
+export function MinutesPerWeekGraph() {
   const { data: _data } = useQuery({
     queryFn: () => analyticsService.getGraphMinutesPerWeek(),
     queryKey: ["/graph/minutes-per-week"]

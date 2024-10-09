@@ -4,8 +4,8 @@ import { type DialogProps } from "@radix-ui/react-dialog"
 import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
-import LogoCircle from "../ui/logo-circle"
-import ChappiChat from "./chappi-chat"
+import { LogoCircle } from "@/components/ui/logo-circle"
+import { ChappiChat } from "./chappi-chat"
 
 export function Chappi({}: DialogProps) {
   const [open, setOpen] = useState(false)

@@ -1,5 +1,5 @@
 import { CardDescription, CardTitle } from "@/components/blocks/ai-slider"
-import Purpose from "@/components/read-book/purpose"
+import { Purpose } from "@/components/read-book/purpose"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Rating } from "@/components/ui/rating"
 import { env } from "@/env"

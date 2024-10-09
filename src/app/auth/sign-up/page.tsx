@@ -58,31 +58,14 @@ const formSchema = z.object({
   })
 })
 
-const additionalFormSchema = z.object({
-  readingTime: z
-    .number()
-    .min(1, {
-      message: "Минимальное число часов читания должно быть не менее 1."
-    })
-    .max(8, {
-      message: "Максимальное число часов читания в день не должно превышать 8."
-    })
-})
-
 type FormSchema = z.infer<typeof formSchema>
-type AdditionalFormSchema = z.infer<typeof additionalFormSchema>
 
 export default function AuthForm() {
   const [step, setStep] = useState(1)
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema)
   })
-  const readingSpeedForm = useForm<AdditionalFormSchema>({
-    resolver: zodResolver(additionalFormSchema),
-    defaultValues: {
-      readingTime: 2
-    }
-  })
+
   const { push } = useRouter()
   const { mutate } = useMutation({
     mutationFn: (data: UserSignUp) => authService.register(data),
@@ -102,21 +85,9 @@ export default function AuthForm() {
       ...formData,
       ...values
     })
-    // setStep(2)
   }
 
-  const onAdditionalFormSubmit: SubmitHandler<
-    AdditionalFormSchema
-  > = values => {
-    const formData = form.getValues()
-    mutate({
-      ...formData,
-      ...values
-    })
-  }
-
-  const isLoading =
-    form.formState.isLoading || readingSpeedForm.formState.isLoading
+  const isLoading = form.formState.isLoading
 
   return (
     <div className="mx-auto space-y-6 sm:w-[400px] lg:w-[500px]">

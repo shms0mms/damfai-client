@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
 import {
   Form,
   FormControl,
@@ -14,8 +15,6 @@ import {
   FormMessage
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Checkbox } from "../ui/checkbox"
-import { Label } from "../ui/label"
 import { cn } from "@/lib/utils"
 
 // Определение схемы валидации
@@ -34,7 +33,7 @@ const purposeSchema = z
 // Тип данных формы
 type PurposeFormData = z.infer<typeof purposeSchema>
 
-interface PurposeProps {
+type PurposeProps = {
   type: "set" | "edit"
   onSubmit?: (data: PurposeFormData) => void
   initialMinDays?: number
@@ -42,7 +41,7 @@ interface PurposeProps {
   className?: string
 }
 
-export default function Purpose({
+export function Purpose({
   type,
   onSubmit,
   initialMinDays = 1,

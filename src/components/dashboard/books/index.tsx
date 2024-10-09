@@ -2,7 +2,7 @@ import { AxiosResponse } from "axios"
 import { BookOpen, Heart, Star } from "lucide-react"
 import { Bookmark } from "@/types/bookmarks"
 import { Favourite } from "@/types/favourites"
-import useLazyQuery from "@/hooks/useLazyQuery"
+import {useLazyQuery} from "@/hooks/useLazyQuery"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { TabItem } from "./tab-item"
@@ -21,7 +21,7 @@ const books = [
   }
 ]
 
-export default function Books() {
+export function BooksDashboard() {
   const {
     data: _bookmarks,
     query: getBookmarks,

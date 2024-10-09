@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -13,17 +13,13 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
-interface HotkeyModalProps {
+type HotkeyModalProps = {
   isOpen: string | undefined // id
   onClose: () => void
   onSave: (hotkey: string, id: string) => void
 }
 
-export default function HotkeyModal({
-  isOpen,
-  onClose,
-  onSave
-}: HotkeyModalProps) {
+export function HotkeyModal({ isOpen, onClose, onSave }: HotkeyModalProps) {
   const [hotkey, setHotkey] = useState(isOpen!)
 
   const handleKeyDown = useCallback(

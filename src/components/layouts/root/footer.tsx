@@ -13,14 +13,14 @@ import {
   AccordionItem,
   AccordionTrigger
 } from "@/components/ui/accordion"
-import ThemeSwitcher from "@/components/ui/theme-switcher"
+import { ThemeSwitcher } from "@/components/ui/theme-switcher"
 
-interface NavItemLinkProps {
+type NavItemLinkProps = {
   href: string
   children: React.ReactNode
   linked?: boolean
 }
-interface NavItemProps {
+type NavItemProps = {
   title: string
   items: NavItemLinkProps[]
 }
