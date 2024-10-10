@@ -1,4 +1,4 @@
-import { KeyboardIcon, User } from "lucide-react"
+import { User } from "lucide-react"
 import { useContext } from "react"
 import { useFavouriteGanres } from "@/hooks/useFavouriteGanres"
 import { AuthContext } from "@/providers/auth"

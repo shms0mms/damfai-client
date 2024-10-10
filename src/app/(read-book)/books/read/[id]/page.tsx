@@ -1,20 +1,19 @@
 "use client"
 
-import { useQuery } from "@tanstack/react-query"
-import { motion } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
+import { ChevronLeft, ChevronRight } from "lucide-react"
+import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
-import { useMediaQuery } from "usehooks-ts"
-import { MEDIA } from "@/config/media.config"
-import { MenuBar, MenuBarProps } from "@/components/layouts/read-book/menu-bar"
-import { MenuBarMobile } from "@/components/layouts/read-book/menu-bar-mobile"
-import { SideBar } from "@/components/layouts/read-book/sidebar"
+import useCurrentChapter from "@/hooks/useCurrentChapter"
+import useReadBookData from "@/hooks/useReadBookData"
+import { Header } from "@/components/layouts/read-book/header"
 import { Modal } from "@/components/modal"
-import {Questions} from "@/components/read-book/questions"
-import {SelectionMenu} from "@/components/ui/selection-popup"
-import { bookService } from "@/services/book.service"
-import { type Pagination } from "@/types"
+import { Chappi } from "@/components/read-book/chappi"
+import { Menu as MenuComponent } from "@/components/read-book/menu"
+import { Questions } from "@/components/read-book/questions"
+import { Button } from "@/components/ui/button"
 
-type ReadBookPageProps = {
+export type ReadBookPageProps = {
   params: {
     id: string
   }
@@ -29,65 +28,65 @@ export default function ReadBookPage({
   params,
   searchParams
 }: ReadBookPageProps) {
-  const currentPage = searchParams.page ? +searchParams.page : 1
-  const { data, isLoading, refetch } = useQuery({
-    initialData: undefined,
-    queryKey: ["read-book", +params.id],
-    queryFn: async () => {
-      const chaptersResponse = await bookService.getAllChapters(+params.id)
-      const pagesResponse = await bookService.getPagesByChapterId({
-        chapterId: searchParams.chapter
-          ? +searchParams.chapter
-          : chaptersResponse.chapters[0]!.id,
-        page: currentPage,
-        size: 1
-      })
-      return {
-        title: chaptersResponse.title,
-        author: chaptersResponse.author,
-        chapters: chaptersResponse.chapters,
-        page: pagesResponse.items[0],
-        pagination: pagesResponse as Pagination
-      }
-    }
+  const [currentPage, setCurrentPage] = useState(
+    searchParams.page ? +searchParams.page : 1
+  )
+
+  const { data, refetch, isLoading } = useReadBookData({
+    currentPage,
+    params,
+    searchParams
   })
+  const currentChapter = useCurrentChapter(data, searchParams)
+  const [currentChapterId, setCurrentChapterId] = useState(currentChapter?.id)
+
+  useEffect(() => {
+    currentChapter?.id && setCurrentChapterId(currentChapter.id)
+  }, [currentChapter])
   useEffect(() => void refetch(), [searchParams])
-  const isMobile = useMediaQuery(MEDIA.md)
-
-  const currentChapter = data?.chapters.find(
-    chapter =>
-      chapter.id ===
-      (searchParams.chapter ? +searchParams.chapter : data?.chapters[0]?.id)
-  )!
-
-  const menuBarProps: MenuBarProps | undefined = data
-    ? {
-        chapters: data.chapters,
-        currentChapterId: currentChapter?.id,
-        currentPage: data.pagination.page,
-        pages: data.pagination.pages
-      }
-    : undefined
   const [open, setOpen] = useState(false)
-  const [key, setKey] = useState(0)
+  const [_, setKey] = useState(0)
 
   useEffect(() => {
     setKey(prevKey => prevKey + 1)
   }, [data?.page?.text])
-  const isExistsQuestionsInParams = searchParams.questions === "generate"
+  const questionsParam = searchParams.questions === "generate"
+  const { push } = useRouter()
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1)
+    } else if (currentPage === 1) {
+      setCurrentChapterId(prev => prev - 1)
+      push(
+        `/books/read/${params?.id}?page=${data?.chapters[currentChapterId - 2]?.pages!}&chapter=${currentChapterId - 1}`
+      )
+      setCurrentPage(data?.chapters[currentChapterId - 2]?.pages!)
+    }
+  }
+
+  const handleNextPage = () => {
+    if (currentPage < data?.chapters[currentChapterId - 1]?.pages!) {
+      const page = currentPage + 1
+      setCurrentPage(page)
+      push(`/books/read/${params?.id}?page=${page}&chapter=${currentChapterId}`)
+    } else if (currentChapterId < data?.chapters?.length!) {
+      setCurrentChapterId(prev => prev + 1)
+      setCurrentPage(1)
+      push(
+        `/books/read/${params?.id}?page=${1}&chapter=${currentChapterId + 1}`
+      )
+    }
+  }
+
+  const handleChapterChange = (value: string) => {
+    setCurrentChapterId(parseInt(value))
+    setCurrentPage(1)
+    push(`/books/read/${params?.id}?page=${1}&chapter=${parseInt(value)}`)
+  }
+
   return (
     <>
-      {data && !isLoading ? (
-        <>
-          {!isMobile ? (
-            <MenuBar open={open} {...menuBarProps!} />
-          ) : (
-            <MenuBarMobile open={open} {...menuBarProps!} {...currentChapter} />
-          )}
-        </>
-      ) : null}
-
-      {isExistsQuestionsInParams ? (
+      {questionsParam ? (
         <Modal
           title="Викторина"
           classNames={{
@@ -99,51 +98,64 @@ export default function ReadBookPage({
       ) : null}
 
       {data && !isLoading ? (
-        <main className="flex h-full w-full gap-5">
-          {!isExistsQuestionsInParams && (
-            <SideBar
-              pages={data?.pagination?.pages!}
-              book_id={params?.id}
-              currentChapterId={searchParams!.chapter!}
-            />
-          )}
-          <div className="mx-auto h-full w-full max-w-5xl px-4 py-2 font-sans text-[1.075rem]">
-            <div className="flex h-full w-full flex-col gap-5">
-              {" "}
-              <div className="flex flex-col gap-1">
-                <h2 className="text-xl">{data.title}</h2>
-                <p>{data.author}</p>
-              </div>
-              <div className="relative flex h-full w-full flex-col gap-4 pb-[100px]">
-                <motion.h1
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className="text-center font-bold"
-                >
-                  {currentChapter?.title}
-                </motion.h1>
-                <motion.p
-                  key={key}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -15 }}
-                  transition={{ duration: 0.5 }}
+        <div className="flex min-h-screen flex-col">
+          <Header data={data} setOpen={setOpen} />
+          <main className="flex flex-grow items-center justify-center p-4 pt-16">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`${currentChapterId}-${currentPage}`}
+                initial={{ opacity: 0, x: 300 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -300 }}
+                transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                className="mx-auto w-full max-w-4xl rounded-lg bg-card p-6 shadow-lg"
+              >
+                <h2 className="mb-4 text-2xl font-semibold">
+                  {data?.chapters[currentChapterId - 1]?.title}
+                </h2>
+                <p
+                  className="mb-6 text-lg leading-relaxed"
                   dangerouslySetInnerHTML={{
                     __html: data!.page!.text.replaceAll("\n", "<br />")
                   }}
                 />
+                <p className="text-sm text-muted-foreground">
+                  Страница {currentPage} из{" "}
+                  {data?.chapters[currentChapterId - 1]?.pages}
+                </p>
+              </motion.div>
+            </AnimatePresence>
+          </main>
+          <footer className="fixed bottom-0 left-0 right-0 flex items-center justify-between border-t bg-background p-4">
+            <Button
+              onClick={handlePrevPage}
+              disabled={currentChapterId === 1 && currentPage === 1}
+            >
+              <ChevronLeft className="mr-2 h-4 w-4" /> Предыдущая
+            </Button>
+            <span className="text-sm">
+              Глава {currentChapterId} / Страница {currentPage}
+            </span>
+            <Button
+              onClick={handleNextPage}
+              disabled={
+                currentChapterId === data?.chapters?.length &&
+                currentPage === data?.chapters[data?.chapters.length - 1]?.pages
+              }
+            >
+              Следующая <ChevronRight className="ml-2 h-4 w-4" />
+            </Button>
+          </footer>
+          <MenuComponent
+            currentChapter={currentChapter}
+            data={data}
+            open={open}
+            setOpen={setOpen}
+            handleChapterChange={handleChapterChange}
+          />
 
-                <SelectionMenu
-                  onAsk={() => setOpen(true)}
-                  onSpeak={text => {}}
-                  disabled={isExistsQuestionsInParams}
-                />
-              </div>
-            </div>
-          </div>
-        </main>
+          <Chappi />
+        </div>
       ) : null}
     </>
   )

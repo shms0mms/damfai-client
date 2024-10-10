@@ -1,3 +1,5 @@
+"use client"
+
 import { createId } from "@paralleldrive/cuid2"
 import { KeyboardIcon } from "lucide-react"
 import { useEffect, useState } from "react"
@@ -43,7 +45,8 @@ export function Hotkeys() {
       : []
   const [hotkeys, setHotkeys] = useState<Hotkey[]>(storageKeys)
   useEffect(() => {
-    if (hotkeys.length) localStorage.setItem("hotkeys", JSON.stringify(hotkeys))
+    if (hotkeys?.length)
+      localStorage.setItem("hotkeys", JSON.stringify(hotkeys))
   }, [hotkeys])
   const [isModalOpen, setIsModalOpen] = useState<string | undefined>()
   const handleSaveHotkey = (newHotkey: string, id: string) => {

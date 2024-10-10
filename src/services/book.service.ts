@@ -80,28 +80,7 @@ class BookService {
       size: `${options.size}`,
       ...options.filters
     }).toString()
-    // return new Promise<Pagination<Book>>(res =>
-    //   res({
-    //     items: new Array(options?.size ? options.size : 100)
-    //       .fill(null)
-    //       .map<Book>((_, i) => ({
-    //         id: i + 1,
-    //         title: books[randomNumber(0, books.length - 1)!]!.title,
-    //         author: books[randomNumber(0, books.length - 1)!]!.author,
-    //         writen_date: new Date(),
-    //         chapters: i * 100 + 1,
-    //         desc: books[randomNumber(0, books.length - 1)!]!.body,
-    //         ratings: Math.random() * 5,
-    //         ganres: [mockGanres[randomNumber(0, mockGanres.length - 1)]!],
-    //         image: mockBookImages[randomNumber(0, mockBookImages.length - 1)]
-    //       })),
 
-    //     total: options?.size ?? 100 * 10,
-    //     page: options?.page ?? 0,
-    //     size: options?.size ?? 10,
-    //     pages: options?.size ?? (100 * 10) / (options?.size ?? 10)
-    //   })
-    // )
     const response = await axiosDefault.post<Pagination<Book>>(
       `${this.BASE_URL}?${queryParams}`,
       []

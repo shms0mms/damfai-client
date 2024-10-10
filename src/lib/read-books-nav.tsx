@@ -2,7 +2,6 @@ import { BookmarkIcon } from "@radix-ui/react-icons"
 import { useMutation } from "@tanstack/react-query"
 import { useParams, useSearchParams } from "next/navigation"
 import React, { type FC } from "react"
-import { Menu } from "@/components/read-book/menu"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { bookmarksService } from "@/services/bookmarks.service"
 
@@ -37,10 +36,6 @@ export const useReadBooksNavigation = (): ReadBookNavItem[] => {
     {
       id: "theme",
       component: ThemeToggle
-    },
-    {
-      id: "menu",
-      component: Menu
     }
   ]
 }

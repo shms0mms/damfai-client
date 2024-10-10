@@ -32,7 +32,7 @@ export function Chappi({}: DialogProps) {
   }, [])
   return (
     <div
-      className={`fixed bottom-6 right-6 max-2xl:static`}
+      className={`fixed bottom-20 right-6 max-2xl:static`}
       style={{
         zIndex: open ? 50 : 1
       }}
