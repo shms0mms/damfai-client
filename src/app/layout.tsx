@@ -35,6 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
+        suppressHydrationWarning
         className={`${didactGothic.variable} ${geistMono.variable} ${geistSans.variable} antialiased`}
       >
         <Providers>

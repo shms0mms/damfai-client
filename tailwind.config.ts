@@ -107,6 +107,9 @@ const config: Config = {
         "accordion-up": "accordion-up 0.2s ease-out",
         marquee: "marquee var(--duration) infinite linear",
         "marquee-vertical": "marquee-vertical var(--duration) linear infinite"
+      },
+      backgroundImage: {
+        fade: "linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%)"
       }
     }
   },

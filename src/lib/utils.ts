@@ -19,3 +19,9 @@ export const getMaxKey = (o: object) =>
 export const padStart = (date: number) => {
   return date.toString().length < 2 ? date.toString().padStart(2, "0") : date
 }
+
+export const toPrice = (price: number) =>
+  new Intl.NumberFormat("ru-RU", {
+    currency: "RUB",
+    style: "currency"
+  }).format(price)
