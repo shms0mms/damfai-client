@@ -27,7 +27,7 @@ const chartConfig = {
 
 export function PagesPerWeekGraph() {
   const { data: _data } = useQuery({
-    queryFn: () => analyticsService.getGraphMinutesPerWeek(),
+    queryFn: () => analyticsService.getGraphPagesPerWeek(),
     queryKey: ["/graph/pages-per-week"]
   })
   const months = _data?.data ? _data?.data : {}

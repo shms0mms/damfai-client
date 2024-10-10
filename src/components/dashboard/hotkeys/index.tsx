@@ -1,8 +1,9 @@
 "use client"
 
 import { KeyboardIcon } from "lucide-react"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import useHotkeys from "@/hooks/useHotkeys"
+import { AuthContext } from "@/providers/auth"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -13,9 +14,11 @@ import {
   DialogTitle,
   DialogTrigger
 } from "@/components/ui/dialog"
+import OnlyExtensionModal from "@/components/ui/only-extension-modal"
 import { HotkeyModal } from "./modal"
 
 export function Hotkeys() {
+  const { user } = useContext(AuthContext)
   const { hotkeys, setHotkeys } = useHotkeys()
   const [isModalOpen, setIsModalOpen] = useState<string | undefined>()
 
@@ -26,6 +29,8 @@ export function Hotkeys() {
       return copy
     })
   }
+  const [openEx, setOpenEx] = useState(false)
+  const haveEx = !!user?.extensions?.find(e => e.slug === "hotkeys")
   return (
     <>
       {" "}
@@ -48,7 +53,9 @@ export function Hotkeys() {
                 {hotkeys.map(h => (
                   <li
                     key={h.id}
-                    onClick={() => setIsModalOpen(h.id)}
+                    onClick={() =>
+                      haveEx ? setIsModalOpen(h.id) : setOpenEx(true)
+                    }
                     className="flex w-full cursor-pointer items-center justify-between gap-2 rounded-sm bg-muted/50 px-4 py-2"
                   >
                     <div className="w-full">{h.text}</div>
@@ -72,6 +79,13 @@ export function Hotkeys() {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(undefined)}
         onSave={handleSaveHotkey}
+      />
+      <OnlyExtensionModal
+        extensionId="1"
+        extensionName="Горячие клавиши"
+        extensionDescription="Вы можете настраивать горячие клавиши под себя"
+        isOpen={openEx}
+        setIsOpen={setOpenEx}
       />
     </>
   )

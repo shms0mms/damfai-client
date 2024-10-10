@@ -1,3 +1,5 @@
+import { Extension } from "./shop"
+
 export type User = {
   id: number
   name: string
@@ -5,6 +7,7 @@ export type User = {
   email: string
   dob: Date
   created_at: Date
+  extensions: Extension[]
 }
 
 export type UserSignIn = {

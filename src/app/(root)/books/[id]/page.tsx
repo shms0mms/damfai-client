@@ -1,6 +1,11 @@
-import { CardDescription, CardTitle } from "@/components/blocks/ai-slider"
 import { Purpose } from "@/components/read-book/purpose"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle
+} from "@/components/ui/card"
 import { Rating } from "@/components/ui/rating"
 import { env } from "@/env"
 import { bookService } from "@/services/book.service"

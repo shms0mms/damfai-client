@@ -45,7 +45,7 @@ export function BookItem({
               <div className="flex items-center space-x-2">
                 <Progress value={progress} className="w-24" />
                 <span className="whitespace-nowrap text-sm text-muted-foreground">
-                  {progress}%
+                  {progress.toFixed(1)}%
                 </span>
               </div>
             )}

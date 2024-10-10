@@ -12,11 +12,7 @@ type AuthContext = {
 }
 export const AuthContext = createContext<AuthContext>({} as AuthContext)
 
-export function AuthProvider({
-  children
-}: {
-  children: React.ReactNode
-}) {
+export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState()
   const accessToken = getAccessToken()
   const { data, error, refetch, isLoading } = useProfile()
@@ -27,7 +23,7 @@ export function AuthProvider({
   useEffect(() => {
     if (status === 426) setUser(undefined)
     // @ts-expect-error asd
-    else setUser(data)
+    else setUser({ ...data })
   }, [status, data])
   const value = { setUser, user, isLoading } as AuthContext
 
