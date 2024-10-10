@@ -1,6 +1,5 @@
-import { BookForm } from "@/components/books/book-form"
+import PurposeForm from "@/components/books/purpose-form"
 import { Modal } from "@/components/modal"
-import { Purpose } from "@/components/read-book/purpose"
 import { bookService } from "@/services/book.service"
 
 type BookModalPageProps = { params: { id: string } }
@@ -18,8 +17,7 @@ export default async function BookModalPage({ params }: BookModalPageProps) {
         header: "px-0"
       }}
     >
-      {/* <BookForm book={book} /> */}
-      <Purpose type="set" />
+      <PurposeForm params={params} />
     </Modal>
   )
 }

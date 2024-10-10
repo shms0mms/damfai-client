@@ -48,6 +48,9 @@ export function Menu({
             <p>
               <strong>Автор:</strong> {data?.author}
             </p>
+            <p>
+              <strong>Название:</strong> {data?.title}
+            </p>
 
             <p>
               <strong>Всего страниц:</strong> {data?.totalPages}

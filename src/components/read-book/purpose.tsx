@@ -31,7 +31,7 @@ const purposeSchema = z
   })
 
 // Тип данных формы
-type PurposeFormData = z.infer<typeof purposeSchema>
+export type PurposeFormData = z.infer<typeof purposeSchema>
 
 type PurposeProps = {
   type: "set" | "edit"
@@ -39,6 +39,7 @@ type PurposeProps = {
   initialMinDays?: number
   initialMaxDays?: number
   className?: string
+  canToggleChecking?: boolean
 }
 
 export function Purpose({
@@ -46,7 +47,8 @@ export function Purpose({
   onSubmit,
   initialMinDays = 1,
   initialMaxDays = 7,
-  className
+  className,
+  canToggleChecking
 }: PurposeProps) {
   const form = useForm<PurposeFormData>({
     resolver: zodResolver(purposeSchema),
@@ -60,6 +62,7 @@ export function Purpose({
   const handleSubmit = (data: PurposeFormData) => {
     onSubmit?.(data)
   }
+  const isChecking = form.getValues("isChecking")
 
   return (
     <Form {...form}>
@@ -67,22 +70,24 @@ export function Purpose({
         onSubmit={form.handleSubmit(handleSubmit)}
         className={cn("flex flex-col space-y-4", className)}
       >
-        <FormField
-          control={form.control}
-          name="isChecking"
-          render={({ field }) => (
-            <FormItem className="flex items-center gap-2 space-y-0">
-              <FormControl>
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-              </FormControl>
-              <FormLabel>Поставить цель</FormLabel>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        {canToggleChecking && (
+          <FormField
+            control={form.control}
+            name="isChecking"
+            render={({ field }) => (
+              <FormItem className="flex items-center gap-2 space-y-0">
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <FormLabel>Поставить цель</FormLabel>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        )}
         <div className="flex space-x-4">
           <FormField
             control={form.control}
@@ -92,7 +97,7 @@ export function Purpose({
                 <FormLabel>Минимум дней</FormLabel>
                 <FormControl>
                   <Input
-                    disabled={!form.getValues("isChecking")}
+                    disabled={!isChecking}
                     type="number"
                     {...field}
                     onChange={e => field.onChange(+e.target.value)}
@@ -111,7 +116,7 @@ export function Purpose({
                 <FormLabel>Максимум дней</FormLabel>
                 <FormControl>
                   <Input
-                    disabled={!form.getValues("isChecking")}
+                    disabled={!isChecking}
                     type="number"
                     {...field}
                     onChange={e => field.onChange(Number(e.target.value))}
@@ -126,9 +131,10 @@ export function Purpose({
         <FormDescription>
           Укажите диапазон дней, за которые вы планируете прочитать книгу.
         </FormDescription>
-        <Button type="submit">
+        <Button type="submit" disabled={!isChecking}>
           {type === "set" ? "Поставить цель" : "Изменить цель"}
         </Button>
+        {!isChecking && <Button type="submit">Начать читать</Button>}
       </form>
     </Form>
   )

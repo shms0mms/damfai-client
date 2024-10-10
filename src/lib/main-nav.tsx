@@ -1,5 +1,5 @@
 import { DashboardIcon } from "@radix-ui/react-icons"
-import { Book, GalleryVerticalEnd, Home } from "lucide-react"
+import { Book, GalleryVerticalEnd, Home, ShoppingCart } from "lucide-react"
 
 type NavItem = {
   icon: React.ReactNode
@@ -33,6 +33,12 @@ export const getMainNav = (pathname: string): NavItem[] => {
       title: "Личный Кабинет",
       href: "/dashboard",
       active: pathname.startsWith("/dashboard")
+    },
+    {
+      icon: <ShoppingCart width={20} height={20} />,
+      title: "Магазин",
+      href: "/shop",
+      active: pathname.startsWith("/shop")
     }
   ]
 }

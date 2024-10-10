@@ -31,7 +31,11 @@ export default async function BookPage({ params }: BookPageProps) {
         </CardHeader>
         <CardContent className="pl-5">
           {/* <BookForm book={book} className="mt-auto" /> */}
-          <Purpose className="flex h-full flex-col justify-end" type="set" />
+          <Purpose
+            canToggleChecking
+            className="flex h-full flex-col justify-end"
+            type="set"
+          />
         </CardContent>
       </div>
       <div className="flex justify-end">

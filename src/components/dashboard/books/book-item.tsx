@@ -21,7 +21,10 @@ export function BookItem({
 }: BookItemProps) {
   const href = current_page
     ? `/books/read/${id}/?page=${current_page}&chapter=${id_current_chapter}`
-    : `/books/${id}`
+    : !!progress || progress == 0
+      ? `/books/read/${id}`
+      : `/books/${id}`
+
   return (
     <>
       {!!title ? (
@@ -38,7 +41,7 @@ export function BookItem({
                 Страница: {current_page}
               </span>
             )}{" "}
-            {!!progress && (
+            {(!!progress || progress == 0) && (
               <div className="flex items-center space-x-2">
                 <Progress value={progress} className="w-24" />
                 <span className="whitespace-nowrap text-sm text-muted-foreground">

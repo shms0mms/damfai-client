@@ -4,34 +4,15 @@ import Balance from "react-wrap-balancer"
 import { siteConfig } from "@/config/site.config"
 import { BentoDemo } from "@/components/blocks/bento"
 import { FeaturesSection } from "@/components/blocks/features-section"
+import MoodTracker from "@/components/layouts/root/mood-tracker"
 import { FlipWords } from "@/components/ui/flip-words"
 import { Beam } from "@/components/ui/grid-beam"
 import { LaptopScroll } from "@/components/ui/laptop-scroll"
+import { LetterPullup } from "@/components/ui/letter-pullup"
 import { VelocityScroll } from "@/components/ui/scroll-based-velocity"
 import { SparklesCore } from "@/components/ui/sparkles"
-import { SparklesText } from "@/components/ui/sparkles-text"
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect"
 
-const words = [
-  {
-    text: "Добро пожаловать"
-  },
-  {
-    text: "в систему"
-  },
-  {
-    text: "damfAI"
-  },
-  {
-    text: "для"
-  },
-  {
-    text: "чтения"
-  },
-  {
-    text: "книг"
-  }
-]
 const sections = [
   {
     id: "1",
@@ -51,11 +32,11 @@ const sections = [
         </div>
         <div className="flex flex-col gap-3">
           <h1 className="flex w-full items-center justify-center">
-            {/* <span className="relative bg-gradient-to-b from-foreground/25 to-foreground bg-clip-text text-5xl font-bold text-transparent dark:from-neutral-200 dark:to-neutral-600 lg:text-7xl">
-              {siteConfig.name}
-            </span> */}
-
-            <SparklesText text={siteConfig.name} />
+            <LetterPullup
+              className="font-bold text-foreground/60 md:text-7xl"
+              words={siteConfig.name}
+              delay={0.5}
+            />
           </h1>
           <Balance>
             <TextGenerateEffect
@@ -68,12 +49,13 @@ const sections = [
             Добро пожаловать в мир
             <span className="inline-block w-[100px]">
               <FlipWords
-                words={["Чтения", "ИИ", "Chappi", "Нейросетей", "ML"]}
+                words={["Чтения", "ИИ", "Чаппи", "Нейросетей", "ML"]}
               />
             </span>
           </h2>
         </div>
         <LaptopScroll src={"/dashboard.jpeg"} />
+        <MoodTracker />
       </div>
     )
   },

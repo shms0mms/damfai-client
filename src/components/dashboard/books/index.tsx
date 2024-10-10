@@ -1,4 +1,5 @@
 import { BookOpen, Heart, Star } from "lucide-react"
+import { useEffect } from "react"
 import useDashboardBooks from "@/hooks/useDashboardBooks"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -6,6 +7,7 @@ import { TabItem } from "./tab-item"
 
 export function BooksDashboard() {
   const { bookmarks, books, favourites } = useDashboardBooks()
+  useEffect(() => void books.get(), [])
   return (
     <Card className="max-xl:col-span-2">
       <Tabs

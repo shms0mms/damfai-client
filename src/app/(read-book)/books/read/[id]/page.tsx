@@ -1,9 +1,13 @@
 "use client"
 
+import { useMutation } from "@tanstack/react-query"
+import { secondsToMinutes } from "date-fns"
 import { AnimatePresence, motion } from "framer-motion"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
+import { useMediaQuery } from "usehooks-ts"
+import { MEDIA } from "@/config/media.config"
 import useCurrentChapter from "@/hooks/useCurrentChapter"
 import useReadBookData from "@/hooks/useReadBookData"
 import { Header } from "@/components/layouts/read-book/header"
@@ -12,6 +16,8 @@ import { Chappi } from "@/components/read-book/chappi"
 import { Menu as MenuComponent } from "@/components/read-book/menu"
 import { Questions } from "@/components/read-book/questions"
 import { Button } from "@/components/ui/button"
+import { padStart } from "@/lib/utils"
+import readBookService from "@/services/read-book.service"
 
 export type ReadBookPageProps = {
   params: {
@@ -63,15 +69,33 @@ export default function ReadBookPage({
       setCurrentPage(data?.chapters[currentChapterId - 2]?.pages!)
     }
   }
+  const [readTime, setReadTime] = useState(0)
+  useEffect(() => {
+    setReadTime(0)
 
+    const interval = setInterval(() => {
+      setReadTime(prev => prev + 1)
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [currentPage])
+
+  const { mutate: finishPage } = useMutation({
+    mutationFn: ({ page_id, book_id }: { page_id: number; book_id: number }) =>
+      readBookService.readPage(page_id, book_id)
+  })
   const handleNextPage = () => {
     if (currentPage < data?.chapters[currentChapterId - 1]?.pages!) {
       const page = currentPage + 1
       setCurrentPage(page)
+      finishPage({
+        book_id: +params.id,
+        page_id: page
+      })
       push(`/books/read/${params?.id}?page=${page}&chapter=${currentChapterId}`)
     } else if (currentChapterId < data?.chapters?.length!) {
       setCurrentChapterId(prev => prev + 1)
       setCurrentPage(1)
+
       push(
         `/books/read/${params?.id}?page=${1}&chapter=${currentChapterId + 1}`
       )
@@ -83,7 +107,8 @@ export default function ReadBookPage({
     setCurrentPage(1)
     push(`/books/read/${params?.id}?page=${1}&chapter=${parseInt(value)}`)
   }
-
+  const time = `${padStart(secondsToMinutes(readTime))}:${padStart(readTime)}`
+  const isMobile = useMediaQuery(MEDIA.md)
   return (
     <>
       {questionsParam ? (
@@ -99,7 +124,7 @@ export default function ReadBookPage({
 
       {data && !isLoading ? (
         <div className="flex min-h-screen flex-col">
-          <Header data={data} setOpen={setOpen} />
+          <Header data={data} time={time} setOpen={setOpen} />
           <main className="flex flex-grow items-center justify-center p-4 pt-16">
             <AnimatePresence mode="wait">
               <motion.div
@@ -108,7 +133,7 @@ export default function ReadBookPage({
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -300 }}
                 transition={{ type: "spring", stiffness: 260, damping: 20 }}
-                className="mx-auto w-full max-w-4xl rounded-lg bg-card p-6 shadow-lg"
+                className="mx-auto w-full max-w-4xl rounded-lg bg-card py-6 shadow-lg max-md:max-w-7xl"
               >
                 <h2 className="mb-4 text-2xl font-semibold">
                   {data?.chapters[currentChapterId - 1]?.title}
@@ -126,12 +151,14 @@ export default function ReadBookPage({
               </motion.div>
             </AnimatePresence>
           </main>
+
           <footer className="fixed bottom-0 left-0 right-0 flex items-center justify-between border-t bg-background p-4">
             <Button
               onClick={handlePrevPage}
               disabled={currentChapterId === 1 && currentPage === 1}
+              className="max-md:text-[0px]"
             >
-              <ChevronLeft className="mr-2 h-4 w-4" /> Предыдущая
+              <ChevronLeft className="h-4 w-4 md:mr-2" /> Предыдущая
             </Button>
             <span className="text-sm">
               Глава {currentChapterId} / Страница {currentPage}
@@ -142,8 +169,9 @@ export default function ReadBookPage({
                 currentChapterId === data?.chapters?.length &&
                 currentPage === data?.chapters[data?.chapters.length - 1]?.pages
               }
+              className="max-md:text-[0px]"
             >
-              Следующая <ChevronRight className="ml-2 h-4 w-4" />
+              Следующая <ChevronRight className="h-4 w-4 md:ml-2" />
             </Button>
           </footer>
           <MenuComponent
