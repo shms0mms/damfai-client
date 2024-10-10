@@ -3,7 +3,7 @@ import { Bookmark } from "@/types/bookmarks"
 import { Favourite } from "@/types/favourites"
 import { Skeleton } from "@/components/ui/skeleton"
 import { TabsContent } from "@/components/ui/tabs"
-import { BookItem, type BookItemProps } from "./book-item"
+import { BookItem } from "./book-item"
 
 type TabItemProps = {
   books: Favourite[] | Bookmark[] | Book[]

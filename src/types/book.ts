@@ -12,6 +12,7 @@ export type Book = {
   ganres: string[]
   progress: number
   is_favourite?: boolean
+  age_of_book?: string
 }
 export type Chapter = {
   id: number

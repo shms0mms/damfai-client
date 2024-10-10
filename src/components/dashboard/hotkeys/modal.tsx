@@ -26,7 +26,7 @@ export function HotkeyModal({ isOpen, onClose, onSave }: HotkeyModalProps) {
     (e: KeyboardEvent) => {
       e.preventDefault()
       const key = e.key
-      const ctrl = e.ctrlKey ? "Ctrl+" : ""
+      const ctrl = e.ctrlKey ? "Control+" : ""
       const alt = e.altKey ? "Alt+" : ""
       const shift = e.shiftKey ? "Shift+" : ""
       const newHotkey = `${ctrl}${alt}${shift}${key}`

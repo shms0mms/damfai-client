@@ -1,43 +1,11 @@
-import { AxiosResponse } from "axios"
 import { BookOpen, Heart, Star } from "lucide-react"
-import { Bookmark } from "@/types/bookmarks"
-import { Favourite } from "@/types/favourites"
-import {useLazyQuery} from "@/hooks/useLazyQuery"
+import useDashboardBooks from "@/hooks/useDashboardBooks"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { TabItem } from "./tab-item"
-import { bookmarksService } from "@/services/bookmarks.service"
-import { favouriteService } from "@/services/favourite.service"
-
-const books = [
-  { id: 1, title: "To Kill a Mockingbird", author: "Harper Lee", progress: 75 },
-  { id: 2, title: "1984", author: "George Orwell", progress: 30 },
-  { id: 3, title: "Pride and Prejudice", author: "Jane Austen", progress: 100 },
-  {
-    id: 4,
-    title: "The Great Gatsby",
-    author: "F. Scott Fitzgerald",
-    progress: 50
-  }
-]
 
 export function BooksDashboard() {
-  const {
-    data: _bookmarks,
-    query: getBookmarks,
-    isLoading: isLoadingBooksmarks
-  } = useLazyQuery<AxiosResponse<Bookmark[]>>(["/bookmarks"], () =>
-    bookmarksService.getAll()
-  )
-  const bookmarks = _bookmarks?.data
-  const {
-    data: _favourites,
-    query: getFavourites,
-    isLoading: isLoadingFavourites
-  } = useLazyQuery<AxiosResponse<Favourite[]>>(["/favourites"], () =>
-    favouriteService.getAll()
-  )
-  const favourites = _favourites?.data
+  const { bookmarks, books, favourites } = useDashboardBooks()
   return (
     <Card className="max-xl:col-span-2">
       <Tabs
@@ -48,13 +16,13 @@ export function BooksDashboard() {
           <div className="flex items-center justify-between gap-2 max-md:flex-col max-md:items-start">
             <CardTitle>Книги</CardTitle>
             <TabsList>
-              <TabsTrigger onClick={() => {}} value="current">
+              <TabsTrigger onClick={books.get} value="current">
                 Текущие
               </TabsTrigger>
-              <TabsTrigger onClick={() => getBookmarks()} value="bookmarks">
+              <TabsTrigger onClick={bookmarks.get} value="bookmarks">
                 Закладки
               </TabsTrigger>
-              <TabsTrigger onClick={() => getFavourites()} value="favourite">
+              <TabsTrigger onClick={favourites.get} value="favourite">
                 Избранное
               </TabsTrigger>
             </TabsList>
@@ -62,21 +30,21 @@ export function BooksDashboard() {
         </CardHeader>
         <CardContent className="h-full">
           <TabItem
-            books={[]}
+            books={books.books!}
             value="current"
-            isLoading={isLoadingBooksmarks}
+            isLoading={books.isLoading}
             icon={<BookOpen className="h-6 w-6 shrink-0 text-blue-500" />}
           />
           <TabItem
-            books={bookmarks!}
+            books={bookmarks.bookmarks!}
             value="bookmarks"
-            isLoading={isLoadingBooksmarks}
+            isLoading={bookmarks.isLoading}
             icon={<Star className="h-6 w-6 shrink-0 text-yellow-500" />}
           />
           <TabItem
-            books={favourites!}
+            books={favourites.favourites!}
             value="favourite"
-            isLoading={isLoadingFavourites}
+            isLoading={favourites.isLoading}
             icon={<Heart className="h-6 w-6 shrink-0 text-red-500" />}
           />
         </CardContent>
