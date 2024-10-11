@@ -1,5 +1,6 @@
 "use client"
 
+import Balance from "@/components/dashboard/balance"
 import { BooksDashboard } from "@/components/dashboard/books"
 import { BooksPerMonthsGraph } from "@/components/dashboard/graphs/books-per-months-graph"
 import { BooksPerYearGraph } from "@/components/dashboard/graphs/books-per-year-graph"
@@ -45,6 +46,8 @@ export default function Dashboard() {
           <ChartWrapper title="Стастистика чтения" subtitle="Минут за неделю">
             <MinutesPerWeekGraph />
           </ChartWrapper>
+
+          <Balance />
         </div>
       </div>
     </>

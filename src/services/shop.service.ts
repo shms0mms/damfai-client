@@ -115,11 +115,69 @@ export class ShopService {
     return await Promise.resolve([
       {
         id: 1,
-        name: "Изумрудная тема",
-        description: "Тема с изумрудным цветом",
+        name: "Обычная тема",
+        description: "Тема с белым цветом",
         backgroundColor: "#000000",
         textColor: "#ffffff",
         price: 1000
+      },
+      {
+        id: 2,
+        name: "Изумрудная тема",
+        description: "Изумрудная тема в зеленых цветах",
+        backgroundColor: "#00674f",
+        textColor: "#73e6cb",
+        price: 20000
+      },
+      {
+        id: 3,
+        name: "Рубиновая тема",
+        description: "Рубиновая тема в красных цветах",
+        backgroundColor: "#9b111e",
+        textColor: "#e82a3c",
+        price: 50000
+      },
+
+      {
+        id: 4,
+        name: "Обычная тема",
+        description: "Тема с белым цветом",
+        backgroundColor: "#000000",
+        textColor: "#ffffff",
+        price: 1000
+      },
+      {
+        id: 5,
+        name: "Изумрудная тема",
+        description: "Изумрудная тема в зеленых цветах",
+        backgroundColor: "#00674f",
+        textColor: "#73e6cb",
+        price: 20000
+      },
+      {
+        id: 6,
+        name: "Рубиновая тема",
+        description: "Рубиновая тема в красных цветах",
+        backgroundColor: "#9b111e",
+        textColor: "#e82a3c",
+        price: 50000
+      },
+
+      {
+        id: 7,
+        name: "Обычная тема",
+        description: "Тема с белым цветом",
+        backgroundColor: "#000000",
+        textColor: "#ffffff",
+        price: 1000
+      },
+      {
+        id: 8,
+        name: "Изумрудная тема",
+        description: "Изумрудная тема в зеленых цветах",
+        backgroundColor: "#00674f",
+        textColor: "#73e6cb",
+        price: 20000
       }
     ] satisfies Theme[])
   }

@@ -6,11 +6,12 @@ import MarchCard from "@/components/ui/merch-card"
 import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect"
+import ThemeCard from "@/components/ui/theme-card"
 import shopService from "@/services/shop.service"
 
 export default async function Shop() {
   const extensions = await shopService.getExtensions()
-  const themes = await shopService.getExtensions()
+  const themes = await shopService.getThemes()
   const merch = await shopService.getMockMerch()
   const title = "mb-7 text-5xl font-bold"
   const skeletons = Array.from({ length: 4 }, (_, i) => (
@@ -48,13 +49,17 @@ export default async function Shop() {
       <Separator />
       <section className="container">
         <h2 className={title}>Темы</h2>
-        {themes?.length ? themes.map(e => <p key={e.id}>{e.title}</p>) : null}
+        <div className="grid w-full grid-cols-4 gap-4">
+          {themes?.length
+            ? themes.map(e => <ThemeCard key={e.id} {...e} />)
+            : null}
+        </div>
       </section>
       <Separator />
       <section className="container relative [mask-image:linear-gradient(to_top,transparent_40%,#000_100%)] before:absolute before:bottom-0 before:left-0 before:h-full before:w-full before:content-['']">
-        <h2 className="mb-4 text-2xl text-muted-foreground/30">
+        {/* <h2 className="mb-4 text-2xl text-muted-foreground/30">
           Мерч от компании
-        </h2>
+        </h2> */}
         <div className="grid h-full w-full grid-cols-4 gap-4">
           {merch?.length
             ? merch.map(e => <MarchCard key={e.id} {...e} />)
