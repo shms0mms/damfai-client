@@ -13,7 +13,7 @@ export function Providers({ children }: React.PropsWithChildren) {
   return (
     <ThemeProvider
       attribute="class"
-      defaultTheme="dark"
+      defaultTheme="light"
       disableTransitionOnChange
     >
       <ReactQueryProvider>

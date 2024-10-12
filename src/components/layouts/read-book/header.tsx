@@ -2,9 +2,9 @@
 
 import { Menu } from "lucide-react"
 import { ReadBookData } from "@/hooks/useReadBookData"
+import { ThemeToggle } from "@/components/theme-toggle"
 import { Button } from "@/components/ui/button"
 import { Logo } from "@/components/ui/logo"
-import { ThemeSwitcher } from "@/components/ui/theme-switcher"
 import Bookmark from "./bookmark"
 
 type Props = {
@@ -48,7 +48,7 @@ export const Header = ({ data, setOpen, time }: Props) => {
             <span className="max-md:text-[0px]">Время чтения:</span> {time}
           </div>
           <Bookmark currentPage={data?.page?.id!} />
-          <ThemeSwitcher />
+          <ThemeToggle />
         </div>
       </header>
     </>

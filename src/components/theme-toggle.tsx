@@ -20,7 +20,8 @@ export function ThemeToggle({
   iconSize = 16,
   expanded = false
 }: ThemeToggleProps) {
-  const { setTheme } = useTheme()
+  const { setTheme, ...rest } = useTheme()
+  console.log(rest)
 
   return (
     <DropdownMenu>
@@ -66,6 +67,9 @@ export function ThemeToggle({
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("dark")}>
           Темная
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("reading")}>
+          Для чтения
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

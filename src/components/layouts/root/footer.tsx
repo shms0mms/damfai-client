@@ -7,13 +7,13 @@ import { useMediaQuery } from "usehooks-ts"
 import { MEDIA } from "@/config/media.config"
 import { ROUTES } from "@/config/route.config"
 import { siteConfig } from "@/config/site.config"
+import { ThemeToggle } from "@/components/theme-toggle"
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger
 } from "@/components/ui/accordion"
-import { ThemeSwitcher } from "@/components/ui/theme-switcher"
 
 type NavItemLinkProps = {
   href: string
@@ -169,9 +169,9 @@ export const Footer = () => {
               </div>
             )}
           </nav>
-          <p className="flex items-center gap-2 text-balance text-right text-sm leading-loose text-muted-foreground md:text-left">
+          <p className="text-muted-foregrund flex items-center gap-2 text-balance text-right text-sm leading-loose md:text-left">
             Built by {siteConfig.author}.
-            <ThemeSwitcher />
+            <ThemeToggle />
           </p>
         </div>
       </div>
