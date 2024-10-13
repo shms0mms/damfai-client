@@ -38,7 +38,7 @@ class ShopService {
         title: "PRO версия Чаппи"
       },
       {
-        id: 1,
+        id: 5,
         slug: "calendar",
         description:
           "Составляйте расписание чтения книг для более удобной работы с книгами",
@@ -47,7 +47,7 @@ class ShopService {
         title: "Календарь чтения"
       },
       {
-        id: 2,
+        id: 6,
         slug: "custom-theme",
         description: "Создавайте кастомную тему под себя",
         price: 500,
@@ -55,7 +55,7 @@ class ShopService {
         title: "Создание кастомной темы"
       },
       {
-        id: 3,
+        id: 7,
         slug: "hotkeys",
         description: "Вы можете настраивать горячие клавиши под себя",
         price: 100,
@@ -63,7 +63,7 @@ class ShopService {
         title: "Настройка горячих клавиш"
       },
       {
-        id: 4,
+        id: 8,
         slug: "chappi-pro",
         description:
           "Чаппи отвечает не слишком грамотно, с PRO версией он будет более детально и точно отвечать на ваши вопросы",
@@ -74,8 +74,8 @@ class ShopService {
     ])
   }
 
-  async getMockMerch() {
-    return await Promise.resolve<Merch[]>([
+  getMockMerch() {
+    return Promise.resolve<Merch[]>([
       {
         id: 1,
         name: "Худи от самого чаппи",
@@ -85,7 +85,7 @@ class ShopService {
         price: 10000
       },
       {
-        id: 1,
+        id: 2,
         name: "Худи от самого чаппи",
         description: "Удобное худи для зимы",
         imageUrl:
@@ -93,7 +93,7 @@ class ShopService {
         price: 10000
       },
       {
-        id: 1,
+        id: 3,
         name: "Худи от самого чаппи",
         description: "Удобное худи для зимы",
         imageUrl:
@@ -101,7 +101,7 @@ class ShopService {
         price: 10000
       },
       {
-        id: 1,
+        id: 4,
         name: "Худи от самого чаппи",
         description: "Удобное худи для зимы",
         imageUrl:
@@ -114,19 +114,23 @@ class ShopService {
   getThemes() {
     return Promise.resolve<Theme[]>([
       {
-        id: 2,
+        id: 1,
         name: "Изумрудная тема",
         description: "Изумрудная тема в зеленых цветах",
-        backgroundColor: "#00674f",
-        textColor: "#73e6cb",
+        backgroundColor: "#ffffff",
+        textColor: "#000000",
+        primaryColor: "#22c55e",
+        primaryTextColor: "#000000",
         price: 20000
       },
       {
-        id: 3,
+        id: 2,
         name: "Рубиновая тема",
         description: "Рубиновая тема в красных цветах",
-        backgroundColor: "#9b111e",
-        textColor: "#e82a3c",
+        backgroundColor: "#ffffff",
+        textColor: "#000000",
+        primaryColor: "#e11d48",
+        primaryTextColor: "#ffffff",
         price: 50000
       }
     ])

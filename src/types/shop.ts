@@ -13,6 +13,8 @@ export type Theme = {
   description: string
   backgroundColor: string // hex
   textColor: string // hex
+  primaryColor: string // hex
+  primaryTextColor: string // hex
   price: number // 0 - free [Чаппи коины]
 }
 

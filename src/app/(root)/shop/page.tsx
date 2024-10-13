@@ -51,7 +51,7 @@ export default async function ShopPage() {
         <h2 className={title}>Темы</h2>
         <div className="grid w-full grid-cols-4 gap-4">
           {themes?.length
-            ? themes.map(e => <ThemeCard key={e.id} {...e} />)
+            ? themes.map(theme => <ThemeCard key={theme.id} theme={theme} />)
             : null}
         </div>
       </section>
