@@ -7,12 +7,7 @@ import { PinContainer } from "./3d-pin"
 import { Button } from "./button"
 import { toPrice } from "@/lib/utils"
 
-export default function Extension({
-  description,
-  id,
-  title,
-  price
-}: Extension) {
+export function Extension({ description, id, title, price }: Extension) {
   return (
     <>
       <PinContainer

@@ -1,7 +1,7 @@
 import { Construction } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-export default function InDevelopment({ className }: { className?: string }) {
+export function InDevelopment({ className }: { className?: string }) {
   return (
     <>
       <div

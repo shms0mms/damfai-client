@@ -4,7 +4,7 @@ import { Button } from "./button"
 import { Card, CardContent, CardHeader } from "./card"
 import { toPrice } from "@/lib/utils"
 
-export default function ThemeCard({
+export function ThemeCard({
   backgroundColor,
   description,
   id,

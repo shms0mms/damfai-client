@@ -1,6 +1,6 @@
 import { Merch } from "@/types/shop"
 
-export default function MarchCard({ description, imageUrl, id, name }: Merch) {
+export function MarchCard({ description, imageUrl, id, name }: Merch) {
   return (
     <>
       <div

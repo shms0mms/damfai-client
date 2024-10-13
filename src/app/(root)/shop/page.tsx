@@ -1,19 +1,19 @@
-import { BentoDemo } from "@/components/blocks/bento"
-import Extension from "@/components/ui/extension"
-import InDevelopment from "@/components/ui/in-dev"
+import { Extension } from "@/components/ui/extension"
+import { InDevelopment } from "@/components/ui/in-dev"
 import { LetterPullup } from "@/components/ui/letter-pullup"
-import MarchCard from "@/components/ui/merch-card"
+import { MarchCard } from "@/components/ui/merch-card"
 import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect"
-import ThemeCard from "@/components/ui/theme-card"
+import { ThemeCard } from "@/components/ui/theme-card"
 import { shopService } from "@/services/shop.service"
 
-export default async function Shop() {
+export default async function ShopPage() {
   const extensions = await shopService.getExtensions()
   const themes = await shopService.getThemes()
   const merch = await shopService.getMockMerch()
   const title = "mb-7 text-5xl font-bold"
+
   const skeletons = Array.from({ length: 4 }, (_, i) => (
     <Skeleton key={i} className="min-h-[400px] w-full rounded-md" />
   ))
@@ -66,9 +66,6 @@ export default async function Shop() {
             : skeletons}
         </div>
         <InDevelopment />
-      </section>
-      <section className="container">
-        <BentoDemo />
       </section>
     </div>
   )
