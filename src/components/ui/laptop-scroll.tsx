@@ -23,19 +23,21 @@ import { IconCaretLeftFilled } from "@tabler/icons-react"
 import { IconCaretDownFilled } from "@tabler/icons-react"
 import { MotionValue, motion, useScroll, useTransform } from "framer-motion"
 import Image from "next/image"
-import React, { useEffect, useMemo, useRef, useState } from "react"
+import { type FC, useEffect, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 
-export const LaptopScroll = ({
-  src,
-  showGradient,
-  title,
-  badge
-}: {
+type LaptopScrollProps = {
   src?: string
   showGradient?: boolean
   title?: string | React.ReactNode
   badge?: React.ReactNode
+}
+
+export const LaptopScroll: FC<LaptopScrollProps> = ({
+  src,
+  showGradient,
+  title,
+  badge
 }) => {
   const ref = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
@@ -116,18 +118,20 @@ export const LaptopScroll = ({
   )
 }
 
-export const Lid = ({
+type LidProps = {
+  src?: string
+  scaleX: MotionValue<number>
+  scaleY: MotionValue<number>
+  rotate: MotionValue<number>
+  translate: MotionValue<number>
+}
+
+export const Lid: FC<LidProps> = ({
   scaleX,
   scaleY,
   rotate,
   translate,
   src
-}: {
-  scaleX: MotionValue<number>
-  scaleY: MotionValue<number>
-  rotate: MotionValue<number>
-  translate: MotionValue<number>
-  src?: string
 }) => {
   return (
     <div className="relative [perspective:800px]">

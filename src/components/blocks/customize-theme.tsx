@@ -6,7 +6,7 @@ import { type FC, useContext } from "react"
 import { HexColorPicker } from "react-colorful"
 import { useFieldArray, useForm } from "react-hook-form"
 import { z } from "zod"
-import { CustomThemeContext } from "@/components/theme-provider"
+import { CustomThemeContext } from "@/components/providers/theme-provider"
 import { Button } from "@/components/ui/button"
 import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form"
 import { Label } from "@/components/ui/label"
@@ -83,7 +83,7 @@ export const CustomizeTheme: FC = () => {
     }
   })
 
-  const { fields, append, remove, replace } = useFieldArray({
+  const { fields, append, replace } = useFieldArray({
     control: form.control,
     name: "variables"
   })
@@ -105,7 +105,7 @@ export const CustomizeTheme: FC = () => {
         <FormField
           name="variables"
           control={form.control}
-          render={({ field }) => (
+          render={() => (
             <FormItem className="grid w-full grid-cols-1 gap-3 space-y-0 min-[500px]:grid-cols-2 sm:gap-6 lg:grid-cols-3">
               {variables.map((variable, i) => {
                 let color = ""

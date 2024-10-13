@@ -2,9 +2,8 @@
 
 import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes"
 import { type ThemeProviderProps } from "next-themes/dist/types"
-import Head from "next/head"
 import { createContext, useState } from "react"
-import { CustomizeThemeFormSchema } from "./blocks/customize-theme"
+import { CustomizeThemeFormSchema } from "@/components/blocks/customize-theme"
 import { THEMES } from "@/lib/constants"
 import { getCustomThemeVariables } from "@/lib/utils"
 
@@ -36,7 +35,7 @@ function CustomThemeProvider({ children }: React.PropsWithChildren) {
   const { theme } = useTheme()
   const [variables, setVariables] = useState<
     CustomizeThemeFormSchema["variables"]
-  >(getCustomThemeVariables())
+  >(typeof window === "undefined" ? [] : getCustomThemeVariables())
 
   const isActive = !!(theme === "custom" && variables.length)
 
@@ -54,7 +53,7 @@ function CustomThemeProvider({ children }: React.PropsWithChildren) {
             {`
 .custom-theme-wrapper {
   ${variables.map(
-    (variable, i) => `--${variable.key}: ${variable.value} !important;\n`
+    variable => `--${variable.key}: ${variable.value} !important;\n`
   )}
 `}
           </style>

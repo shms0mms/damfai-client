@@ -3,7 +3,7 @@
 import { KeyboardIcon } from "lucide-react"
 import { useContext, useState } from "react"
 import useHotkeys from "@/hooks/useHotkeys"
-import { AuthContext } from "@/providers/auth"
+import { AuthContext } from "@/components/providers/auth-profider"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,

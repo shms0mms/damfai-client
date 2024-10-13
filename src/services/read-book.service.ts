@@ -17,4 +17,4 @@ export class ReadBookService {
   }
 }
 
-export default new ReadBookService()
+export const readBookService = new ReadBookService()

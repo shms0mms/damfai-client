@@ -5,7 +5,7 @@ import { Favourite } from "@/types/favourites"
 import { useLazyQuery } from "./useLazyQuery"
 import { bookmarksService } from "@/services/bookmarks.service"
 import { favouriteService } from "@/services/favourite.service"
-import readBookService from "@/services/read-book.service"
+import { readBookService } from "@/services/read-book.service"
 
 const useDashboardBooks = () => {
   const {

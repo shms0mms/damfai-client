@@ -5,7 +5,7 @@ import { toast } from "sonner"
 import { z } from "zod"
 import type { UserUpdate } from "@/types/user"
 import { OPTIONS } from "@/config/options.config"
-import { AuthContext } from "@/providers/auth"
+import { AuthContext } from "@/components/providers/auth-profider"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,

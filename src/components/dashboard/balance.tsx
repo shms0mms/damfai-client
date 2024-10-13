@@ -1,7 +1,7 @@
 import { useContext } from "react"
-import { AuthContext } from "@/providers/auth"
+import { AuthContext } from "@/components/providers/auth-profider"
 
-export default function Balance() {
+export function Balance() {
   const {} = useContext(AuthContext)
   return <></>
 }

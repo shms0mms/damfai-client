@@ -7,7 +7,7 @@ import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect"
 import ThemeCard from "@/components/ui/theme-card"
-import shopService from "@/services/shop.service"
+import { shopService } from "@/services/shop.service"
 
 export default async function Shop() {
   const extensions = await shopService.getExtensions()
@@ -15,7 +15,7 @@ export default async function Shop() {
   const merch = await shopService.getMockMerch()
   const title = "mb-7 text-5xl font-bold"
   const skeletons = Array.from({ length: 4 }, (_, i) => (
-    <Skeleton className="min-h-[400px] w-full rounded-md" />
+    <Skeleton key={i} className="min-h-[400px] w-full rounded-md" />
   ))
   return (
     <div className="flex h-full w-full flex-col gap-[100px]">
@@ -42,7 +42,7 @@ export default async function Shop() {
 
         <div className="grid grid-cols-4 gap-4">
           {extensions?.length
-            ? extensions.map(e => <Extension {...e} key={e.id} />)
+            ? extensions.map(e => <Extension key={e.id} {...e} />)
             : skeletons}
         </div>
       </section>

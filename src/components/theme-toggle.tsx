@@ -1,8 +1,10 @@
 "use client"
 
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons"
+import { Lock } from "lucide-react"
 import { useTheme } from "next-themes"
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { toast } from "sonner"
 import { CustomizeTheme } from "@/components/blocks/customize-theme"
 import { Button } from "@/components/ui/button"
 import {
@@ -19,6 +21,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
+import { AuthContext } from "./providers/auth-profider"
 import { cn } from "@/lib/utils"
 
 type ThemeToggleProps = {
@@ -30,6 +33,11 @@ export function ThemeToggle({
   iconSize = 16,
   expanded = false
 }: ThemeToggleProps) {
+  const { user } = useContext(AuthContext)
+  const haveCustomThemeExtension = !!user?.extensions?.find(
+    e => e.slug === "custom-theme"
+  )
+
   const [isCustomThemeOpen, setIsCustomThemeOpen] = useState(false)
   const { setTheme } = useTheme()
 
@@ -82,8 +90,24 @@ export function ThemeToggle({
           <DropdownMenuItem onClick={() => setTheme("reading")}>
             Для чтения
           </DropdownMenuItem>
+
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => setIsCustomThemeOpen(true)}>
+          <DropdownMenuItem
+            onClick={() => {
+              if (!haveCustomThemeExtension)
+                return toast.info(
+                  <div className="flex items-center gap-2">
+                    <Lock className="h-5 w-5 text-yellow-500" /> Кастомизация
+                    темы доступна только с расширением
+                  </div>,
+                  {
+                    position: "top-center"
+                  }
+                )
+              setIsCustomThemeOpen(true)
+            }}
+            className={cn({ "opacity-50": !haveCustomThemeExtension })}
+          >
             Кастомизировать
           </DropdownMenuItem>
         </DropdownMenuContent>
