@@ -2,8 +2,8 @@
 
 import { useMutation } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
-import { Purpose, PurposeFormData } from "../read-book/purpose"
-import readBookService from "@/services/read-book.service"
+import { Purpose, PurposeFormData } from "@/components/read-book/purpose"
+import { readBookService } from "@/services/read-book.service"
 
 export default function PurposeForm({ params }: { params: { id: string } }) {
   const { push } = useRouter()

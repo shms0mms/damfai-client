@@ -1,13 +1,12 @@
-import { BentoDemo } from "@/components/blocks/bento"
-import Extension from "@/components/ui/extension"
-import InDevelopment from "@/components/ui/in-dev"
+import { Extension } from "@/components/ui/extension"
+import { InDevelopment } from "@/components/ui/in-dev"
 import { LetterPullup } from "@/components/ui/letter-pullup"
-import MarchCard from "@/components/ui/merch-card"
+import { MarchCard } from "@/components/ui/merch-card"
 import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect"
-import ThemeCard from "@/components/ui/theme-card"
-import shopService from "@/services/shop.service"
+import { ThemeCard } from "@/components/ui/theme-card"
+import { shopService } from "@/services/shop.service"
 
 // TODO: Paid merch, Paid Themes, Paid books
 
@@ -16,8 +15,9 @@ export default async function Shop() {
   const themes = await shopService.getThemes()
   const merch = await shopService.getMockMerch()
   const title = "mb-7 text-5xl font-bold"
+
   const skeletons = Array.from({ length: 4 }, (_, i) => (
-    <Skeleton className="min-h-[400px] w-full rounded-md" />
+    <Skeleton key={i} className="min-h-[400px] w-full rounded-md" />
   ))
   return (
     <div className="flex h-full w-full flex-col gap-[100px]">
@@ -44,7 +44,7 @@ export default async function Shop() {
 
         <div className="grid grid-cols-4 gap-4">
           {extensions?.length
-            ? extensions.map(e => <Extension {...e} key={e.id} />)
+            ? extensions.map(e => <Extension key={e.id} {...e} />)
             : skeletons}
         </div>
       </section>
@@ -53,7 +53,7 @@ export default async function Shop() {
         <h2 className={title}>Темы</h2>
         <div className="grid w-full grid-cols-4 gap-4">
           {themes?.length
-            ? themes.map(e => <ThemeCard key={e.id} {...e} />)
+            ? themes.map(theme => <ThemeCard key={theme.id} theme={theme} />)
             : null}
         </div>
       </section>
@@ -68,9 +68,6 @@ export default async function Shop() {
             : skeletons}
         </div>
         <InDevelopment />
-      </section>
-      <section className="container">
-        <BentoDemo />
       </section>
     </div>
   )

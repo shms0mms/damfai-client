@@ -2,9 +2,9 @@
 
 import { Loader } from "lucide-react"
 import { useContext } from "react"
-import { AuthContext } from "@/providers/auth"
+import { AuthContext } from "@/components/providers/auth-profider"
+import { ThemeToggle } from "@/components/theme-toggle"
 import { Logo } from "@/components/ui/logo"
-import { ThemeSwitcher } from "@/components/ui/theme-switcher"
 import { LoginButton } from "./login-button"
 import { MobileNavigation } from "./mobile-navigation"
 import { Navigation } from "./navigation"
@@ -32,7 +32,7 @@ export const Header = () => {
             <Loader size={20} className="animate-spin" />
           ) : (
             <div className="flex items-center gap-2">
-              <LoginButton /> <ThemeSwitcher />
+              <LoginButton /> <ThemeToggle />
             </div>
           )}
         </div>

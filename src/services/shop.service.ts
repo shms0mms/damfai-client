@@ -1,8 +1,8 @@
-import { Extension, Merch, Theme } from "@/types/shop"
+import type { Extension, Merch, Theme } from "@/types/shop"
 
-export class ShopService {
-  async getExtensions() {
-    return await Promise.resolve([
+class ShopService {
+  getExtensions() {
+    return Promise.resolve<Extension[]>([
       {
         id: 1,
         slug: "calendar",
@@ -34,7 +34,7 @@ export class ShopService {
         title: "PRO версия Чаппи"
       },
       {
-        id: 1,
+        id: 5,
         slug: "calendar",
         description:
           "Составляйте расписание чтения книг для более удобной работы с книгами",
@@ -42,32 +42,32 @@ export class ShopService {
         title: "Календарь чтения"
       },
       {
-        id: 2,
+        id: 6,
         slug: "custom-theme",
         description: "Создавайте кастомную тему под себя",
         is_active: false,
         title: "Создание кастомной темы"
       },
       {
-        id: 3,
+        id: 7,
         slug: "hotkeys",
         description: "Вы можете настраивать горячие клавиши под себя",
         is_active: false,
         title: "Настройка горячих клавиш"
       },
       {
-        id: 4,
+        id: 8,
         slug: "chappi-pro",
         description:
           "Чаппи отвечает не слишком грамотно, с PRO версией он будет более детально и точно отвечать на ваши вопросы",
         is_active: false,
         title: "PRO версия Чаппи"
       }
-    ] satisfies Extension[])
+    ])
   }
 
-  async getMockMerch() {
-    return await Promise.resolve([
+  getMockMerch() {
+    return Promise.resolve<Merch[]>([
       {
         id: 1,
         name: "Худи от самого чаппи",
@@ -77,7 +77,7 @@ export class ShopService {
         price: 10000
       },
       {
-        id: 1,
+        id: 2,
         name: "Худи от самого чаппи",
         description: "Удобное худи для зимы",
         imageUrl:
@@ -85,7 +85,7 @@ export class ShopService {
         price: 10000
       },
       {
-        id: 1,
+        id: 3,
         name: "Худи от самого чаппи",
         description: "Удобное худи для зимы",
         imageUrl:
@@ -93,86 +93,40 @@ export class ShopService {
         price: 10000
       },
       {
-        id: 1,
+        id: 4,
         name: "Худи от самого чаппи",
         description: "Удобное худи для зимы",
         imageUrl:
           "https://ae04.alicdn.com/kf/Sc710ee4bc1954bdb9481842014d2ec3ei.jpg",
         price: 10000
       }
-    ] satisfies Merch[])
+    ])
   }
 
-  async getThemes() {
-    return await Promise.resolve([
+  getThemes() {
+    return Promise.resolve<Theme[]>([
       {
         id: 1,
-        name: "Обычная тема",
-        description: "Тема с белым цветом",
-        backgroundColor: "#000000",
-        textColor: "#ffffff",
-        price: 1000
+        name: "Изумрудная тема",
+        description: "Изумрудная тема в зеленых цветах",
+        backgroundColor: "#ffffff",
+        textColor: "#000000",
+        primaryColor: "#22c55e",
+        primaryTextColor: "#000000",
+        price: 20000
       },
       {
         id: 2,
-        name: "Изумрудная тема",
-        description: "Изумрудная тема в зеленых цветах",
-        backgroundColor: "#00674f",
-        textColor: "#73e6cb",
-        price: 20000
-      },
-      {
-        id: 3,
         name: "Рубиновая тема",
         description: "Рубиновая тема в красных цветах",
-        backgroundColor: "#9b111e",
-        textColor: "#e82a3c",
+        backgroundColor: "#ffffff",
+        textColor: "#000000",
+        primaryColor: "#e11d48",
+        primaryTextColor: "#ffffff",
         price: 50000
-      },
-
-      {
-        id: 4,
-        name: "Обычная тема",
-        description: "Тема с белым цветом",
-        backgroundColor: "#000000",
-        textColor: "#ffffff",
-        price: 1000
-      },
-      {
-        id: 5,
-        name: "Изумрудная тема",
-        description: "Изумрудная тема в зеленых цветах",
-        backgroundColor: "#00674f",
-        textColor: "#73e6cb",
-        price: 20000
-      },
-      {
-        id: 6,
-        name: "Рубиновая тема",
-        description: "Рубиновая тема в красных цветах",
-        backgroundColor: "#9b111e",
-        textColor: "#e82a3c",
-        price: 50000
-      },
-
-      {
-        id: 7,
-        name: "Обычная тема",
-        description: "Тема с белым цветом",
-        backgroundColor: "#000000",
-        textColor: "#ffffff",
-        price: 1000
-      },
-      {
-        id: 8,
-        name: "Изумрудная тема",
-        description: "Изумрудная тема в зеленых цветах",
-        backgroundColor: "#00674f",
-        textColor: "#73e6cb",
-        price: 20000
       }
-    ] satisfies Theme[])
+    ])
   }
 }
 
-export default new ShopService()
+export const shopService = new ShopService()

@@ -58,7 +58,7 @@ class BookService {
     )
     return response.map(r => r.ganre)
   }
-  async getById(id: number) {
+  async getById(_id: number) {
     return new Promise<Book>(res =>
       res({
         id: 1,
@@ -90,7 +90,7 @@ class BookService {
   async getUserBooks() {
     return new Promise<Book[]>(res =>
       res(
-        new Array(10).fill(null).map((_, i) => ({
+        Array.from({ length: 10 }).map((_, i) => ({
           id: i + 1,
           title: books[randomNumber(0, books.length - 1)!]!.title,
           author: books[randomNumber(0, books.length - 1)!]!.author,

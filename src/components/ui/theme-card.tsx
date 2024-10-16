@@ -1,57 +1,130 @@
+"use client"
+
+import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
-import { Theme } from "@/types/shop"
-import { Button } from "./button"
-import { Card, CardContent, CardHeader } from "./card"
+import { useState } from "react"
+import ReactCardFlip from "react-card-flip"
+import type { Theme } from "@/types/shop"
+import { Button } from "@/components/ui/button"
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle
+} from "@/components/ui/card"
 import { toPrice } from "@/lib/utils"
 
-export default function ThemeCard({
-  backgroundColor,
-  description,
-  id,
-  name,
-  price,
-  textColor
-}: Theme) {
-  const item = "aspect-square w-5 border border-solid rounded-full"
+type ThemeCardProps = {
+  theme: Theme
+}
+
+const themeExampleColors = [
+  "backgroundColor",
+  "textColor",
+  "primaryColor",
+  "primaryTextColor"
+]
+const themeExampleColorsLabels: Record<string, string> = {
+  backgroundColor: "Фон",
+  textColor: "Текст",
+  primaryColor: "Основной (кнопки)",
+  primaryTextColor: "Основной текст (кнопки)"
+}
+
+export function ThemeCard({ theme }: ThemeCardProps) {
+  const [isFlipped, setIsFlipped] = useState(false)
+  const colors = Object.entries(theme)
+    .filter(([key]) => themeExampleColors.some(e => e === key))
+    .map(([key, value]) => ({
+      label: themeExampleColorsLabels[key],
+      value: value as string
+    }))
+
   return (
-    <Card>
-      <CardHeader>
-        <div className="flex w-full items-center justify-between gap-2">
-          <h3 className="text-lg font-semibold">{name}</h3>
-        </div>
-      </CardHeader>
-      <CardContent className="flex flex-col gap-3 px-0">
-        <ul className="flex flex-col gap-2">
-          <li className="flex items-center gap-2">
-            <span
-              style={{
-                backgroundColor
-              }}
-              className={item}
-            />
-            Цвет заднего фона
-          </li>
-          <li className="flex items-center gap-2">
-            <span
-              style={{
-                backgroundColor: textColor
-              }}
-              className={item}
-            />
-            Цвет текста
-          </li>
-        </ul>
-        <p className="overflow-hidden text-ellipsis whitespace-nowrap text-muted-foreground">
-          {description}
-        </p>
-        <div className="flex w-full items-center justify-between gap-2">
-          {" "}
-          <span className="text-right font-semibold">{toPrice(price)}</span>
-          <Button size={"sm"} asChild>
-            <Link href={`/shop/themes/${id}`}>Купить</Link>
+    <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
+      <Card className="front">
+        <CardHeader>
+          <CardTitle className="text-lg">{theme.name}</CardTitle>
+        </CardHeader>
+        <CardContent className="mt-4 flex flex-col gap-3 px-0">
+          <ul className="flex flex-col gap-2">
+            {colors.map(({ label, value }) => (
+              <li className="flex items-center gap-2" key={label}>
+                <span
+                  style={{
+                    backgroundColor: value
+                  }}
+                  className="aspect-square w-5 rounded-full border border-solid"
+                />
+                {label}
+              </li>
+            ))}
+          </ul>
+          <p className="overflow-hidden text-ellipsis whitespace-nowrap text-muted-foreground">
+            {theme.description}
+          </p>
+        </CardContent>
+        <CardFooter className="mt-4 flex w-full items-center justify-between gap-2">
+          <span className="text-right font-semibold">
+            {toPrice(theme.price)}
+          </span>
+          <div className="flex items-center gap-2">
+            <Button
+              size="sm"
+              onClick={() => setIsFlipped(true)}
+              variant="outline"
+            >
+              Осмотреть
+            </Button>
+            <Button size="sm" asChild>
+              <Link href={`/shop/themes/${theme.id}`}>Купить</Link>
+            </Button>
+          </div>
+        </CardFooter>
+      </Card>
+      <Card
+        className="back flex h-full flex-col"
+        style={{
+          backgroundColor: theme.backgroundColor,
+          color: theme.textColor
+        }}
+      >
+        <CardHeader>
+          <CardTitle className="text-lg">{theme.name}</CardTitle>
+        </CardHeader>
+        <CardContent className="mt-4 h-full">
+          «Зима близко...» — говорят Старки. «Новая книга Джорджа Мартина еще
+          ближе!» — говорим мы.
+          <Button
+            className="mt-4 flex"
+            size="lg"
+            style={{
+              backgroundColor: theme.primaryColor,
+              color: theme.primaryTextColor
+            }}
+          >
+            Кнопка
           </Button>
-        </div>
-      </CardContent>
-    </Card>
+        </CardContent>
+        <CardFooter className="flex w-full items-center justify-between gap-2">
+          <span className="text-right font-semibold">
+            {toPrice(theme.price)}
+          </span>
+          <div className="flex items-center gap-2 text-foreground">
+            <Button
+              size="sm"
+              onClick={() => setIsFlipped(false)}
+              variant="outline"
+            >
+              <ArrowLeft size={16} />
+            </Button>
+            <Button size="sm" asChild>
+              <Link href={`/shop/themes/${theme.id}`}>Купить</Link>
+            </Button>
+          </div>
+        </CardFooter>
+      </Card>
+    </ReactCardFlip>
   )
 }

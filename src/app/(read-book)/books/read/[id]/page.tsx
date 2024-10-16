@@ -24,7 +24,7 @@ import {
   TooltipTrigger
 } from "@/components/ui/tooltip"
 import { padStart } from "@/lib/utils"
-import readBookService from "@/services/read-book.service"
+import { readBookService } from "@/services/read-book.service"
 
 export type ReadBookPageProps = {
   params: {

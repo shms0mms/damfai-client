@@ -1,12 +1,13 @@
 import { User } from "lucide-react"
+import Link from "next/link"
 import { useContext } from "react"
 import { useFavouriteGanres } from "@/hooks/useFavouriteGanres"
-import { AuthContext } from "@/providers/auth"
 import { Hotkeys } from "@/components/dashboard/hotkeys"
+import { AuthContext } from "@/components/providers/auth-profider"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
-import { EditProfile } from "./edit"
 import { getMaxKey } from "@/lib/utils"
 
 export function Profile() {
@@ -57,7 +58,9 @@ export function Profile() {
               "Отсутствует"
             )}
           </div>
-          <EditProfile />
+          <Button type="button" asChild>
+            <Link href={"/dashboard/settings/edit"}>Редактировать</Link>
+          </Button>
         </div>
       </CardContent>
     </Card>

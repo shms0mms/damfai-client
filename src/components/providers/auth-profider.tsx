@@ -17,6 +17,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const accessToken = getAccessToken()
   const { data, error, refetch, isLoading } = useProfile()
   const status = error?.response?.status
+
   useEffect(() => {
     accessToken && refetch()
   }, [accessToken])

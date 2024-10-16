@@ -3,8 +3,8 @@ import { Didact_Gothic } from "next/font/google"
 import localFont from "next/font/local"
 import { PropsWithChildren } from "react"
 import { siteConfig } from "@/config/site.config"
+import { Providers } from "@/components/providers"
 import "./globals.css"
-import { Providers } from "./providers"
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",

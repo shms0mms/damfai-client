@@ -1,12 +1,12 @@
 import { Lock } from "lucide-react"
 import { useContext, useEffect } from "react"
 import { toast } from "sonner"
-import { AuthContext } from "@/providers/auth"
+import { AuthContext } from "@/components/providers/auth-profider"
 import { Hotkey } from "./useHotkeys"
 
-const useHotkeysActions = (hotkeys: Hotkey[]) => {
+export const useHotkeysActions = (hotkeys: Hotkey[]) => {
   const { user } = useContext(AuthContext)
-  const haveEx = !!user?.extensions?.find(e => e.slug === "hotkeys")
+  const haveExtension = !!user?.extensions?.find(e => e.slug === "hotkeys")
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const keydownKey = event.key
@@ -20,7 +20,7 @@ const useHotkeysActions = (hotkeys: Hotkey[]) => {
             return h.key === key
           }) || null
         if (hotkey?.id) {
-          if (!haveEx) {
+          if (!haveExtension) {
             event.preventDefault()
             toast.info(
               <div className="flex items-center gap-2">
@@ -43,7 +43,5 @@ const useHotkeysActions = (hotkeys: Hotkey[]) => {
     return () => {
       window.removeEventListener("keydown", handleKeyDown)
     }
-  }, [hotkeys, haveEx])
+  }, [hotkeys, haveExtension])
 }
-
-export default useHotkeysActions

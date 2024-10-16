@@ -6,7 +6,7 @@ import { type Extension } from "@/types/shop"
 import { PinContainer } from "./3d-pin"
 import { Button } from "./button"
 
-export default function Extension({ description, id, title }: Extension) {
+export function Extension({ description, id, title }: Extension) {
   return (
     <>
       <PinContainer

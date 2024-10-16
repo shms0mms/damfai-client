@@ -35,7 +35,7 @@ export function AnimatedBeamDemo() {
 
   return (
     <div
-      className="absolute right-2 top-4 flex h-[500px] w-full items-center justify-center overflow-hidden rounded-lg border border-none bg-background p-10 transition-all duration-300 ease-out [mask-image:linear-gradient(to_top,transparent_10%,#000_100%)] group-hover:scale-105 md:shadow-xl"
+      className="absolute right-2 top-4 flex h-[500px] w-full items-center justify-center overflow-hidden rounded-lg border border-none bg-background bg-white p-10 transition-all duration-300 ease-out [mask-image:linear-gradient(to_top,transparent_10%,#000_100%)] group-hover:scale-105 dark:bg-black md:shadow-xl"
       ref={containerRef}
     >
       <div className="flex size-full max-h-[200px] max-w-lg flex-col items-stretch justify-between gap-10">

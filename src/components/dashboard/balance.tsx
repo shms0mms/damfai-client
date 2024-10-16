@@ -1,7 +1,7 @@
 "use client"
 
 import { useContext } from "react"
-import { AuthContext } from "@/providers/auth"
+import { AuthContext } from "../providers/auth-profider"
 import { Button } from "../ui/button"
 import {
   Card,

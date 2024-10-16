@@ -85,6 +85,32 @@ h2 {
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
+  .reading {
+    --background: 50 60% 94%; /* A soft, very light yellow */
+    --foreground: 45 100% 20%; /* A dark, calming yellowish-brown for text */
+    --card: 50 50% 97%; /* Slightly darker version of background */
+    --card-foreground: 45 100% 20%; /* Same as foreground for consistency */
+    --popover: 50 60% 94%; /* Same as background */
+    --popover-foreground: 45 100% 20%; /* Same as text */
+    --primary: 50 60% 94%; /* Light yellow */
+    --primary-foreground: 45 100% 20%; /* Calming yellowish-brown */
+    --secondary: 45 30% 90%; /* A muted yellow tone */
+    --secondary-foreground: 45 100% 20%; /* Consistent foreground */
+    --muted: 45 30% 90%; /* Softer yellow */
+    --muted-foreground: 45 50% 40%; /* Slightly lighter for muted text */
+    --accent: 45 40% 85%; /* Soft yellow for accent elements */
+    --accent-foreground: 45 100% 20%; /* Consistent dark text */
+    --destructive: 0 62.8% 30.6%; /* Keeping a distinct red for destructive actions */
+    --destructive-foreground: 0 0% 98%; /* White text for contrast */
+    --border: 45 50% 90%; /* A light yellow for borders */
+    --input: 50 50% 97%; /* Soft yellow for input backgrounds */
+    --ring: 50 60% 94%; /* Same as background for subtle focus outlines */
+    --chart-1: 50 70% 80%; /* Soft yellow for charts */
+    --chart-2: 50 60% 75%; /* Slightly darker yellow */
+    --chart-3: 30 80% 55%; /* Warm light orange for variety */
+    --chart-4: 280 65% 60%; /* A purple contrast for diversity in charts */
+    --chart-5: 340 75% 55%; /* Soft pinkish-red for contrast */
+  }
 }
 
 @layer base {

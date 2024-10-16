@@ -21,6 +21,7 @@ export default function Dashboard() {
         <Notify />
         <div className="grid grid-cols-1 gap-y-4 xl:grid-cols-3 xl:gap-x-4">
           <Profile />
+
           <Statistics />
           <BooksDashboard />
           <ChartWrapper

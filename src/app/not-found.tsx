@@ -2,6 +2,7 @@ import Link from "next/link"
 import Balancer from "react-wrap-balancer"
 import { Button } from "@/components/ui/button"
 import { getMainNav } from "@/lib/main-nav"
+import { cn } from "@/lib/utils"
 
 export default function NotFoundPage() {
   const items = getMainNav("")
@@ -16,12 +17,12 @@ export default function NotFoundPage() {
         </Balancer>
       </p>
       <p className="mb-1 mt-4 md:mt-8">Перейти на</p>
-      <ul className="flex gap-4">
+      <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:gap-8">
         {items.map((item, i) => (
           <li key={item.title}>
             <Button
               asChild
-              className="md:h-10 md:rounded-md md:px-8"
+              className={cn("w-full md:h-10 md:rounded-md md:px-8")}
               variant={i === 0 ? "default" : "secondary"}
             >
               <Link href={item.href}>{item.title}</Link>

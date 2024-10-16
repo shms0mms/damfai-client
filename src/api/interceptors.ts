@@ -32,7 +32,7 @@ axios.interceptors.response.use(
       originalRequest!._isRetry = true
       try {
         return axiosWithAuth.request(originalRequest)
-      } catch (error) {}
+      } catch {}
     }
     throw error
   }

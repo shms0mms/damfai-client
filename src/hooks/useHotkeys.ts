@@ -9,7 +9,7 @@ export type Hotkey = {
   id: string
   action: () => void
 }
-const useHotkeys = () => {
+export const useHotkeys = () => {
   const { push } = useRouter()
   const keys = [
     {
@@ -53,5 +53,3 @@ const useHotkeys = () => {
     setHotkeys
   }
 }
-
-export default useHotkeys
