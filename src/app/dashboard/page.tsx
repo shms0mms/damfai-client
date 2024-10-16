@@ -1,5 +1,6 @@
 "use client"
 
+import Achievements from "@/components/dashboard/achievements"
 import Balance from "@/components/dashboard/balance"
 import { BooksDashboard } from "@/components/dashboard/books"
 import { BooksPerMonthsGraph } from "@/components/dashboard/graphs/books-per-months-graph"
@@ -48,6 +49,7 @@ export default function Dashboard() {
           </ChartWrapper>
 
           <Balance />
+          <Achievements />
         </div>
       </div>
     </>

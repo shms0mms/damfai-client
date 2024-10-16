@@ -8,7 +8,6 @@ export class ShopService {
         slug: "calendar",
         description:
           "Составляйте расписание чтения книг для более удобной работы с книгами",
-        price: 1000,
         is_active: false,
         title: "Календарь чтения"
       },
@@ -16,7 +15,6 @@ export class ShopService {
         id: 2,
         slug: "custom-theme",
         description: "Создавайте кастомную тему под себя",
-        price: 500,
         is_active: false,
         title: "Создание кастомной темы"
       },
@@ -24,7 +22,6 @@ export class ShopService {
         id: 3,
         slug: "hotkeys",
         description: "Вы можете настраивать горячие клавиши под себя",
-        price: 100,
         is_active: false,
         title: "Настройка горячих клавиш"
       },
@@ -33,7 +30,6 @@ export class ShopService {
         slug: "chappi-pro",
         description:
           "Чаппи отвечает не слишком грамотно, с PRO версией он будет более детально и точно отвечать на ваши вопросы",
-        price: 5000,
         is_active: false,
         title: "PRO версия Чаппи"
       },
@@ -42,7 +38,6 @@ export class ShopService {
         slug: "calendar",
         description:
           "Составляйте расписание чтения книг для более удобной работы с книгами",
-        price: 1000,
         is_active: false,
         title: "Календарь чтения"
       },
@@ -50,7 +45,6 @@ export class ShopService {
         id: 2,
         slug: "custom-theme",
         description: "Создавайте кастомную тему под себя",
-        price: 500,
         is_active: false,
         title: "Создание кастомной темы"
       },
@@ -58,7 +52,6 @@ export class ShopService {
         id: 3,
         slug: "hotkeys",
         description: "Вы можете настраивать горячие клавиши под себя",
-        price: 100,
         is_active: false,
         title: "Настройка горячих клавиш"
       },
@@ -67,7 +60,6 @@ export class ShopService {
         slug: "chappi-pro",
         description:
           "Чаппи отвечает не слишком грамотно, с PRO версией он будет более детально и точно отвечать на ваши вопросы",
-        price: 5000,
         is_active: false,
         title: "PRO версия Чаппи"
       }

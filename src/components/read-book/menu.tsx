@@ -1,4 +1,7 @@
+"use client"
+
 import Link from "next/link"
+import { useParams } from "next/navigation"
 import { Chapter } from "@/types/book"
 import { ReadBookData } from "@/hooks/useReadBookData"
 import { Button } from "../ui/button"
@@ -39,6 +42,7 @@ export function Menu({
   currentChapter,
   handleChapterChange
 }: Props) {
+  const { id: book_id } = useParams()
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetContent side="left" className="w-[300px] sm:w-[400px]">
@@ -97,6 +101,13 @@ export function Menu({
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          <Button asChild type="button">
+            <Link
+              href={`/books/read/${book_id}?page=${data?.page?.id}&chapter=${currentChapter?.id}&questions=generate`}
+            >
+              Перейти сразу к вопросам
+            </Link>
+          </Button>
         </div>
       </SheetContent>
     </Sheet>

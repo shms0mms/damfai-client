@@ -28,3 +28,11 @@ export const toPrice = (price: number) =>
         .format(price)
         .replace("₽", "")}С`
     : "Бесплатно"
+
+export const toCoins = (balance: number) =>
+  `${new Intl.NumberFormat("ru-RU", {
+    style: "currency",
+    currency: "RUB"
+  })
+    .format(balance || 0)
+    .replace("₽", "")}С`
