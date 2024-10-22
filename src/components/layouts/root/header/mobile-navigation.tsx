@@ -2,6 +2,7 @@
 
 import { Menu } from "lucide-react"
 import { usePathname } from "next/navigation"
+import { useMemo } from "react"
 import { Logo } from "@/components/ui/logo"
 import {
   Sheet,
@@ -16,7 +17,7 @@ import { cn } from "@/lib/utils"
 export const MobileNavigation = () => {
   const pathname = usePathname()
 
-  const items = getMainNav(pathname)
+  const items = useMemo(() => getMainNav(pathname), [pathname])
   return (
     <Sheet>
       <SheetTrigger className="md:hidden">
@@ -38,7 +39,8 @@ export const MobileNavigation = () => {
                     "relative flex items-center gap-2 text-lg font-medium text-foreground/50 transition-colors duration-200 before:absolute before:-bottom-1 before:left-0 before:h-px before:w-full before:scale-x-0 before:bg-foreground before:transition-transform before:content-[''] active:before:scale-x-100",
                     {
                       "text-foreground": item.active
-                    }
+                    },
+                    item.className
                   )}
                 >
                   {item.icon}

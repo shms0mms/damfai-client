@@ -22,7 +22,10 @@ export default function NotFoundPage() {
           <li key={item.title}>
             <Button
               asChild
-              className={cn("w-full md:h-10 md:rounded-md md:px-8")}
+              className={cn(
+                "w-full md:h-10 md:rounded-md md:px-8",
+                item.className
+              )}
               variant={i === 0 ? "default" : "secondary"}
             >
               <Link href={item.href}>{item.title}</Link>
