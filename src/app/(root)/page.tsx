@@ -1,10 +1,12 @@
 "use client"
 
+import Link from "next/link"
 import Balance from "react-wrap-balancer"
 import { siteConfig } from "@/config/site.config"
 import { BentoDemo } from "@/components/blocks/bento"
 import { FeaturesSection } from "@/components/blocks/features-section"
 import MoodTracker from "@/components/layouts/root/mood-tracker"
+import { Button } from "@/components/ui/button"
 import { FlipWords } from "@/components/ui/flip-words"
 import { Beam } from "@/components/ui/grid-beam"
 import { LaptopScroll } from "@/components/ui/laptop-scroll"
@@ -12,49 +14,53 @@ import { LetterPullup } from "@/components/ui/letter-pullup"
 import { VelocityScroll } from "@/components/ui/scroll-based-velocity"
 import { SparklesCore } from "@/components/ui/sparkles"
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect"
+import { cn } from "@/lib/utils"
 
 const sections = [
   {
     id: "1",
     content: (
       <div className="flex h-full w-full flex-col items-center py-6 md:py-10">
-        {/* <div className="absolute inset-0 h-screen w-full">
-          <SparklesCore
-            id="tsparticlesfullpage"
-            background="transparent"
-            minSize={0.6}
-            maxSize={1.4}
-            particleDensity={100}
-            className="h-full w-full"
-            particleColorLight={"#fff"}
-            particleColorDark={"#000"}
-          />
-        </div> */}
-        <div className="flex flex-col gap-3">
-          <h1 className="flex w-full items-center justify-center">
-            <LetterPullup
-              className="font-bold text-foreground/60 md:text-7xl"
-              words={siteConfig.name}
-              delay={0.5}
-            />
+        <div>
+          <h1 className="bg-gradient-to-b from-foreground/25 to-foreground bg-clip-text text-center text-5xl font-bold text-transparent dark:from-neutral-200 dark:to-neutral-600 md:text-7xl">
+            {siteConfig.name}
           </h1>
           <Balance>
             <TextGenerateEffect
               words={siteConfig.description}
               duration={0.5}
-              className="max-w-[40rem] !text-sm sm:!text-base md:!text-lg"
+              className="max-w-[40rem] !text-sm font-normal sm:!text-base md:!text-lg"
             />
           </Balance>
-          <h2 className="text-4xl font-normal text-neutral-600 dark:text-neutral-400">
+        </div>
+        <div className="mt-8 flex flex-col items-center gap-8">
+          <h2 className="text-xl font-normal text-neutral-600 dark:text-neutral-400 md:text-4xl">
             Добро пожаловать в мир
-            <span className="inline-block w-[100px]">
-              <FlipWords
-                words={["Чтения", "ИИ", "Чаппи", "Нейросетей", "ML"]}
-              />
+            <span className="inline-block">
+              <FlipWords words={["Чтения", "ИИ", "с Чаппи", "Нейросетей"]} />
             </span>
           </h2>
+          <Button
+            size="lg"
+            asChild
+            className={cn(
+              "group relative overflow-hidden transition-transform duration-200 ease-in-out hover:scale-105 hover:shadow-lg",
+              // light mode
+              "bg-gradient-to-tr from-zinc-900 to-zinc-700 text-zinc-50 hover:shadow-zinc-500/30",
+              // dark mode
+              "dark:bg-gradient-to-tr dark:from-zinc-50 dark:to-zinc-100 dark:text-zinc-900 dark:hover:shadow-zinc-700/30"
+            )}
+          >
+            <Link href="/auth/sign-up">
+              Начать
+              {/* gives shiny effect on hover */}
+              <span className="absolute inset-0 flex size-full justify-center [transform:skew(-14deg)_translateX(-100%)] group-hover:duration-1000 group-hover:[transform:skew(-14deg)_translateX(100%)]">
+                <span className="relative h-full w-8 bg-white/20 dark:bg-black/10" />
+              </span>
+            </Link>
+          </Button>
         </div>
-        <LaptopScroll src={"/dashboard.jpeg"} />
+        <LaptopScroll src={"/dashboard.jpeg"} className="!pt-20" />
         <MoodTracker />
       </div>
     )
@@ -117,7 +123,7 @@ const sections = [
 export default function HomePage() {
   return (
     <div className="dark:bg-grid-white/[0.02] h-full">
-      <div className="overflow-hidden">{sections[0]?.content}</div>
+      <section className="overflow-hidden">{sections[0]?.content}</section>
       <div className="">
         <div className="relative h-full w-full">
           <div className="h-full w-full">

@@ -23,7 +23,9 @@ import { IconCaretLeftFilled } from "@tabler/icons-react"
 import { IconCaretDownFilled } from "@tabler/icons-react"
 import { MotionValue, motion, useScroll, useTransform } from "framer-motion"
 import Image from "next/image"
-import { type FC, useEffect, useRef, useState } from "react"
+import { type FC, useRef } from "react"
+import { useMediaQuery } from "usehooks-ts"
+import { MEDIA } from "@/config/media.config"
 import { cn } from "@/lib/utils"
 
 type LaptopScrollProps = {
@@ -31,13 +33,15 @@ type LaptopScrollProps = {
   showGradient?: boolean
   title?: string | React.ReactNode
   badge?: React.ReactNode
+  className?: string
 }
 
 export const LaptopScroll: FC<LaptopScrollProps> = ({
   src,
   showGradient,
   title,
-  badge
+  badge,
+  className
 }) => {
   const ref = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
@@ -45,13 +49,7 @@ export const LaptopScroll: FC<LaptopScrollProps> = ({
     offset: ["start start", "end start"]
   })
 
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    if (window && window.innerWidth < 768) {
-      setIsMobile(true)
-    }
-  }, [])
+  const isMobile = useMediaQuery(MEDIA.md)
 
   const scaleX = useTransform(
     scrollYProgress,
@@ -71,7 +69,10 @@ export const LaptopScroll: FC<LaptopScrollProps> = ({
   return (
     <div
       ref={ref}
-      className="flex min-h-[120vh] flex-shrink-0 scale-[0.35] transform flex-col items-center justify-start py-0 [perspective:800px] sm:scale-50 md:scale-100 md:py-80"
+      className={cn(
+        "flex min-h-[120vh] flex-shrink-0 scale-[0.35] transform flex-col items-center justify-start py-0 [perspective:800px] sm:scale-50 md:scale-100 md:py-80",
+        className
+      )}
     >
       <motion.h2
         style={{
