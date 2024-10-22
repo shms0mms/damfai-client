@@ -12,8 +12,7 @@ import {
   X
 } from "lucide-react"
 import {
-  ForwardRefExoticComponent,
-  ReactNode,
+  type ForwardRefExoticComponent,
   createElement,
   useEffect,
   useState

@@ -1,12 +1,13 @@
-import Image from "next/image"
-import { forwardRef } from "react"
+import Image, { type ImageProps } from "next/image"
+import { FC } from "react"
 import { siteConfig } from "@/config/site.config"
 import { cn } from "@/lib/utils"
 
 type IconProps = React.HTMLAttributes<SVGElement>
+type SiteIconProps = Omit<ImageProps, "src" | "alt">
 
 export const Icons = {
-  icon: forwardRef(({ className, src, alt, ...props }, ref) => (
+  icon: (({ className, ...props }) => (
     <>
       <Image
         src={"/chappi-white.png"}
@@ -21,7 +22,7 @@ export const Icons = {
         {...props}
       />
     </>
-  )) satisfies typeof Image,
+  )) satisfies FC<SiteIconProps>,
   placeholder: (props: IconProps) => (
     <svg
       viewBox="0 0 120 120"

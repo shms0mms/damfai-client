@@ -9,10 +9,9 @@ import MoodTracker from "@/components/layouts/root/mood-tracker"
 import { Button } from "@/components/ui/button"
 import { FlipWords } from "@/components/ui/flip-words"
 import { Beam } from "@/components/ui/grid-beam"
+import { Icons } from "@/components/ui/icons"
 import { LaptopScroll } from "@/components/ui/laptop-scroll"
-import { LetterPullup } from "@/components/ui/letter-pullup"
 import { VelocityScroll } from "@/components/ui/scroll-based-velocity"
-import { SparklesCore } from "@/components/ui/sparkles"
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect"
 import { cn } from "@/lib/utils"
 
@@ -60,7 +59,11 @@ const sections = [
             </Link>
           </Button>
         </div>
-        <LaptopScroll src={"/dashboard.jpeg"} className="!pt-20" />
+        <LaptopScroll
+          badge={<Icons.icon width={40} height={40} />}
+          src={"/dashboard.jpeg"}
+          className="md:!pt-20"
+        />
         <MoodTracker />
       </div>
     )
