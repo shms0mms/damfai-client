@@ -18,7 +18,7 @@ const sections = [
     id: "1",
     content: (
       <div className="flex h-full w-full flex-col items-center py-6 md:py-10">
-        <div className="absolute inset-0 h-screen w-full">
+        {/* <div className="absolute inset-0 h-screen w-full">
           <SparklesCore
             id="tsparticlesfullpage"
             background="transparent"
@@ -29,7 +29,7 @@ const sections = [
             particleColorLight={"#fff"}
             particleColorDark={"#000"}
           />
-        </div>
+        </div> */}
         <div className="flex flex-col gap-3">
           <h1 className="flex w-full items-center justify-center">
             <LetterPullup
@@ -118,7 +118,6 @@ export default function HomePage() {
   return (
     <div className="dark:bg-grid-white/[0.02] h-full">
       <div className="overflow-hidden">{sections[0]?.content}</div>
-
       <div className="">
         <div className="relative h-full w-full">
           <div className="h-full w-full">

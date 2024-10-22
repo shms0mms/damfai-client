@@ -12,11 +12,13 @@ export function Providers({ children }: React.PropsWithChildren) {
   useHotkeysActions(hotkeys)
 
   return (
-    <ThemeProvider attribute="class" defaultTheme="light">
-      <ReactQueryProvider>
-        <AuthProvider>{children}</AuthProvider>
-        <Toaster />
-      </ReactQueryProvider>
-    </ThemeProvider>
+    <ReactQueryProvider>
+      <AuthProvider>
+        <ThemeProvider attribute="class" defaultTheme="light">
+          {children}
+          <Toaster />
+        </ThemeProvider>
+      </AuthProvider>
+    </ReactQueryProvider>
   )
 }

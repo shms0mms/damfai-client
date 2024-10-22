@@ -1,11 +1,13 @@
 "use client"
 
+import { useQuery } from "@tanstack/react-query"
 import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes"
 import { type ThemeProviderProps } from "next-themes/dist/types"
 import { createContext, useState } from "react"
 import { CustomizeThemeFormSchema } from "@/components/blocks/customize-theme"
-import { THEMES } from "@/lib/constants"
+import { COLOR_THEMES, THEMES } from "@/lib/constants"
 import { getCustomThemeVariables } from "@/lib/utils"
+import { shopService } from "@/services/shop.service"
 
 type TCustomThemeContext = {
   setVariables: React.Dispatch<
@@ -15,19 +17,62 @@ type TCustomThemeContext = {
   isActive: boolean
 }
 
+type TColorThemeContext = {
+  colorTheme: (typeof COLOR_THEMES)[number] | undefined
+  setColorTheme: React.Dispatch<
+    React.SetStateAction<(typeof COLOR_THEMES)[number] | undefined>
+  >
+}
+
 export const CustomThemeContext = createContext<TCustomThemeContext>({
   setVariables: () => {},
   variables: undefined,
   isActive: false
 })
 
+export const ColorThemeContext = createContext<TColorThemeContext>({
+  colorTheme: undefined,
+  setColorTheme: () => {}
+})
+
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   return (
-    <>
-      <NextThemesProvider themes={THEMES} {...props}>
+    <NextThemesProvider themes={THEMES} {...props}>
+      <ColorThemeProvider>
         <CustomThemeProvider>{children}</CustomThemeProvider>
-      </NextThemesProvider>
-    </>
+      </ColorThemeProvider>
+    </NextThemesProvider>
+  )
+}
+
+function ColorThemeProvider({ children }: React.PropsWithChildren) {
+  const colorThemeIdFromLocalStorage = +(
+    localStorage.getItem("colorTheme") ?? -1
+  )
+
+  const { data: userThemes } = useQuery({
+    initialData: undefined,
+    queryKey: ["user", "theme"],
+    queryFn: shopService.getUserThemes
+  })
+
+  const hasAccessToCustomTheme = userThemes?.some(
+    theme => theme.id === colorThemeIdFromLocalStorage
+  )
+
+  const [colorTheme, setColorTheme] = useState<
+    (typeof COLOR_THEMES)[number] | undefined
+  >(
+    hasAccessToCustomTheme
+      ? userThemes?.find(theme => theme.id === colorThemeIdFromLocalStorage)
+          ?.key
+      : undefined
+  )
+
+  return (
+    <ColorThemeContext.Provider value={{ colorTheme, setColorTheme }}>
+      {children}
+    </ColorThemeContext.Provider>
   )
 }
 

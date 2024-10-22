@@ -135,6 +135,31 @@ class ShopService {
       }
     ])
   }
+  getUserThemes() {
+    return Promise.resolve<Theme[]>([
+      {
+        id: 1,
+        name: "Изумрудная тема",
+        key: "",
+        description: "Изумрудная тема в зеленых цветах",
+        backgroundColor: "#ffffff",
+        textColor: "#000000",
+        primaryColor: "#22c55e",
+        primaryTextColor: "#000000",
+        price: 20000
+      },
+      {
+        id: 2,
+        name: "Рубиновая тема",
+        description: "Рубиновая тема в красных цветах",
+        backgroundColor: "#ffffff",
+        textColor: "#000000",
+        primaryColor: "#e11d48",
+        primaryTextColor: "#ffffff",
+        price: 50000
+      }
+    ])
+  }
 }
 
 export const shopService = new ShopService()

@@ -92,7 +92,8 @@ export const CustomizeTheme: FC = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(({ variables }) => {
-          setTheme("custom")
+          // TODO: add color theme context
+          // setColorTheme("custom")
           setVariables(variables)
 
           localStorage.setItem(

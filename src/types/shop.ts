@@ -1,3 +1,5 @@
+import { COLOR_THEMES } from "@/lib/constants"
+
 export type Extension = {
   id: number
   slug: string //
@@ -9,6 +11,7 @@ export type Extension = {
 
 export type Theme = {
   id: number
+  key: (typeof COLOR_THEMES)[number] // rubine, emerald, reading ...
   name: string
   description: string
   backgroundColor: string // hex
