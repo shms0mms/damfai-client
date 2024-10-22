@@ -21,7 +21,6 @@ class AuthService {
           id: 1,
           slug: "custom-theme",
           description: "Вы можете настраивать тему под себя",
-          price: 500.0,
           is_active: true,
           title: "Темы"
         }

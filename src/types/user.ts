@@ -8,6 +8,7 @@ export type User = {
   dob: Date
   created_at: Date
   extensions: Extension[]
+  balance?: number
 }
 
 export type UserSignIn = {

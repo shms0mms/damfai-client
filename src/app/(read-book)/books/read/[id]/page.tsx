@@ -3,7 +3,8 @@
 import { useMutation } from "@tanstack/react-query"
 import { secondsToMinutes } from "date-fns"
 import { AnimatePresence, motion } from "framer-motion"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { CheckCheck, ChevronLeft, ChevronRight, CircleHelp } from "lucide-react"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { useMediaQuery } from "usehooks-ts"
@@ -11,11 +12,17 @@ import { MEDIA } from "@/config/media.config"
 import useCurrentChapter from "@/hooks/useCurrentChapter"
 import useReadBookData from "@/hooks/useReadBookData"
 import { Header } from "@/components/layouts/read-book/header"
-import { Modal } from "@/components/modal"
 import { Chappi } from "@/components/read-book/chappi"
 import { Menu as MenuComponent } from "@/components/read-book/menu"
 import { Questions } from "@/components/read-book/questions"
 import { Button } from "@/components/ui/button"
+import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger
+} from "@/components/ui/tooltip"
 import { padStart } from "@/lib/utils"
 import { readBookService } from "@/services/read-book.service"
 
@@ -43,9 +50,13 @@ export default function ReadBookPage({
     params,
     searchParams
   })
+
   const currentChapter = useCurrentChapter(data, searchParams)
   const [currentChapterId, setCurrentChapterId] = useState(currentChapter?.id)
 
+  useEffect(() => {
+    data?.page?.id && setCurrentPage(data?.page?.id)
+  }, [data?.page?.id])
   useEffect(() => {
     currentChapter?.id && setCurrentChapterId(currentChapter.id)
   }, [currentChapter])
@@ -59,14 +70,25 @@ export default function ReadBookPage({
   const questionsParam = searchParams.questions === "generate"
   const { push } = useRouter()
   const handlePrevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1)
-    } else if (currentPage === 1) {
+    const mapped = data?.chapters
+      ?.slice(0, currentChapterId - 1)
+      .map(c => c.pages)
+    const prevPagesCount = mapped?.length ? mapped.reduce((c, a) => c + a)! : 0
+    if (currentPage - prevPagesCount - 1 === 0) {
+      const currentPage = data?.chapters
+        ?.slice(0, currentChapterId - 1)
+        .map(c => c.pages)
+        .reduce((c, a) => c + a)!
       setCurrentChapterId(prev => prev - 1)
       push(
-        `/books/read/${params?.id}?page=${data?.chapters[currentChapterId - 2]?.pages!}&chapter=${currentChapterId - 1}`
+        `/books/read/${params?.id}?page=${currentPage}&chapter=${currentChapterId - 1}`
       )
-      setCurrentPage(data?.chapters[currentChapterId - 2]?.pages!)
+      setCurrentPage(currentPage)
+    } else {
+      setCurrentPage(currentPage - 1)
+      push(
+        `/books/read/${params?.id}?page=${currentPage - 1}&chapter=${currentChapterId}`
+      )
     }
   }
   const [readTime, setReadTime] = useState(0)
@@ -84,7 +106,13 @@ export default function ReadBookPage({
       readBookService.readPage(page_id, book_id)
   })
   const handleNextPage = () => {
-    if (currentPage < data?.chapters[currentChapterId - 1]?.pages!) {
+    if (
+      currentPage <
+      data?.chapters
+        .slice(0, currentChapterId)
+        .map(c => c.pages)
+        .reduce((p, c) => p + c)!
+    ) {
       const page = currentPage + 1
       setCurrentPage(page)
       finishPage({
@@ -94,32 +122,44 @@ export default function ReadBookPage({
       push(`/books/read/${params?.id}?page=${page}&chapter=${currentChapterId}`)
     } else if (currentChapterId < data?.chapters?.length!) {
       setCurrentChapterId(prev => prev + 1)
-      setCurrentPage(1)
+      setCurrentPage(currentPage + 1)
 
       push(
-        `/books/read/${params?.id}?page=${1}&chapter=${currentChapterId + 1}`
+        `/books/read/${params?.id}?page=${currentPage + 1}&chapter=${currentChapterId + 1}`
       )
     }
   }
 
   const handleChapterChange = (value: string) => {
     setCurrentChapterId(parseInt(value))
-    setCurrentPage(1)
-    push(`/books/read/${params?.id}?page=${1}&chapter=${parseInt(value)}`)
+    setCurrentPage(currentPage + 1)
+    push(
+      `/books/read/${params?.id}?page=${currentPage + 1}&chapter=${parseInt(value)}`
+    )
   }
   const time = `${padStart(secondsToMinutes(readTime))}:${padStart(readTime)}`
   const isMobile = useMediaQuery(MEDIA.md)
+
+  // TODO: Questions answers
+  // TODO: Finish book page
   return (
     <>
       {questionsParam ? (
-        <Modal
-          title="Викторина"
-          classNames={{
-            content: "mt-4"
+        <Dialog
+          defaultOpen
+          onOpenChange={() => {
+            push(
+              `/books/read/${params?.id}?page=${currentPage}&chapter=${currentChapterId}`
+            )
           }}
         >
-          <Questions />
-        </Modal>
+          <DialogContent>
+            <DialogHeader>
+              <h2 className="font-semibold">Викторина</h2>
+            </DialogHeader>
+            <Questions />
+          </DialogContent>
+        </Dialog>
       ) : null}
 
       {data && !isLoading ? (
@@ -141,7 +181,7 @@ export default function ReadBookPage({
                 <p
                   className="mb-6 text-lg leading-relaxed"
                   dangerouslySetInnerHTML={{
-                    __html: data!.page!.text.replaceAll("\n", "<br />")
+                    __html: data?.page?.text?.replaceAll("\n", "<br />")!
                   }}
                 />
                 <p className="text-sm text-muted-foreground">
@@ -163,16 +203,62 @@ export default function ReadBookPage({
             <span className="text-sm">
               Глава {currentChapterId} / Страница {currentPage}
             </span>
-            <Button
-              onClick={handleNextPage}
-              disabled={
-                currentChapterId === data?.chapters?.length &&
-                currentPage === data?.chapters[data?.chapters.length - 1]?.pages
-              }
-              className="max-md:text-[0px]"
-            >
-              Следующая <ChevronRight className="h-4 w-4 md:ml-2" />
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button
+                onClick={handleNextPage}
+                disabled={
+                  currentChapterId === data?.chapters?.length &&
+                  currentPage ===
+                    data?.chapters?.map(c => c.pages).reduce((p, c) => p + c)!
+                }
+                className="max-md:text-[0px]"
+              >
+                Следующая <ChevronRight className="h-4 w-4 md:ml-2" />
+              </Button>
+              {currentChapterId === data?.chapters?.length &&
+                currentPage ===
+                  data?.chapters
+                    ?.map(c => c.pages)
+                    .reduce((p, c) => p + c)! && (
+                  <>
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <Button
+                            size={"icon"}
+                            className="max-md:text-[0px]"
+                            asChild
+                          >
+                            <Link
+                              href={`/books/read/${params?.id}?page=${currentPage}&chapter=${currentChapterId}&questions=generate`}
+                            >
+                              {" "}
+                              <CircleHelp className="2 h-4 w-4" />{" "}
+                            </Link>
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>Сгенерировать вопросы</TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <Button
+                            size={"icon"}
+                            className="max-md:text-[0px]"
+                            asChild
+                          >
+                            <Link href={`/books/read/${params?.id}/finish`}>
+                              <CheckCheck size={16} />
+                            </Link>
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>Заверишить книгу</TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </>
+                )}
+            </div>
           </footer>
           <MenuComponent
             currentChapter={currentChapter}

@@ -4,6 +4,7 @@ import { Favourite } from "@/types/favourites"
 import { Skeleton } from "@/components/ui/skeleton"
 import { TabsContent } from "@/components/ui/tabs"
 import { BookItem } from "./book-item"
+import { randomNumber } from "@/lib/utils"
 
 type TabItemProps = {
   books: Favourite[] | Bookmark[] | Book[]
@@ -19,7 +20,13 @@ export function TabItem({ books, value, icon, isLoading }: TabItemProps) {
       ) : isLoading ? (
         <div className="flex flex-col gap-2">
           {Array.from({ length: 8 }, (_, i) => (
-            <Skeleton key={i} className="h-[30px] w-full" />
+            <Skeleton
+              key={i}
+              className="h-[30px]"
+              style={{
+                width: randomNumber(100, 290)
+              }}
+            />
           ))}
         </div>
       ) : (

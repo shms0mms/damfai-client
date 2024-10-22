@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { ButtonHTMLAttributes } from "react"
+import { HTMLAttributes } from "react"
 import { siteConfig } from "@/config/site.config"
 
 type LogoProps = {
@@ -8,10 +8,10 @@ type LogoProps = {
 
 export function LogoCircle({
   size = 130,
-  ...buttonProps
-}: LogoProps & ButtonHTMLAttributes<HTMLButtonElement>) {
+  ...divProps
+}: LogoProps & HTMLAttributes<HTMLElement>) {
   return (
-    <button type="button" {...buttonProps}>
+    <div {...divProps}>
       <Image
         src={"/chappi-white.png"}
         alt={siteConfig.name}
@@ -26,6 +26,6 @@ export function LogoCircle({
         height={size}
         className="dark:hidden"
       />
-    </button>
+    </div>
   )
 }

@@ -5,9 +5,8 @@ import Link from "next/link"
 import { type Extension } from "@/types/shop"
 import { PinContainer } from "./3d-pin"
 import { Button } from "./button"
-import { toPrice } from "@/lib/utils"
 
-export function Extension({ description, id, title, price }: Extension) {
+export function Extension({ description, id, title }: Extension) {
   return (
     <>
       <PinContainer
@@ -27,9 +26,8 @@ export function Extension({ description, id, title, price }: Extension) {
             {description}
           </p>
           <div className="flex w-full justify-between gap-5">
-            <span className="font-semibold">{toPrice(price)}</span>
             <Button asChild>
-              <Link href={`/shop/${id}`}>Узнать больше</Link>
+              <Link href={`/shop/extensions/${id}`}>Узнать больше</Link>
             </Button>
           </div>
         </article>

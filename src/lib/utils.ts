@@ -30,6 +30,13 @@ export const toPrice = (price: number) =>
         .replace("₽", "")}С`
     : "Бесплатно"
 
+export const toCoins = (balance: number) =>
+  `${new Intl.NumberFormat("ru-RU", {
+    style: "currency",
+    currency: "RUB"
+  })
+    .format(balance || 0)
+    .replace("₽", "")}С`
 export const hexToHsl = (hex: string) => {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
   return result

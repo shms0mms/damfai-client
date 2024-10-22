@@ -5,7 +5,6 @@ export type Extension = {
   slug: string //
   description: string
   title: string
-  price: number // 0 - free [Чаппи коины]
   is_active: boolean // Активированно или нет
 }
 

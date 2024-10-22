@@ -13,8 +13,6 @@ export type ReadBookData =
       author: string
       chapters: Chapter[]
       page: Page | undefined
-      pagination: Pagination
-      totalPages: number
     }
   | undefined
 const useReadBookData = ({
@@ -22,7 +20,7 @@ const useReadBookData = ({
   params,
   currentPage
 }: ReadBookPageProps & Props) => {
-  return useQuery({
+  const response = useQuery({
     initialData: undefined,
     queryKey: ["read-book", +params.id],
     queryFn: async () => {
@@ -34,16 +32,19 @@ const useReadBookData = ({
         page: currentPage,
         size: 1
       })
-      return {
+
+      const data = {
         title: chaptersResponse.title,
         author: chaptersResponse.author,
         chapters: chaptersResponse.chapters,
-        page: pagesResponse.items[0],
-        pagination: pagesResponse as Pagination,
-        totalPages: pagesResponse.pages
+        page: pagesResponse
       } satisfies ReadBookData
+
+      return data
     }
   })
+
+  return response
 }
 
 export default useReadBookData

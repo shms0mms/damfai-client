@@ -8,7 +8,9 @@ import { TextGenerateEffect } from "@/components/ui/text-generate-effect"
 import { ThemeCard } from "@/components/ui/theme-card"
 import { shopService } from "@/services/shop.service"
 
-export default async function ShopPage() {
+// TODO: Paid merch, Paid Themes, Paid books
+
+export default async function Shop() {
   const extensions = await shopService.getExtensions()
   const themes = await shopService.getThemes()
   const merch = await shopService.getMockMerch()

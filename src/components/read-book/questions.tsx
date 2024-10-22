@@ -89,6 +89,8 @@ export function Questions() {
   //     setQuestions(prev => [...prev, ...message])
   //   }
   // }, [message?.length])
+  console.log(answers)
+
   return (
     <div className="flex min-h-full flex-col gap-10">
       {questions.length ? (
@@ -101,7 +103,14 @@ export function Questions() {
                   control={form.control}
                   key={i}
                   render={({ field }) => (
-                    <FormItem>
+                    <FormItem
+                      className={
+                        question.answer ===
+                        answers.find(answer => answer.questionId === i)?.key
+                          ? "bg-green-400"
+                          : "bg-red-400"
+                      }
+                    >
                       <FormLabel>{question.question}</FormLabel>
                       <RadioGroup
                         value={
@@ -142,6 +151,7 @@ export function Questions() {
           <Button
             className="flex w-full items-center gap-2"
             disabled={isQuestionsGenerating}
+            type="submit"
           >
             {isQuestionsGenerating ? (
               <>

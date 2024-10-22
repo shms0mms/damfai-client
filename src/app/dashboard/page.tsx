@@ -1,6 +1,7 @@
 "use client"
 
-import { Balance } from "@/components/dashboard/balance"
+import Achievements from "@/components/dashboard/achievements"
+import Balance from "@/components/dashboard/balance"
 import { BooksDashboard } from "@/components/dashboard/books"
 import { BooksPerMonthsGraph } from "@/components/dashboard/graphs/books-per-months-graph"
 import { BooksPerYearGraph } from "@/components/dashboard/graphs/books-per-year-graph"
@@ -20,6 +21,7 @@ export default function Dashboard() {
         <Notify />
         <div className="grid grid-cols-1 gap-y-4 xl:grid-cols-3 xl:gap-x-4">
           <Profile />
+
           <Statistics />
           <BooksDashboard />
           <ChartWrapper
@@ -48,6 +50,7 @@ export default function Dashboard() {
           </ChartWrapper>
 
           <Balance />
+          <Achievements />
         </div>
       </div>
     </>
