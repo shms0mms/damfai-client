@@ -1,92 +1,45 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { WheelEvent, useState } from "react"
+import { ChappiPassMap } from "@/components/pass/chappi-pass-map"
+import { QuestsMap } from "@/components/pass/quests-map"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-const ChappiPassMap = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const [context, setContext] = useState<CanvasRenderingContext2D | null>(null)
-  const [points, setPoints] = useState([
-    { x: 100, y: 100, radius: 20, label: "Точка 1" },
-    { x: 300, y: 150, radius: 20, label: "Точка 2" },
-    { x: 500, y: 300, radius: 20, label: "Точка 3" }
-  ])
-  const [isDragging, setIsDragging] = useState(false)
-  const [offset, setOffset] = useState({ x: 0, y: 0 })
-
-  useEffect(() => {
-    const canvas = canvasRef.current!
-    const ctx = canvas.getContext("2d")
-    setContext(ctx)
-    drawMap(ctx)
-  }, [])
-
-  const drawMap = (ctx: CanvasRenderingContext2D | null) => {
-    ctx!.clearRect(0, 0, ctx!.canvas.width, ctx!.canvas.height)
-
-    // Соединяем точки линиями
-    for (let i = 0; i < points.length - 1; i++) {
-      const start = points[i]!
-      const end = points[i + 1]!
-      ctx!.beginPath()
-      ctx!.moveTo(start.x, start.y)
-      ctx!.lineTo(end.x, end.y)
-      ctx!.stroke()
-    }
-
-    // Рисуем точки
-    points.forEach(point => {
-      ctx!.beginPath()
-      ctx!.arc(point.x, point.y, point.radius, 0, Math.PI * 2)
-      ctx!.fillStyle = "white"
-      ctx!.fill()
-      ctx!.stroke()
-    })
+const ChappiPass = () => {
+  const [scale, setScale] = useState(1)
+  const handleZoomIn = () => setScale(prevScale => Math.min(prevScale * 1.1, 3))
+  const handleZoomOut = () =>
+    setScale(prevScale => Math.max(prevScale * 0.9, 0.5))
+  const handleWheel = (e: WheelEvent<HTMLCanvasElement>) => {
+    const zoom = e.deltaY > 0 ? 0.9 : 1.1
+    setScale(prevScale => Math.max(0.5, Math.min(prevScale * zoom, 3))) // Ограничиваем масштаб
   }
-
-  const handleMouseDown = (e: any) => {
-    setIsDragging(true)
-    setOffset({
-      x: e.nativeEvent.offsetX,
-      y: e.nativeEvent.offsetY
-    })
-  }
-
-  const handleMouseMove = (e: any) => {
-    if (isDragging) {
-      const dx = e.nativeEvent.offsetX - offset.x
-      const dy = e.nativeEvent.offsetY - offset.y
-
-      setPoints(prevPoints =>
-        prevPoints.map(point => ({
-          ...point,
-          x: point.x + dx,
-          y: point.y + dy
-        }))
-      )
-      setOffset({
-        x: e.nativeEvent.offsetX,
-        y: e.nativeEvent.offsetY
-      })
-
-      drawMap(context)
-    }
-  }
-
-  const handleMouseUp = () => {
-    setIsDragging(false)
-  }
-
   return (
-    <canvas
-      ref={canvasRef}
-      width={"1500px"}
-      height={"1200px"}
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      style={{ border: "1px solid black" }}
-    />
+    <div className="flex">
+      <Tabs defaultValue="rewards" className="w-[400px]">
+        <div className="fixed top-4 flex w-full items-center justify-center">
+          <TabsList>
+            <TabsTrigger value="rewards">Награды</TabsTrigger>
+            <TabsTrigger value="quests">Квесты</TabsTrigger>
+          </TabsList>
+        </div>
+        <TabsContent value="rewards">
+          <ChappiPassMap handleWheel={handleWheel} scale={scale} />
+        </TabsContent>
+        <TabsContent value="quests">
+          <QuestsMap handleWheel={handleWheel} scale={scale} />
+        </TabsContent>
+      </Tabs>
+      <div className="fixed right-6 top-1/2 flex w-[50px] -translate-y-1/2 flex-col justify-center p-2">
+        <button onClick={handleZoomIn} className="bg-muted p-2">
+          +
+        </button>
+        <button onClick={handleZoomOut} className="bg-muted p-2">
+          -
+        </button>
+      </div>
+    </div>
   )
 }
 
-export default ChappiPassMap
+export default ChappiPass
