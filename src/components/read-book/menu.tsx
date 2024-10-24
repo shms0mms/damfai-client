@@ -25,6 +25,7 @@ import {
   SheetHeader,
   SheetTitle
 } from "../ui/sheet"
+import { ChappiChat } from "./chappi-chat"
 import { Purpose } from "./purpose"
 import { cn } from "@/lib/utils"
 
@@ -45,7 +46,10 @@ export function Menu({
   const { id: book_id } = useParams()
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetContent side="left" className="w-[300px] sm:w-[400px]">
+      <SheetContent
+        side="left"
+        className="w-[300px] overflow-auto sm:w-[400px]"
+      >
         <SheetHeader>
           <SheetTitle>{data?.title}</SheetTitle>
           <SheetDescription>
@@ -108,6 +112,7 @@ export function Menu({
               Перейти сразу к вопросам
             </Link>
           </Button>
+          <ChappiChat />
         </div>
       </SheetContent>
     </Sheet>

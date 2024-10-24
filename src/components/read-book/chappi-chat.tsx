@@ -11,6 +11,7 @@ import { useChappiChat } from "@/hooks/useChappiChat"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { cn } from "@/lib/utils"
 
 type TypingAnimationProps = {
   isVisible: boolean
@@ -47,7 +48,7 @@ const TypingAnimation: React.FC<TypingAnimationProps> = ({ isVisible }) => {
   )
 }
 
-export function ChappiChat() {
+export function ChappiChat({ className }: { className?: string }) {
   const [messages, setMessages] = useState<Message[]>([])
   const [inputMessage, setInputMessage] = useState("")
   const [isTyping, setIsTyping] = useState(false)
@@ -83,7 +84,12 @@ export function ChappiChat() {
   }, [messages])
 
   return (
-    <div className="relative flex h-[600px] w-[400px] flex-col rounded-lg shadow-lg dark:shadow-none">
+    <div
+      className={cn(
+        "relative flex min-h-[600px] w-full flex-col rounded-lg shadow-lg dark:shadow-none",
+        className
+      )}
+    >
       <div className="flex items-center space-x-3 bg-black p-4">
         <div className="">
           <Image

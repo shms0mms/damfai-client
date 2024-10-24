@@ -5,6 +5,7 @@ import { PropsWithChildren } from "react"
 import { siteConfig } from "@/config/site.config"
 import { Providers } from "@/components/providers"
 import "./globals.css"
+import { Middleware } from "./middleware"
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -39,8 +40,10 @@ export default function RootLayout({
         className={`${didactGothic.variable} ${geistMono.variable} ${geistSans.variable} antialiased`}
       >
         <Providers>
-          {children}
-          {modal}
+          <Middleware>
+            {children}
+            {modal}
+          </Middleware>
         </Providers>
         {/* <script src="https://code.responsivevoice.org/responsivevoice.js?key=CBModmt3"></script> */}
       </body>
