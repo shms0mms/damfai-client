@@ -15,6 +15,7 @@ type PaginationProps = {
 }
 
 export function Pagination({ pagination, searchParams }: PaginationProps) {
+  if ("page" in searchParams) delete searchParams?.page
   const searchParamsAsString = new URLSearchParams(searchParams).toString()
 
   const renderPageNumbers = () => {
@@ -25,7 +26,10 @@ export function Pagination({ pagination, searchParams }: PaginationProps) {
       for (let i = 1; i <= pagination.pages; i++) {
         pageNumbers.push(
           <PaginationItem key={i}>
-            <PaginationLink href={`/`} isActive={pagination.page === i}>
+            <PaginationLink
+              href={`/catalog?page=${i}&${searchParamsAsString}`}
+              isActive={pagination.page === i}
+            >
               {i}
             </PaginationLink>
           </PaginationItem>
@@ -92,6 +96,7 @@ export function Pagination({ pagination, searchParams }: PaginationProps) {
           <PaginationPrevious
             href={`?page=${pagination.page > 0 ? pagination.page : 1}&${searchParamsAsString}`}
             aria-disabled={pagination.page === 1}
+            isActive={pagination.page === 1}
             tabIndex={pagination.page === 1 ? -1 : 0}
           />
         </PaginationItem>
@@ -99,6 +104,7 @@ export function Pagination({ pagination, searchParams }: PaginationProps) {
         <PaginationItem>
           <PaginationNext
             href={`?page=${pagination.page < pagination.pages ? pagination.page : pagination.pages}&${searchParamsAsString}`}
+            isActive={pagination.page === pagination.pages}
             aria-disabled={pagination.page === pagination.pages}
             tabIndex={pagination.page === pagination.pages ? -1 : 0}
           />

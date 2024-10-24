@@ -6,7 +6,11 @@ import { toast } from "sonner"
 import { Extension } from "@/types/shop"
 import { Button } from "@/components/ui/button"
 
-export default function ThemeDetail({ extension }: { extension: Extension }) {
+export default function ExtensionDetail({
+  extension
+}: {
+  extension: Extension
+}) {
   return (
     <>
       <div className="flex w-full justify-end">

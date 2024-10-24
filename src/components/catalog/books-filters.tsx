@@ -44,6 +44,7 @@ function BooksFiltersComponent() {
     queryKey: ["book-filters"],
     queryFn: getBooksFilter
   })
+  // Getting default filters from URL
   const defaultFilters = useFiltersFromParams()
   const [filters, setFilters] = useState<BooksFilters>(defaultFilters)
 
@@ -52,6 +53,7 @@ function BooksFiltersComponent() {
   const onSubmit = () => {
     const processedFilters: BooksFilters = structuredClone(filters)
 
+    // Processing range values
     for (const [key, value] of Object.entries(processedFilters)) {
       if (Array.isArray(value)) {
         processedFilters[`${key}__gte`] = value[0].toString()
@@ -110,7 +112,9 @@ function BooksFiltersComponent() {
               onValueChange={value => handleFilterChange(filter.id, value)}
             >
               <SelectTrigger>
-                <SelectValue placeholder="Выберите жанр" />
+                <SelectValue
+                  placeholder={`Выберите ${filter.label.toLowerCase()}`}
+                />
               </SelectTrigger>
               <SelectContent>
                 {filter.options.map(option => (
@@ -131,7 +135,7 @@ function BooksFiltersComponent() {
         {booksFilters && !isLoading
           ? booksFilters.map(renderFilter)
           : new Array(4).fill(null).map((_, i) => (
-              <div className="flex flex-col gap-[0.725rem]" key={i}>
+              <div key={i} className="flex flex-col gap-[0.725rem]">
                 <Skeleton className="h-4 w-14" />
                 <Skeleton className="h-[2.3rem] w-full" />
               </div>

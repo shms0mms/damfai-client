@@ -23,6 +23,12 @@ export const getBooksFilter = async (): Promise<BookFilter[]> => {
 
   return [
     {
+      id: "size",
+      label: "Размер страницы",
+      type: "enum",
+      options: ["4", "12", "25", "32", "50"]
+    },
+    {
       id: "title",
       label: "Название",
       type: "string"

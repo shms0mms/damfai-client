@@ -8,7 +8,7 @@ type CatalogPageProps = { searchParams: Record<string, string> }
 
 export default function CatalogPage({ searchParams }: CatalogPageProps) {
   const page = +(searchParams.page ?? 1)
-  const size = +(searchParams.size ?? 10)
+  const size = +(searchParams.size ?? 12)
 
   return (
     <div className="px-4 py-8">
@@ -19,8 +19,11 @@ export default function CatalogPage({ searchParams }: CatalogPageProps) {
           <Suspense
             fallback={
               <div className="grid min-h-[72.5vh] grid-cols-1 gap-2 min-[500px]:grid-cols-2 min-[700px]:grid-cols-3 2xl:grid-cols-4">
-                {new Array(20).fill(null).map(_ => (
-                  <Skeleton className="h-full w-auto max-sm:h-[30rem] min-[700px]:h-[30rem] md:h-96 md:w-auto xl:h-[36rem]" />
+                {new Array(20).fill(null).map((_, i) => (
+                  <Skeleton
+                    key={i}
+                    className="h-full w-auto max-sm:h-[30rem] min-[700px]:h-[30rem] md:h-96 md:w-auto xl:h-[36rem]"
+                  />
                 ))}
               </div>
             }

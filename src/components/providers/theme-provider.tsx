@@ -46,10 +46,10 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
 }
 
 function ColorThemeProvider({ children }: React.PropsWithChildren) {
-  const colorThemeIdFromLocalStorage = +(
-    (typeof window !== "undefined" && localStorage.getItem("colorTheme")) ??
-    -1
-  )
+  const colorThemeIdFromLocalStorage =
+    typeof localStorage === "undefined"
+      ? -1
+      : +(localStorage.getItem("colorTheme") ?? -1)
 
   const { data: userThemes } = useQuery({
     initialData: undefined,

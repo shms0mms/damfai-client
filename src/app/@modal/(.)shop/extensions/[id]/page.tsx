@@ -1,5 +1,5 @@
 import { Modal } from "@/components/modal"
-import ThemeDetail from "@/components/shop/themes/theme-detail"
+import ExtensionDetail from "@/components/shop/extensions/extension-detail"
 import { extensionsService } from "@/services/extensions.service"
 
 export default async function ExtensionModalPage({
@@ -10,7 +10,7 @@ export default async function ExtensionModalPage({
   const extension = await extensionsService.getById(id)
   return (
     <Modal title={extension?.title} description={extension?.description}>
-      <ThemeDetail extension={extension!} />
+      <ExtensionDetail extension={extension!} />
     </Modal>
   )
 }
