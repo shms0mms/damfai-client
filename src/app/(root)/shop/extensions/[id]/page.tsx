@@ -1,5 +1,3 @@
-// MODAL
-
 export default function ExtensionPage() {
-  return <div></div>
+  return <div>asdf</div>
 }
