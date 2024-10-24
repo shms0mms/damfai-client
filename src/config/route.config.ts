@@ -19,4 +19,4 @@ export const ROUTES = {
   GIGA_CHAT: "https://giga.chat/",
   GIGA_CHAIN:
     "https://developers.sber.ru/docs/ru/gigachain/overview?ysclid=m1ridoqfk6719227946"
-}
+} as const

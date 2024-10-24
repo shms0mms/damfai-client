@@ -5,8 +5,7 @@ import Particles, { initParticlesEngine } from "@tsparticles/react"
 import { loadSlim } from "@tsparticles/slim"
 import { motion, useAnimation } from "framer-motion"
 import { useTheme } from "next-themes"
-import React, { useId } from "react"
-import { useEffect, useState } from "react"
+import { useEffect, useId, useState } from "react"
 import { cn } from "@/lib/utils"
 
 type ParticlesProps = {

@@ -8,7 +8,7 @@ type CatalogPageProps = { searchParams: Record<string, string> }
 
 export default function CatalogPage({ searchParams }: CatalogPageProps) {
   const page = +(searchParams.page ?? 1)
-  const size = +(searchParams.size ?? 10)
+  const size = +(searchParams.size ?? 12)
 
   return (
     <div className="px-4 py-8">

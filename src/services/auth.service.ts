@@ -8,24 +8,8 @@ class AuthService {
   private BASE_URL = "/auth"
 
   async me(): Promise<User> {
-    // const response = await axiosWithAuth.get<User>(`${this.BASE_URL}/me`)
-    return {
-      id: 1,
-      name: "Александр",
-      surname: "Лебедев",
-      email: "aleksandr.lebedev@gmail.com",
-      created_at: new Date(),
-      dob: new Date(),
-      extensions: [
-        {
-          id: 1,
-          slug: "custom-theme",
-          description: "Вы можете настраивать тему под себя",
-          is_active: true,
-          title: "Темы"
-        }
-      ]
-    }
+    const response = await axiosWithAuth.get<User>(`${this.BASE_URL}/me`)
+    return response.data
   }
   async register(data: UserSignUp) {
     const dob = data.dob
