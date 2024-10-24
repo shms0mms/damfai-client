@@ -44,6 +44,7 @@ function BooksFiltersComponent() {
     queryKey: ["book-filters"],
     queryFn: getBooksFilter
   })
+  // Getting default filters from URL
   const defaultFilters = useFiltersFromParams()
   const [filters, setFilters] = useState<BooksFilters>(defaultFilters)
 
@@ -52,6 +53,7 @@ function BooksFiltersComponent() {
   const onSubmit = () => {
     const processedFilters: BooksFilters = structuredClone(filters)
 
+    // Processing range values
     for (const [key, value] of Object.entries(processedFilters)) {
       if (Array.isArray(value)) {
         processedFilters[`${key}__gte`] = value[0].toString()
@@ -110,7 +112,9 @@ function BooksFiltersComponent() {
               onValueChange={value => handleFilterChange(filter.id, value)}
             >
               <SelectTrigger>
-                <SelectValue placeholder="Выберите жанр" />
+                <SelectValue
+                  placeholder={`Выберите ${filter.label.toLowerCase()}`}
+                />
               </SelectTrigger>
               <SelectContent>
                 {filter.options.map(option => (
