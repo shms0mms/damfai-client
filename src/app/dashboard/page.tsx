@@ -1,11 +1,12 @@
 "use client"
 
-import Achievements from "@/components/dashboard/achievements"
-import Balance from "@/components/dashboard/balance"
+import AchievementsCard from "@/components/dashboard/achievements-card"
+import BalanceCard from "@/components/dashboard/balance-card"
 import { BooksDashboard } from "@/components/dashboard/books"
+import { CardWrapper } from "@/components/dashboard/card-wrapper"
+import ChappiPassCard from "@/components/dashboard/chappi-pass-card"
 import { BooksPerMonthsGraph } from "@/components/dashboard/graphs/books-per-months-graph"
 import { BooksPerYearGraph } from "@/components/dashboard/graphs/books-per-year-graph"
-import { ChartWrapper } from "@/components/dashboard/graphs/chart-wrapper"
 import { MinutesPerWeekGraph } from "@/components/dashboard/graphs/minutes-per-week-graph"
 import { PagesPerWeekGraph } from "@/components/dashboard/graphs/pages-per-week-graph"
 import { Notify } from "@/components/dashboard/notify"
@@ -24,33 +25,34 @@ export default function Dashboard() {
 
           <Statistics />
           <BooksDashboard />
-          <ChartWrapper
+          <CardWrapper
             className="col-span-1 max-md:min-h-[380px]"
             title="Стастистика чтения"
             subtitle="Книг за год"
           >
             <BooksPerYearGraph />
-          </ChartWrapper>
-          <ChartWrapper
+          </CardWrapper>
+          <CardWrapper
             title="Стастистика чтения"
             className="col-span-1"
             subtitle="Страниц за неделю"
           >
             <PagesPerWeekGraph />
-          </ChartWrapper>
-          <ChartWrapper
+          </CardWrapper>
+          <CardWrapper
             title="Стастистика чтения"
             className="col-span-1"
             subtitle="Книги прочитанные за месяц"
           >
             <BooksPerMonthsGraph />
-          </ChartWrapper>
-          <ChartWrapper title="Стастистика чтения" subtitle="Минут за неделю">
+          </CardWrapper>
+          <CardWrapper title="Стастистика чтения" subtitle="Минут за неделю">
             <MinutesPerWeekGraph />
-          </ChartWrapper>
+          </CardWrapper>
 
-          <Balance />
-          <Achievements />
+          <BalanceCard />
+          <ChappiPassCard />
+          <AchievementsCard />
         </div>
       </div>
     </>

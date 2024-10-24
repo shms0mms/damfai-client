@@ -8,18 +8,18 @@ import {
 } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 
-type ChartWrapperProps = {
+type CardWrapperProps = {
   title: string
   subtitle: string
   className?: string
 }
 
-export function ChartWrapper({
+export function CardWrapper({
   title,
   subtitle,
   children,
   className
-}: PropsWithChildren<ChartWrapperProps>) {
+}: PropsWithChildren<CardWrapperProps>) {
   return (
     <Card className={cn("col-span-2 max-xl:col-span-2", className)}>
       <CardHeader className="pb-2">
