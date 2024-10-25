@@ -124,7 +124,7 @@ export const Footer = () => {
       title: "Контакты",
       items: [
         {
-          children: "Fesyse - Frontend | design",
+          children: "Fesyse - Frontend",
           href: ROUTES.CONTACTS.FESYSE
         },
         {
@@ -133,11 +133,11 @@ export const Footer = () => {
         },
         {
           href: ROUTES.CONTACTS.DAMBEK,
-          children: "Dambek - Captain | backend | ML | parser"
+          children: "Dambek - Captain"
         },
         {
           href: ROUTES.CONTACTS.MMS,
-          children: "mms - Frontend | telegram bot | parser"
+          children: "mms - Frontend | bot"
         }
       ]
     }
