@@ -1,23 +1,94 @@
-import React from "react"
+import { Skeleton } from "@/components/ui/skeleton"
 import {
   Table,
+  TableBody,
   TableCaption,
+  TableCell,
   TableHead,
   TableHeader,
   TableRow
 } from "@/components/ui/table"
+import { cn, randomNumber } from "@/lib/utils"
+import { raceService } from "@/services/race.service"
 
-export const LeaderBoard = () => {
+const leaderBoardHeader = [
+  {
+    className: "w-8 font-medium",
+    content: "Место"
+  },
+  {
+    className: "w-[150px]",
+    content: "Имя"
+  },
+  {
+    className: "w-[150px]",
+    content: "Кол-во очков"
+  },
+  {
+    className: "w-[100px] text-right",
+    content: "Награда"
+  }
+]
+
+export const LeaderBoard = async () => {
+  const leaderboard = (await raceService.getLeaderBoard()).sort(
+    (a, b) => a.place - b.place
+  )
+
   return (
-    <Table className="mx-auto w-full max-w-[40rem]">
+    <Table wrapperClassName="w-full max-w-[60rem]">
       <TableCaption>Список лидеров этого месяца</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead>Имя</TableHead>
-          <TableHead className="w-[150px]">Кол-во очков</TableHead>
-          <TableHead className="w-[100px] text-right">Награда</TableHead>
+          {leaderBoardHeader.map(head => (
+            <TableHead key={head.content} className={cn("p-4", head.className)}>
+              {head.content}
+            </TableHead>
+          ))}
         </TableRow>
       </TableHeader>
+      <TableBody>
+        {leaderboard.map((leader, index) => (
+          <TableRow key={leader.id}>
+            <TableCell className="p-4">{leader.place}</TableCell>
+            <TableCell className="p-4">{leader.name}</TableCell>
+            <TableCell className="p-4">{leader.points}</TableCell>
+            <TableCell className="p-4 text-right">{leader.reward}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  )
+}
+
+export const LeaderBoardSkeleton = () => {
+  return (
+    <Table className="mx-auto w-full max-w-[60rem]">
+      <TableCaption>Список лидеров этого месяца</TableCaption>
+      <TableHeader>
+        <TableRow>
+          {leaderBoardHeader.map(head => (
+            <TableHead key={head.content} className={head.className}>
+              {head.content}
+            </TableHead>
+          ))}
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {Array.from({ length: randomNumber(5, 10) }).map((_, index) => (
+          <TableRow key={index}>
+            <TableCell>
+              <Skeleton className="h-9 w-full" />
+            </TableCell>
+            <TableCell>
+              <Skeleton className="h-9 w-full" />
+            </TableCell>
+            <TableCell>
+              <Skeleton className="h-9 w-full" />
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
     </Table>
   )
 }
