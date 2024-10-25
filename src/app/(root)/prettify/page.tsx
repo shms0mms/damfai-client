@@ -1,3 +1,4 @@
+import Balancer from "react-wrap-balancer"
 import { Prettify } from "@/components/prettify"
 
 export default function PrettifyPage() {
@@ -8,7 +9,9 @@ export default function PrettifyPage() {
           Damfai Prettify
         </h1>
         <p className="text-sm text-foreground/50">
-          Решение для 2 этапа проекта Сириус.ИИ от команды Damfai
+          <Balancer>
+            Решение для 2 этапа проекта Сириус.ИИ от команды Damfai
+          </Balancer>
         </p>
       </div>
       <Prettify />

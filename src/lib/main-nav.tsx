@@ -1,8 +1,8 @@
 import {
   Book,
+  Brush,
   GalleryVerticalEnd,
   Gauge,
-  Home,
   ShoppingCart
 } from "lucide-react"
 
@@ -17,10 +17,10 @@ type NavItem = {
 export const getMainNav = (pathname: string): NavItem[] => {
   return [
     {
-      icon: <Home />,
-      title: "Главная",
-      href: "/",
-      active: pathname === "/"
+      icon: <Brush />,
+      title: "Prettify",
+      href: "/prettify",
+      active: pathname.startsWith("/prettify")
     },
     {
       icon: <Book />,
