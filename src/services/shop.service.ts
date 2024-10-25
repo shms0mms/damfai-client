@@ -3,7 +3,11 @@ import { extensionsService } from "./extensions.service"
 
 class ShopService {
   async getExtensions() {
-    return await extensionsService.getAll()
+    try {
+      return await extensionsService.getAll()
+    } catch {
+      return { data: [] }
+    }
   }
 
   getMockMerch() {

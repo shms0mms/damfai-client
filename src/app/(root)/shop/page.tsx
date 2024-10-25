@@ -11,7 +11,7 @@ import { shopService } from "@/services/shop.service"
 // TODO: Paid merch, Paid Themes, Paid books
 
 export default async function Shop() {
-  const extensions = await shopService.getExtensions()
+  const { data: extensions } = await shopService.getExtensions()
   const themes = await shopService.getThemes()
   const merch = await shopService.getMockMerch()
   const title = "mb-7 text-5xl font-bold"

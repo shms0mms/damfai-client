@@ -1,16 +1,26 @@
 "use client"
 
+import { useQuery } from "@tanstack/react-query"
 import { motion } from "framer-motion"
 import { Check, Loader } from "lucide-react"
+import { useContext } from "react"
 import { toast } from "sonner"
 import { Extension } from "@/types/shop"
+import { AuthContext } from "@/components/providers/auth-profider"
 import { Button } from "@/components/ui/button"
+import { extensionsService } from "@/services/extensions.service"
 
 export default function ExtensionDetail({
   extension
 }: {
   extension: Extension
 }) {
+  const { isAuth } = useContext(AuthContext)
+  const { data } = useQuery({
+    queryKey: ["/extensions/user"],
+    queryFn: () => extensionsService.getUserExtensions()
+  })
+  const inCollection = !!data?.data?.find(e => e.id == +extension.id)
   return (
     <>
       <div className="flex w-full justify-end">
@@ -48,8 +58,13 @@ export default function ExtensionDetail({
             }, 5500)
           }}
           type="button"
+          disabled={!isAuth}
         >
-          {extension?.is_active ? "Уже в коллекции" : "Получить"}
+          {!isAuth
+            ? "Сначала авторизируйтесь!"
+            : inCollection
+              ? "Уже в коллекции"
+              : "Получить"}
         </Button>
       </div>
     </>
