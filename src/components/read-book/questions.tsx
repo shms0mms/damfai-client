@@ -97,54 +97,56 @@ export function Questions() {
         <>
           <Form {...form}>
             <form className="flex w-full flex-col gap-5">
-              {questions.map((question, i) => (
-                <FormField
-                  name="answers"
-                  control={form.control}
-                  key={i}
-                  render={({ field }) => (
-                    <FormItem
-                      className={
-                        question.answer ===
-                        answers.find(answer => answer.questionId === i)?.key
-                          ? "bg-green-400"
-                          : "bg-red-400"
-                      }
-                    >
-                      <FormLabel>{question.question}</FormLabel>
-                      <RadioGroup
-                        value={
-                          answers.find(answer => answer.questionId === i)?.key
+              {questions.map((question, i) => {
+                return (
+                  <FormField
+                    name="answers"
+                    control={form.control}
+                    key={i}
+                    render={({ field }) => (
+                      <FormItem
+                        className={
+                          answers.find(answer => answer.questionId === i)
+                            ?.isRight && form.formState.submitCount
+                            ? "bg-green-400"
+                            : form.formState.submitCount && "bg-red-400"
                         }
-                        onValueChange={(key: string) => {
-                          const answer = {
-                            questionId: i,
-                            key: key,
-                            isRight: question.answer === key
-                          }
-
-                          if (
-                            answers.length &&
-                            answers.some(answer => answer.questionId === i)
-                          )
-                            replace(answer)
-                          else append(answer)
-                        }}
                       >
-                        {Object.entries(question.options).map(
-                          ([key, value]) => (
-                            <div className="flex items-center gap-2">
-                              <RadioGroupItem id={key} value={key} />
-                              <Label htmlFor={key}>{value}</Label>
-                            </div>
-                          )
-                        )}
-                      </RadioGroup>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              ))}
+                        <FormLabel>{question.question}</FormLabel>
+                        <RadioGroup
+                          value={
+                            answers.find(answer => answer.questionId === i)?.key
+                          }
+                          onValueChange={(key: string) => {
+                            const answer = {
+                              questionId: i,
+                              key: key,
+                              isRight: question.answer === key
+                            }
+
+                            if (
+                              answers.length &&
+                              answers.some(answer => answer.questionId === i)
+                            )
+                              replace(answer)
+                            else append(answer)
+                          }}
+                        >
+                          {Object.entries(question.options).map(
+                            ([key, value]) => (
+                              <div className="flex items-center gap-2">
+                                <RadioGroupItem id={key} value={key} />
+                                <Label htmlFor={key}>{value}</Label>
+                              </div>
+                            )
+                          )}
+                        </RadioGroup>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                )
+              })}
             </form>
           </Form>
 

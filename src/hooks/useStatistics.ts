@@ -34,7 +34,7 @@ export function useStatistics() {
     },
     {
       title: "Скорость чтения в минуту",
-      count: `${_data?.words_per_min! || "0"}слов/мин`
+      count: `${_data?.words_per_min.toFixed(1)! || "0"}слов/мин`
     },
     {
       title: "Предварительный подсчёт прочитанных слов на завтра",

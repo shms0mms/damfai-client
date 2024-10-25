@@ -15,6 +15,11 @@ export class ReadBookService {
       `${this.BASE_URL}/read_page?page_id=${page_id}&book_id=${book_id}`
     )
   }
+  async finishBook(book_id: number) {
+    return await axiosWithAuth.get(
+      `${this.BASE_URL}/finish_book?book_id=${book_id}`
+    )
+  }
 }
 
 export const readBookService = new ReadBookService()
