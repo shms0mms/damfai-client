@@ -1,10 +1,9 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { ArrowLeftIcon } from "@radix-ui/react-icons"
 import { useMutation } from "@tanstack/react-query"
 import { format } from "date-fns"
-import { AnimatePresence, motion } from "framer-motion"
+import { AnimatePresence } from "framer-motion"
 import { CalendarIcon, Loader } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -12,7 +11,7 @@ import { useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
-import { UserSignUp } from "@/types/user"
+import { RoleEnum, UserSignUp } from "@/types/user"
 import { OPTIONS } from "@/config/options.config"
 import { ROUTES } from "@/config/route.config"
 import { Button } from "@/components/ui/button"
@@ -31,7 +30,6 @@ import {
   PopoverContent,
   PopoverTrigger
 } from "@/components/ui/popover"
-import { Slider } from "@/components/ui/slider"
 import { saveAccessToken } from "@/lib/auth"
 import { cn } from "@/lib/utils"
 import { authService } from "@/services/auth.service"
@@ -55,7 +53,8 @@ const formSchema = z.object({
   }),
   dob: z.date({
     required_error: "Дата рождения обязательная."
-  })
+  }),
+  role: z.nativeEnum(RoleEnum)
 })
 
 type FormSchema = z.infer<typeof formSchema>
@@ -63,7 +62,10 @@ type FormSchema = z.infer<typeof formSchema>
 export default function AuthForm() {
   const [step, setStep] = useState(1)
   const form = useForm<FormSchema>({
-    resolver: zodResolver(formSchema)
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      role: RoleEnum.user
+    }
   })
 
   const { push } = useRouter()

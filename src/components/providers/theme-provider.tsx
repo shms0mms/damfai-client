@@ -7,7 +7,7 @@ import { createContext, useState } from "react"
 import { CustomizeThemeFormSchema } from "@/components/blocks/customize-theme"
 import { COLOR_THEMES, THEMES } from "@/lib/constants"
 import { getCustomThemeVariables } from "@/lib/utils"
-import { shopService } from "@/services/shop.service"
+import { userService } from "@/services/user.service"
 
 type TCustomThemeContext = {
   setVariables: React.Dispatch<
@@ -54,7 +54,7 @@ function ColorThemeProvider({ children }: React.PropsWithChildren) {
   const { data: userThemes } = useQuery({
     initialData: undefined,
     queryKey: ["user", "theme"],
-    queryFn: shopService.getUserThemes
+    queryFn: userService.getUserThemes
   })
 
   const hasAccessToCustomTheme = userThemes?.some(

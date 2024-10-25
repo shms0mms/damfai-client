@@ -1,5 +1,9 @@
 import { Extension } from "./shop"
 
+export enum RoleEnum {
+  user = "user",
+  admin = "admin"
+}
 export type User = {
   id: number
   name: string
@@ -9,6 +13,7 @@ export type User = {
   created_at: Date
   extensions: Extension[]
   balance?: number
+  role: RoleEnum
 }
 
 export type UserSignIn = {

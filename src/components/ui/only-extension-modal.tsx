@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle
 } from "@/components/ui/dialog"
@@ -45,7 +44,7 @@ export default function OnlyExtensionModal({
         </div>
         <div className="flex justify-end">
           <Button asChild>
-            <Link href={`/shop/${extensionId}`}>Узнать больше</Link>
+            <Link href={`/shop/extensions/${extensionId}`}>Узнать больше</Link>
           </Button>
         </div>
       </DialogContent>

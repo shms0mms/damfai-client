@@ -1,7 +1,7 @@
 "use client"
 
 import { useMutation } from "@tanstack/react-query"
-import { secondsToMinutes } from "date-fns"
+import { secondsToHours, secondsToMinutes } from "date-fns"
 import { AnimatePresence, motion } from "framer-motion"
 import { CheckCheck, ChevronLeft, ChevronRight, CircleHelp } from "lucide-react"
 import Link from "next/link"
@@ -24,6 +24,7 @@ import {
   TooltipTrigger
 } from "@/components/ui/tooltip"
 import { padStart } from "@/lib/utils"
+import { analyticsService } from "@/services/analytics.service"
 import { readBookService } from "@/services/read-book.service"
 
 export type ReadBookPageProps = {
@@ -105,6 +106,10 @@ export default function ReadBookPage({
     mutationFn: ({ page_id, book_id }: { page_id: number; book_id: number }) =>
       readBookService.readPage(page_id, book_id)
   })
+  const { mutate: updateSpeedOfRead } = useMutation({
+    mutationFn: (speed: number) =>
+      analyticsService.update_speed_words_per_minute(speed)
+  })
   const handleNextPage = () => {
     if (
       currentPage <
@@ -115,6 +120,14 @@ export default function ReadBookPage({
     ) {
       const page = currentPage + 1
       setCurrentPage(page)
+      const minutes = secondsToMinutes(readTime) || 1
+      const speed = data?.page?.text?.split(" ").length! / 30 / minutes
+
+      updateSpeedOfRead(speed)
+
+      const read_time = (+localStorage.getItem("read_time")! || 0) + readTime
+      localStorage.setItem("read_time", read_time.toString())
+
       finishPage({
         book_id: +params.id,
         page_id: page
@@ -137,11 +150,15 @@ export default function ReadBookPage({
       `/books/read/${params?.id}?page=${currentPage + 1}&chapter=${parseInt(value)}`
     )
   }
-  const time = `${padStart(secondsToMinutes(readTime))}:${padStart(readTime)}`
+  const time = `${padStart(secondsToHours(readTime))}:${padStart(secondsToMinutes(readTime))}:${padStart(readTime > 59 ? readTime - 60 * secondsToMinutes(readTime) : readTime)}`
   const isMobile = useMediaQuery(MEDIA.md)
 
-  // TODO: Questions answers
-  // TODO: Finish book page
+  // TODO: Questions answers - 2
+  // TODO: Finish book page - 1
+  // TODO: Zip text - 3
+
+  // DONE: Analytics
+
   return (
     <>
       {questionsParam ? (

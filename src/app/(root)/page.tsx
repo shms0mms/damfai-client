@@ -86,7 +86,7 @@ const sections = [
       <VelocityScroll
         text="DamfAI Chappi"
         default_velocity={2}
-        className="font-display text-center text-5xl font-bold tracking-[-0.02em] text-black drop-shadow-sm dark:text-white md:leading-[5rem]"
+        className="font-display text-center text-5xl font-bold tracking-[-0.02em] text-black opacity-10 drop-shadow-sm dark:text-white"
       />
     )
   },

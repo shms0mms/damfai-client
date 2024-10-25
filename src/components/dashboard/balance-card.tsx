@@ -15,7 +15,7 @@ import { CoolMode } from "../ui/cool-mode"
 import { LogoCircle } from "../ui/logo-circle"
 import { toCoins } from "@/lib/utils"
 
-export default function Balance() {
+export default function BalanceCard() {
   const { user } = useContext(AuthContext)
   return (
     <Card className="max-xl:col-span-2">
@@ -33,7 +33,7 @@ export default function Balance() {
               <LogoCircle />
             </Button>
           </CoolMode>
-          <span className="font-semibold">
+          <span className="flex items-center gap-0.5 font-semibold">
             Коины: {toCoins(user?.balance!)}
           </span>
         </div>
