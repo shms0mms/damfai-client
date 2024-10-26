@@ -248,7 +248,11 @@ export function ChappiPassMap({
         Собрать все доступные награды
       </Button>
       <Sheet open={true} modal={false}>
-        <SheetContent side={"left"} className="absolute left-0 top-0">
+        <SheetContent
+          isCloseButton={false}
+          side={"left"}
+          className="absolute left-0 top-0"
+        >
           <div className="flex flex-col gap-5">
             <SheetHeader>
               <SheetTitle>{selectedNode?.title || nodes[0]?.title}</SheetTitle>
