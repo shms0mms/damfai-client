@@ -78,9 +78,9 @@ const features = [
   },
   {
     Icon: BellIcon,
-    name: "Уведомления",
-    description: "Получайте уведомления о прочтении книги.",
-    href: ROUTES.DASHBOARD,
+    name: "Чаппи-пасс",
+    description: "Дорога чаппи позволяет выигрывать разные награды.",
+    href: "/pass",
     cta: "Подробнее",
     className: "col-span-3 lg:col-span-2",
     background: (
@@ -89,9 +89,10 @@ const features = [
   },
   {
     Icon: Share2Icon,
-    name: "Интеграции",
-    description: "Вы можете читать книги вдвоём (в разработке).",
-    href: ROUTES.DASHBOARD,
+    name: "Гонка",
+    description:
+      "Вы можете соревноваться с другими пользователями, читая книги от автора этого месяца.",
+    href: "/race",
     cta: "Подробнее",
     className: "col-span-3 lg:col-span-2",
     background: <AnimatedBeamDemo />
@@ -99,7 +100,8 @@ const features = [
   {
     Icon: CalendarIcon,
     name: "Календарь",
-    description: "Используйте календарь чтобы поставить цель чтения книги.",
+    description:
+      "Используйте календарь чтобы поставить цель чтения книги (в скором времени).",
     className: "col-span-3 lg:col-span-1",
     href: ROUTES.DASHBOARD,
     cta: "Подробнее",
