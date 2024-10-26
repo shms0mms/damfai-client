@@ -1,7 +1,6 @@
 import { AxiosResponse } from "axios"
 import { Graph, Statistics } from "@/types/statistics"
 import { axiosWithAuth } from "@/api/interceptors"
-import { RecordOf } from "@/types"
 
 class AnalyticsService {
   private BASE_URL = "/analytics"
@@ -42,9 +41,7 @@ class AnalyticsService {
 
   // Получение любимых жанров
   async getFavouriteGanres() {
-    return await axiosWithAuth.get<RecordOf<number>>(
-      `${this.BASE_URL}/favourite_ganres`
-    )
+    return await axiosWithAuth.get<string>(`${this.BASE_URL}/favourite_ganres`)
   }
 
   async add_minutes_per_day(minutes: number) {

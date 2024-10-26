@@ -8,12 +8,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
-import { getMaxKey } from "@/lib/utils"
 
 export function Profile() {
   const { user, isLoading } = useContext(AuthContext)
   const { data, isLoading: isLoadingGanre } = useFavouriteGanres()
-  const ganreKey = getMaxKey(data?.data || {})
+  const ganre = data?.data
   return (
     <Card className="col-span-1 max-xl:col-span-2">
       <CardHeader>
@@ -50,8 +49,8 @@ export function Profile() {
           </div>
           <div className="text-sm text-muted-foreground">
             Любимый жанр:{" "}
-            {ganreKey ? (
-              ganreKey
+            {ganre ? (
+              ganre
             ) : isLoadingGanre ? (
               <Skeleton className="h-[20px] w-[100px]" />
             ) : (

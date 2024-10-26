@@ -1,9 +1,9 @@
 "use client"
 
+import { useQuery } from "@tanstack/react-query"
 import { KeyboardIcon } from "lucide-react"
-import { useContext, useState } from "react"
+import { useState } from "react"
 import { useHotkeys } from "@/hooks/useHotkeys"
-import { AuthContext } from "@/components/providers/auth-profider"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -16,9 +16,9 @@ import {
 } from "@/components/ui/dialog"
 import OnlyExtensionModal from "@/components/ui/only-extension-modal"
 import { HotkeyModal } from "./modal"
+import { extensionsService } from "@/services/extensions.service"
 
 export function Hotkeys() {
-  const { user } = useContext(AuthContext)
   const { hotkeys, setHotkeys } = useHotkeys()
   const [isModalOpen, setIsModalOpen] = useState<string | undefined>()
 
@@ -30,7 +30,11 @@ export function Hotkeys() {
     })
   }
   const [openEx, setOpenEx] = useState(false)
-  const haveEx = !!user?.extensions?.find(e => e.slug === "hotkeys")
+  const { data } = useQuery({
+    queryKey: ["/extensions/user"],
+    queryFn: () => extensionsService.getUserExtensions()
+  })
+  const haveEx = data?.data?.find(e => e.slug === "hotkeys")
   return (
     <>
       {" "}
@@ -81,7 +85,7 @@ export function Hotkeys() {
         onSave={handleSaveHotkey}
       />
       <OnlyExtensionModal
-        extensionId="1"
+        extensionSlug="hotkeys"
         extensionName="Горячие клавиши"
         extensionDescription="Вы можете настраивать горячие клавиши под себя"
         isOpen={openEx}

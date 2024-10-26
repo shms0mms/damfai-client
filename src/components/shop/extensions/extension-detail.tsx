@@ -1,6 +1,6 @@
 "use client"
 
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
 import { motion } from "framer-motion"
 import { Check, Loader } from "lucide-react"
 import { useContext } from "react"
@@ -16,49 +16,56 @@ export default function ExtensionDetail({
   extension: Extension
 }) {
   const { isAuth } = useContext(AuthContext)
-  const { data } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: ["/extensions/user"],
     queryFn: () => extensionsService.getUserExtensions()
   })
+  const { mutate } = useMutation({
+    mutationFn: (extensionId: number) =>
+      extensionsService.addExtensionToUser(extensionId),
+    onSuccess: () => {
+      toast.dismiss()
+      toast(
+        <div className="flex items-center justify-center">
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ type: "spring", stiffness: 260, damping: 20 }}
+            className="flex h-full items-center justify-center"
+          >
+            <Check className="h-12 w-12 text-green-500" />
+          </motion.div>
+        </div>,
+        {
+          position: "top-center",
+          className: "w-[80px] left-1/2 -translate-x-1/2",
+          duration: 1000
+        }
+      )
+      refetch()
+    },
+    onMutate: () => {
+      toast(
+        <div className="flex items-center justify-center">
+          <Loader className="animate-spin" />
+        </div>,
+        {
+          position: "top-center",
+          className: "w-[60px] left-1/2 -translate-x-1/2",
+          duration: 5000
+        }
+      )
+    }
+  })
   const inCollection = !!data?.data?.find(e => e.id == +extension.id)
+
   return (
     <>
       <div className="flex w-full justify-end">
         <Button
-          onClick={() => {
-            toast(
-              <div className="flex items-center justify-center">
-                <Loader className="animate-spin" />
-              </div>,
-              {
-                position: "top-center",
-                className: "w-[60px] left-1/2 -translate-x-1/2",
-                duration: 5000
-              }
-            )
-            setTimeout(() => {
-              toast.dismiss()
-              toast(
-                <div className="flex items-center justify-center">
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ type: "spring", stiffness: 260, damping: 20 }}
-                    className="flex h-full items-center justify-center"
-                  >
-                    <Check className="h-12 w-12 text-green-500" />
-                  </motion.div>
-                </div>,
-                {
-                  position: "top-center",
-                  className: "w-[80px] left-1/2 -translate-x-1/2",
-                  duration: 1000
-                }
-              )
-            }, 5500)
-          }}
+          onClick={() => mutate(extension.id)}
           type="button"
-          disabled={!isAuth}
+          disabled={!isAuth || inCollection}
         >
           {!isAuth
             ? "Сначала авторизируйтесь!"

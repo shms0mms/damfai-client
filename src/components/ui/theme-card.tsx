@@ -13,7 +13,7 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card"
-import { toCoins } from "@/lib/utils"
+import { ToCoins } from "./to-coins"
 
 type ThemeCardProps = {
   theme: Theme
@@ -67,7 +67,7 @@ export function ThemeCard({ theme }: ThemeCardProps) {
         </CardContent>
         <CardFooter className="mt-4 flex w-full items-center justify-between gap-2">
           <span className="text-right font-semibold">
-            {toCoins(theme.price)}
+            <ToCoins balance={theme.price} />
           </span>
           <div className="flex items-center gap-2">
             <Button
@@ -109,7 +109,7 @@ export function ThemeCard({ theme }: ThemeCardProps) {
         </CardContent>
         <CardFooter className="flex w-full items-center justify-between gap-2">
           <span className="text-right font-semibold">
-            {toCoins(theme.price)}
+            <ToCoins balance={theme.price} />
           </span>
           <div className="flex items-center gap-2 text-foreground">
             <Button

@@ -5,7 +5,7 @@ import Link from "next/link"
 import { type Extension } from "@/types/shop"
 import { Button } from "./button"
 
-export function Extension({ description, id, title }: Extension) {
+export function Extension({ description, slug, title, id }: Extension) {
   return (
     <article
       key={id}
@@ -20,7 +20,7 @@ export function Extension({ description, id, title }: Extension) {
       </p>
       <div className="flex w-full justify-between gap-5">
         <Button asChild>
-          <Link href={`/shop/extensions/${id}`}>Узнать больше</Link>
+          <Link href={`/shop/extensions/${slug}`}>Узнать больше</Link>
         </Button>
       </div>
     </article>
