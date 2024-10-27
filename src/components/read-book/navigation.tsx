@@ -38,6 +38,7 @@ export const ReadBookNavigation: FC<ReadBookNavigationProps> = ({
     mutationFn: ({ page_id, book_id }: { page_id: number; book_id: number }) =>
       readBookService.readPage(page_id, book_id)
   })
+
   const { mutate: updateSpeedOfRead } = useMutation({
     mutationFn: (speed: number) =>
       analyticsService.update_speed_words_per_minute(speed)
@@ -45,14 +46,12 @@ export const ReadBookNavigation: FC<ReadBookNavigationProps> = ({
 
   const handlePrevPage = () => {
     const mapped = readBookData?.chapters
-      ?.slice(0, currentChapter.id - 1)
+      ?.filter(c => c.numberOfChapter < currentChapter.numberOfChapter)
       .map(c => c.pages)
     const prevPagesCount = mapped?.length ? mapped.reduce((c, a) => c + a)! : 0
+
     if (currentPage - prevPagesCount - 1 === 0) {
-      const currentPage = readBookData?.chapters
-        ?.slice(0, currentChapter.id - 1)
-        .map(c => c.pages)
-        .reduce((c, a) => c + a)!
+      const currentPage = mapped!.reduce((c, a) => c + a)!
       router.push(
         `/books/read/${params?.id}?page=${currentPage}&chapter=${currentChapter.id - 1}`
       )
@@ -65,13 +64,9 @@ export const ReadBookNavigation: FC<ReadBookNavigationProps> = ({
     }
   }
   const handleNextPage = () => {
-    if (
-      currentPage <
-      readBookData?.chapters
-        .slice(0, currentChapter.id)
-        .map(c => c.pages)
-        .reduce((p, c) => p + c)!
-    ) {
+    // Здесь надо получить как-то последнюю numberOfPage в главе
+
+    if (currentPage < currentChapter.lastNumberOfPage) {
       const page = currentPage + 1
       setCurrentPage(page)
       const minutes = secondsToMinutes(readTime) || 1
@@ -89,7 +84,9 @@ export const ReadBookNavigation: FC<ReadBookNavigationProps> = ({
       router.push(
         `/books/read/${params?.id}?page=${page}&chapter=${currentChapter.id}`
       )
-    } else if (currentChapter.id < readBookData?.chapters?.length!) {
+    } else if (
+      currentChapter.numberOfChapter < readBookData?.chapters?.length!
+    ) {
       setCurrentPage(currentPage + 1)
 
       router.push(
@@ -102,7 +99,7 @@ export const ReadBookNavigation: FC<ReadBookNavigationProps> = ({
     <footer className="fixed bottom-0 left-0 right-0 flex items-center justify-between border-t bg-background p-4">
       <Button
         onClick={handlePrevPage}
-        disabled={currentChapter.id === 1 && currentPage === 1}
+        disabled={currentChapter.numberOfChapter === 1 && currentPage === 1}
         className="max-md:text-[0px]"
       >
         <ChevronLeft className="h-4 w-4 md:mr-2" /> Предыдущая
@@ -115,19 +112,15 @@ export const ReadBookNavigation: FC<ReadBookNavigationProps> = ({
         <Button
           onClick={handleNextPage}
           disabled={
-            currentChapter.id === readBookData?.chapters?.length &&
-            currentPage ===
-              readBookData?.chapters?.map(c => c.pages).reduce((p, c) => p + c)!
+            currentChapter.numberOfChapter === readBookData?.chapters?.length &&
+            currentPage === currentChapter.lastNumberOfPage
           }
           className="max-md:text-[0px]"
         >
           Следующая <ChevronRight className="h-4 w-4 md:ml-2" />
         </Button>
-        {currentChapter.id === readBookData?.chapters?.length &&
-          currentPage ===
-            readBookData?.chapters
-              ?.map(c => c.pages)
-              .reduce((p, c) => p + c)! && (
+        {currentChapter.numberOfChapter === readBookData?.chapters?.length &&
+          currentPage === currentChapter.lastNumberOfPage && (
             <>
               <TooltipProvider>
                 <Tooltip>

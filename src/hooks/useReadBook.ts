@@ -38,7 +38,7 @@ export function useReadBook({ params, searchParams }: ReadBookPageProps) {
 
   // For data fill hooks
   useEffect(() => {
-    readBookData?.page?.id && setCurrentPage(readBookData.page.id)
+    readBookData?.page?.id && setCurrentPage(readBookData.page.numberOfPage)
   }, [readBookData?.page?.id])
   useEffect(() => void refetch(), [searchParams])
   useEffect(() => {
