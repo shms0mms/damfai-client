@@ -56,7 +56,9 @@ export default function ReadBookPage({
   const [currentChapterId, setCurrentChapterId] = useState(currentChapter?.id)
 
   useEffect(() => {
-    data?.page?.id && setCurrentPage(data?.page?.id)
+    if (data?.page?.id) {
+      setCurrentPage(data?.page?.id)
+    }
   }, [data?.page?.id])
   useEffect(() => {
     currentChapter?.id && setCurrentChapterId(currentChapter.id)
@@ -153,12 +155,22 @@ export default function ReadBookPage({
   const time = `${padStart(secondsToHours(readTime))}:${padStart(secondsToMinutes(readTime))}:${padStart(readTime > 59 ? readTime - 60 * secondsToMinutes(readTime) : readTime)}`
   const isMobile = useMediaQuery(MEDIA.md)
 
-  // TODO: Questions answers - 2
-  // TODO: Finish book page - 1
+  // TODO: Questions answers - 2 (MAX)
+  // DONE: Finish book page - 1
   // TODO: Zip text - 3
-
-  // DONE: Analytics
-
+  useEffect(() => {
+    if (currentChapterId && currentPage && data?.title) {
+      localStorage.setItem(
+        "last_read_book",
+        JSON.stringify({
+          title: data?.title,
+          id: params.id,
+          pageId: currentPage,
+          chapterId: currentChapterId
+        })
+      )
+    }
+  }, [currentChapterId, currentPage])
   return (
     <>
       {questionsParam ? (
