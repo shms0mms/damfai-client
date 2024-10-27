@@ -31,7 +31,6 @@ export function BookList({ books }: BookListProps) {
           return (
             <li className="h-full w-full" key={ganre}>
               <h2 className="mb-2 text-3xl font-semibold">{ganre}</h2>
-              {/* <Separator /> */}
               <Carousel>
                 <CarouselContent className="mx-4 py-2">
                   {books.map((book, i) => (

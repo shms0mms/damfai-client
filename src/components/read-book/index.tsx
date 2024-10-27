@@ -32,6 +32,8 @@ export function ReadBook({ params, searchParams }: ReadBookPageProps) {
   const startGenerateQuestions = searchParams?.questions === "generate"
 
   useAddMinutesPerDay()
+
+  const { push } = useRouter()
   return (
     <>
       {startGenerateQuestions ? (

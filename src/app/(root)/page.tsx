@@ -15,7 +15,7 @@ import { VelocityScroll } from "@/components/ui/scroll-based-velocity"
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect"
 import { cn } from "@/lib/utils"
 
-const sections = [
+const SECTIONS = [
   {
     id: "1",
     content: (
@@ -99,38 +99,16 @@ const sections = [
       </div>
     )
   }
-
-  // {
-  //   id: "4",
-  //   content: (
-  //     <div className="relative flex h-full w-full items-center justify-center">
-  //       <div className="flex flex-col items-center gap-3">
-  //         <CardSkeletonContainer>
-  //           <AISlider />
-  //         </CardSkeletonContainer>
-
-  //         {/* <div className="flex items-center gap-2">
-  //           <Button size={"lg"} asChild>
-  //             <Link href={ROUTES.RECOMMEND}>Начать</Link>
-  //           </Button>
-  //           <Button size={"lg"} variant={"outline"} asChild>
-  //             <Link href={ROUTES.SIGN_IN}>Войти</Link>
-  //           </Button>
-  //         </div> */}
-  //       </div>
-  //     </div>
-  //   )
-  // }
 ]
 
 export default function HomePage() {
   return (
     <div className="dark:bg-grid-white/[0.02] h-full">
-      <section className="overflow-hidden">{sections[0]?.content}</section>
+      <section className="overflow-hidden">{SECTIONS[0]?.content}</section>
       <div className="">
         <div className="relative h-full w-full">
           <div className="h-full w-full">
-            {sections.slice(1).map(s => (
+            {SECTIONS.slice(1).map(s => (
               <section
                 className="flex w-full items-center justify-center py-20"
                 key={s.id}

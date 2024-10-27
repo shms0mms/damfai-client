@@ -1,5 +1,5 @@
 import { Modal } from "@/components/modal"
-import ExtensionDetail from "@/components/shop/extensions/extension-detail"
+import { ExtensionDetail } from "@/components/shop/extensions/extension-detail"
 import { extensionsService } from "@/services/extensions.service"
 
 export default async function ExtensionModalPage({
