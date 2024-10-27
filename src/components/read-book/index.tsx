@@ -64,7 +64,7 @@ export function ReadBook({ params, searchParams }: ReadBookPageProps) {
     return () => clearInterval(interval)
   }, [])
 
-  // TODO: Questions answers - 2 (MAX)
+  // DONE: Questions answers - 2
   // DONE: Finish book page - 1
   // TODO: Zip text - 3
   useEffect(() => {
