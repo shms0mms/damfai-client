@@ -2,18 +2,12 @@ import type { Book, Chapter, Page } from "@/types/book"
 import { axiosDefault, axiosWithAuth } from "@/api/interceptors"
 import { books } from "@/components/blocks/bento"
 import { randomNumber } from "@/lib/utils"
-import type { Pagination } from "@/types"
 
 type GetAllGanresResponse = {
   id: number
   ganre: string
 }[]
 
-type GetAllBooksOptions = {
-  page: number
-  size: number
-  filters?: Record<string, string>
-}
 type GetAllChaptersResponse = {
   title: string
   author: string
@@ -52,6 +46,7 @@ const mockBookImages = [
 
 class BookService {
   private BASE_URL = "/books"
+
   async getAllGanres() {
     const response = await new Promise<GetAllGanresResponse>(res =>
       res([{ id: 1, ganre: "Фэнтези" }])
@@ -62,19 +57,7 @@ class BookService {
     return (await axiosDefault.get<Book>(`${this.BASE_URL}/book?id_book=${id}`))
       .data
   }
-  async getAll(options: GetAllBooksOptions) {
-    const queryParams = new URLSearchParams({
-      page: `${options.page}`,
-      size: `${options.size}`,
-      ...options.filters
-    }).toString()
 
-    const response = await axiosDefault.post<Pagination<Book>>(
-      `${this.BASE_URL}?${queryParams}`,
-      []
-    )
-    return response.data
-  }
   async getUserBooks() {
     return new Promise<Book[]>(res =>
       res(
