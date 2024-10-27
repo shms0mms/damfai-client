@@ -1,3 +1,4 @@
+import { Theme } from "@/types/shop"
 import { Extension } from "@/components/ui/extension"
 import { InDevelopment } from "@/components/ui/in-dev"
 import { LetterPullup } from "@/components/ui/letter-pullup"
@@ -7,8 +8,6 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect"
 import { ThemeCard } from "@/components/ui/theme-card"
 import { shopService } from "@/services/shop.service"
-
-// TODO: Paid merch, Paid Themes, Paid books
 
 export default async function Shop() {
   const { data: extensions } = await shopService.getExtensions()
@@ -53,15 +52,14 @@ export default async function Shop() {
         <h2 className={title}>Темы</h2>
         <div className="grid w-full grid-cols-[repeat(auto-fill,_minmax(270px,_1fr))] gap-4">
           {themes?.length
-            ? themes.map(theme => <ThemeCard key={theme.id} theme={theme} />)
+            ? themes.map((theme: Theme) => (
+                <ThemeCard key={theme.id} theme={theme} />
+              ))
             : null}
         </div>
       </section>
       <Separator className="max-md:hidden" />
       <section className="container relative [mask-image:linear-gradient(to_top,transparent_40%,#000_100%)] before:absolute before:bottom-0 before:left-0 before:h-full before:w-full before:content-['']">
-        {/* <h2 className="mb-4 text-2xl text-muted-foreground/30">
-          Мерч от компании
-        </h2> */}
         <div className="grid h-full w-full grid-cols-[repeat(auto-fill,_minmax(270px,_1fr))] gap-4 max-md:hidden">
           {merch?.length
             ? merch.map(e => <MarchCard key={e.id} {...e} />)
