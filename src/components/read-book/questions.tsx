@@ -4,7 +4,6 @@ import { useParams } from "next/navigation"
 import { useState } from "react"
 import { useFieldArray, useForm } from "react-hook-form"
 import { z } from "zod"
-import { useGenerateQuestions } from "@/hooks/useGenerateQuestions"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -13,10 +12,10 @@ import {
   FormLabel,
   FormMessage
 } from "@/components/ui/form"
-import { Label } from "@/components/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Skeleton } from "@/components/ui/skeleton"
-import { randomNumber } from "@/lib/utils"
+import { Label } from "../ui/label"
+import { RadioGroup, RadioGroupItem } from "../ui/radio-group"
+import { cn, randomNumber } from "@/lib/utils"
 
 const data = [
   {
@@ -80,7 +79,7 @@ export function Questions() {
   })
 
   const [questions, setQuestions] = useState<Question[]>(data)
-  const { message } = useGenerateQuestions(+id, questionsCount)
+  // const { message } = useGenerateQuestions(+id, questionsCount)
 
   const isQuestionsGenerating = questionsCount != questions?.length
 
@@ -89,29 +88,24 @@ export function Questions() {
   //     setQuestions(prev => [...prev, ...message])
   //   }
   // }, [message?.length])
-  console.log(answers)
-
+  const onSubmit = (data: FormSchema) => {}
   return (
     <div className="flex min-h-full flex-col gap-10">
       {questions.length ? (
         <>
           <Form {...form}>
-            <form className="flex w-full flex-col gap-5">
-              {questions.map((question, i) => {
-                return (
-                  <FormField
-                    name="answers"
-                    control={form.control}
-                    key={i}
-                    render={({ field }) => (
-                      <FormItem
-                        className={
-                          answers.find(answer => answer.questionId === i)
-                            ?.isRight && form.formState.submitCount
-                            ? "bg-green-400"
-                            : form.formState.submitCount && "bg-red-400"
-                        }
-                      >
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="flex w-full flex-col gap-5"
+            >
+              {questions.map((question, i) => (
+                <FormField
+                  name="answers"
+                  control={form.control}
+                  key={i}
+                  render={({ field }) => {
+                    return (
+                      <FormItem className={""}>
                         <FormLabel>{question.question}</FormLabel>
                         <RadioGroup
                           value={
@@ -133,37 +127,62 @@ export function Questions() {
                           }}
                         >
                           {Object.entries(question.options).map(
-                            ([key, value]) => (
-                              <div className="flex items-center gap-2">
-                                <RadioGroupItem id={key} value={key} />
-                                <Label htmlFor={key}>{value}</Label>
-                              </div>
-                            )
+                            ([key, value]) => {
+                              const isCheckingAnswers =
+                                form.formState.submitCount
+                              const isCorrect =
+                                isCheckingAnswers &&
+                                answers.find(a => a.questionId === i)?.key ===
+                                  key
+                              const isInCorrect =
+                                isCheckingAnswers &&
+                                answers.find(a => a.questionId === i)?.key !==
+                                  key
+
+                              return (
+                                <div
+                                  className={cn(
+                                    "flex items-center gap-2 rounded-md p-1",
+                                    {
+                                      "bg-green-800": isCorrect,
+                                      "bg-red-950": isInCorrect
+                                    }
+                                  )}
+                                >
+                                  <RadioGroupItem
+                                    disabled={!!isCheckingAnswers}
+                                    id={key}
+                                    value={key}
+                                  />
+                                  <Label htmlFor={key}>{value}</Label>
+                                </div>
+                              )
+                            }
                           )}
                         </RadioGroup>
                         <FormMessage />
                       </FormItem>
-                    )}
-                  />
-                )
-              })}
+                    )
+                  }}
+                />
+              ))}
+
+              <Button
+                className="flex w-full items-center gap-2"
+                disabled={isQuestionsGenerating || !!form.formState.submitCount}
+                type="submit"
+              >
+                {isQuestionsGenerating ? (
+                  <>
+                    Остальные вопросы генерируются..
+                    <Loader className="animate-spin" size={20} />
+                  </>
+                ) : (
+                  "Завершить опрос"
+                )}
+              </Button>
             </form>
           </Form>
-
-          <Button
-            className="flex w-full items-center gap-2"
-            disabled={isQuestionsGenerating}
-            type="submit"
-          >
-            {isQuestionsGenerating ? (
-              <>
-                Остальные вопросы генерируются..
-                <Loader className="animate-spin" size={20} />
-              </>
-            ) : (
-              "Завершить опрос"
-            )}
-          </Button>
         </>
       ) : (
         <div className="flex h-full w-full flex-col gap-5">

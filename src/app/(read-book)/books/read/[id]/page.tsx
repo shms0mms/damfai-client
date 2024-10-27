@@ -155,7 +155,7 @@ export default function ReadBookPage({
   const time = `${padStart(secondsToHours(readTime))}:${padStart(secondsToMinutes(readTime))}:${padStart(readTime > 59 ? readTime - 60 * secondsToMinutes(readTime) : readTime)}`
   const isMobile = useMediaQuery(MEDIA.md)
 
-  // TODO: Questions answers - 2 (MAX)
+  // TODO: Questions answers - 2
   // DONE: Finish book page - 1
   // TODO: Zip text - 3
   useEffect(() => {
