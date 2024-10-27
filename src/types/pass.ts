@@ -9,3 +9,13 @@ export type Reward = {
   size?: "big" | "default" | "small" // размер награды (нужно для отображения на карте)
   type: "coins" | "merch" | "extension" | "theme" | "book" // тип награды
 }
+
+export type Quest = {
+  id: number
+  title: string
+  description: string
+  experience: number
+  progress: number
+  total: number
+  icon: "trophy" | "star" | "zap" | "swords" | "crown" // на бекенде не будет наверно
+}
