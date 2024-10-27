@@ -4,32 +4,32 @@ import Link from "next/link"
 import { useParams } from "next/navigation"
 import { Chapter } from "@/types/book"
 import { ReadBookData } from "@/hooks/useReadBookData"
-import { Button } from "../ui/button"
+import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger
-} from "../ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue
-} from "../ui/select"
+} from "@/components/ui/select"
 import {
   Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle
-} from "../ui/sheet"
+} from "@/components/ui/sheet"
 import { ChappiChat } from "./chappi-chat"
 import { Purpose } from "./purpose"
 import { cn } from "@/lib/utils"
 
-type Props = {
+type MenuProps = {
   open: boolean
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
   handleChapterChange: (value: string) => void
@@ -42,8 +42,8 @@ export function Menu({
   setOpen,
   currentChapter,
   handleChapterChange
-}: Props) {
-  const { id: book_id } = useParams()
+}: MenuProps) {
+  const { id: bookId } = useParams()
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetContent
@@ -107,7 +107,7 @@ export function Menu({
           </DropdownMenu>
           <Button asChild type="button">
             <Link
-              href={`/books/read/${book_id}?page=${data?.page?.id}&chapter=${currentChapter?.id}&questions=generate`}
+              href={`/books/read/${bookId}?page=${data?.page?.id}&chapter=${currentChapter?.id}&questions=generate`}
             >
               Перейти сразу к вопросам
             </Link>
