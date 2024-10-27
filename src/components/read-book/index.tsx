@@ -6,7 +6,7 @@ import { useAddMinutesPerDay } from "@/hooks/useAddMinutesPerDay"
 import { useReadBook } from "@/hooks/useReadBook"
 import { Header } from "@/components/layouts/read-book/header"
 import { Chappi } from "@/components/read-book/chappi"
-import { Menu as MenuComponent } from "@/components/read-book/menu"
+import { Menu } from "@/components/read-book/menu"
 import { ReadBookNavigation } from "@/components/read-book/navigation"
 import { Questions } from "@/components/read-book/questions"
 import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog"
@@ -16,10 +16,9 @@ import { ReadBookPageProps } from "@/app/(read-book)/books/read/[id]/page"
 // DONE: Finish book page - 1
 // TODO: Zip text - 3
 export function ReadBook({ params, searchParams }: ReadBookPageProps) {
-  useAddMinutesPerDay()
-  const startGenerateQuestions = searchParams.questions === "generate"
+  const router = useRouter()
   const {
-    readBookData: readBookData,
+    readBookData,
     timeString,
     isLoading,
     open,
@@ -30,14 +29,16 @@ export function ReadBook({ params, searchParams }: ReadBookPageProps) {
     params,
     searchParams
   })
-  const { push } = useRouter()
+  const startGenerateQuestions = searchParams?.questions === "generate"
+
+  useAddMinutesPerDay()
   return (
     <>
       {startGenerateQuestions ? (
         <Dialog
           defaultOpen
           onOpenChange={() => {
-            push(
+            router.push(
               `/books/read/${params?.id}?page=${navigationProps.currentPage}&chapter=${navigationProps.currentChapter.id}`
             )
           }}
@@ -100,7 +101,7 @@ export function ReadBook({ params, searchParams }: ReadBookPageProps) {
             {...navigationProps}
             readBookData={readBookData}
           />
-          <MenuComponent
+          <Menu
             currentChapter={navigationProps.currentChapter}
             readBookData={readBookData}
             open={open}

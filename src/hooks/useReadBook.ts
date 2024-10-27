@@ -5,14 +5,17 @@ import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { useCurrentChapter } from "./useCurrentChapter"
 import { useReadBookData } from "./useReadBookData"
-import { ReadBookPageProps } from "@/app/(read-book)/books/read/[id]/page"
+import { type ReadBookPageProps } from "@/app/(read-book)/books/read/[id]/page"
 import { padStart } from "@/lib/utils"
 
-type Props = {} & ReadBookPageProps
-export function useReadBook({ params, searchParams }: Props) {
+export function useReadBook({ params, searchParams }: ReadBookPageProps) {
+  const router = useRouter()
+  const [readTime, setReadTime] = useState(0)
+  const [open, setOpen] = useState(false)
   const [currentPage, setCurrentPage] = useState(
     searchParams.page ? +searchParams.page : 1
   )
+
   const {
     data: readBookData,
     refetch,
@@ -22,14 +25,22 @@ export function useReadBook({ params, searchParams }: Props) {
     params,
     searchParams
   })
+  const currentChapter = useCurrentChapter(readBookData, searchParams)
+
+  const timeString = `${padStart(secondsToHours(readTime))}:${padStart(secondsToMinutes(readTime))}:${padStart(readTime > 59 ? readTime - 60 * secondsToMinutes(readTime) : readTime)}`
+
+  const handleChapterChange = (value: string) => {
+    setCurrentPage(currentPage + 1)
+    router.push(
+      `/books/read/${params?.id}?page=${currentPage + 1}&chapter=${parseInt(value)}`
+    )
+  }
+
   // For data fill hooks
   useEffect(() => {
     readBookData?.page?.id && setCurrentPage(readBookData.page.id)
   }, [readBookData?.page?.id])
   useEffect(() => void refetch(), [searchParams])
-  useEffect(() => {
-    setKey(prevKey => prevKey + 1)
-  }, [readBookData?.page?.text])
   useEffect(() => {
     setReadTime(0)
 
@@ -38,21 +49,6 @@ export function useReadBook({ params, searchParams }: Props) {
     }, 1000)
     return () => clearInterval(interval)
   }, [])
-
-  const { push } = useRouter()
-  const currentChapter = useCurrentChapter(readBookData, searchParams)
-  const [open, setOpen] = useState(false)
-  const [_, setKey] = useState(0)
-
-  const [readTime, setReadTime] = useState(0)
-  const timeString = `${padStart(secondsToHours(readTime))}:${padStart(secondsToMinutes(readTime))}:${padStart(readTime > 59 ? readTime - 60 * secondsToMinutes(readTime) : readTime)}`
-
-  const handleChapterChange = (value: string) => {
-    setCurrentPage(currentPage + 1)
-    push(
-      `/books/read/${params?.id}?page=${currentPage + 1}&chapter=${parseInt(value)}`
-    )
-  }
 
   useEffect(() => {
     if (currentChapter?.id && currentPage && readBookData?.title) {
@@ -67,6 +63,7 @@ export function useReadBook({ params, searchParams }: Props) {
       )
     }
   }, [currentChapter?.id, currentPage])
+
   return {
     currentChapter,
     currentPage,

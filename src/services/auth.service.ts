@@ -15,10 +15,12 @@ class AuthService {
     const dob = data.dob
       .toLocaleDateString()
       .replaceAll(".", "-")
+      .replaceAll("/", "-")
       .split("-")
       .reverse()
       .join("-")
 
+    console.log(dob)
     const response = await axiosDefault.post<User & ResponseWithToken>(
       `${this.BASE_URL}/register`,
       { ...data, dob }

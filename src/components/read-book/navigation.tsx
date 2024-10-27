@@ -108,7 +108,8 @@ export const ReadBookNavigation: FC<ReadBookNavigationProps> = ({
         <ChevronLeft className="h-4 w-4 md:mr-2" /> Предыдущая
       </Button>
       <span className="text-sm">
-        Глава {currentChapter.id} / Страница {currentPage}
+        Глава {currentChapter.numberOfChapter} / Страница{" "}
+        {readBookData?.page?.numberOfPage}
       </span>
       <div className="flex items-center gap-2">
         <Button

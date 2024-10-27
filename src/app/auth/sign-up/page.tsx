@@ -60,7 +60,6 @@ const formSchema = z.object({
 type FormSchema = z.infer<typeof formSchema>
 
 export default function AuthForm() {
-  const [step, setStep] = useState(1)
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -68,26 +67,20 @@ export default function AuthForm() {
     }
   })
 
-  const { push } = useRouter()
+  const router = useRouter()
   const { mutate } = useMutation({
     mutationFn: (data: UserSignUp) => authService.register(data),
     onSuccess(data) {
       toast.success("Вы успешно зарегистрировались!")
       saveAccessToken(data.token)
-      push(ROUTES.DASHBOARD)
+      router.push(ROUTES.DASHBOARD)
     },
     onError(error) {
       toast.error(error.message)
     }
   })
 
-  const onSubmit: SubmitHandler<FormSchema> = values => {
-    const formData = form.getValues()
-    mutate({
-      ...formData,
-      ...values
-    })
-  }
+  const onSubmit: SubmitHandler<FormSchema> = values => mutate(values)
 
   const isLoading = form.formState.isLoading
 
@@ -96,20 +89,11 @@ export default function AuthForm() {
       <div className="space-y-2 text-center">
         <h1 className="text-2xl font-semibold tracking-tight">Регистрация</h1>
         <p className="text-sm text-muted-foreground">
-          {step === 1
-            ? "Введите свой адрес электронной почты и пароль, чтобы зарегистрировать свой аккаунт."
-            : "Укажите сколько вы читаете в день, это поможет  нам подобрать для вас идеальный план."}
+          Введите свой адрес электронной почты и пароль, чтобы зарегистрировать
+          свой аккаунт.
         </p>
       </div>
       <AnimatePresence mode="wait">
-        {/* {step === 1 ? (
-          <motion.div
-            key="step1"
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="w-full"
-          > */}
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
@@ -213,63 +197,6 @@ export default function AuthForm() {
             </Button>
           </form>
         </Form>
-        {/* </motion.div> */}
-        {/* ) : (
-           <motion.div
-             key="step2"
-             initial={{ opacity: 0 }}
-             animate={{ opacity: 1 }}
-             exit={{ opacity: 0 }}
-             transition={{ duration: 0.3 }}
-           >
-             <Form {...readingSpeedForm}>
-               <form
-                 onSubmit={readingSpeedForm.handleSubmit(onAdditionalFormSubmit)}
-                 className="space-y-10"
-               >
-                 <FormField
-                   control={readingSpeedForm.control}
-                   name="readingTime"
-                   render={({ field }) => (
-                     <FormItem>
-                       <FormLabel>
-                         Сколько вы читаете в день? (в часах)
-                       </FormLabel>
-                       <FormControl>
-                         <Slider
-                           min={1}
-                           max={8}
-                           minStepsBetweenThumbs={0.5}
-                           step={0.5}
-                           onValueChange={v => field.onChange(v[0])}
-                           value={[field.value]}
-                         />
-                       </FormControl>
-                       <FormMessage />
-                     </FormItem>
-                   )}
-                 />
-                 <div className="grid grid-cols-[2.25rem_1fr] gap-2">
-                   <Button
-                     type="button"
-                     variant="outline"
-                     className="w-full"
-                     onClick={() => setStep(1)}
-                     size="icon"
-                   >
-                     <ArrowLeftIcon />
-                   </Button>
-                   <Button type="submit" className="w-full" disabled={isLoading}>
-                     {isLoading && (
-                       <Loader className="mr-2 h-4 w-4 animate-spin" />
-                     )}
-                     Зарегистрироваться
-                   </Button>
-                 </div>
-               </form>
-             </Form>
-           </motion.div>
-         )} */}
       </AnimatePresence>
 
       <div className="text-center text-sm text-muted-foreground">

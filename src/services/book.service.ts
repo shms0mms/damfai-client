@@ -97,7 +97,7 @@ class BookService {
   async getAllChapters(id: number) {
     return (
       await axiosDefault.get<GetAllChaptersResponse>(
-        `${this.BASE_URL}/chapters/${id}`
+        `${this.BASE_URL}/get/book/chapters/${id}`
       )
     ).data
   }
