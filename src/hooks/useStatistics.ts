@@ -37,7 +37,7 @@ export function useStatistics() {
       count: `${_data?.words_per_min.toFixed(1)! || "0"}слов/мин`
     },
     {
-      title: "Предварительный подсчёт прочитанных слов на завтра",
+      title: "Предварительный подсчёт прочитанных минут на завтра",
       count: `0`
     },
     {
