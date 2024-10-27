@@ -3,6 +3,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { KeyboardIcon } from "lucide-react"
 import { useState } from "react"
+import { Extension } from "@/types/shop"
 import { useHotkeys } from "@/hooks/useHotkeys"
 import { Button } from "@/components/ui/button"
 import {
@@ -14,7 +15,7 @@ import {
   DialogTitle,
   DialogTrigger
 } from "@/components/ui/dialog"
-import OnlyExtensionModal from "@/components/ui/only-extension-modal"
+import { OnlyExtensionModal } from "@/components/ui/only-extension-modal"
 import { HotkeyModal } from "./modal"
 import { extensionsService } from "@/services/extensions.service"
 
@@ -34,7 +35,7 @@ export function Hotkeys() {
     queryKey: ["/extensions/user"],
     queryFn: () => extensionsService.getUserExtensions()
   })
-  const haveEx = data?.data?.find(e => e.slug === "hotkeys")
+  const haveEx = data?.data?.find((e: Extension) => e.slug === "hotkeys")
   return (
     <>
       {" "}

@@ -4,10 +4,10 @@ import { useMutation } from "@tanstack/react-query"
 import { Minus } from "lucide-react"
 import { useState } from "react"
 import { toast } from "sonner"
-import ConfirmationModal from "../ui/confirmation-modal"
-import { TableCell } from "../ui/table"
+import { ConfirmationModal } from "@/components/ui/confirmation-modal"
+import { TableCell } from "@/components/ui/table"
 import { extensionsService } from "@/services/extensions.service"
-import themesService from "@/services/themes.service"
+import { themeService } from "@/services/themes.service"
 
 export function RemoveCellButton({
   refetch,
@@ -25,7 +25,7 @@ export function RemoveCellButton({
       if (is === "extension") {
         await extensionsService.removeExtensionFromUser(id)
       } else {
-        await themesService.removeThemeFromUser(id)
+        await themeService.removeThemeFromUser(id)
       }
     },
     onSuccess: () => {

@@ -1,11 +1,11 @@
 "use client"
 
 import { useQuery } from "@tanstack/react-query"
-import AchievementsCard from "@/components/dashboard/achievements-card"
-import BalanceCard from "@/components/dashboard/balance-card"
+import { AchievementsCard } from "@/components/dashboard/achievements-card"
+import { BalanceCard } from "@/components/dashboard/balance-card"
 import { BooksDashboard } from "@/components/dashboard/books"
 import { CardWrapper } from "@/components/dashboard/card-wrapper"
-import ChappiPassCard from "@/components/dashboard/chappi-pass-card"
+import { ChappiPassCard } from "@/components/dashboard/chappi-pass-card"
 import { BooksPerMonthsGraph } from "@/components/dashboard/graphs/books-per-months-graph"
 import { BooksPerYearGraph } from "@/components/dashboard/graphs/books-per-year-graph"
 import { MinutesPerWeekGraph } from "@/components/dashboard/graphs/minutes-per-week-graph"
@@ -13,10 +13,10 @@ import { PagesPerWeekGraph } from "@/components/dashboard/graphs/pages-per-week-
 import { Notify } from "@/components/dashboard/notify"
 import { Profile } from "@/components/dashboard/profile"
 import { Statistics } from "@/components/dashboard/statistics"
-import TableCard from "@/components/dashboard/table-card"
+import { TableCard } from "@/components/dashboard/table-card"
 import { Header } from "@/components/layouts/root/header"
 import { extensionsService } from "@/services/extensions.service"
-import themesService from "@/services/themes.service"
+import { themeService } from "@/services/themes.service"
 
 export default function Dashboard() {
   const {
@@ -33,7 +33,7 @@ export default function Dashboard() {
     refetch: refetchThemes
   } = useQuery({
     queryKey: ["/themes/user"],
-    queryFn: () => themesService.getUserThemes()
+    queryFn: () => themeService.getUserThemes()
   })
   return (
     <>

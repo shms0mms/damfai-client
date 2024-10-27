@@ -12,6 +12,23 @@ type Card = {
   className?: string
 }
 
+export const CardStackItem = ({
+  title,
+  icon
+}: {
+  title: string
+  icon: React.ReactNode
+}) => {
+  return (
+    <div className="flex h-52 w-full flex-col gap-2">
+      <h2 className="text-muted-foreground">{title}</h2>
+      <div className="flex h-full w-full items-center justify-center">
+        {icon}
+      </div>
+    </div>
+  )
+}
+
 export const CardStack = ({
   items,
   offset,
@@ -48,7 +65,7 @@ export const CardStack = ({
   }
 
   return (
-    <div className="relative h-60 w-60 md:h-60 md:w-96">
+    <div className="relative flex h-60 w-60 items-center justify-center md:h-60 md:w-96">
       {cards.map((card, index) => {
         return (
           <motion.div
