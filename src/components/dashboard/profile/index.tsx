@@ -15,6 +15,7 @@ export function Profile() {
   const { user, isLoading } = useContext(AuthContext)
   const { data, isLoading: isLoadingGanre } = useFavouriteGanres()
   const ganre = data?.data
+
   return (
     <Card className="col-span-1 max-xl:col-span-2">
       <CardHeader>
@@ -47,7 +48,9 @@ export function Profile() {
           </div>
           <div className="text-sm text-muted-foreground">
             Любимый жанр:{" "}
-            {ganre || isLoadingGanre ? (
+            {ganre ? (
+              ganre
+            ) : isLoadingGanre ? (
               <Skeleton className="h-[20px] w-[100px]" />
             ) : (
               "Отсутствует"

@@ -30,6 +30,7 @@ export function ReadBook({ params, searchParams }: ReadBookPageProps) {
     params,
     searchParams
   })
+
   const { push } = useRouter()
   return (
     <>

@@ -13,6 +13,7 @@ export function useReadBook({ params, searchParams }: Props) {
   const [currentPage, setCurrentPage] = useState(
     searchParams.page ? +searchParams.page : 1
   )
+
   const {
     data: readBookData,
     refetch,
