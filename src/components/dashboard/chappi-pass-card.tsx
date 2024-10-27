@@ -1,43 +1,25 @@
-"use client"
-
-import { LayoutGrid, Paintbrush } from "lucide-react"
+import { LayoutGrid, MoveRight, Paintbrush } from "lucide-react"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { CardStack } from "@/components/ui/card-stack"
+import { CardStack, CardStackItem } from "@/components/ui/card-stack"
 import { ChappiCoin } from "@/components/ui/chappi-coin"
 import { CardWrapper } from "./card-wrapper"
 
-export const CardStackItem = ({
-  title,
-  icon
-}: {
-  title: string
-  icon: React.ReactNode
-}) => {
-  return (
-    <div className="flex h-52 w-full flex-col gap-2">
-      <h2 className="text-muted-foreground">{title}</h2>
-      <div className="flex h-full w-full items-center justify-center">
-        {icon}
-      </div>
-    </div>
-  )
-}
 export function ChappiPassCard() {
   return (
     <CardWrapper
-      title="Чаппи-пасс"
+      title={
+        <div className="flex w-full items-center justify-between">
+          Чаппи-пасс{" "}
+          <Link href={"/pass"}>
+            <MoveRight size={24} />
+          </Link>
+        </div>
+      }
       subtitle="Дорога чаппи помогает мотивировать себя читать книги и за одно получать разные плюшки :)"
     >
-      <div className="flex min-h-[340px] w-full items-center justify-evenly px-20">
-        {" "}
+      <div className="flex min-h-[340px] w-full items-center justify-center px-20">
         <CardStack axis="Y" delay={3000} items={CARDS} />
-        <CardStack axis="Y" delay={4500} items={CARDS} />
-      </div>
-      <div className="flex w-full justify-end">
-        <Button asChild size={"lg"} type="button">
-          <Link href={"/pass"}>Я готов!</Link>
-        </Button>
+        <CardStack axis="Y" delay={5000} items={CARDS} />
       </div>
     </CardWrapper>
   )
@@ -46,7 +28,10 @@ export function ChappiPassCard() {
 const CARDS = [
   {
     children: (
-      <CardStackItem icon={<ChappiCoin />} title="Получай чаппи-коины!" />
+      <CardStackItem
+        icon={<ChappiCoin />}
+        title="Зарабатывайте чаппи-коины для покупки тем и мерча!"
+      />
     ),
     id: 1
   },
@@ -54,7 +39,7 @@ const CARDS = [
     children: (
       <CardStackItem
         icon={<Paintbrush size={100} />}
-        title="Получай красивые темы"
+        title="Кастомизируйте сайт благодаря темам"
       />
     ),
     id: 2
@@ -63,7 +48,7 @@ const CARDS = [
     children: (
       <CardStackItem
         icon={<LayoutGrid size={100} />}
-        title="Получай удобный приватные расширения"
+        title="Получайте удобные приватные расширения"
       />
     ),
     id: 3

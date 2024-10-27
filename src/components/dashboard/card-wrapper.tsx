@@ -1,4 +1,4 @@
-import { type PropsWithChildren } from "react"
+import { type PropsWithChildren, ReactNode } from "react"
 import {
   Card,
   CardContent,
@@ -9,8 +9,8 @@ import {
 import { cn } from "@/lib/utils"
 
 type CardWrapperProps = {
-  title: string
-  subtitle: string
+  title: ReactNode
+  subtitle: ReactNode
   className?: string
 }
 
