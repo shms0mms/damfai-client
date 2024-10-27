@@ -10,11 +10,11 @@ export const useAddMinutesPerDay = () => {
       if (minutes) await analyticsService.add_minutes_per_day(minutes)
     }
   })
-  const handle = (_event: BeforeUnloadEvent) => {
+  const handle = (event: BeforeUnloadEvent) => {
     mutate()
     localStorage.removeItem("read_time")
-    // event.preventDefault()
-    // event.returnValue = ""
+    event.preventDefault()
+    event.returnValue = ""
   }
   useEffect(() => {
     window.addEventListener("beforeunload", handle)

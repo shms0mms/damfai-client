@@ -1,7 +1,7 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { Loader } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -43,12 +43,17 @@ export default function AuthForm() {
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema)
   })
+  const queryClient = useQueryClient()
   const { push } = useRouter()
   const { mutate } = useMutation({
     mutationFn: (data: UserSignIn) => authService.login(data),
-    onSuccess(data) {
+    async onSuccess(data) {
       toast.success("Вы успешно вошли в систему!")
+
       saveAccessToken(data?.token)
+      await queryClient.invalidateQueries({
+        queryKey: ["/user/me"]
+      })
       push(ROUTES.DASHBOARD)
     },
     onError(error) {

@@ -10,6 +10,8 @@ export type Statistics = {
   minutes_per_day: number // минут в день
   pages_per_month: number // страниц в месяц
   books_per_month: number // книг в месяц
+  predicted_minutes: number // предварительно прочитанные минуты
+  predicted_pages: number // предварительно прочитанные страницы
 }
 
 export type GraphPagesPerWeek = {
