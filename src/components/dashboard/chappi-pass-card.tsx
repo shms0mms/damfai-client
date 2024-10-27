@@ -2,9 +2,9 @@
 
 import { LayoutGrid, Paintbrush } from "lucide-react"
 import Link from "next/link"
-import { Button } from "../ui/button"
-import { CardStack } from "../ui/card-stack"
-import { ChappiCoin } from "../ui/chappi-coin"
+import { Button } from "@/components/ui/button"
+import { CardStack } from "@/components/ui/card-stack"
+import { ChappiCoin } from "@/components/ui/chappi-coin"
 import { CardWrapper } from "./card-wrapper"
 
 export const CardStackItem = ({
@@ -23,7 +23,7 @@ export const CardStackItem = ({
     </div>
   )
 }
-export default function ChappiPassCard() {
+export function ChappiPassCard() {
   return (
     <CardWrapper
       title="Чаппи-пасс"

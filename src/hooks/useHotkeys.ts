@@ -13,10 +13,10 @@ export const useHotkeys = () => {
   const { push } = useRouter()
   const keys = [
     {
+      id: createId(),
       symbol: "⌘",
       key: "Control+d",
       text: "Перейти на дашборд",
-      id: createId(),
       action: () => void push("/dashboard")
     }
   ]

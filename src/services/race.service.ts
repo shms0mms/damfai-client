@@ -35,6 +35,17 @@ class RaceService {
       }))
     )
   }
+
+  async getUserPlace(): Promise<Leader> {
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    return Promise.resolve({
+      id: 1421,
+      place: 10,
+      name: "Олег Олегович",
+      points: 431,
+      reward: "-"
+    })
+  }
 }
 
 export const raceService = new RaceService()

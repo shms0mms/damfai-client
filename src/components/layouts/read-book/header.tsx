@@ -5,7 +5,7 @@ import { ReadBookData } from "@/hooks/useReadBookData"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Button } from "@/components/ui/button"
 import { Logo } from "@/components/ui/logo"
-import Bookmark from "./bookmark"
+import { Bookmark } from "./bookmark"
 
 type Props = {
   data: ReadBookData

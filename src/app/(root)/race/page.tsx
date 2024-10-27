@@ -5,8 +5,6 @@ import {
   MonthlyAuthor,
   MonthlyAuthorSkeleton
 } from "@/components/race/monthly-author"
-import { Skeleton } from "@/components/ui/skeleton"
-import { raceService } from "@/services/race.service"
 
 export default async function RacePage() {
   return (

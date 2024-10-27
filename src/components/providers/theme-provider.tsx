@@ -19,6 +19,7 @@ type TCustomThemeContext = {
 
 type TColorThemeContext = {
   colorTheme: (typeof COLOR_THEMES)[number] | undefined
+  removeColorTheme: () => void
   setColorTheme: React.Dispatch<
     React.SetStateAction<(typeof COLOR_THEMES)[number] | undefined>
   >
@@ -32,6 +33,7 @@ export const CustomThemeContext = createContext<TCustomThemeContext>({
 
 export const ColorThemeContext = createContext<TColorThemeContext>({
   colorTheme: undefined,
+  removeColorTheme: () => {},
   setColorTheme: () => {}
 })
 
@@ -57,21 +59,28 @@ function ColorThemeProvider({ children }: React.PropsWithChildren) {
     queryFn: userService.getUserThemes
   })
 
-  const hasAccessToCustomTheme = userThemes?.some(
+  const hasAccessToColorTheme = userThemes?.some(
     theme => theme.id === colorThemeIdFromLocalStorage
   )
 
   const [colorTheme, setColorTheme] = useState<
     (typeof COLOR_THEMES)[number] | undefined
   >(
-    hasAccessToCustomTheme
+    hasAccessToColorTheme
       ? userThemes?.find(theme => theme.id === colorThemeIdFromLocalStorage)
           ?.key
       : undefined
   )
 
+  const removeColorTheme = () => {
+    setColorTheme(undefined)
+    localStorage.removeItem("colorTheme")
+  }
+
   return (
-    <ColorThemeContext.Provider value={{ colorTheme, setColorTheme }}>
+    <ColorThemeContext.Provider
+      value={{ colorTheme, removeColorTheme, setColorTheme }}
+    >
       {children}
     </ColorThemeContext.Provider>
   )

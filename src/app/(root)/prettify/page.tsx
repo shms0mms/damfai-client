@@ -11,15 +11,15 @@ export default function PrettifyPage() {
       <div className="flex flex-col items-center text-center">
         <motion.div
           initial={{
-            y: -40,
+            y: 20,
             opacity: 0
           }}
           animate={{ y: 0, opacity: 1 }}
           transition={{
-            duration: 0.4
+            duration: 0.6
           }}
         >
-          <PrettifyLogo />
+          <PrettifyLogo size={200} />
         </motion.div>
         {/* <h1 className="mb-2 bg-gradient-to-b from-foreground/25 to-foreground bg-clip-text text-center text-5xl font-bold text-transparent dark:from-neutral-200 dark:to-neutral-600 md:text-7xl">
           Damfai Prettify

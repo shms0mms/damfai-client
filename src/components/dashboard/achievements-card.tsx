@@ -1,3 +1,3 @@
-export default function AchievementsCard() {
+export function AchievementsCard() {
   return <></>
 }

@@ -1,9 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader } from "lucide-react"
 import { useParams } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useFieldArray, useForm } from "react-hook-form"
 import { z } from "zod"
+import { useGenerateQuestions } from "@/hooks/useGenerateQuestions"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -58,7 +59,6 @@ type Question = {
 }
 
 export function Questions() {
-  const { id } = useParams<{ id: string }>()
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema)
   })
@@ -77,18 +77,20 @@ export function Questions() {
       minLength: questionsCount
     }
   })
-
-  const [questions, setQuestions] = useState<Question[]>(data)
-  // const { message } = useGenerateQuestions(+id, questionsCount)
-
+  const { id } = useParams<{ id: string }>()
+  const [questions, setQuestions] = useState<Question[]>([])
+  const { message } = useGenerateQuestions(+id, questionsCount)
+  useEffect(() => {
+    console.log(message)
+    if (message?.length) {
+      setQuestions(prev => [...prev, ...message])
+    }
+  }, [message?.length])
   const isQuestionsGenerating = questionsCount != questions?.length
 
-  // useEffect(() => {
-  //   if (message?.length) {
-  //     setQuestions(prev => [...prev, ...message])
-  //   }
-  // }, [message?.length])
-  const onSubmit = (data: FormSchema) => {}
+  const onSubmit = (data: FormSchema) => {
+    // TODO: save on backend (for race)
+  }
   return (
     <div className="flex min-h-full flex-col gap-10">
       {questions.length ? (
@@ -128,16 +130,14 @@ export function Questions() {
                         >
                           {Object.entries(question.options).map(
                             ([key, value]) => {
-                              const isCheckingAnswers =
-                                form.formState.submitCount
+                              const currentKey = answers.find(
+                                a => a.questionId === i
+                              )?.key
+                              const submitCount = form.formState.submitCount
                               const isCorrect =
-                                isCheckingAnswers &&
-                                answers.find(a => a.questionId === i)?.key ===
-                                  key
+                                submitCount && currentKey === key
                               const isInCorrect =
-                                isCheckingAnswers &&
-                                answers.find(a => a.questionId === i)?.key !==
-                                  key
+                                submitCount && currentKey !== key
 
                               return (
                                 <div
@@ -150,7 +150,7 @@ export function Questions() {
                                   )}
                                 >
                                   <RadioGroupItem
-                                    disabled={!!isCheckingAnswers}
+                                    disabled={!!submitCount}
                                     id={key}
                                     value={key}
                                   />

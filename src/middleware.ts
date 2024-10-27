@@ -3,7 +3,7 @@ import { NextResponse } from "next/server"
 import { ACCESS_TOKEN } from "./config/access-token.config"
 import { ROUTES } from "./config/route.config"
 
-const protectedRoutes = [ROUTES.DASHBOARD]
+const protectedRoutes = [ROUTES.DASHBOARD, "/books/read/"]
 
 export function middleware(req: NextRequest) {
   const accessToken = req.cookies.get(ACCESS_TOKEN.nameOnClient)?.value

@@ -7,7 +7,7 @@ import { bookmarksService } from "@/services/bookmarks.service"
 import { favouriteService } from "@/services/favourite.service"
 import { readBookService } from "@/services/read-book.service"
 
-const useDashboardBooks = () => {
+export const useDashboardBooks = () => {
   const {
     data: _bookmarks,
     query: getBookmarks,
@@ -44,5 +44,3 @@ const useDashboardBooks = () => {
     books: { books, isLoading: isLoadingBooks, get: getBooks }
   }
 }
-
-export default useDashboardBooks

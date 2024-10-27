@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 
 type LogoProps = {
@@ -8,14 +9,14 @@ export function PrettifyLogo({ size = 280 }: LogoProps) {
   return (
     <>
       <Link href={"/prettify"} className="">
-        <img
+        <Image
           src={"/prettify-white.png"}
           alt={"damfai-prettify"}
           width={size}
           height={size}
           className="hidden dark:block"
         />
-        <img
+        <Image
           src={"/prettify-black.png"}
           alt={"damfai-prettify"}
           width={size}

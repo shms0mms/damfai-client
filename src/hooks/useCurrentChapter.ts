@@ -1,7 +1,7 @@
 import { ReadBookData } from "./useReadBookData"
 import { ReadBookPageProps } from "@/app/(read-book)/books/read/[id]/page"
 
-const useCurrentChapter = (
+export const useCurrentChapter = (
   data: ReadBookData,
   searchParams: ReadBookPageProps["searchParams"]
 ) => {
@@ -11,5 +11,3 @@ const useCurrentChapter = (
       (searchParams.chapter ? +searchParams.chapter : data?.chapters[0]?.id)
   )!
 }
-
-export default useCurrentChapter

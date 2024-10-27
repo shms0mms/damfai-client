@@ -10,11 +10,7 @@ import { AuthContext } from "@/components/providers/auth-profider"
 import { Button } from "@/components/ui/button"
 import { extensionsService } from "@/services/extensions.service"
 
-export default function ExtensionDetail({
-  extension
-}: {
-  extension: Extension
-}) {
+export function ExtensionDetail({ extension }: { extension: Extension }) {
   const { isAuth } = useContext(AuthContext)
   const { data, refetch } = useQuery({
     queryKey: ["/extensions/user"],

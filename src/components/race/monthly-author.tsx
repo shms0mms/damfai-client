@@ -24,10 +24,10 @@ export const MonthlyAuthorSkeleton = () => {
         Автор месяца:
         <Skeleton className="h-6 w-48" />
       </h3>
-      <p className="w-full text-sm text-foreground/50">
+      <div className="w-full text-sm text-foreground/50">
         <Skeleton className="mb-1 h-5 w-28" />
         <Skeleton className="h-5 w-36" />
-      </p>
+      </div>
     </div>
   )
 }

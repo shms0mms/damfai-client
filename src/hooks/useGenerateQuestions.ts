@@ -11,9 +11,9 @@ export const useGenerateQuestions = (
   const { sendMessage, getWebSocket, lastMessage } = useWebSocket(
     `${env.NEXT_PUBLIC_WS_URL}/gigachat/ws/generate_questions/${bookId}`,
     {
-      // onOpen: () => {
-      //   sendMessage(String(questionsCount))
-      // }
+      onOpen: () => {
+        sendMessage(String(questionsCount))
+      }
     }
   )
   const socket = getWebSocket()

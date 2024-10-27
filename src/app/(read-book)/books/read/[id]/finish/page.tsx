@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query"
 import html2pdf from "html2pdf.js"
 import { Award, BookOpen, Download } from "lucide-react"
-import { useContext, useRef } from "react"
+import { useContext, useMemo, useRef } from "react"
 import { AuthContext } from "@/components/providers/auth-profider"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -29,7 +29,6 @@ export default function FinishBookPage({
     queryFn: () => readBookService.finishBook(+id)
   })
   const certificateRef = useRef(null)
-
   const downloadPDF = () => {
     const element = certificateRef.current
     const opt = {
@@ -41,19 +40,18 @@ export default function FinishBookPage({
     }
     html2pdf().set(opt).from(element).save()
   }
-  const { data, isLoading: isBookLoading } = useQuery({
+
+  const { data: book, isLoading: isBookLoading } = useQuery({
     queryKey: ["book", id],
     queryFn: () => bookService.getById(+id)
   })
-  const bookTitle = data?.data?.title
-  const author = data?.data?.author
   const { user } = useContext(AuthContext)
-  const date = new Date().toLocaleDateString("ru-RU")
-  const congratsMessage = "Поздравляем с успешным прочтением книги!"
+
+  const date = useMemo(() => new Date().toLocaleDateString("ru-RU"), [])
   const isLoading = isBookLoading || isFinishLoading
   return (
     <>
-      {isLoading ? (
+      {isLoading || !book ? (
         <div className="flex h-full w-full items-center justify-center">
           <FlipWords
             className="text-3xl"
@@ -96,8 +94,10 @@ export default function FinishBookPage({
                 <p className="text-xl text-muted-foreground">
                   успешно прочитал(а) книгу
                 </p>
-                <h3 className="text-2xl font-semibold">"{bookTitle}"</h3>
-                <p className="text-lg text-muted-foreground">автора {author}</p>
+                <h3 className="text-2xl font-semibold">"{book.title}"</h3>
+                <p className="text-lg text-muted-foreground">
+                  автора {book.author}
+                </p>
               </div>
 
               <div className="flex justify-center">
@@ -107,7 +107,7 @@ export default function FinishBookPage({
               </div>
 
               <p className="text-center text-lg text-muted-foreground">
-                {congratsMessage}
+                Поздравляем с успешным прочтением книги!
               </p>
 
               <div className="flex items-center justify-between">

@@ -7,8 +7,6 @@ import { useMediaQuery } from "usehooks-ts"
 import { Reward } from "@/types/pass"
 import { MEDIA } from "@/config/media.config"
 import { Button } from "@/components/ui/button"
-import { ThemeToggle } from "../theme-toggle"
-import { Separator } from "../ui/separator"
 import {
   Sheet,
   SheetContent,
@@ -16,7 +14,9 @@ import {
   SheetFooter,
   SheetHeader,
   SheetTitle
-} from "../ui/sheet"
+} from "@/components/ui/sheet"
+import { ThemeToggle } from "../theme-toggle"
+import { Separator } from "../ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
 import {
   Tooltip,

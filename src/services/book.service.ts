@@ -59,7 +59,8 @@ class BookService {
     return response.map(r => r.ganre)
   }
   async getById(id: number) {
-    return await axiosDefault.get(`${this.BASE_URL}/book?id_book=${id}`)
+    return (await axiosDefault.get<Book>(`${this.BASE_URL}/book?id_book=${id}`))
+      .data
   }
   async getAll(options: GetAllBooksOptions) {
     const queryParams = new URLSearchParams({

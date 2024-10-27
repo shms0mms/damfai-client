@@ -1,8 +1,8 @@
 import type { Theme } from "@/types/shop"
 
 class UserService {
-  async getUserThemes() {
-    return await Promise.resolve<Theme[]>([
+  getUserThemes() {
+    return Promise.resolve<Theme[]>([
       {
         id: 1,
         name: "Изумрудная тема",
@@ -25,6 +25,17 @@ class UserService {
         primaryTextColor: "#ffffff",
         price: 50000,
         key: "rubine"
+      },
+      {
+        id: 3,
+        name: "Для чтения",
+        description: "Тема для чтения в приятных цветах",
+        backgroundColor: "#ffffff",
+        textColor: "#000000",
+        primaryColor: "#e11d48",
+        primaryTextColor: "#ffffff",
+        price: 50000,
+        key: "reading"
       }
     ])
   }

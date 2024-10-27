@@ -22,7 +22,7 @@ interface ConfirmationModalProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function ConfirmationModal({
+export function ConfirmationModal({
   title,
   message,
   isOpen,
