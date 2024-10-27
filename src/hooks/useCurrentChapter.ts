@@ -2,12 +2,14 @@ import { ReadBookData } from "./useReadBookData"
 import { ReadBookPageProps } from "@/app/(read-book)/books/read/[id]/page"
 
 export const useCurrentChapter = (
-  data: ReadBookData,
+  readBookData: ReadBookData,
   searchParams: ReadBookPageProps["searchParams"]
 ) => {
-  return data?.chapters.find(
+  return readBookData?.chapters.find(
     chapter =>
       chapter.id ===
-      (searchParams.chapter ? +searchParams.chapter : data?.chapters[0]?.id)
+      (searchParams.chapter
+        ? +searchParams.chapter
+        : readBookData?.chapters[0]?.id)
   )!
 }

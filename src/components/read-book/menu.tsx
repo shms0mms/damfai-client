@@ -33,11 +33,11 @@ type MenuProps = {
   open: boolean
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
   handleChapterChange: (value: string) => void
-  data: ReadBookData
+  readBookData: ReadBookData
   currentChapter: Chapter
 }
 export function Menu({
-  data,
+  readBookData,
   open,
   setOpen,
   currentChapter,
@@ -51,17 +51,13 @@ export function Menu({
         className="w-[300px] overflow-auto sm:w-[400px]"
       >
         <SheetHeader>
-          <SheetTitle>{data?.title}</SheetTitle>
+          <SheetTitle>{readBookData?.title}</SheetTitle>
           <SheetDescription>
             <p>
-              <strong>Автор:</strong> {data?.author}
+              <strong>Автор:</strong> {readBookData?.author}
             </p>
             <p>
-              <strong>Название:</strong> {data?.title}
-            </p>
-
-            <p>
-              <strong>Всего страниц:</strong> {data?.totalPages}
+              <strong>Название:</strong> {readBookData?.title}
             </p>
           </SheetDescription>
         </SheetHeader>
@@ -75,8 +71,8 @@ export function Menu({
               <SelectValue placeholder="Выберите главу" />
             </SelectTrigger>
             <SelectContent>
-              {data?.chapters?.length
-                ? data?.chapters?.map(chapter => (
+              {readBookData?.chapters?.length
+                ? readBookData?.chapters?.map(chapter => (
                     <SelectItem key={chapter.id} value={chapter.id.toString()}>
                       {chapter.title}
                     </SelectItem>
@@ -107,7 +103,7 @@ export function Menu({
           </DropdownMenu>
           <Button asChild type="button">
             <Link
-              href={`/books/read/${bookId}?page=${data?.page?.id}&chapter=${currentChapter?.id}&questions=generate`}
+              href={`/books/read/${bookId}?page=${readBookData?.page?.id}&chapter=${currentChapter?.id}&questions=generate`}
             >
               Перейти сразу к вопросам
             </Link>
