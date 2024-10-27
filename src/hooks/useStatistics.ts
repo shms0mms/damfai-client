@@ -38,11 +38,11 @@ export function useStatistics() {
     },
     {
       title: "Предварительный подсчёт прочитанных минут на завтра",
-      count: `0`
+      count: `0` // data.predicted_minutes
     },
     {
       title: "Предварительный подсчёт прочитанных страниц на завтра",
-      count: `0`
+      count: `0` // data.predicted_pages
     }
   ]
 
