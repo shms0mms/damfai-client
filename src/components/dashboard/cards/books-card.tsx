@@ -1,11 +1,13 @@
+"use client"
+
 import { BookOpen, Heart, Star } from "lucide-react"
 import { useEffect } from "react"
 import { useDashboardBooks } from "@/hooks/useDashboardBooks"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { TabItem } from "./tab-item"
+import { TabItem } from "../books/tab-item"
 
-export function BooksDashboard() {
+export function BooksCard() {
   const { bookmarks, books, favourites } = useDashboardBooks()
   useEffect(() => void books.get(), [])
   return (

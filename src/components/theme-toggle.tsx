@@ -22,7 +22,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
-import { AuthContext } from "./providers/auth-profider"
+import { AuthContext } from "./providers/auth-provider"
 import { ColorThemeContext } from "./providers/theme-provider"
 import { cn } from "@/lib/utils"
 import { userService } from "@/services/user.service"

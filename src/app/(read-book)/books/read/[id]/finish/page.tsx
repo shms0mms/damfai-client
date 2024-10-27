@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query"
 import html2pdf from "html2pdf.js"
 import { Award, BookOpen, Download } from "lucide-react"
 import { useContext, useMemo, useRef } from "react"
-import { AuthContext } from "@/components/providers/auth-profider"
+import { AuthContext } from "@/components/providers/auth-provider"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {

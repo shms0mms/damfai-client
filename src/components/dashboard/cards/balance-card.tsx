@@ -2,8 +2,8 @@
 
 import { useContext } from "react"
 import { ToCoins } from "@/components/ui/to-coins"
-import { AuthContext } from "../providers/auth-profider"
-import { Button } from "../ui/button"
+import { AuthContext } from "../../providers/auth-provider"
+import { Button } from "../../ui/button"
 import {
   Card,
   CardContent,
@@ -11,9 +11,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle
-} from "../ui/card"
-import { CoolMode } from "../ui/cool-mode"
-import { LogoCircle } from "../ui/logo-circle"
+} from "../../ui/card"
+import { LogoCircle } from "../../ui/logo-circle"
 
 export function BalanceCard() {
   const { user } = useContext(AuthContext)
@@ -28,11 +27,9 @@ export function BalanceCard() {
       </CardHeader>
       <CardContent>
         <div className="flex min-h-[200px] flex-col items-center justify-center gap-5">
-          <CoolMode>
-            <Button className="h-auto w-auto" variant={"link"}>
-              <LogoCircle />
-            </Button>
-          </CoolMode>
+          <Button className="h-auto w-auto" variant={"link"}>
+            <LogoCircle />
+          </Button>
           <span className="flex items-center gap-0.5 font-semibold">
             Коины:
             <ToCoins balance={user?.balance!} />

@@ -6,7 +6,7 @@ import { Check, Loader } from "lucide-react"
 import { useContext } from "react"
 import { toast } from "sonner"
 import { Extension } from "@/types/shop"
-import { AuthContext } from "@/components/providers/auth-profider"
+import { AuthContext } from "@/components/providers/auth-provider"
 import { Button } from "@/components/ui/button"
 import { extensionsService } from "@/services/extensions.service"
 
@@ -53,7 +53,9 @@ export function ExtensionDetail({ extension }: { extension: Extension }) {
       )
     }
   })
-  const inCollection = !!data?.data?.find(e => e.id == +extension.id)
+  const inCollection = !!data?.data?.find(
+    (e: Extension) => e.id == +extension.id
+  )
 
   return (
     <>

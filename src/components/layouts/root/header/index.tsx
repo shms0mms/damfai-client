@@ -2,7 +2,7 @@
 
 import { Loader } from "lucide-react"
 import { useContext } from "react"
-import { AuthContext } from "@/components/providers/auth-profider"
+import { AuthContext } from "@/components/providers/auth-provider"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Logo } from "@/components/ui/logo"
 import { LoginButton } from "./login-button"

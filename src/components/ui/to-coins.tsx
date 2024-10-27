@@ -1,5 +1,3 @@
-"use client"
-
 import { Coin } from "./coin"
 import { cn } from "@/lib/utils"
 
@@ -18,8 +16,8 @@ export const ToCoins = ({
     .replace("₽", "")
 
   return (
-    <span className={cn("flex items-center gap-0.5", className)}>
+    <div className={cn("flex items-center gap-0.5", className)}>
       {coins} <Coin />
-    </span>
+    </div>
   )
 }

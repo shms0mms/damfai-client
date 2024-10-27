@@ -2,7 +2,6 @@
 
 import { Loader } from "lucide-react"
 import { useStatistics } from "@/hooks/useStatistics"
-import { StatisticsItem } from "@/components/dashboard/statistics-item"
 import {
   Card,
   CardContent,
@@ -10,6 +9,7 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card"
+import { StatisticsItem } from "./item"
 
 export function Statistics() {
   const { statistics, isLoading } = useStatistics()

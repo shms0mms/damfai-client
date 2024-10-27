@@ -1,9 +1,11 @@
+"use client"
+
 import { User } from "lucide-react"
 import Link from "next/link"
 import { useContext } from "react"
 import { useFavouriteGanres } from "@/hooks/useFavouriteGanres"
 import { Hotkeys } from "@/components/dashboard/hotkeys"
-import { AuthContext } from "@/components/providers/auth-profider"
+import { AuthContext } from "@/components/providers/auth-provider"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -30,16 +32,12 @@ export function Profile() {
         </Avatar>
         <div className="flex flex-col items-center gap-2 text-center">
           <h2 className="text-xl font-bold">
-            {user?.name ? (
-              user?.name
-            ) : (
-              <Skeleton className="h-[20px] w-[100px]" />
-            )}
+            {user?.name ||
+              (isLoading && <Skeleton className="h-[20px] w-[100px]" />)}
           </h2>
           <div className="text-sm text-muted-foreground">
-            {user?.email
-              ? user.email
-              : isLoading && <Skeleton className="h-[20px] w-[200px]" />}
+            {user?.email ||
+              (isLoading && <Skeleton className="h-[20px] w-[200px]" />)}
           </div>
           <div className="text-sm text-muted-foreground">
             На сайте с:{" "}
@@ -49,9 +47,7 @@ export function Profile() {
           </div>
           <div className="text-sm text-muted-foreground">
             Любимый жанр:{" "}
-            {ganre ? (
-              ganre
-            ) : isLoadingGanre ? (
+            {ganre || isLoadingGanre ? (
               <Skeleton className="h-[20px] w-[100px]" />
             ) : (
               "Отсутствует"

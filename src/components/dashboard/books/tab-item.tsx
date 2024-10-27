@@ -1,22 +1,35 @@
-import { Book } from "@/types/book"
-import { Bookmark } from "@/types/bookmarks"
-import { Favourite } from "@/types/favourites"
+import { Book, BookComponent } from "@/types/book"
+import { Bookmark, BookmarkComponent } from "@/types/bookmarks"
+import { Favourite, FavouriteComponent } from "@/types/favourites"
 import { Skeleton } from "@/components/ui/skeleton"
 import { TabsContent } from "@/components/ui/tabs"
-import { BookItem } from "./book-item"
+import { BookItem } from "./item"
 import { randomNumber } from "@/lib/utils"
 
-type TabItemProps = {
-  books: Favourite[] | Bookmark[] | Book[]
+type TabItemProps<TBook extends Book | Bookmark | Favourite> = {
+  books: TBook[]
   value: string
   icon: React.ReactNode
   isLoading?: boolean
 }
-export function TabItem({ books, value, icon, isLoading }: TabItemProps) {
+export function TabItem<TBook extends Book | Bookmark | Favourite>({
+  books,
+  value,
+  icon,
+  isLoading
+}: TabItemProps<TBook>) {
   return (
     <TabsContent className="h-full w-full" value={value}>
       {books?.length ? (
-        books?.map(book => <BookItem {...book} icon={icon} key={book.id} />)
+        books?.map(book => (
+          <BookItem
+            {...(book as BookmarkComponent &
+              FavouriteComponent &
+              BookComponent)}
+            icon={icon}
+            key={book.id}
+          />
+        ))
       ) : isLoading ? (
         <div className="flex flex-col gap-2">
           {Array.from({ length: 8 }, (_, i) => (

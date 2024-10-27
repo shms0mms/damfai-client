@@ -2,10 +2,10 @@
 
 import { AxiosResponse } from "axios"
 import { Extension, Theme } from "@/types/shop"
-import { Skeleton } from "../ui/skeleton"
-import { Table, TableBody, TableCell, TableRow } from "../ui/table"
+import { Skeleton } from "../../ui/skeleton"
+import { Table, TableBody, TableCell, TableRow } from "../../ui/table"
+import { RemoveCellButton } from "../remove-cell-button"
 import { CardWrapper } from "./card-wrapper"
-import { RemoveCellButton } from "./remove-cell-button"
 
 type Props<T> = {
   data?: AxiosResponse<T[], any> | undefined
