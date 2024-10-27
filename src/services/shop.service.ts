@@ -1,9 +1,14 @@
-import type { Merch, Theme } from "@/types/shop"
+import type { Merch } from "@/types/shop"
 import { extensionsService } from "./extensions.service"
+import themesService from "./themes.service"
 
 class ShopService {
   async getExtensions() {
-    return await extensionsService.getAll()
+    try {
+      return await extensionsService.getAll()
+    } catch {
+      return { data: [] }
+    }
   }
 
   getMockMerch() {
@@ -43,31 +48,12 @@ class ShopService {
     ])
   }
 
-  getThemes() {
-    return Promise.resolve<Theme[]>([
-      {
-        id: 1,
-        name: "Изумрудная тема",
-        description: "Изумрудная тема в зеленых цветах",
-        backgroundColor: "#ffffff",
-        textColor: "#000000",
-        primaryColor: "#22c55e",
-        primaryTextColor: "#000000",
-        price: 20000,
-        key: "emerald"
-      },
-      {
-        id: 2,
-        name: "Рубиновая тема",
-        description: "Рубиновая тема в красных цветах",
-        backgroundColor: "#ffffff",
-        textColor: "#000000",
-        primaryColor: "#e11d48",
-        primaryTextColor: "#ffffff",
-        price: 50000,
-        key: "rubine"
-      }
-    ])
+  async getThemes() {
+    try {
+      return await themesService.getAll()
+    } catch {
+      return { data: [] }
+    }
   }
 }
 

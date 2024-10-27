@@ -85,6 +85,7 @@ h2 {
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
+
   .reading {
     --background: 50 60% 94%; /* A soft, very light yellow */
     --foreground: 45 100% 20%; /* A dark, calming yellowish-brown for text */
@@ -131,4 +132,7 @@ h2 {
   body {
     --header-size: 3.5rem;
   }
+}
+canvas {
+  cursor: pointer;
 }

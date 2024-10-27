@@ -1,0 +1,53 @@
+[
+  {
+    "id": 1,
+    "x": 100,
+    "y": 200,
+    "title": "Введение",
+    "connectedTo": [2],
+    "completed": true,
+    "type": "coins",
+    "description": "Начало вашего путешествия в мир машинного обучения"
+  },
+  {
+    "id": 2,
+    "x": 350,
+    "y": 200,
+    "title": "Что такое ML",
+    "connectedTo": [3, 4],
+    "completed": true,
+    "type": "coins",
+    "size": "big",
+    "description": "Узнайте основы машинного обучения"
+  },
+  {
+    "id": 3,
+    "x": 600,
+    "y": 300,
+    "title": "Среда разработки",
+    "connectedTo": [],
+    "completed": false,
+    "type": "coins",
+    "description": "Настройка среды для ML проектов"
+  },
+  {
+    "id": 4,
+    "x": 600,
+    "y": 600,
+    "title": "Оценка модели",
+    "connectedTo": [5],
+    "completed": false,
+    "type": "reward",
+    "description": "Методы оценки эффективности ML моделей"
+  },
+  {
+    "id": 5,
+    "x": 1000,
+    "y": 300,
+    "title": "Финальный проект",
+    "connectedTo": [],
+    "completed": false,
+    "type": "finish",
+    "description": "Применение полученных знаний на практике"
+  }
+]

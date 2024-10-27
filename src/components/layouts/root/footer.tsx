@@ -75,8 +75,8 @@ export const Footer = () => {
           linked: true
         },
         {
-          children: "v0",
-          href: ROUTES.V0,
+          children: "LLama",
+          href: "#",
           linked: true
         },
         {
@@ -124,20 +124,20 @@ export const Footer = () => {
       title: "Контакты",
       items: [
         {
-          children: "Fesyse",
+          children: "Fesyse - Frontend",
           href: ROUTES.CONTACTS.FESYSE
         },
         {
           href: ROUTES.CONTACTS.OLEG,
-          children: "Олег"
+          children: "Олег - Design"
         },
         {
           href: ROUTES.CONTACTS.DAMBEK,
-          children: "Dambek"
+          children: "Dambek - Captain"
         },
         {
           href: ROUTES.CONTACTS.MMS,
-          children: "mms"
+          children: "mms - Frontend | bot"
         }
       ]
     }

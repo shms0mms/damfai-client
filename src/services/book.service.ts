@@ -58,21 +58,8 @@ class BookService {
     )
     return response.map(r => r.ganre)
   }
-  async getById(_id: number) {
-    return new Promise<Book>(res =>
-      res({
-        id: 1,
-        title: books[randomNumber(0, books.length - 1)!]!.title,
-        author: books[randomNumber(0, books.length - 1)!]!.author,
-        writen_date: new Date(),
-        chapters: 100 + 1,
-        desc: books[randomNumber(0, books.length - 1)!]!.body,
-        ratings: Math.random() * 5,
-        ganres: [mockGanres[randomNumber(0, mockGanres.length - 1)]!],
-        image: mockBookImages[randomNumber(0, mockBookImages.length - 1)],
-        progress: 10.01
-      })
-    )
+  async getById(id: number) {
+    return await axiosDefault.get(`${this.BASE_URL}/book?id_book=${id}`)
   }
   async getAll(options: GetAllBooksOptions) {
     const queryParams = new URLSearchParams({

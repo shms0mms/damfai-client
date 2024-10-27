@@ -11,8 +11,8 @@ import { shopService } from "@/services/shop.service"
 // TODO: Paid merch, Paid Themes, Paid books
 
 export default async function Shop() {
-  const extensions = await shopService.getExtensions()
-  const themes = await shopService.getThemes()
+  const { data: extensions } = await shopService.getExtensions()
+  const { data: themes } = await shopService.getThemes()
   const merch = await shopService.getMockMerch()
   const title = "mb-7 text-5xl font-bold"
 
@@ -42,7 +42,7 @@ export default async function Shop() {
       <section className="container">
         <h2 className={title}>Расширения</h2>
 
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-[repeat(auto-fill,_minmax(270px,_1fr))] gap-4">
           {extensions?.length
             ? extensions.map(e => <Extension key={e.id} {...e} />)
             : skeletons}
@@ -51,18 +51,18 @@ export default async function Shop() {
       <Separator />
       <section className="container">
         <h2 className={title}>Темы</h2>
-        <div className="grid w-full grid-cols-4 gap-4">
+        <div className="grid w-full grid-cols-[repeat(auto-fill,_minmax(270px,_1fr))] gap-4">
           {themes?.length
             ? themes.map(theme => <ThemeCard key={theme.id} theme={theme} />)
             : null}
         </div>
       </section>
-      <Separator />
+      <Separator className="max-md:hidden" />
       <section className="container relative [mask-image:linear-gradient(to_top,transparent_40%,#000_100%)] before:absolute before:bottom-0 before:left-0 before:h-full before:w-full before:content-['']">
         {/* <h2 className="mb-4 text-2xl text-muted-foreground/30">
           Мерч от компании
         </h2> */}
-        <div className="grid h-full w-full grid-cols-4 gap-4">
+        <div className="grid h-full w-full grid-cols-[repeat(auto-fill,_minmax(270px,_1fr))] gap-4 max-md:hidden">
           {merch?.length
             ? merch.map(e => <MarchCard key={e.id} {...e} />)
             : skeletons}

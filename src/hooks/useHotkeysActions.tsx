@@ -1,12 +1,18 @@
-import { Lock } from "lucide-react"
-import { useContext, useEffect } from "react"
-import { toast } from "sonner"
-import { AuthContext } from "@/components/providers/auth-profider"
-import { Hotkey } from "./useHotkeys"
+"use client"
 
-export const useHotkeysActions = (hotkeys: Hotkey[]) => {
-  const { user } = useContext(AuthContext)
-  const haveExtension = !!user?.extensions?.find(e => e.slug === "hotkeys")
+import { useQuery } from "@tanstack/react-query"
+import { Lock } from "lucide-react"
+import { useEffect } from "react"
+import { toast } from "sonner"
+import { Hotkey } from "./useHotkeys"
+import { extensionsService } from "@/services/extensions.service"
+
+export const useHotkeysActions = async (hotkeys: Hotkey[]) => {
+  const { data } = useQuery({
+    queryKey: ["/extensions/user"],
+    queryFn: () => extensionsService.getUserExtensions()
+  })
+  const haveExtension = data?.data?.find(e => e.slug === "hotkeys")
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const keydownKey = event.key

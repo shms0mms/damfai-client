@@ -1,7 +1,6 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { CustomizeThemeFormSchema } from "@/components/blocks/customize-theme"
-import { Coin } from "@/components/ui/coin"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -31,19 +30,6 @@ export const toPrice = (price: number) =>
         .replace("₽", "")}С`
     : "Бесплатно"
 
-export const toCoins = (balance: number, className?: string) => {
-  const coins = `${new Intl.NumberFormat("ru-RU", {
-    style: "currency",
-    currency: "RUB"
-  })
-    .format(balance || 0)
-    .replace("₽", "")}`
-  return (
-    <span className={cn("flex items-center gap-0.5", className)}>
-      {coins} <Coin />
-    </span>
-  )
-}
 export const hexToHsl = (hex: string) => {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
   return result

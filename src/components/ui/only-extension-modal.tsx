@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog"
 
 interface ExtensionModalProps {
-  extensionId: string
+  extensionSlug: string
   extensionName: string
   extensionDescription: string
   isOpen: boolean
@@ -19,7 +19,7 @@ interface ExtensionModalProps {
 }
 
 export default function OnlyExtensionModal({
-  extensionId,
+  extensionSlug,
   extensionName,
   extensionDescription,
   isOpen,
@@ -44,7 +44,9 @@ export default function OnlyExtensionModal({
         </div>
         <div className="flex justify-end">
           <Button asChild>
-            <Link href={`/shop/extensions/${extensionId}`}>Узнать больше</Link>
+            <Link href={`/shop/extensions/${extensionSlug}`}>
+              Узнать больше
+            </Link>
           </Button>
         </div>
       </DialogContent>

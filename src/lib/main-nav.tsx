@@ -18,7 +18,7 @@ export const getMainNav = (pathname: string): NavItem[] => {
   return [
     {
       icon: <Brush />,
-      title: "Prettify",
+      title: "Суммаризация",
       href: "/prettify",
       active: pathname.startsWith("/prettify")
     },

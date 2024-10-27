@@ -1,5 +1,6 @@
 "use client"
 
+import { useQuery } from "@tanstack/react-query"
 import AchievementsCard from "@/components/dashboard/achievements-card"
 import BalanceCard from "@/components/dashboard/balance-card"
 import { BooksDashboard } from "@/components/dashboard/books"
@@ -12,9 +13,28 @@ import { PagesPerWeekGraph } from "@/components/dashboard/graphs/pages-per-week-
 import { Notify } from "@/components/dashboard/notify"
 import { Profile } from "@/components/dashboard/profile"
 import { Statistics } from "@/components/dashboard/statistics"
+import TableCard from "@/components/dashboard/table-card"
 import { Header } from "@/components/layouts/root/header"
+import { extensionsService } from "@/services/extensions.service"
+import themesService from "@/services/themes.service"
 
 export default function Dashboard() {
+  const {
+    data: extensions,
+    isLoading: isExtensionLoading,
+    refetch: refetchExtensions
+  } = useQuery({
+    queryKey: ["/extensions/user"],
+    queryFn: () => extensionsService.getUserExtensions()
+  })
+  const {
+    data: themes,
+    isLoading: isThemeLoading,
+    refetch: refetchThemes
+  } = useQuery({
+    queryKey: ["/themes/user"],
+    queryFn: () => themesService.getUserThemes()
+  })
   return (
     <>
       <Header />
@@ -53,6 +73,18 @@ export default function Dashboard() {
           <BalanceCard />
           <ChappiPassCard />
           <AchievementsCard />
+          <TableCard
+            refetch={refetchExtensions}
+            isLoading={isExtensionLoading}
+            data={extensions}
+            is="extension"
+          />
+          <TableCard
+            refetch={refetchThemes}
+            isLoading={isThemeLoading}
+            data={themes}
+            is="theme"
+          />
         </div>
       </div>
     </>

@@ -1,6 +1,7 @@
 "use client"
 
 import { useContext } from "react"
+import { ToCoins } from "@/components/ui/to-coins"
 import { AuthContext } from "../providers/auth-profider"
 import { Button } from "../ui/button"
 import {
@@ -13,7 +14,6 @@ import {
 } from "../ui/card"
 import { CoolMode } from "../ui/cool-mode"
 import { LogoCircle } from "../ui/logo-circle"
-import { toCoins } from "@/lib/utils"
 
 export default function BalanceCard() {
   const { user } = useContext(AuthContext)
@@ -34,7 +34,8 @@ export default function BalanceCard() {
             </Button>
           </CoolMode>
           <span className="flex items-center gap-0.5 font-semibold">
-            Коины: {toCoins(user?.balance!)}
+            Коины:
+            <ToCoins balance={user?.balance!} />
           </span>
         </div>
       </CardContent>

@@ -7,7 +7,7 @@ export default async function ExtensionModalPage({
 }: {
   params: { id: string }
 }) {
-  const extension = await extensionsService.getById(id)
+  const { data: extension } = await extensionsService.getBySlug(id)
   return (
     <Modal title={extension?.title} description={extension?.description}>
       <ExtensionDetail extension={extension!} />
