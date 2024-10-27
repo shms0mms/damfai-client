@@ -6,7 +6,14 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 type CatalogPageProps = { searchParams: Record<string, string> }
 
-export default function CatalogPage({ searchParams }: CatalogPageProps) {
+export default async function CatalogPage({
+  searchParams: _searchParams
+}: CatalogPageProps) {
+  /**
+   * Fixes the issue with searchParams being undefined
+   * https://nextjs.org/docs/messages/sync-dynamic-apis
+   */
+  const searchParams = await _searchParams
   const page = +(searchParams.page ?? 1)
   const size = +(searchParams.size ?? 12)
 

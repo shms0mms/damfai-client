@@ -1,6 +1,7 @@
 "use client"
 
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons"
+import { useQuery } from "@tanstack/react-query"
 import { Lock } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useContext, useState } from "react"
@@ -22,7 +23,9 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
 import { AuthContext } from "./providers/auth-profider"
+import { ColorThemeContext } from "./providers/theme-provider"
 import { cn } from "@/lib/utils"
+import { userService } from "@/services/user.service"
 
 type ThemeToggleProps = {
   expanded?: boolean
@@ -40,6 +43,12 @@ export function ThemeToggle({
 
   const [isCustomThemeOpen, setIsCustomThemeOpen] = useState(false)
   const { setTheme } = useTheme()
+  const { setColorTheme, removeColorTheme } = useContext(ColorThemeContext)
+  const { data: userThemes } = useQuery({
+    initialData: undefined,
+    queryKey: ["user", "theme"],
+    queryFn: userService.getUserThemes
+  })
 
   return (
     <>
@@ -81,16 +90,34 @@ export function ThemeToggle({
           align={expanded ? "start" : "end"}
           className="w-[215px]"
         >
-          <DropdownMenuItem onClick={() => setTheme("light")}>
+          <DropdownMenuItem
+            onClick={() => {
+              setTheme("light")
+              removeColorTheme()
+            }}
+          >
             Светлая
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setTheme("dark")}>
+          <DropdownMenuItem
+            onClick={() => {
+              setTheme("dark")
+              removeColorTheme()
+            }}
+          >
             Темная
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setTheme("reading")}>
-            Для чтения
-          </DropdownMenuItem>
-
+          <DropdownMenuSeparator />
+          {userThemes?.map(theme => (
+            <DropdownMenuItem
+              key={theme.id}
+              onClick={() => {
+                setColorTheme(theme.key)
+                removeColorTheme()
+              }}
+            >
+              {theme.name}
+            </DropdownMenuItem>
+          ))}
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={() => {

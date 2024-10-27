@@ -1,4 +1,4 @@
-import PurposeForm from "@/components/books/purpose-form"
+import { PurposeForm } from "@/components/books/purpose-form"
 import { Modal } from "@/components/modal"
 import { bookService } from "@/services/book.service"
 

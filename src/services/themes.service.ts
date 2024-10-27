@@ -26,4 +26,4 @@ export class ThemeService {
   }
 }
 
-export default new ThemeService()
+export const themeService = new ThemeService()

@@ -74,7 +74,6 @@ const variables: Variable[] = [
 ]
 
 export const CustomizeTheme: FC = () => {
-  const { setTheme } = useTheme()
   const { setVariables } = useContext(CustomThemeContext)
   const form = useForm<CustomizeThemeFormSchema>({
     resolver: zodResolver(customizeThemeFormSchema),

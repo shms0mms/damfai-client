@@ -9,7 +9,7 @@ import {
   SheetDescription,
   SheetHeader,
   SheetTitle
-} from "../ui/sheet"
+} from "@/components/ui/sheet"
 import NODES from "@/data/pass.json"
 
 export function ChappiPassMap({

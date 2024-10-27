@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query"
 import { Chapter, Page } from "@/types/book"
 import { ReadBookPageProps } from "@/app/(read-book)/books/read/[id]/page"
 import { bookService } from "@/services/book.service"
-import { Pagination } from "@/types"
 
 type Props = {
   currentPage: number
@@ -15,7 +14,7 @@ export type ReadBookData =
       page: Page | undefined
     }
   | undefined
-const useReadBookData = ({
+export const useReadBookData = ({
   searchParams,
   params,
   currentPage
@@ -46,5 +45,3 @@ const useReadBookData = ({
 
   return response
 }
-
-export default useReadBookData

@@ -15,7 +15,7 @@ import {
 import { CoolMode } from "../ui/cool-mode"
 import { LogoCircle } from "../ui/logo-circle"
 
-export default function BalanceCard() {
+export function BalanceCard() {
   const { user } = useContext(AuthContext)
   return (
     <Card className="max-xl:col-span-2">

@@ -49,7 +49,7 @@ const moodIcons = {
   angry: { icon: Angry, color: "text-orange-500", text: "Сердитый" }
 } satisfies Moods
 
-export default function MoodTracker({
+export function MoodTracker({
   onMoodSelected,
   delayBeforeShow = 5000
 }: MoodTrackerProps) {

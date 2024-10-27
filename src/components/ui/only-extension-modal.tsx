@@ -18,7 +18,7 @@ interface ExtensionModalProps {
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function OnlyExtensionModal({
+export function OnlyExtensionModal({
   extensionSlug,
   extensionName,
   extensionDescription,

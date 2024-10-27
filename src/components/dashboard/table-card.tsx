@@ -13,7 +13,7 @@ type Props<T> = {
   isLoading: boolean
   refetch: () => void
 }
-export default function TableCard<T extends Theme & Extension>({
+export function TableCard<T extends Theme & Extension>({
   data,
   is,
   isLoading,

@@ -264,5 +264,3 @@ export function ColorPicker({
     </Popover>
   )
 }
-
-export default ColorPicker
