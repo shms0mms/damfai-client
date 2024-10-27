@@ -1,167 +1,166 @@
-import { SyntheticEvent, WheelEvent, useEffect, useRef, useState } from "react"
+"use client"
 
-export function QuestsMap({
-  handleWheel,
-  scale
-}: {
-  handleWheel: (e: WheelEvent<HTMLCanvasElement>) => void
-  scale: number
-}) {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const [context, setContext] = useState<CanvasRenderingContext2D | null>(null)
-  const [nodes, setNodes] = useState([
-    {
-      id: 1,
-      x: 400,
-      y: 300,
-      label: "Введение",
-      connectedTo: [2],
-      completed: true
-    },
-    {
-      id: 2,
-      x: 600,
-      y: 250,
-      label: "Что такое машинное обучение",
-      connectedTo: [3, 4],
-      completed: true
-    },
-    {
-      id: 3,
-      x: 800,
-      y: 150,
-      label: "Среда разработки",
-      connectedTo: [],
-      completed: false
-    },
-    {
-      id: 4,
-      x: 800,
-      y: 350,
-      label: "Оценка модели",
-      connectedTo: [5],
-      completed: false
-    },
-    {
-      id: 5,
-      x: 1000,
-      y: 300,
-      label: "Финальный проект",
-      connectedTo: [],
-      completed: false
-    }
-  ])
-  const [isDragging, setIsDragging] = useState(false)
-  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 })
+import { Crown, Sparkles, Star, Swords, Trophy, Zap } from "lucide-react"
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle
+} from "@/components/ui/card"
+import { Progress } from "@/components/ui/progress"
 
-  useEffect(() => {
-    const canvas = canvasRef.current!
-    const ctx = canvas.getContext("2d")
-    setContext(ctx)
-    drawMap(ctx!)
-  }, [nodes, scale])
+interface Quest {
+  id: number
+  title: string
+  description: string
+  experience: number
+  progress: number
+  total: number
+  icon: "trophy" | "star" | "zap" | "swords" | "crown"
+  difficulty?: "easy" | "medium" | "hard"
+}
 
-  const drawMap = (ctx: CanvasRenderingContext2D) => {
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-    ctx.save()
-    ctx.scale(scale, scale)
+const initialQuests: Quest[] = [
+  {
+    id: 1,
+    title: "Победы",
+    description: "Одержите победу в 3 матчах",
+    experience: 500,
+    progress: 3,
+    total: 3,
+    icon: "trophy",
+    difficulty: "easy"
+  },
+  {
+    id: 2,
+    title: "Звёздный игрок",
+    description: "Станьте звёздным игроком 2 раза",
+    experience: 250,
+    progress: 0,
+    total: 2,
+    icon: "star",
+    difficulty: "medium"
+  },
+  {
+    id: 3,
+    title: "Урон",
+    description: "Нанесите 20000 урона врагам",
+    experience: 100,
+    progress: 15000,
+    total: 20000,
+    icon: "zap",
+    difficulty: "easy"
+  },
+  {
+    id: 4,
+    title: "Битвы",
+    description: "Примите участие в 5 битвах",
+    experience: 150,
+    progress: 3,
+    total: 5,
+    icon: "swords",
+    difficulty: "easy"
+  },
+  {
+    id: 5,
+    title: "Мастер",
+    description: "Выиграйте 10 матчей подряд в рейтинговом режиме",
+    experience: 1000,
+    progress: 2,
+    total: 10,
+    icon: "crown",
+    difficulty: "hard"
+  },
+  {
+    id: 6,
+    title: "Коллекционер",
+    description: "Соберите 50 уникальных предметов",
+    experience: 300,
+    progress: 30,
+    total: 50,
+    icon: "star",
+    difficulty: "medium"
+  }
+]
 
-    nodes.forEach(node => {
-      node.connectedTo.forEach(targetId => {
-        const targetNode = nodes.find(n => n.id === targetId)
-        if (targetNode) {
-          drawLine(ctx, node.x, node.y, targetNode.x, targetNode.y)
-        }
-      })
-    })
+export function QuestsMap() {
+  const [quests, setQuests] = useState<Quest[]>(initialQuests)
 
-    nodes.forEach(node => {
-      drawNode(ctx, node.x, node.y, node.label, node.completed)
-    })
-
-    ctx.restore()
+  const iconMap = {
+    trophy: Trophy,
+    star: Star,
+    zap: Zap,
+    swords: Swords,
+    crown: Crown
   }
 
-  const drawLine = (
-    ctx: CanvasRenderingContext2D,
-    x1: number,
-    y1: number,
-    x2: number,
-    y2: number
-  ) => {
-    ctx.beginPath()
-    ctx.moveTo(x1, y1)
-    ctx.lineTo(x2, y2)
-    ctx.strokeStyle = "#00FF00"
-    ctx.lineWidth = 2
-    ctx.stroke()
+  const difficultyColor = {
+    easy: "bg-green-500",
+    medium: "bg-yellow-500",
+    hard: "bg-red-500"
   }
 
-  const drawNode = (
-    ctx: CanvasRenderingContext2D,
-    x: number,
-    y: number,
-    label: string,
-    completed: boolean
-  ) => {
-    ctx.beginPath()
-    ctx.arc(x, y, 30, 0, Math.PI * 2)
-    ctx.fillStyle = completed ? "#00FF00" : "#FFFFFF"
-    ctx.fill()
-    ctx.strokeStyle = "#000000"
-    ctx.lineWidth = 3
-    ctx.stroke()
-
-    ctx.fillStyle = "#fff"
-    ctx.textAlign = "center"
-    ctx.font = "14px Arial"
-    ctx.fillText(label, x, y + 50)
-  }
-
-  const handleMouseDown = (
-    e: SyntheticEvent<HTMLCanvasElement, MouseEvent>
-  ) => {
-    setIsDragging(true)
-    setDragOffset({
-      x: e.nativeEvent.offsetX,
-      y: e.nativeEvent.offsetY
-    })
-  }
-
-  const handleMouseMove = (
-    e: SyntheticEvent<HTMLCanvasElement, MouseEvent>
-  ) => {
-    if (isDragging) {
-      const dx = e.nativeEvent.offsetX - dragOffset.x
-      const dy = e.nativeEvent.offsetY - dragOffset.y
-
-      setNodes(prevNodes =>
-        prevNodes.map(node => ({
-          ...node,
-          x: node.x + dx / scale,
-          y: node.y + dy / scale
-        }))
+  const handleClaimexperience = (id: number) => {
+    setQuests(
+      quests.map(quest =>
+        quest.id === id ? { ...quest, progress: quest.total } : quest
       )
-
-      setDragOffset({
-        x: e.nativeEvent.offsetX,
-        y: e.nativeEvent.offsetY
-      })
-    }
+    )
   }
 
-  const handleMouseUp = () => {
-    setIsDragging(false)
-  }
   return (
-    <canvas
-      ref={canvasRef}
-      width={window.innerWidth}
-      height={window.innerHeight - 20}
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onWheel={handleWheel}
-    />
+    <div className="container mx-auto mt-16 p-4">
+      <h1 className="mb-6 text-center text-3xl font-bold">Квесты</h1>
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {quests.map(quest => {
+          const Icon = iconMap[quest.icon]
+          const isCompleted = quest.progress >= quest.total
+          return (
+            <Card key={quest.id} className="flex flex-col">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <div className={`rounded-full p-2`}>
+                      <Icon className="h-6 w-6 text-white" />
+                    </div>
+                    <CardTitle>{quest.title}</CardTitle>
+                  </div>
+                  {/* <Badge>{quest.difficulty}</Badge> */}
+                </div>
+              </CardHeader>
+              <CardContent className="mb-2 flex-grow">
+                <CardDescription>{quest.description}</CardDescription>
+                <div className="mt-4 flex flex-col gap-1">
+                  <Progress
+                    value={(quest.progress / quest.total) * 100}
+                    className="h-2"
+                  />
+                  <p className="mt-1 text-right text-sm">
+                    {quest.progress} / {quest.total}
+                  </p>
+                </div>
+              </CardContent>
+              <CardFooter className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <Sparkles className="mr-1 h-5 w-5 text-yellow-500" />
+                  <span className="font-bold">{quest.experience}</span>
+                </div>
+                <Button
+                  onClick={() => handleClaimexperience(quest.id)}
+                  disabled={true}
+                  variant={isCompleted ? "default" : "secondary"}
+                >
+                  {isCompleted ? "Выполнено" : "Выполнить"}
+                </Button>
+              </CardFooter>
+            </Card>
+          )
+        })}
+      </div>
+    </div>
   )
 }
