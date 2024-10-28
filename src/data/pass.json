@@ -3,51 +3,84 @@
     "id": 1,
     "x": 100,
     "y": 200,
-    "title": "Введение",
+    "title": "1000 чаппи-коинов",
     "connectedTo": [2],
     "completed": true,
     "type": "coins",
-    "description": "Начало вашего путешествия в мир машинного обучения"
+    "description": "Начало вашего путешествия в мир чаппи"
   },
   {
     "id": 2,
     "x": 350,
     "y": 200,
-    "title": "Что такое ML",
+    "title": "1000 чаппи-коинов",
     "connectedTo": [3, 4],
-    "completed": true,
+    "completed": false,
     "type": "coins",
     "size": "big",
-    "description": "Узнайте основы машинного обучения"
+    "description": "Узнайте основы чаппи"
   },
   {
     "id": 3,
     "x": 600,
     "y": 300,
-    "title": "Среда разработки",
+    "title": "3000 чаппи-коинов",
     "connectedTo": [],
     "completed": false,
     "type": "coins",
-    "description": "Настройка среды для ML проектов"
+    "description": "Чтение книг"
   },
   {
     "id": 4,
     "x": 600,
     "y": 600,
-    "title": "Оценка модели",
+    "title": "3000 чаппи-коинов",
     "connectedTo": [5],
     "completed": false,
-    "type": "reward",
-    "description": "Методы оценки эффективности ML моделей"
+    "type": "coins",
+    "description": "Чтение книг"
   },
   {
     "id": 5,
     "x": 1000,
     "y": 300,
-    "title": "Финальный проект",
-    "connectedTo": [],
+    "title": "Удобная футболка от сбербанка",
+    "connectedTo": [6, 7],
     "completed": false,
-    "type": "finish",
-    "description": "Применение полученных знаний на практике"
+    "type": "merch",
+    "description": "Удобная футболка от сбербанка"
+  },
+  {
+    "id": 6,
+    "x": 1300,
+    "y": 200,
+    "title": "5000 коинов",
+    "connectedTo": [8],
+    "completed": false,
+    "type": "coins",
+    "size": "small",
+    "description": "Начало второй главы - чтение книг с чаппи"
+  },
+  {
+    "id": 7,
+    "x": 1300,
+    "y": 600,
+    "title": "10000 коинов",
+    "connectedTo": [8],
+    "completed": false,
+    "type": "coins",
+    "size": "small",
+    "description": "Продолжение пути"
+  },
+  {
+    "id": 8,
+    "x": 1600,
+    "y": 300,
+    "title": "Изумрудная тема",
+    "connectedTo": [8],
+    "completed": false,
+    "size": "big",
+    "type": "theme",
+    "description": "Классная тема для украшения вашего сайта"
   }
 ]

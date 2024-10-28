@@ -132,6 +132,11 @@ export function usePass() {
       ctx.arc(x + SHEET_SIZE, y, radius - 5, 0, Math.PI * 2)
       ctx.fillStyle = completed ? COMPLETED_COLOR : "#333"
       ctx.fill()
+    } else if (size === "small") {
+      radius = 40
+      ctx.arc(x + SHEET_SIZE, y, radius - 5, 0, Math.PI * 2)
+      ctx.fillStyle = completed ? COMPLETED_COLOR : "#333"
+      ctx.fill()
     } else {
       ctx.arc(x + SHEET_SIZE, y, radius, 0, Math.PI * 2)
       ctx.fillStyle = completed ? COMPLETED_COLOR : "#555"

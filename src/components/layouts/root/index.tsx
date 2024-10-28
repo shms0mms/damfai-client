@@ -1,3 +1,5 @@
+"use client"
+
 import { type FC, type PropsWithChildren } from "react"
 import { Footer } from "./footer"
 import { Header } from "./header"
