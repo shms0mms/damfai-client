@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion"
 import { useState } from "react"
 import { useSummarize } from "@/hooks/useSummarize"
+import { Card } from "@/components/ui/card"
 import { Separator } from "./separator"
 import { SummarizeForm } from "./summarize-form"
 import { SummarizedText } from "./summarized-text"
@@ -19,7 +20,7 @@ export const Prettify = () => {
   }
 
   return (
-    <motion.div className="flex gap-8 rounded-xl border border-border p-6 max-lg:flex-col md:p-10">
+    <Card className="flex gap-8 max-lg:flex-col md:p-10">
       <SummarizeForm
         className={cn({
           "lg:self-center": isSubmitted
@@ -34,6 +35,6 @@ export const Prettify = () => {
           </>
         ) : null}
       </AnimatePresence>
-    </motion.div>
+    </Card>
   )
 }

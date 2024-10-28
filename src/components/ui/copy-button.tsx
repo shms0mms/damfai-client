@@ -19,7 +19,7 @@ export const CopyButton: FC<CopyButtonProps> = ({
         if (isToast) toast.success(`Текст успешно скопирован в буфер обмена!`)
       }}
       variant="ghost"
-      className="self-end"
+      className="gap-2 self-end"
       size="sm"
     >
       <CopyIcon /> Скопировать
