@@ -1,9 +1,12 @@
 "use client"
 
+import { useMutation } from "@tanstack/react-query"
 import { ArrowLeft } from "lucide-react"
+import { useTheme } from "next-themes"
 import Link from "next/link"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import ReactCardFlip from "react-card-flip"
+import { toast } from "sonner"
 import type { Theme } from "@/types/shop"
 import { Button } from "@/components/ui/button"
 import {
@@ -13,33 +16,73 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card"
+import { Alert } from "./alert"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger
+} from "./alert-dialog"
 import { ToCoins } from "./to-coins"
+import { themeService } from "@/services/themes.service"
 
 type ThemeCardProps = {
   theme: Theme
 }
 
 const themeExampleColors = [
-  "backgroundColor",
-  "textColor",
-  "primaryColor",
-  "primaryTextColor"
+  "background",
+  "foreground",
+  "primary",
+  "primaryForeground"
 ]
 const themeExampleColorsLabels: Record<string, string> = {
-  backgroundColor: "Фон",
-  textColor: "Текст",
-  primaryColor: "Основной (кнопки)",
-  primaryTextColor: "Основной текст (кнопки)"
+  background: "Фон",
+  foreground: "Текст",
+  primary: "Основной (кнопки)",
+  primaryForeground: "Основной текст (кнопки)"
 }
 
 export function ThemeCard({ theme }: ThemeCardProps) {
+  const { mutate: buyTheme } = useMutation({
+    mutationFn: themeService.addThemeToUser,
+    onSuccess: () => {
+      toast.success(`${theme.name} успешно куплена`)
+    },
+    onError: () => {
+      toast.error(`${theme.name} не удалось купить. Повторите позже.`)
+    }
+  })
+
+  const { theme: currentTheme } = useTheme()
   const [isFlipped, setIsFlipped] = useState(false)
-  const colors = Object.entries(theme)
-    .filter(([key]) => themeExampleColors.some(e => e === key))
-    .map(([key, value]) => ({
-      label: themeExampleColorsLabels[key],
-      value: value as string
-    }))
+
+  // convert theme colors to hsl
+  const themeColors = useMemo(
+    () =>
+      Object.fromEntries(
+        Object.entries(currentTheme === "dark" ? theme.dark : theme.light).map(
+          ([key, value]) => [key, `hsl(${value})`]
+        )
+      ),
+    [currentTheme, theme]
+  )
+
+  const colors = useMemo(
+    () =>
+      Object.entries(themeColors)
+        .filter(([key]) => themeExampleColors.some(e => e === key))
+        .map(([key, value]) => ({
+          label: themeExampleColorsLabels[key],
+          value: value as string
+        })),
+    [themeColors]
+  )
 
   return (
     <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
@@ -77,17 +120,38 @@ export function ThemeCard({ theme }: ThemeCardProps) {
             >
               Осмотреть
             </Button>
-            <Button size="sm" asChild>
-              <Link href={`/shop/themes/${theme.id}`}>Купить</Link>
-            </Button>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button size="sm">Купить</Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Вы уверены?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    С вашего баланса спишется {theme.price} Чаппи Коинов. Эта
+                    операция не может быть отменена.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Отмена</AlertDialogCancel>
+                  <AlertDialogAction
+                    onClick={() => {
+                      buyTheme(theme.id)
+                    }}
+                  >
+                    Купить
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </div>
         </CardFooter>
       </Card>
       <Card
         className="back flex h-full flex-col"
         style={{
-          backgroundColor: theme.backgroundColor,
-          color: theme.textColor
+          backgroundColor: themeColors.background,
+          color: themeColors.foreground
         }}
       >
         <CardHeader>
@@ -100,8 +164,8 @@ export function ThemeCard({ theme }: ThemeCardProps) {
             className="mt-4 flex"
             size="lg"
             style={{
-              backgroundColor: theme.primaryColor,
-              color: theme.primaryTextColor
+              backgroundColor: themeColors.primary,
+              color: themeColors["primary-foreground"]
             }}
           >
             Кнопка

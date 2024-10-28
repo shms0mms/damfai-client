@@ -51,11 +51,11 @@ class ShopService {
     ])
   }
 
-  async getThemes() {
+  getThemes() {
     try {
-      return await themeService.getAll()
+      return themeService.getAll()
     } catch {
-      return { data: [] }
+      return []
     }
   }
 }

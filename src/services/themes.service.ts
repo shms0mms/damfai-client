@@ -1,30 +1,31 @@
-import { Theme } from "@/types/shop"
+import { type Theme } from "@/types/shop"
 import { axiosDefault, axiosWithAuth } from "@/api/interceptors"
 
 export class ThemeService {
   private BASE_URL = "/themes"
+
   async getAll() {
-    return await axiosDefault.get(`${this.BASE_URL}/all`)
+    return (await axiosDefault.get<Theme[]>(`${this.BASE_URL}/all`)).data
+  }
+  getUserThemes = async () => {
+    return (await axiosWithAuth.get<Theme[]>(`${this.BASE_URL}/user/themes`))
+      .data
   }
   async getById(id: number): Promise<Theme> {
-    await new Promise(res => setTimeout(res, 1000))
-    return (await axiosDefault.get(`${this.BASE_URL}/${id}`)).data
+    return (await axiosDefault.get<Theme>(`${this.BASE_URL}/${id}`)).data
   }
-
-  async getUserThemes() {
-    return await axiosWithAuth.get(`${this.BASE_URL}/user/themes`)
-  }
-
-  async addThemeToUser(themeId: number) {
-    return await axiosWithAuth.get(
-      `${this.BASE_URL}/add/user/themes/${themeId}`
-    )
+  addThemeToUser = async (themeId: number) => {
+    return (
+      await axiosWithAuth.get(`${this.BASE_URL}/add/user/themes/${themeId}`)
+    ).data
   }
 
   async removeThemeFromUser(themeId: number) {
-    return await axiosWithAuth.delete(
-      `${this.BASE_URL}/remove/user/themes/${themeId}`
-    )
+    return (
+      await axiosWithAuth.delete(
+        `${this.BASE_URL}/remove/user/themes/${themeId}`
+      )
+    ).data
   }
 }
 

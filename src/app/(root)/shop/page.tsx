@@ -11,7 +11,7 @@ import { shopService } from "@/services/shop.service"
 
 export default async function Shop() {
   const { data: extensions } = await shopService.getExtensions()
-  const { data: themes } = await shopService.getThemes()
+  const themes = await shopService.getThemes()
   const merch = await shopService.getMockMerch()
   const title = "mb-7 text-5xl font-bold"
 
@@ -52,9 +52,7 @@ export default async function Shop() {
         <h2 className={title}>Темы</h2>
         <div className="grid w-full grid-cols-[repeat(auto-fill,_minmax(270px,_1fr))] gap-4">
           {themes?.length
-            ? themes.map((theme: Theme) => (
-                <ThemeCard key={theme.id} theme={theme} />
-              ))
+            ? themes.map(theme => <ThemeCard key={theme.id} theme={theme} />)
             : skeletons}
         </div>
       </section>

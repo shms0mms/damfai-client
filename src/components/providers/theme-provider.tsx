@@ -1,14 +1,14 @@
 "use client"
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { ThemeProvider as NextThemesProvider } from "next-themes"
 import { type ThemeProviderProps } from "next-themes/dist/types"
 import { createContext, useContext, useEffect, useState } from "react"
+import { useUserThemes } from "@/hooks/useUserThemes"
 import { CustomizeThemeFormSchema } from "@/components/blocks/customize-theme"
 import { THEMES } from "@/lib/constants"
 import { getCustomThemeVariables } from "@/lib/utils"
 import { themeService } from "@/services/themes.service"
-import { userService } from "@/services/user.service"
 
 type TCustomThemeContext = {
   setVariables: React.Dispatch<
@@ -57,12 +57,7 @@ function ColorThemeProvider({ children }: React.PropsWithChildren) {
       ? -1
       : +(localStorage.getItem("colorThemeId") ?? -1)
 
-  const { data: userThemes } = useQuery({
-    initialData: undefined,
-    queryKey: ["user", "theme"],
-    queryFn: userService.getUserThemes,
-    enabled: colorThemeIdFromLocalStorage !== -1
-  })
+  const { data: userThemes } = useUserThemes()
 
   const [colorThemeKey, setColorThemeKey] = useState<string | undefined>(
     userThemes?.find(theme => theme.id === colorThemeIdFromLocalStorage)?.key

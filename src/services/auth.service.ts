@@ -20,7 +20,6 @@ class AuthService {
       .reverse()
       .join("-")
 
-    console.log(dob)
     const response = await axiosDefault.post<User & ResponseWithToken>(
       `${this.BASE_URL}/register`,
       { ...data, dob }

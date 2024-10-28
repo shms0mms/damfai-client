@@ -6,6 +6,7 @@ import { Check, Loader, Lock } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useContext, useState } from "react"
 import { toast } from "sonner"
+import { useUserThemes } from "@/hooks/useUserThemes"
 import { CustomizeTheme } from "@/components/blocks/customize-theme"
 import { Button } from "@/components/ui/button"
 import {
@@ -25,7 +26,7 @@ import {
 import { AuthContext } from "./providers/auth-provider"
 import { ColorThemeContext } from "./providers/theme-provider"
 import { cn } from "@/lib/utils"
-import { userService } from "@/services/user.service"
+import { themeService } from "@/services/themes.service"
 
 type ThemeToggleProps = {
   expanded?: boolean
@@ -49,11 +50,7 @@ export function ThemeToggle({
     setColorTheme,
     removeColorTheme
   } = useContext(ColorThemeContext)
-  const { data: userThemes } = useQuery({
-    initialData: undefined,
-    queryKey: ["user", "theme"],
-    queryFn: userService.getUserThemes
-  })
+  const { data: userThemes } = useUserThemes()
 
   return (
     <>

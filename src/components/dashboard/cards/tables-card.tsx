@@ -12,7 +12,8 @@ export function TablesCard() {
     refetch: refetchExtensions
   } = useQuery({
     queryKey: ["/extensions/user"],
-    queryFn: () => extensionsService.getUserExtensions()
+    queryFn: () => extensionsService.getUserExtensions(),
+    select: data => data.data
   })
   const {
     data: themes,
