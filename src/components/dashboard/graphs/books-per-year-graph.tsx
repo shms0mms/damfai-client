@@ -5,7 +5,8 @@ import { Cell, Pie, PieChart } from "recharts"
 import {
   ChartConfig,
   ChartContainer,
-  ChartTooltip
+  ChartTooltip,
+  ChartTooltipContent
 } from "@/components/ui/chart"
 import { GraphFallback } from "./graph-fallback"
 import { analyticsService } from "@/services/analytics.service"
@@ -36,6 +37,7 @@ export function BooksPerYearGraph() {
 
   const total = data.reduce((sum, entry) => sum + entry.количество, 0) - 12
   const filteredData = data.filter(d => d.количество)
+
   return (
     <>
       {data.every(d => !d.количество) ? (
@@ -62,10 +64,9 @@ export function BooksPerYearGraph() {
             </Pie>
             <ChartTooltip
               formatter={(количество, month) => [
-                month,
-                `${+количество - 1} книг`
+                `${filteredData[+month!]?.month} ${+количество - 1} книг`
               ]}
-              // content={<ChartTooltipContent />}
+              content={<ChartTooltipContent />}
             />
           </PieChart>
         </ChartContainer>
