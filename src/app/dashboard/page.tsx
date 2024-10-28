@@ -3,6 +3,7 @@ import { BooksCard } from "@/components/dashboard/cards/books-card"
 import { BooksPerMonthsCard } from "@/components/dashboard/cards/books-per-months-card"
 import { BooksPerYearCard } from "@/components/dashboard/cards/books-per-year-card"
 import { ChappiPassCard } from "@/components/dashboard/cards/chappi-pass-card"
+import { CurrentQuestsCard } from "@/components/dashboard/cards/current-quests-card"
 import { MinutesPerWeekCard } from "@/components/dashboard/cards/minutes-per-week-card"
 import { PagesPerWeekCard } from "@/components/dashboard/cards/pages-per-week-card"
 import { TablesCard } from "@/components/dashboard/cards/tables-card"
@@ -28,6 +29,7 @@ export default function Dashboard() {
           <BalanceCard />
           <ChappiPassCard />
           <TablesCard />
+          <CurrentQuestsCard />
         </div>
       </div>
     </>

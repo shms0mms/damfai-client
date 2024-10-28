@@ -6,6 +6,7 @@ import { recommendationsService } from "@/services/recommendations.service"
 export default async function BooksPage() {
   const books = await recommendationsService.getRecommendations()
   const userBooks = await bookService.getUserBooks()
+  console.log(books)
 
   return (
     <div className="container mx-auto px-4 py-8">

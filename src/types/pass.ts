@@ -1,3 +1,5 @@
+import { Crown, Star, Swords, Trophy, Zap } from "lucide-react"
+
 export type Reward = {
   id: number // ID награды
   x: number // Позиция на карте (Просто хранится в БД)
@@ -18,4 +20,12 @@ export type Quest = {
   progress: number
   total: number
   icon: "trophy" | "star" | "zap" | "swords" | "crown" // на бекенде не будет наверно
+}
+
+export const ICON_MAP = {
+  trophy: Trophy,
+  star: Star,
+  zap: Zap,
+  swords: Swords,
+  crown: Crown
 }

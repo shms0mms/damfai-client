@@ -1,8 +1,9 @@
 "use client"
 
 import { useQuery } from "@tanstack/react-query"
-import { Crown, Sparkles, Star, Swords, Trophy, Zap } from "lucide-react"
+import { Sparkles } from "lucide-react"
 import Link from "next/link"
+import { ICON_MAP } from "@/types/pass"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -17,13 +18,6 @@ import { Skeleton } from "../../ui/skeleton"
 import { cn } from "@/lib/utils"
 import { passService } from "@/services/pass.service"
 
-const ICON_MAP = {
-  trophy: Trophy,
-  star: Star,
-  zap: Zap,
-  swords: Swords,
-  crown: Crown
-}
 export function QuestsMap() {
   const { data: quests, isLoading } = useQuery({
     queryKey: ["/pass/quests"],
