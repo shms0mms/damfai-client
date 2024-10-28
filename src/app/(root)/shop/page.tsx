@@ -15,7 +15,7 @@ export default async function Shop() {
   const merch = await shopService.getMockMerch()
   const title = "mb-7 text-5xl font-bold"
 
-  const skeletons = Array.from({ length: 4 }, (_, i) => (
+  const skeletons = Array.from({ length: 5 }, (_, i) => (
     <Skeleton key={i} className="min-h-[400px] w-full rounded-md" />
   ))
   return (
@@ -55,7 +55,7 @@ export default async function Shop() {
             ? themes.map((theme: Theme) => (
                 <ThemeCard key={theme.id} theme={theme} />
               ))
-            : null}
+            : skeletons}
         </div>
       </section>
       <Separator className="max-md:hidden" />

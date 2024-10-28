@@ -1,6 +1,6 @@
 import type { Merch } from "@/types/shop"
 import { extensionsService } from "./extensions.service"
-import themesService from "./themes.service"
+import { themeService } from "./themes.service"
 
 class ShopService {
   async getExtensions() {
@@ -50,7 +50,7 @@ class ShopService {
 
   async getThemes() {
     try {
-      return await themesService.getAll()
+      return await themeService.getAll()
     } catch {
       return { data: [] }
     }
