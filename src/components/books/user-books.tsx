@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 import { type FC } from "react"
 import { type Book } from "@/types/book"
@@ -35,7 +36,7 @@ export const UserBookList: FC<UserBookList> = ({ className, books }) => {
                 href={`/books/read/${book.id}`}
               >
                 <div className="flex flex-col gap-2">
-                  <img
+                  <Image
                     className="overflow-hidden rounded-md"
                     src={
                       book.image

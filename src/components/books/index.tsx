@@ -20,7 +20,9 @@ export function BookList({ books }: BookListProps) {
   const bookGanres = Array.from(new Set(books.map(book => book.ganres).flat()))
   const ganreAndBook: Record<string, Book[]> = {}
   bookGanres.forEach(ganre => {
-    ganreAndBook[ganre] = books.filter(book => book.ganres.includes(ganre))
+    ganreAndBook[ganre.ganre] = books.filter(book =>
+      book.ganres.includes(ganre)
+    )
   })
 
   return (

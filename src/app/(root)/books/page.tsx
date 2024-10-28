@@ -1,10 +1,10 @@
 import { BookList } from "@/components/books"
 import { UserBookList } from "@/components/books/user-books"
 import { bookService } from "@/services/book.service"
-import { recomendationService } from "@/services/recomendation.service"
+import { recommendationsService } from "@/services/recommendations.service"
 
 export default async function BooksPage() {
-  const data = await recomendationService.getAll({ page: 1, size: 100 })
+  const books = await recommendationsService.getRecommendations()
   const userBooks = await bookService.getUserBooks()
 
   return (
@@ -13,7 +13,7 @@ export default async function BooksPage() {
       {userBooks?.length ? (
         <UserBookList className="mb-12 md:mb-20" books={userBooks} />
       ) : null}
-      <BookList books={data.items} />
+      <BookList books={books} />
     </div>
   )
 }

@@ -69,7 +69,12 @@ class BookService {
           chapters: randomNumber(0, 500),
           desc: books[randomNumber(0, books.length - 1)!]!.body,
           ratings: Math.random() * 5,
-          ganres: [mockGanres[randomNumber(0, mockGanres.length - 1)]!],
+          ganres: [
+            {
+              id: randomNumber(0, mockGanres.length - 1),
+              ganre: mockGanres[randomNumber(0, mockGanres.length - 1)]!
+            }
+          ],
           image: mockBookImages[randomNumber(0, mockBookImages.length - 1)],
           progress: 100.0
         }))
