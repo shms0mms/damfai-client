@@ -1,7 +1,7 @@
 import { type FC } from "react"
 import { Pagination } from "@/components/pagination"
 import { Books } from "./books"
-import { bookService } from "@/services/book.service"
+import { recomendationService } from "@/services/recomendation.service"
 
 type CatalogProps = {
   page: number
@@ -10,7 +10,8 @@ type CatalogProps = {
 }
 
 export const Catalog: FC<CatalogProps> = async options => {
-  const { items: books, ...pagination } = await bookService.getAll(options)
+  const { items: books, ...pagination } =
+    await recomendationService.getAll(options)
   return (
     <>
       <Books books={books} />

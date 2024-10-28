@@ -41,7 +41,7 @@ const formSchema = z.object({
 type FormSchema = z.infer<typeof formSchema>
 export function EditProfile() {
   const { user } = useContext(AuthContext)
-  const form = useForm<FormSchema>()
+  const form = useForm<FormSchema>({})
   const queryClient = useQueryClient()
   const { mutate } = useMutation({
     mutationFn: (data: UserUpdate) => authService.update(data),
@@ -56,7 +56,7 @@ export function EditProfile() {
     }
   })
   const onSubmit: SubmitHandler<FormSchema> = data => {
-    mutate(data)
+    mutate({ ...data, password: (data.password || null) as string })
   }
   return (
     <>
@@ -110,7 +110,7 @@ export function EditProfile() {
           <FormField
             control={form.control}
             name="password"
-            defaultValue=""
+            defaultValue={undefined}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Пароль</FormLabel>

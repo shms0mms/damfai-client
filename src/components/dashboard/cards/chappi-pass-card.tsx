@@ -17,9 +17,14 @@ export function ChappiPassCard() {
       }
       subtitle="Дорога чаппи помогает мотивировать себя читать книги и за одно получать разные плюшки :)"
     >
-      <div className="flex min-h-[340px] w-full items-center justify-center px-20">
+      <div className="flex min-h-[340px] w-full items-center justify-center gap-5 px-20 max-md:hidden">
         <CardStack axis="Y" delay={3000} items={CARDS} />
         <CardStack axis="Y" delay={5000} items={CARDS} />
+      </div>
+      <div className="flex flex-wrap items-center justify-center gap-5 md:hidden">
+        <ChappiCoin />
+        <Paintbrush size={100} />
+        <LayoutGrid size={100} />
       </div>
     </CardWrapper>
   )
@@ -56,5 +61,5 @@ const CARDS = [
 ].map(c => ({
   ...c,
   className:
-    "w-auto md:h-auto md:w-auto min-w-[300px] max-w-[300px] h-full min-h-[240px]"
+    "w-auto md:h-auto md:w-auto min-w-[300px] max-w-[300px] max-md:min-w-[200px] h-full min-h-[240px]"
 }))

@@ -24,10 +24,16 @@ export const useReadBookData = ({
     queryKey: ["read-book", +params.id],
     queryFn: async () => {
       const chaptersResponse = await bookService.getAllChapters(+params.id)
+
+      const currentChapter = chaptersResponse?.chapters.find(chapter => {
+        return searchParams.chapter
+          ? chapter.numberOfChapter === +searchParams.chapter
+          : chapter.numberOfChapter === 1
+      })!
       const pagesResponse = await bookService.getPagesByChapterId({
         chapterId: searchParams.chapter
           ? +searchParams.chapter
-          : chaptersResponse.chapters[0]!.id,
+          : currentChapter.id,
         page: currentPage,
         size: 1
       })

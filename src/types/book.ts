@@ -19,6 +19,7 @@ export type Chapter = {
   title: string
   numberOfChapter: number
   pages: number
+  lastNumberOfPage: number
 }
 
 export type BookComponent = Book & {

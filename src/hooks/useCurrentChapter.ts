@@ -5,11 +5,9 @@ export const useCurrentChapter = (
   readBookData: ReadBookData,
   searchParams: ReadBookPageProps["searchParams"]
 ) => {
-  return readBookData?.chapters.find(
-    chapter =>
-      chapter.id ===
-      (searchParams.chapter
-        ? +searchParams.chapter
-        : readBookData?.chapters[0]?.id)
-  )!
+  return readBookData?.chapters.find(chapter => {
+    return searchParams.chapter
+      ? chapter.id === +searchParams.chapter
+      : chapter.numberOfChapter === 1
+  })!
 }

@@ -19,7 +19,7 @@ export function TabItem<TBook extends Book | Bookmark | Favourite>({
   isLoading
 }: TabItemProps<TBook>) {
   return (
-    <TabsContent className="h-full w-full" value={value}>
+    <TabsContent className="flex w-full flex-col gap-2" value={value}>
       {books?.length ? (
         books?.map(book => (
           <BookItem
@@ -37,7 +37,7 @@ export function TabItem<TBook extends Book | Bookmark | Favourite>({
               key={i}
               className="h-[30px]"
               style={{
-                width: randomNumber(100, 290)
+                width: randomNumber(100, 150)
               }}
             />
           ))}

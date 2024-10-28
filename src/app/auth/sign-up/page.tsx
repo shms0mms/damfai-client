@@ -1,13 +1,12 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { format } from "date-fns"
 import { AnimatePresence } from "framer-motion"
 import { CalendarIcon, Loader } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
@@ -66,13 +65,16 @@ export default function AuthForm() {
       role: RoleEnum.user
     }
   })
-
+  const queryClient = useQueryClient()
   const router = useRouter()
   const { mutate } = useMutation({
     mutationFn: (data: UserSignUp) => authService.register(data),
-    onSuccess(data) {
+    async onSuccess(data) {
       toast.success("Вы успешно зарегистрировались!")
       saveAccessToken(data.token)
+      await queryClient.invalidateQueries({
+        queryKey: ["/user/me"]
+      })
       router.push(ROUTES.DASHBOARD)
     },
     onError(error) {

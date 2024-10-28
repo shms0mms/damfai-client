@@ -12,20 +12,12 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from "@/components/ui/select"
-import {
   Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle
 } from "@/components/ui/sheet"
-import { ChappiChat } from "./chappi-chat"
 import { Purpose } from "./purpose"
 import { cn } from "@/lib/utils"
 
@@ -62,7 +54,7 @@ export function Menu({
           </SheetDescription>
         </SheetHeader>
         <div className="mt-6 space-y-4">
-          <Select
+          {/* <Select
             onValueChange={handleChapterChange}
             value={currentChapter?.toString()}
           >
@@ -79,7 +71,7 @@ export function Menu({
                   ))
                 : null}
             </SelectContent>
-          </Select>
+          </Select> */}
           <Purpose type="edit" />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -101,14 +93,13 @@ export function Menu({
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          <Button asChild type="button">
+          <Button asChild className="w-full" type="button">
             <Link
               href={`/books/read/${bookId}?page=${readBookData?.page?.id}&chapter=${currentChapter?.id}&questions=generate`}
             >
               Перейти сразу к вопросам
             </Link>
           </Button>
-          <ChappiChat />
         </div>
       </SheetContent>
     </Sheet>

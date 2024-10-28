@@ -8,6 +8,7 @@ export type Bookmark = {
   // Текущие данные о книге, которую читаю
   id_current_chapter?: number
   current_page?: number
+  current_number_of_page?: number
 }
 
 export interface BookmarkComponent extends Bookmark {

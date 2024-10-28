@@ -30,15 +30,15 @@ export function useReadBook({ params, searchParams }: ReadBookPageProps) {
   const timeString = `${padStart(secondsToHours(readTime))}:${padStart(secondsToMinutes(readTime))}:${padStart(readTime > 59 ? readTime - 60 * secondsToMinutes(readTime) : readTime)}`
 
   const handleChapterChange = (value: string) => {
-    setCurrentPage(currentPage + 1)
+    setCurrentPage(currentPage)
     router.push(
-      `/books/read/${params?.id}?page=${currentPage + 1}&chapter=${parseInt(value)}`
+      `/books/read/${params?.id}?page=${currentPage}&chapter=${parseInt(value)}`
     )
   }
 
   // For data fill hooks
   useEffect(() => {
-    readBookData?.page?.id && setCurrentPage(readBookData.page.id)
+    readBookData?.page?.id && setCurrentPage(readBookData.page.numberOfPage)
   }, [readBookData?.page?.id])
   useEffect(() => void refetch(), [searchParams])
   useEffect(() => {

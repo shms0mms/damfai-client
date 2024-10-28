@@ -12,13 +12,15 @@ type CardWrapperProps = {
   title: ReactNode
   subtitle: ReactNode
   className?: string
+  contentClassName?: string
 }
 
 export function CardWrapper({
   title,
   subtitle,
   children,
-  className
+  className,
+  contentClassName
 }: PropsWithChildren<CardWrapperProps>) {
   return (
     <Card className={cn("col-span-2 max-xl:col-span-2", className)}>
@@ -26,7 +28,12 @@ export function CardWrapper({
         <CardTitle>{title}</CardTitle>
         <CardDescription>{subtitle}</CardDescription>
       </CardHeader>
-      <CardContent className="min-h-[340px] w-full max-md:min-h-[200px]">
+      <CardContent
+        className={cn(
+          "min-h-[340px] w-full max-md:min-h-[200px]",
+          contentClassName
+        )}
+      >
         {children}
       </CardContent>
     </Card>

@@ -32,17 +32,19 @@ export function BooksPerYearGraph() {
   const year = _data?.data ? _data?.data : {}
   const data = Object.keys(year).map(month => ({
     month: month.slice(0, 3),
-    количество: (year as RecordOf<number>)[month]!
+    количество: (year as RecordOf<number>)[month]! + 1
   }))
-  const total = data.reduce((sum, entry) => sum + entry.количество, 0)
+
+  const total = data.reduce((sum, entry) => sum + entry.количество, 0) - 12
   const filteredData = data.filter(d => d.количество)
+
   return (
     <>
       {data.every(d => !d.количество) ? (
         <GraphFallback />
       ) : (
         <ChartContainer config={chartConfig}>
-          <PieChart className="min-h-[330px]">
+          <PieChart className="sm:min-width-[320px] min-h-[380px]">
             <Pie
               data={filteredData}
               cx="50%"
@@ -51,9 +53,7 @@ export function BooksPerYearGraph() {
               outerRadius={150}
               fill="#8884d8"
               dataKey="количество"
-              label={({ month, percent }) =>
-                `${month} ${(percent * 100).toFixed(0)}%`
-              }
+              label={({ month, value }) => `${month} ${value - 1}`}
             >
               {data.map((entry, index) => (
                 <Cell
@@ -64,8 +64,7 @@ export function BooksPerYearGraph() {
             </Pie>
             <ChartTooltip
               formatter={(количество, month) => [
-                month,
-                `${количество} книг (${((+количество / total) * 100).toFixed(1)}%)`
+                `${filteredData[+month!]?.month} ${+количество - 1} книг`
               ]}
               content={<ChartTooltipContent />}
             />

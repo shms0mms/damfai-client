@@ -20,13 +20,25 @@ export function BooksCard() {
           <div className="flex items-center justify-between gap-2 max-md:flex-col max-md:items-start">
             <CardTitle>Книги</CardTitle>
             <TabsList>
-              <TabsTrigger onClick={books.get} value="current">
+              <TabsTrigger
+                className="max-md:px-1.5"
+                onClick={books.get}
+                value="current"
+              >
                 Текущие
               </TabsTrigger>
-              <TabsTrigger onClick={bookmarks.get} value="bookmarks">
+              <TabsTrigger
+                className="max-md:px-1.5"
+                onClick={bookmarks.get}
+                value="bookmarks"
+              >
                 Закладки
               </TabsTrigger>
-              <TabsTrigger onClick={favourites.get} value="favourite">
+              <TabsTrigger
+                className="max-md:px-1.5"
+                onClick={favourites.get}
+                value="favourite"
+              >
                 Избранное
               </TabsTrigger>
             </TabsList>

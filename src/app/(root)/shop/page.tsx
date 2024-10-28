@@ -15,7 +15,7 @@ export default async function Shop() {
   const merch = await shopService.getMockMerch()
   const title = "mb-7 text-5xl font-bold"
 
-  const skeletons = Array.from({ length: 4 }, (_, i) => (
+  const skeletons = Array.from({ length: 5 }, (_, i) => (
     <Skeleton key={i} className="min-h-[400px] w-full rounded-md" />
   ))
   return (
@@ -55,11 +55,11 @@ export default async function Shop() {
             ? themes.map((theme: Theme) => (
                 <ThemeCard key={theme.id} theme={theme} />
               ))
-            : null}
+            : skeletons}
         </div>
       </section>
       <Separator className="max-md:hidden" />
-      <section className="container relative [mask-image:linear-gradient(to_top,transparent_40%,#000_100%)] before:absolute before:bottom-0 before:left-0 before:h-full before:w-full before:content-['']">
+      <section className="container relative [mask-image:linear-gradient(to_top,transparent_50%,#000_100%)] before:absolute before:bottom-0 before:left-0 before:h-full before:w-full before:content-['']">
         <div className="grid h-full w-full grid-cols-[repeat(auto-fill,_minmax(270px,_1fr))] gap-4 max-md:hidden">
           {merch?.length
             ? merch.map(e => <MarchCard key={e.id} {...e} />)
