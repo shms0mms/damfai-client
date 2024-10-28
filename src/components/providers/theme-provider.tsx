@@ -1,12 +1,13 @@
 "use client"
 
-import { useQuery } from "@tanstack/react-query"
-import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes"
+import { useMutation, useQuery } from "@tanstack/react-query"
+import { ThemeProvider as NextThemesProvider } from "next-themes"
 import { type ThemeProviderProps } from "next-themes/dist/types"
-import { createContext, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 import { CustomizeThemeFormSchema } from "@/components/blocks/customize-theme"
-import { COLOR_THEMES, THEMES } from "@/lib/constants"
+import { THEMES } from "@/lib/constants"
 import { getCustomThemeVariables } from "@/lib/utils"
+import { themeService } from "@/services/themes.service"
 import { userService } from "@/services/user.service"
 
 type TCustomThemeContext = {
@@ -18,11 +19,9 @@ type TCustomThemeContext = {
 }
 
 type TColorThemeContext = {
-  colorTheme: (typeof COLOR_THEMES)[number] | undefined
+  colorTheme: string | undefined
   removeColorTheme: () => void
-  setColorTheme: React.Dispatch<
-    React.SetStateAction<(typeof COLOR_THEMES)[number] | undefined>
-  >
+  setColorTheme: (colorThemeId: number) => void
 }
 
 export const CustomThemeContext = createContext<TCustomThemeContext>({
@@ -51,31 +50,71 @@ function ColorThemeProvider({ children }: React.PropsWithChildren) {
   const colorThemeIdFromLocalStorage =
     typeof localStorage === "undefined"
       ? -1
-      : +(localStorage.getItem("colorTheme") ?? -1)
+      : +(localStorage.getItem("colorThemeId") ?? -1)
 
   const { data: userThemes } = useQuery({
     initialData: undefined,
     queryKey: ["user", "theme"],
-    queryFn: userService.getUserThemes
+    queryFn: userService.getUserThemes,
+    enabled: colorThemeIdFromLocalStorage !== -1
   })
 
-  const hasAccessToColorTheme = userThemes?.some(
+  const colorThemeKey = userThemes?.find(
     theme => theme.id === colorThemeIdFromLocalStorage
-  )
+  )?.key
 
-  const [colorTheme, setColorTheme] = useState<
-    (typeof COLOR_THEMES)[number] | undefined
-  >(
-    hasAccessToColorTheme
-      ? userThemes?.find(theme => theme.id === colorThemeIdFromLocalStorage)
-          ?.key
-      : undefined
+  const [colorTheme, _setColorTheme] = useState<string | undefined>(
+    colorThemeKey
   )
+  const {
+    data,
+    mutate: getColorTheme,
+    isPending: isPendingTheme
+  } = useMutation({
+    mutationKey: ["theme", colorThemeKey],
+    mutationFn: (id: number) => themeService.getById(id)
+  })
+
+  const setColorTheme = (colorThemeId: number) => {
+    _setColorTheme(colorTheme)
+    getColorTheme(colorThemeId)
+    localStorage.setItem("colorThemeId", `${colorThemeId}`)
+  }
 
   const removeColorTheme = () => {
-    setColorTheme(undefined)
-    localStorage.removeItem("colorTheme")
+    _setColorTheme(undefined)
+    localStorage.removeItem("colorThemeId")
   }
+
+  // change color theme visualy
+  useEffect(() => {
+    console.log(data, isPendingTheme)
+    if (data && !isPendingTheme) {
+      document.documentElement.classList.add(data.key)
+
+      const styles = document.createElement("style")
+      styles.innerHTML = `
+:root.emerald {
+  ${Object.entries(data.light)
+    .map(
+      ([key, value]) => `
+    --${key}: ${value};`
+    )
+    .join("")}
+}
+:root.dark.emerald { 
+  ${Object.entries(data.dark)
+    .map(
+      ([key, value]) => `
+    --${key}: ${value};`
+    )
+    .join("")}
+}
+      `
+
+      document.head.appendChild(styles)
+    }
+  }, [data, isPendingTheme])
 
   return (
     <ColorThemeContext.Provider
@@ -87,12 +126,12 @@ function ColorThemeProvider({ children }: React.PropsWithChildren) {
 }
 
 function CustomThemeProvider({ children }: React.PropsWithChildren) {
-  const { theme } = useTheme()
+  const { colorTheme } = useContext(ColorThemeContext)
   const [variables, setVariables] = useState<
     CustomizeThemeFormSchema["variables"]
   >(typeof window === "undefined" ? [] : getCustomThemeVariables())
 
-  const isActive = !!(theme === "custom" && variables.length)
+  const isActive = !!(colorTheme === "custom" && variables.length)
 
   return (
     <CustomThemeContext.Provider

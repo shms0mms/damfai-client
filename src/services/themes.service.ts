@@ -1,3 +1,4 @@
+import { Theme } from "@/types/shop"
 import { axiosDefault, axiosWithAuth } from "@/api/interceptors"
 
 export class ThemeService {
@@ -5,8 +6,8 @@ export class ThemeService {
   async getAll() {
     return await axiosDefault.get(`${this.BASE_URL}/all`)
   }
-  async getById(id: number) {
-    return await axiosDefault.get(`${this.BASE_URL}/${id}`)
+  async getById(id: number): Promise<Theme> {
+    return (await axiosDefault.get(`${this.BASE_URL}/${id}`)).data
   }
 
   async getUserThemes() {

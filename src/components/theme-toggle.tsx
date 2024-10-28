@@ -110,10 +110,7 @@ export function ThemeToggle({
           {userThemes?.map(theme => (
             <DropdownMenuItem
               key={theme.id}
-              onClick={() => {
-                setColorTheme(theme.key)
-                removeColorTheme()
-              }}
+              onClick={() => setColorTheme(theme.id)}
             >
               {theme.name}
             </DropdownMenuItem>
