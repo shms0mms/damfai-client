@@ -93,7 +93,7 @@ export function ChappiPassMenu({
         </div>
         <div className="h-full" />
         <SheetFooter className="flex w-full flex-row items-center justify-between gap-5 sm:flex-row sm:justify-between">
-          <ul className="flex items-center gap-4">
+          <ul className="flex items-center gap-1">
             <ItemLink content="Главная" href={"/"}>
               <Home />
             </ItemLink>
