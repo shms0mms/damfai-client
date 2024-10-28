@@ -2,7 +2,7 @@
 
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons"
 import { useQuery } from "@tanstack/react-query"
-import { Lock } from "lucide-react"
+import { Check, Loader, Lock } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useContext, useState } from "react"
 import { toast } from "sonner"
@@ -43,7 +43,12 @@ export function ThemeToggle({
 
   const [isCustomThemeOpen, setIsCustomThemeOpen] = useState(false)
   const { setTheme } = useTheme()
-  const { setColorTheme, removeColorTheme } = useContext(ColorThemeContext)
+  const {
+    colorThemeKey,
+    colorThemeIdLoading,
+    setColorTheme,
+    removeColorTheme
+  } = useContext(ColorThemeContext)
   const { data: userThemes } = useQuery({
     initialData: undefined,
     queryKey: ["user", "theme"],
@@ -90,31 +95,34 @@ export function ThemeToggle({
           align={expanded ? "start" : "end"}
           className="w-[215px]"
         >
-          <DropdownMenuItem
-            onClick={() => {
-              setTheme("light")
-              removeColorTheme()
-            }}
-          >
+          <DropdownMenuItem onClick={() => setTheme("light")}>
             Светлая
           </DropdownMenuItem>
-          <DropdownMenuItem
-            onClick={() => {
-              setTheme("dark")
-              removeColorTheme()
-            }}
-          >
+          <DropdownMenuItem onClick={() => setTheme("dark")}>
             Темная
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           {userThemes?.map(theme => (
             <DropdownMenuItem
               key={theme.id}
-              onClick={() => setColorTheme(theme.id)}
+              onClick={() =>
+                colorThemeKey !== theme.key && setColorTheme(theme.id)
+              }
+              className="flex items-center justify-between gap-2"
             >
               {theme.name}
+
+              {theme.id === colorThemeIdLoading ? (
+                <Loader className="h-4 w-4 animate-spin" />
+              ) : null}
+              {!colorThemeIdLoading && colorThemeKey === theme.key ? (
+                <Check size={16} className="text-foreground/75" />
+              ) : null}
             </DropdownMenuItem>
           ))}
+          <DropdownMenuItem onClick={() => removeColorTheme()}>
+            Убрать цветовую тему
+          </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={() => {

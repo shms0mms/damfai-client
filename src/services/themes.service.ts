@@ -7,6 +7,7 @@ export class ThemeService {
     return await axiosDefault.get(`${this.BASE_URL}/all`)
   }
   async getById(id: number): Promise<Theme> {
+    await new Promise(res => setTimeout(res, 1000))
     return (await axiosDefault.get(`${this.BASE_URL}/${id}`)).data
   }
 
