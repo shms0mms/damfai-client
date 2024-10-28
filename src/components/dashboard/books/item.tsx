@@ -28,22 +28,24 @@ export function BookItem({
   return (
     <>
       {!!title ? (
-        <div className="flex items-center space-x-4">
-          {icon}
-          <div className="min-w-0 flex-1">
-            <h3 className="truncate text-sm font-medium">{title}</h3>
-            <p className="text-sm text-muted-foreground">{author}</p>
+        <div className="flex w-full items-center justify-between space-x-4">
+          <div className="flex w-1/2 items-center gap-2">
+            {icon}
+            <div className="min-w-0 flex-1">
+              <h3 className="truncate text-sm font-medium">{title}</h3>
+              <p className="text-sm text-muted-foreground">{author}</p>
+            </div>
           </div>
 
-          <div className="flex items-center space-x-2">
+          <div className="flex w-1/2 items-center justify-end space-x-2">
             {!!current_number_of_page && (
               <span className="whitespace-nowrap text-sm text-muted-foreground">
                 Страница: {current_number_of_page}
               </span>
             )}{" "}
             {(!!progress || progress == 0) && (
-              <div className="flex items-center space-x-2">
-                <Progress value={progress} className="w-24" />
+              <div className="flex w-full items-center justify-end space-x-2">
+                <Progress value={progress} className="w-[50%]" />
                 <span className="whitespace-nowrap text-sm text-muted-foreground">
                   {progress.toFixed(1)}%
                 </span>
@@ -55,7 +57,7 @@ export function BookItem({
           </div>
         </div>
       ) : (
-        isLoading && <Skeleton className="h-[20px] w-[200px]" />
+        isLoading && <Skeleton className="h-[20px] w-full" />
       )}
     </>
   )
