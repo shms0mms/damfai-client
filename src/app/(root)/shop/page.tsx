@@ -59,7 +59,7 @@ export default async function Shop() {
         </div>
       </section>
       <Separator className="max-md:hidden" />
-      <section className="container relative [mask-image:linear-gradient(to_top,transparent_40%,#000_100%)] before:absolute before:bottom-0 before:left-0 before:h-full before:w-full before:content-['']">
+      <section className="container relative [mask-image:linear-gradient(to_top,transparent_50%,#000_100%)] before:absolute before:bottom-0 before:left-0 before:h-full before:w-full before:content-['']">
         <div className="grid h-full w-full grid-cols-[repeat(auto-fill,_minmax(270px,_1fr))] gap-4 max-md:hidden">
           {merch?.length
             ? merch.map(e => <MarchCard key={e.id} {...e} />)

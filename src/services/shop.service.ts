@@ -17,32 +17,35 @@ class ShopService {
         id: 1,
         name: "Худи от самого чаппи",
         description: "Удобное худи для зимы",
-        imageUrl:
-          "https://avatars.mds.yandex.net/i?id=6bceac607dc4a847cb9e8c42911b89193fad6fd3-4077381-images-thumbs&n=13",
+        imageUrl: "/mock/merch/01.png",
         price: 10000
       },
       {
         id: 2,
         name: "Худи от самого чаппи",
         description: "Удобное худи для зимы",
-        imageUrl:
-          "https://avatars.mds.yandex.net/i?id=da2a3117ba5604f2fcb2a43aeed77097_l-8223286-images-thumbs&n=13",
+        imageUrl: "/mock/merch/02.png",
         price: 10000
       },
       {
         id: 3,
         name: "Худи от самого чаппи",
         description: "Удобное худи для зимы",
-        imageUrl:
-          "https://ae04.alicdn.com/kf/Sf39a5829fb1b4b14a9600e52f9d9b6dai.jpg_640x640.jpg",
+        imageUrl: "/mock/merch/03.png",
         price: 10000
       },
       {
         id: 4,
         name: "Худи от самого чаппи",
         description: "Удобное худи для зимы",
-        imageUrl:
-          "https://ae04.alicdn.com/kf/Sc710ee4bc1954bdb9481842014d2ec3ei.jpg",
+        imageUrl: "/mock/merch/04.png",
+        price: 10000
+      },
+      {
+        id: 5,
+        name: "Худи от самого чаппи",
+        description: "Удобное худи для зимы",
+        imageUrl: "/mock/merch/05.png",
         price: 10000
       }
     ])
