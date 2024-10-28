@@ -71,11 +71,7 @@ function ColorThemeProvider({ children }: React.PropsWithChildren) {
     colorThemeIdFromLocalStorage
   )
 
-  const {
-    data: colorTheme,
-    refetch: refetchColorTheme,
-    isLoading: isLoadingColorTheme
-  } = useQuery({
+  const { data: colorTheme, isLoading: isLoadingColorTheme } = useQuery({
     initialData: undefined,
     queryKey: ["theme", colorThemeId],
     queryFn: () => themeService.getById(colorThemeId),
@@ -98,10 +94,11 @@ function ColorThemeProvider({ children }: React.PropsWithChildren) {
   }
 
   const removeColorTheme = () => {
-    document.querySelector(`.styles-${colorThemeKey}`)
+    document.querySelector(`#styles-${colorThemeKey}`)?.remove()
     localStorage.removeItem("colorThemeId")
 
     setColorThemeKey(undefined)
+    setColorThemeId(-1)
   }
 
   // change color theme visualy

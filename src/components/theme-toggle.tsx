@@ -95,20 +95,10 @@ export function ThemeToggle({
           align={expanded ? "start" : "end"}
           className="w-[215px]"
         >
-          <DropdownMenuItem
-            onClick={() => {
-              setTheme("light")
-              removeColorTheme()
-            }}
-          >
+          <DropdownMenuItem onClick={() => setTheme("light")}>
             Светлая
           </DropdownMenuItem>
-          <DropdownMenuItem
-            onClick={() => {
-              setTheme("dark")
-              removeColorTheme()
-            }}
-          >
+          <DropdownMenuItem onClick={() => setTheme("dark")}>
             Темная
           </DropdownMenuItem>
           <DropdownMenuSeparator />
@@ -130,6 +120,9 @@ export function ThemeToggle({
               ) : null}
             </DropdownMenuItem>
           ))}
+          <DropdownMenuItem onClick={() => removeColorTheme()}>
+            Убрать цветовую тему
+          </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={() => {
