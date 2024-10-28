@@ -1,6 +1,6 @@
 "use client"
 
-import { useMutation, useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { ThemeProvider as NextThemesProvider } from "next-themes"
 import { type ThemeProviderProps } from "next-themes/dist/types"
 import { createContext, useContext, useEffect, useState } from "react"
@@ -18,10 +18,12 @@ type TCustomThemeContext = {
   isActive: boolean
 }
 
+type ColorThemeId = number
 type TColorThemeContext = {
-  colorTheme: string | undefined
+  colorThemeIdLoading: ColorThemeId | undefined
+  colorThemeKey: string | undefined
   removeColorTheme: () => void
-  setColorTheme: (colorThemeId: number) => void
+  setColorTheme: (colorThemeId: ColorThemeId) => void
 }
 
 export const CustomThemeContext = createContext<TCustomThemeContext>({
@@ -31,7 +33,8 @@ export const CustomThemeContext = createContext<TCustomThemeContext>({
 })
 
 export const ColorThemeContext = createContext<TColorThemeContext>({
-  colorTheme: undefined,
+  colorThemeIdLoading: undefined,
+  colorThemeKey: undefined,
   removeColorTheme: () => {},
   setColorTheme: () => {}
 })
@@ -47,6 +50,8 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
 }
 
 function ColorThemeProvider({ children }: React.PropsWithChildren) {
+  const queryClient = useQueryClient()
+
   const colorThemeIdFromLocalStorage =
     typeof localStorage === "undefined"
       ? -1
@@ -59,51 +64,65 @@ function ColorThemeProvider({ children }: React.PropsWithChildren) {
     enabled: colorThemeIdFromLocalStorage !== -1
   })
 
-  const colorThemeKey = userThemes?.find(
-    theme => theme.id === colorThemeIdFromLocalStorage
-  )?.key
-
-  const [colorTheme, _setColorTheme] = useState<string | undefined>(
-    colorThemeKey
+  const [colorThemeKey, setColorThemeKey] = useState<string | undefined>(
+    userThemes?.find(theme => theme.id === colorThemeIdFromLocalStorage)?.key
   )
+  const [colorThemeId, setColorThemeId] = useState<ColorThemeId>(
+    colorThemeIdFromLocalStorage
+  )
+
   const {
-    data,
-    mutate: getColorTheme,
-    isPending: isPendingTheme
-  } = useMutation({
-    mutationKey: ["theme", colorThemeKey],
-    mutationFn: (id: number) => themeService.getById(id)
+    data: colorTheme,
+    refetch: refetchColorTheme,
+    isLoading: isLoadingColorTheme
+  } = useQuery({
+    initialData: undefined,
+    queryKey: ["theme", colorThemeId],
+    queryFn: () => themeService.getById(colorThemeId),
+    enabled: colorThemeId !== -1
   })
 
   const setColorTheme = (colorThemeId: number) => {
-    _setColorTheme(colorTheme)
-    getColorTheme(colorThemeId)
+    const colorThemeKey = userThemes?.find(
+      theme => theme.id === colorThemeId
+    )?.key
+
+    setColorThemeKey(colorThemeKey)
+    setColorThemeId(colorThemeId)
+
+    queryClient.refetchQueries({
+      queryKey: ["theme", colorThemeId]
+    })
+
     localStorage.setItem("colorThemeId", `${colorThemeId}`)
   }
 
   const removeColorTheme = () => {
-    _setColorTheme(undefined)
+    document.querySelector(`.styles-${colorThemeKey}`)
     localStorage.removeItem("colorThemeId")
+
+    setColorThemeKey(undefined)
   }
 
   // change color theme visualy
   useEffect(() => {
-    console.log(data, isPendingTheme)
-    if (data && !isPendingTheme) {
-      document.documentElement.classList.add(data.key)
+    if (colorTheme && !isLoadingColorTheme) {
+      setColorThemeId(colorTheme.id)
+
+      document.documentElement.classList.add(colorTheme.key)
 
       const styles = document.createElement("style")
       styles.innerHTML = `
-:root.emerald {
-  ${Object.entries(data.light)
+:root.${colorTheme.key} {
+  ${Object.entries(colorTheme.light)
     .map(
       ([key, value]) => `
     --${key}: ${value};`
     )
     .join("")}
 }
-:root.dark.emerald { 
-  ${Object.entries(data.dark)
+:root.dark.${colorTheme.key} { 
+  ${Object.entries(colorTheme.dark)
     .map(
       ([key, value]) => `
     --${key}: ${value};`
@@ -111,14 +130,22 @@ function ColorThemeProvider({ children }: React.PropsWithChildren) {
     .join("")}
 }
       `
+      styles.id = `styles-${colorTheme.key}`
 
       document.head.appendChild(styles)
     }
-  }, [data, isPendingTheme])
+  }, [colorTheme, isLoadingColorTheme])
 
   return (
     <ColorThemeContext.Provider
-      value={{ colorTheme, removeColorTheme, setColorTheme }}
+      value={{
+        colorThemeIdLoading: isLoadingColorTheme
+          ? colorThemeIdFromLocalStorage
+          : undefined,
+        colorThemeKey,
+        removeColorTheme,
+        setColorTheme
+      }}
     >
       {children}
     </ColorThemeContext.Provider>
@@ -126,12 +153,12 @@ function ColorThemeProvider({ children }: React.PropsWithChildren) {
 }
 
 function CustomThemeProvider({ children }: React.PropsWithChildren) {
-  const { colorTheme } = useContext(ColorThemeContext)
+  const { colorThemeKey } = useContext(ColorThemeContext)
   const [variables, setVariables] = useState<
     CustomizeThemeFormSchema["variables"]
   >(typeof window === "undefined" ? [] : getCustomThemeVariables())
 
-  const isActive = !!(colorTheme === "custom" && variables.length)
+  const isActive = !!(colorThemeKey === "custom" && variables.length)
 
   return (
     <CustomThemeContext.Provider
