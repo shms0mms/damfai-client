@@ -3,9 +3,8 @@ import { authService } from "@/services/auth.service"
 
 export const useProfile = () => {
   return useQuery({
-    queryKey: ["/user/me"],
+    queryKey: ["user"],
     queryFn: () => authService.me(),
     retry: false
   })
 }
-

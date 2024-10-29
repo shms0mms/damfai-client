@@ -71,10 +71,12 @@ export default function AuthForm() {
     mutationFn: (data: UserSignUp) => authService.register(data),
     async onSuccess(data) {
       toast.success("Вы успешно зарегистрировались!")
+
       saveAccessToken(data.token)
       await queryClient.invalidateQueries({
-        queryKey: ["/user/me"]
+        queryKey: ["user"]
       })
+
       router.push(ROUTES.DASHBOARD)
     },
     onError(error) {

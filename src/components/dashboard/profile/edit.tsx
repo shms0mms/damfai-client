@@ -48,7 +48,7 @@ export function EditProfile() {
     onSuccess() {
       toast.success("Профиль успешно обновлен!")
       queryClient.invalidateQueries({
-        queryKey: ["/user/me"]
+        queryKey: ["user"]
       })
     },
     onError(error) {

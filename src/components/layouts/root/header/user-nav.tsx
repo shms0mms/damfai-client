@@ -26,13 +26,13 @@ import {
   TooltipProvider,
   TooltipTrigger
 } from "@/components/ui/tooltip"
-import { removeFromStorage } from "@/lib/auth"
+import { removeAccessTokenFromStorage } from "@/lib/auth"
 import { cn } from "@/lib/utils"
 
 export const UserNav = () => {
   const { user, isLoading } = useContext(AuthContext)
   const queryClient = useQueryClient()
-  const { push } = useRouter()
+  const router = useRouter()
 
   return !isLoading && user ? (
     <DropdownMenu>
@@ -88,11 +88,11 @@ export const UserNav = () => {
             onClick={async () => {
               localStorage.removeItem("read_time")
               localStorage.removeItem("last_read_book")
-              removeFromStorage()
-              push("/")
+              removeAccessTokenFromStorage()
               await queryClient.invalidateQueries({
-                queryKey: ["/user/me"]
+                queryKey: ["user"]
               })
+              router.push("/")
             }}
             className="hover:cursor-pointer"
           >

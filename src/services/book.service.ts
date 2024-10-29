@@ -63,11 +63,11 @@ class BookService {
       res(
         Array.from({ length: 10 }).map((_, i) => ({
           id: i + 1,
-          title: books[randomNumber(0, books.length - 1)!]!.title,
-          author: books[randomNumber(0, books.length - 1)!]!.author,
+          title: books[randomNumber(0, books.length - 1)]!.title,
+          author: books[randomNumber(0, books.length - 1)]!.author,
           writen_date: new Date(),
           chapters: randomNumber(0, 500),
-          desc: books[randomNumber(0, books.length - 1)!]!.body,
+          desc: books[randomNumber(0, books.length - 1)]!.body,
           ratings: Math.random() * 5,
           ganres: [
             {
