@@ -4,7 +4,7 @@ import { useParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { bookmarksService } from "@/services/bookmarks.service"
 
-export function Bookmark({ currentPage }: { currentPage: number }) {
+export function Bookmark({ currentPage }: { currentPage: number | undefined }) {
   const page = currentPage || 1
   const { data, refetch } = useQuery({
     queryKey: [`is_bookmark`, page],

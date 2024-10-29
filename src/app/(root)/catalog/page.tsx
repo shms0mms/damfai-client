@@ -26,7 +26,7 @@ export default async function CatalogPage({
           <Suspense
             fallback={
               <div className="grid min-h-[72.5vh] grid-cols-1 gap-2 min-[500px]:grid-cols-2 min-[700px]:grid-cols-3 2xl:grid-cols-4">
-                {new Array(20).fill(null).map((_, i) => (
+                {Array.from({ length: 20 }).map((_, i) => (
                   <Skeleton
                     key={i}
                     className="h-full w-auto max-sm:h-[30rem] min-[700px]:h-[30rem] md:h-96 md:w-auto xl:h-[36rem]"

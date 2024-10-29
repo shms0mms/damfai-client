@@ -1,4 +1,3 @@
-import { Theme } from "@/types/shop"
 import { Extension } from "@/components/ui/extension"
 import { InDevelopment } from "@/components/ui/in-dev"
 import { LetterPullup } from "@/components/ui/letter-pullup"

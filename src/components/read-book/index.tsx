@@ -39,7 +39,7 @@ export function ReadBook({ params, searchParams }: ReadBookPageProps) {
           defaultOpen
           onOpenChange={() => {
             router.push(
-              `/books/read/${params?.id}?page=${navigationProps.currentPage}&chapter=${navigationProps.currentChapter.id}`
+              `/books/read/${params.id}?page=${navigationProps.currentPage}&chapter=${navigationProps.currentChapter.id}`
             )
           }}
         >
@@ -71,26 +71,21 @@ export function ReadBook({ params, searchParams }: ReadBookPageProps) {
               >
                 <h2 className="mb-4 text-2xl font-semibold">
                   {
-                    readBookData?.chapters[
-                      navigationProps.currentChapter.id - 1
-                    ]?.title
+                    readBookData.chapters[navigationProps.currentChapter.id - 1]
+                      ?.title
                   }
                 </h2>
                 <p
                   className="mb-6 text-lg leading-relaxed"
                   dangerouslySetInnerHTML={{
-                    __html: readBookData?.page?.text?.replaceAll(
-                      "\n",
-                      "<br />"
-                    )!
+                    __html: readBookData.page.text.replaceAll("\n", "<br />")!
                   }}
                 />
                 <p className="text-sm text-muted-foreground">
                   Страница {navigationProps.currentPage} из{" "}
                   {
-                    readBookData?.chapters[
-                      navigationProps.currentChapter.id - 1
-                    ]?.pages
+                    readBookData.chapters[navigationProps.currentChapter.id - 1]
+                      ?.pages
                   }
                 </p>
               </motion.div>
@@ -98,8 +93,8 @@ export function ReadBook({ params, searchParams }: ReadBookPageProps) {
           </main>
 
           <ReadBookNavigation
-            {...navigationProps}
             readBookData={readBookData}
+            {...navigationProps}
           />
           <Menu
             currentChapter={navigationProps.currentChapter}

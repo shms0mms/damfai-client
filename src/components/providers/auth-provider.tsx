@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useEffect, useState } from "react"
+import { createContext, useEffect } from "react"
 import { User } from "@/types/user"
 import { useProfile } from "@/hooks/useProfile"
 import { getAccessToken } from "@/lib/auth"

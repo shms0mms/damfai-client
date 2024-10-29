@@ -123,7 +123,7 @@ export function usePass() {
   // Рисование самого point
   const drawNode = (
     ctx: CanvasRenderingContext2D,
-    { completed, size, y, x, type, title }: Reward
+    { completed, size, y, x, title }: Reward
   ) => {
     ctx.beginPath()
     let radius = 60

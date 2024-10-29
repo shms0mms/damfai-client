@@ -29,7 +29,7 @@ const formSchema = z.object({
 
 type FormSchema = z.infer<typeof formSchema>
 
-export const BookForm: FC<BookFormProps> = ({ book, className }) => {
+export const BookForm: FC<BookFormProps> = ({ book: _book, className }) => {
   const form = useForm<FormSchema>({
     defaultValues: {
       dates: {

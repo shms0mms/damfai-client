@@ -10,14 +10,7 @@ export interface FieldProps<T extends FieldValues = object>
   name: keyof T
   label?: string
 }
-export function Field<T extends FieldValues>({
-  name,
-  register,
-  error,
-  label,
-  placeholder,
-  ...inputProps
-}: FieldProps) {
+export function Field({ name, label, placeholder, ...inputProps }: FieldProps) {
   return (
     <div className="grid w-full max-w-sm items-center gap-1.5">
       {!!label && <Label htmlFor={name}>{label}</Label>}

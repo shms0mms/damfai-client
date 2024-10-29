@@ -3,7 +3,7 @@ import { Chapter, Page } from "@/types/book"
 import { ReadBookPageProps } from "@/app/(read-book)/books/read/[id]/page"
 import { bookService } from "@/services/book.service"
 
-type Props = {
+type UseReadBookData = {
   currentPage: number
 }
 export type ReadBookData =
@@ -18,7 +18,7 @@ export const useReadBookData = ({
   searchParams,
   params,
   currentPage
-}: ReadBookPageProps & Props) => {
+}: ReadBookPageProps & UseReadBookData) => {
   const response = useQuery({
     initialData: undefined,
     queryKey: ["read-book", +params.id],

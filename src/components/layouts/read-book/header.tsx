@@ -29,7 +29,7 @@ export const Header = ({ readBookData, setOpen, time }: Props) => {
           <div className="flex min-w-[100px] items-center gap-x-1">
             <span className="max-md:text-[0px]">Время чтения:</span> {time}
           </div>
-          <Bookmark currentPage={readBookData?.page?.id!} />
+          <Bookmark currentPage={readBookData?.page?.id} />
           <ThemeToggle />
         </div>
       </header>

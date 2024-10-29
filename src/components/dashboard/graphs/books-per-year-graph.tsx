@@ -37,8 +37,8 @@ export function BooksPerYearGraph() {
     количество: (year as RecordOf<number>)[month]! + 1
   }))
 
-  const total =
-    booksPerYear.reduce((sum, entry) => sum + entry.количество, 0) - 12
+  // const total =
+  //   booksPerYear.reduce((sum, entry) => sum + entry.количество, 0) - 12
   const filteredBooksPerYear = booksPerYear.filter(d => d.количество)
 
   return (

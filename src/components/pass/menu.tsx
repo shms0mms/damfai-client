@@ -82,12 +82,12 @@ export function ChappiPassMenu({
             <TabsContent className="flex flex-col gap-4" value="completed">
               {nodes
                 ?.filter(n => n.completed)
-                ?.map(node => <TableItem {...node} key={node.id} />)}
+                ?.map(node => <TableItem key={node.id} {...node} />)}
             </TabsContent>
             <TabsContent className="flex flex-col gap-4" value="incompleted">
               {nodes
                 ?.filter(n => !n.completed)
-                ?.map(node => <TableItem {...node} key={node.id} />)}
+                ?.map(node => <TableItem key={node.id} {...node} />)}
             </TabsContent>
           </Tabs>
         </div>

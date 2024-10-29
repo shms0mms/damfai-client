@@ -1,9 +1,8 @@
 "use client"
 
 import { useContext } from "react"
-import { ToCoins } from "@/components/ui/to-coins"
-import { AuthContext } from "../../providers/auth-provider"
-import { Button } from "../../ui/button"
+import { AuthContext } from "@/components/providers/auth-provider"
+import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
@@ -11,11 +10,13 @@ import {
   CardFooter,
   CardHeader,
   CardTitle
-} from "../../ui/card"
-import { LogoCircle } from "../../ui/logo-circle"
+} from "@/components/ui/card"
+import { LogoCircle } from "@/components/ui/logo-circle"
+import { ToCoins } from "@/components/ui/to-coins"
 
 export function BalanceCard() {
   const { user } = useContext(AuthContext)
+
   return (
     <Card className="max-xl:col-span-2">
       <CardHeader>
@@ -32,7 +33,7 @@ export function BalanceCard() {
           </Button>
           <span className="flex items-center gap-0.5 font-semibold">
             Коины:
-            <ToCoins balance={user?.balance!} />
+            <ToCoins balance={user!.balance!} />
           </span>
         </div>
       </CardContent>

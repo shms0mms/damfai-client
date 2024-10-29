@@ -21,9 +21,14 @@ import { extensionsService } from "@/services/extensions.service"
 
 export function Hotkeys() {
   const { hotkeys, setHotkeys } = useHotkeys()
-  const [isModalOpen, setIsModalOpen] = useState<string | undefined>()
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  const [hotkeyId, setHotkeyId] = useState<string | undefined>()
 
-  const handleSaveHotkey = (newHotkey: string, id: string) => {
+  const handleSaveHotkey = (
+    newHotkey: string | undefined,
+    id: string | undefined
+  ) => {
+    if (!newHotkey || !id) return
     setHotkeys(p => {
       const copy = [...p]
       copy.find(h => h.id === id)!.key = newHotkey
@@ -58,9 +63,12 @@ export function Hotkeys() {
                 {hotkeys.map(h => (
                   <li
                     key={h.id}
-                    onClick={() =>
-                      haveEx ? setIsModalOpen(h.id) : setOpenEx(true)
-                    }
+                    onClick={() => {
+                      if (haveEx) {
+                        setIsModalOpen(true)
+                        setHotkeyId(h.id)
+                      } else setOpenEx(true)
+                    }}
                     className="flex w-full cursor-pointer items-center justify-between gap-2 rounded-sm bg-muted/50 px-4 py-2"
                   >
                     <div className="w-full">{h.text}</div>
@@ -81,8 +89,12 @@ export function Hotkeys() {
         </DialogContent>
       </Dialog>
       <HotkeyModal
+        hotkeyId={hotkeyId}
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(undefined)}
+        onClose={() => {
+          setIsModalOpen(false)
+          setHotkeyId(undefined)
+        }}
         onSave={handleSaveHotkey}
       />
       <OnlyExtensionModal

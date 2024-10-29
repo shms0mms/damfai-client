@@ -91,7 +91,7 @@ export function AnimatedListDemo({ className }: { className?: string }) {
     >
       <AnimatedList>
         {notifications.map((item, idx) => (
-          <Notification {...item} key={idx} />
+          <Notification key={idx} {...item} />
         ))}
       </AnimatedList>
     </div>

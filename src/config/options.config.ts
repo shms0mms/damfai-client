@@ -1,5 +1,3 @@
-import { m } from "framer-motion"
-
 export const OPTIONS = {
   required: "Это поле обязательно",
   email: {

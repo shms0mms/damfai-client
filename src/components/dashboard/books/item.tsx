@@ -27,7 +27,7 @@ export function BookItem({
 
   return (
     <>
-      {!!title ? (
+      {title ? (
         <div className="flex w-full items-center justify-between space-x-4">
           <div className="flex w-1/2 items-center gap-2">
             {icon}

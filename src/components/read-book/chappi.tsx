@@ -1,13 +1,12 @@
 "use client"
 
-import { type DialogProps } from "@radix-ui/react-dialog"
 import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { LogoCircle } from "@/components/ui/logo-circle"
 import { ChappiChat } from "./chappi-chat"
 
-export function Chappi({}: DialogProps) {
+export function Chappi() {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {

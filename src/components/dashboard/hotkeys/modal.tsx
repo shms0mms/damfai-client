@@ -14,13 +14,19 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 type HotkeyModalProps = {
-  isOpen: string | undefined // id
+  hotkeyId: string | undefined
+  isOpen: boolean
   onClose: () => void
-  onSave: (hotkey: string, id: string) => void
+  onSave: (hotkey: string | undefined, id: string | undefined) => void
 }
 
-export function HotkeyModal({ isOpen, onClose, onSave }: HotkeyModalProps) {
-  const [hotkey, setHotkey] = useState(isOpen!)
+export function HotkeyModal({
+  hotkeyId,
+  isOpen,
+  onClose,
+  onSave
+}: HotkeyModalProps) {
+  const [hotkey, setHotkey] = useState(hotkeyId)
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -32,18 +38,18 @@ export function HotkeyModal({ isOpen, onClose, onSave }: HotkeyModalProps) {
       const newHotkey = `${ctrl}${alt}${shift}${key}`
       setHotkey(newHotkey)
     },
-    [isOpen]
+    [hotkeyId, isOpen]
   )
 
   useEffect(() => {
-    if (!!isOpen) window.addEventListener("keydown", handleKeyDown)
+    if (isOpen) window.addEventListener("keydown", handleKeyDown)
     return () => {
       window.removeEventListener("keydown", handleKeyDown)
     }
   }, [handleKeyDown, isOpen])
 
   const handleSave = () => {
-    onSave(hotkey, isOpen!)
+    onSave(hotkey, hotkeyId)
     onClose()
   }
 
