@@ -1,9 +1,9 @@
 import { MotionProps, motion } from "framer-motion"
 import { type FC, useMemo } from "react"
 import { useMediaQuery } from "usehooks-ts"
-import { CopyButton } from "@/components/ui/copy-button"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { randomNumber } from "@/lib/utils"
+import { CopyButton } from "../../components/ui/copy-button"
+import { ScrollArea } from "../../components/ui/scroll-area"
+import { randomNumber } from "../../lib/utils"
 
 type SummarizedTextProps = {
   isPending: boolean
@@ -49,7 +49,7 @@ export const SummarizedText: FC<SummarizedTextProps> = ({
           className="flex flex-col"
         >
           <ScrollArea className="h-72">
-            <p>{data.text}</p>
+            <p data-testid="summarized-text">{data.text}</p>
           </ScrollArea>
           <CopyButton text={data.text} />
         </motion.div>

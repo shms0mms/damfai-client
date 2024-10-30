@@ -4,12 +4,12 @@ import React from "react"
 import { describe, expect, it, vi } from "vitest"
 import { Button } from "../components/ui/button"
 
-describe("Button component", () => {
+describe("Button component testing", () => {
   it("calls onClick handler when clicked", () => {
     const handleClick = vi.fn()
     render(<Button onClick={handleClick}>Click me</Button>)
 
-    fireEvent.click(screen.getByRole("button")) // Убедитесь, что у вашей кнопки есть роль "button"
-    expect(handleClick).toHaveBeenCalledTimes(1)
+    fireEvent.click(screen.getByRole("button"))
+    expect(handleClick).toHaveBeenCalledTimes(1) // проверяем работу нажатия на кнопку
   })
 })
