@@ -20,12 +20,15 @@ export const SummarizedText: FC<SummarizedTextProps> = ({
     () =>
       (!isSmallDevice
         ? {
-            key: "summarized-text-big",
             initial: { opacity: 0, width: 0 },
             animate: { opacity: 1, width: 450 },
             exit: { opacity: 0, width: 0 }
           }
-        : { key: "summarized-text-small" }) satisfies MotionProps & {
+        : {
+            initial: { opacity: 0 },
+            animate: { opacity: 1 },
+            exit: { opacity: 0 }
+          }) as MotionProps & {
         key: string
       },
     [isSmallDevice]
@@ -38,11 +41,10 @@ export const SummarizedText: FC<SummarizedTextProps> = ({
       </h3>
       {isPending || !data ? (
         <ScrollArea className="h-72">
-          <SummarizeLoadingState {...motionProps} />
+          <SummarizeLoadingState />
         </ScrollArea>
       ) : (
         <motion.div
-          key="text"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -58,11 +60,11 @@ export const SummarizedText: FC<SummarizedTextProps> = ({
   )
 }
 
-type SummarizeLoadingState = MotionProps
+type SummarizeLoadingStateProps = MotionProps
 
-function SummarizeLoadingState(props: SummarizeLoadingState) {
+function SummarizeLoadingState(props: SummarizeLoadingStateProps) {
   return (
-    <motion.div key="loading" className="flex flex-wrap gap-2" {...props}>
+    <motion.div className="flex flex-wrap gap-2" {...props}>
       {Array.from({ length: 100 }).map((_, i) => (
         <motion.div
           className="h-4 animate-pulse rounded-full bg-muted"
@@ -72,8 +74,8 @@ function SummarizeLoadingState(props: SummarizeLoadingState) {
             width: randomNumber(40, 200),
             transition: { delay: 0.25 * i }
           }}
-          exit={{ opacity: 0, width: 0 }}
           key={i}
+          exit={{ opacity: 0, width: 0 }}
         ></motion.div>
       ))}
     </motion.div>

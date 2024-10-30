@@ -2,7 +2,7 @@ import type { NextRequest } from "next/server"
 import { NextResponse } from "next/server"
 import { ROUTES } from "./config/route.config"
 import { authService } from "./services/auth.service"
-import { getAccessToken, removeFromStorage } from "@/lib/auth.server"
+import { getAccessToken } from "@/lib/auth.server"
 
 const protectedRoutes = [ROUTES.DASHBOARD, "/books/read/"]
 const preventLoggedInRoutes = ["/auth/sign-in", "/auth/sign-up"]
@@ -15,7 +15,7 @@ export async function middleware(req: NextRequest) {
     const user = await authService.me()
     if (user) isAuthorized = true
   } catch {
-    removeFromStorage()
+    // removeFromStorage()
   }
 
   if (

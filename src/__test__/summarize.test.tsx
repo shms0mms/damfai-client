@@ -1,7 +1,6 @@
 import "@testing-library/dom"
-import { fireEvent, render, screen } from "@testing-library/react"
-import React from "react"
-import { describe, expect, it, vi } from "vitest"
+import { render, screen } from "@testing-library/react"
+import { describe, expect, it } from "vitest"
 import { SummarizedText } from "../components/prettify/summarized-text"
 
 describe("Summarize component testing", () => {
