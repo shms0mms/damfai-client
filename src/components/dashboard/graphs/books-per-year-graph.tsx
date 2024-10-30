@@ -9,6 +9,7 @@ import {
   ChartTooltipContent
 } from "@/components/ui/chart"
 import { GraphFallback } from "./graph-fallback"
+import { translateMonths } from "@/lib/translate"
 import { analyticsService } from "@/services/analytics.service"
 import { RecordOf } from "@/types"
 
@@ -25,37 +26,39 @@ const chartConfig = {
 } satisfies ChartConfig
 
 export function BooksPerYearGraph() {
-  const { data: _data } = useQuery({
+  const { data } = useQuery({
     queryFn: () => analyticsService.getGraphBooksPerYear(),
-    queryKey: ["/graph/books-per-year"]
+    queryKey: ["/graph/books-per-year"],
+    select: data => data.data
   })
-  const year = _data?.data ? _data?.data : {}
-  const data = Object.keys(year).map(month => ({
-    month: month.slice(0, 3),
+  const year = data ?? {}
+  const booksPerYear = Object.keys(year).map(month => ({
+    month: translateMonths[month as keyof typeof translateMonths].slice(0, 4),
     количество: (year as RecordOf<number>)[month]! + 1
   }))
 
-  const total = data.reduce((sum, entry) => sum + entry.количество, 0) - 12
-  const filteredData = data.filter(d => d.количество)
+  // const total =
+  //   booksPerYear.reduce((sum, entry) => sum + entry.количество, 0) - 12
+  const filteredBooksPerYear = booksPerYear.filter(d => d.количество)
 
   return (
     <>
-      {data.every(d => !d.количество) ? (
+      {booksPerYear.every(d => !d.количество) ? (
         <GraphFallback />
       ) : (
         <ChartContainer config={chartConfig}>
           <PieChart className="sm:min-width-[320px] min-h-[380px]">
             <Pie
-              data={filteredData}
+              data={filteredBooksPerYear}
               cx="50%"
               cy="50%"
               labelLine={false}
               outerRadius={150}
               fill="#8884d8"
               dataKey="количество"
-              label={({ month, value }) => `${month} ${value - 1}`}
+              label={({ month }) => month}
             >
-              {data.map((entry, index) => (
+              {booksPerYear.map((_, index) => (
                 <Cell
                   key={`cell-${index}`}
                   fill={COLORS[index % COLORS.length]}
@@ -64,7 +67,7 @@ export function BooksPerYearGraph() {
             </Pie>
             <ChartTooltip
               formatter={(количество, month) => [
-                `${filteredData[+month!]?.month} ${+количество - 1} книг`
+                `${filteredBooksPerYear[+month!]?.month} ${+количество - 1} книг`
               ]}
               content={<ChartTooltipContent />}
             />

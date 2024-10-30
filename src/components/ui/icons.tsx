@@ -39,7 +39,7 @@ export const Icons = {
       />
     </svg>
   ),
-  arrowDown: (props: {}) => (
+  arrowDown: () => (
     <svg
       width={20}
       height={24}

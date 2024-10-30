@@ -1,7 +1,6 @@
 "use client"
 
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons"
-import { useQuery } from "@tanstack/react-query"
 import { Check, Loader, Lock } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useContext, useState } from "react"
@@ -26,7 +25,6 @@ import {
 import { AuthContext } from "./providers/auth-provider"
 import { ColorThemeContext } from "./providers/theme-provider"
 import { cn } from "@/lib/utils"
-import { themeService } from "@/services/themes.service"
 
 type ThemeToggleProps = {
   expanded?: boolean

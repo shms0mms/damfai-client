@@ -32,8 +32,7 @@ export function Menu({
   readBookData,
   open,
   setOpen,
-  currentChapter,
-  handleChapterChange
+  currentChapter
 }: MenuProps) {
   const { id: bookId } = useParams()
   return (

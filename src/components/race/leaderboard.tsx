@@ -61,7 +61,7 @@ export const LeaderBoard = async () => {
           <TableCell className="p-4">{userPlace.points}</TableCell>
           <TableCell className="p-4 text-right">{userPlace.reward}</TableCell>
         </TableRow>
-        {leaderboard.map((leader, index) => (
+        {leaderboard.map(leader => (
           <TableRow key={leader.id}>
             <TableCell className="p-4">{leader.place}</TableCell>
             <TableCell className="p-4">{leader.name}</TableCell>

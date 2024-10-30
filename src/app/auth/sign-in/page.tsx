@@ -52,8 +52,9 @@ export default function AuthForm() {
 
       saveAccessToken(data?.token)
       await queryClient.invalidateQueries({
-        queryKey: ["/user/me"]
+        queryKey: ["user"]
       })
+
       push(ROUTES.DASHBOARD)
     },
     onError(error) {

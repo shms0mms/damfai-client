@@ -1,6 +1,5 @@
 "use client"
 
-import { AxiosResponse } from "axios"
 import { useTheme } from "next-themes"
 import { Extension, Theme } from "@/types/shop"
 import { Skeleton } from "@/components/ui/skeleton"

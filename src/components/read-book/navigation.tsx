@@ -19,7 +19,7 @@ import { readBookService } from "@/services/read-book.service"
 type ReadBookNavigationProps = {
   currentChapter: Chapter
   currentPage: number
-  readBookData: ReadBookData
+  readBookData: NonNullable<ReadBookData>
   readTime: number
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>
 }
@@ -64,8 +64,7 @@ export const ReadBookNavigation: FC<ReadBookNavigationProps> = ({
     }
   }
   const handleNextPage = () => {
-    // Здесь надо получить как-то последнюю numberOfPage в главе
-
+    // Getting last numberOfPage in chapter
     if (currentPage < currentChapter.lastNumberOfPage) {
       const page = currentPage + 1
       setCurrentPage(page)
@@ -85,7 +84,7 @@ export const ReadBookNavigation: FC<ReadBookNavigationProps> = ({
         `/books/read/${params?.id}?page=${page}&chapter=${currentChapter.id}`
       )
     } else if (
-      currentChapter.numberOfChapter < readBookData?.chapters?.length!
+      currentChapter.numberOfChapter < readBookData?.chapters?.length
     ) {
       setCurrentPage(currentPage + 1)
 

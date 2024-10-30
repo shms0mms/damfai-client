@@ -23,11 +23,11 @@ export function TabItem<TBook extends Book | Bookmark | Favourite>({
       {books?.length ? (
         books?.map(book => (
           <BookItem
+            key={book.id}
             {...(book as BookmarkComponent &
               FavouriteComponent &
               BookComponent)}
             icon={icon}
-            key={book.id}
           />
         ))
       ) : isLoading ? (

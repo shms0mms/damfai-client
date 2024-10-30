@@ -1,8 +1,7 @@
 "use client"
 
-import { AnimatePresence, motion } from "framer-motion"
-import Image from "next/image"
-import React, { useEffect, useRef, useState } from "react"
+import { motion } from "framer-motion"
+import { useState } from "react"
 import { cn } from "@/lib/utils"
 
 type Card = {

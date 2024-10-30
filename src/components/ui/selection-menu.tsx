@@ -59,7 +59,7 @@ export function SelectionMenuTrigger({
     const selection = window.getSelection()
     if (selection && selection.toString().length > 0) {
       const range = selection.getRangeAt(0)
-      const rect = range.getBoundingClientRect()
+      // const rect = range.getBoundingClientRect()
       const span = document.createElement("span")
       range.insertNode(span)
       setReferenceElement(span)
@@ -70,13 +70,15 @@ export function SelectionMenuTrigger({
     }
   }, [setIsOpen, setReferenceElement])
 
+  const handleClick = () => setIsOpen(false)
+
   useEffect(() => {
     document.addEventListener("selectionchange", handleTextSelection)
-    document.addEventListener("mousedown", () => setIsOpen(false))
+    document.addEventListener("mousedown", handleClick)
 
     return () => {
       document.removeEventListener("selectionchange", handleTextSelection)
-      document.removeEventListener("mousedown", () => setIsOpen(false))
+      document.removeEventListener("mousedown", handleClick)
     }
   }, [handleTextSelection, setIsOpen])
 

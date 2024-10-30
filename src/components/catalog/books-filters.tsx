@@ -134,12 +134,14 @@ function BooksFiltersComponent() {
       <div className="flex flex-col gap-4">
         {booksFilters && !isLoading
           ? booksFilters.map(renderFilter)
-          : new Array(4).fill(null).map((_, i) => (
-              <div key={i} className="flex flex-col gap-[0.725rem]">
-                <Skeleton className="h-4 w-14" />
-                <Skeleton className="h-[2.3rem] w-full" />
-              </div>
-            ))}
+          : Array.from({ length: 4 })
+              .fill(null)
+              .map((_, i) => (
+                <div key={i} className="flex flex-col gap-[0.725rem]">
+                  <Skeleton className="h-4 w-14" />
+                  <Skeleton className="h-[2.3rem] w-full" />
+                </div>
+              ))}
         <Button onClick={onSubmit} className="mt-4 w-full">
           Применить
         </Button>

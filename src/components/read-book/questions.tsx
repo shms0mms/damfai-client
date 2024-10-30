@@ -18,28 +18,6 @@ import { Label } from "../ui/label"
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group"
 import { cn, randomNumber } from "@/lib/utils"
 
-const data = [
-  {
-    answer: "a",
-    options: {
-      a: "Князь Мышь",
-      b: "Князь Олег",
-      c: "Князь Кирилл"
-    },
-    question: "Кто главный герой?"
-  },
-
-  {
-    answer: "b",
-    options: {
-      a: "Грустный",
-      b: "Веселый",
-      c: "Супер грустный"
-    },
-    question: "Какой был конец?"
-  }
-]
-
 const formSchema = z.object({
   answers: z.array(
     z.object({
@@ -78,17 +56,19 @@ export function Questions() {
     }
   })
   const { id } = useParams<{ id: string }>()
-  const [questions, setQuestions] = useState<Question[]>([])
   const { message } = useGenerateQuestions(+id, questionsCount)
+
+  const [questions, setQuestions] = useState<Question[]>([])
+
   useEffect(() => {
-    console.log(message)
     if (message?.length) {
       setQuestions(prev => [...prev, ...message])
     }
   }, [message?.length])
+
   const isQuestionsGenerating = questionsCount != questions?.length
 
-  const onSubmit = (data: FormSchema) => {
+  const onSubmit = (_data: FormSchema) => {
     // TODO: save on backend (for race)
   }
   return (
@@ -105,9 +85,9 @@ export function Questions() {
                   name="answers"
                   control={form.control}
                   key={i}
-                  render={({ field }) => {
+                  render={() => {
                     return (
-                      <FormItem className={""}>
+                      <FormItem>
                         <FormLabel>{question.question}</FormLabel>
                         <RadioGroup
                           value={
@@ -141,6 +121,7 @@ export function Questions() {
 
                               return (
                                 <div
+                                  key={key}
                                   className={cn(
                                     "flex items-center gap-2 rounded-md p-1",
                                     {
@@ -186,10 +167,11 @@ export function Questions() {
         </>
       ) : (
         <div className="flex h-full w-full flex-col gap-5">
-          {new Array(3).fill(0).map(() => (
-            <div className="flex w-full flex-col gap-2">
-              {new Array(randomNumber(2, 4)).fill(0).map(() => (
+          {Array.from({ length: 3 }).map((_, i) => (
+            <div key={i} className="flex w-full flex-col gap-2">
+              {Array({ length: randomNumber(2, 4) }).map((_, j) => (
                 <Skeleton
+                  key={j}
                   className="h-9"
                   style={{
                     width: randomNumber(100, 250)
@@ -203,69 +185,3 @@ export function Questions() {
     </div>
   )
 }
-
-{
-  /* {questions
-  .filter((item, index, arr) => arr.indexOf(item) === index)
-  .map(question => {
-    return (
-      <>
-        <motion.li key={question.question} variants={itemVariants}>
-          <Label className="font-normal opacity-60">
-            {question.question}
-          </Label>
-        </motion.li>
-        <motion.div
-          variants={variants}
-          initial="closed"
-          animate="open"
-        >
-          <RadioGroup>
-            {Object.keys(question.options).map((key, k) => {
-              const isCorrectAnswer = answers.find(
-                i => i.answer == key
-              )
-              const isUseAnswer = !!answers.find(
-                a => a.id == question.question
-              )
-              return (
-                <motion.div
-                  key={k}
-                  variants={itemVariants}
-                  className={`flex w-full cursor-pointer items-center gap-5 rounded-md p-3 ${isChecking && isCorrectAnswer ? "bg-muted" : isChecking && !isCorrectAnswer && isUseAnswer ? "border border-red-400" : "bg-foreground/5"}`}
-                >
-                  <RadioGroupItem
-                    value={key}
-                    key={k}
-                  ></RadioGroupItem>
-                  <Label>{question.options[key]}</Label>
-                </motion.div>
-              )
-            })}
-          </RadioGroup>
-        </motion.div>
-      </>
-    )
-  })} */
-}
-
-// setAnswers(p => {
-//   const copy = structuredClone(p)
-//   if (
-//     copy.findIndex(
-//       c => c.id === question.question
-//     ) === -1
-//   )
-//     copy.push({
-//       answer: key,
-//       id: question.question
-//     })
-//   else {
-//     const index = copy.findIndex(
-//       c => c.id === question.question
-//     )
-//     // copy.splice(index, 1)
-//     copy[index]!.answer = key
-//   }
-//   return copy
-// })

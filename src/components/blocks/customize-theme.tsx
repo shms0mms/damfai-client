@@ -1,7 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import hslToHex from "hsl-to-hex"
 import { Pipette } from "lucide-react"
-import { useTheme } from "next-themes"
 import { type FC, useContext } from "react"
 import { HexColorPicker } from "react-colorful"
 import { useFieldArray, useForm } from "react-hook-form"
