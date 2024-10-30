@@ -33,7 +33,7 @@ export function BalanceCard() {
           </Button>
           <span className="flex items-center gap-0.5 font-semibold">
             Коины:
-            <ToCoins balance={user!.balance!} />
+            {user ? <ToCoins balance={user.balance ?? 0} /> : null}
           </span>
         </div>
       </CardContent>
