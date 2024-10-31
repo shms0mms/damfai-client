@@ -1,8 +1,8 @@
 "use client"
 
 import { AnimatePresence, motion } from "framer-motion"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { useAddMinutesPerDay } from "@/hooks/useAddMinutesPerDay"
 import { useReadBook } from "@/hooks/useReadBook"
 import { Header } from "@/components/layouts/read-book/header"
 import { Chappi } from "@/components/read-book/chappi"
@@ -10,6 +10,7 @@ import { Menu } from "@/components/read-book/menu"
 import { ReadBookNavigation } from "@/components/read-book/navigation"
 import { Questions } from "@/components/read-book/questions"
 import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog"
+import { Button } from "../ui/button"
 import { ReadBookPageProps } from "@/app/(read-book)/books/read/[id]/page"
 
 // DONE: Questions answers - 2
@@ -24,6 +25,7 @@ export function ReadBook({ params, searchParams }: ReadBookPageProps) {
     open,
     setOpen,
     navigation,
+    error,
     ...navigationProps
   } = useReadBook({
     params,
@@ -31,8 +33,7 @@ export function ReadBook({ params, searchParams }: ReadBookPageProps) {
   })
   const startGenerateQuestions = searchParams?.questions === "generate"
 
-  useAddMinutesPerDay()
-  return (
+  return error?.response?.status !== 403 ? (
     <>
       {startGenerateQuestions ? (
         <Dialog
@@ -108,5 +109,16 @@ export function ReadBook({ params, searchParams }: ReadBookPageProps) {
         </div>
       ) : null}
     </>
+  ) : (
+    <div className="flex h-full w-full flex-col items-center justify-center gap-5">
+      <h1 className="text-7xl font-semibold text-muted">403</h1>
+      <p className="max-w-[20rem] text-center text-muted-foreground">
+        Начните читать данную книгу, для получения доступа к данной странице по
+        кнопке ниже
+      </p>
+      <Button type="button" asChild>
+        <Link href={`/books/${params.id}`}>Перейти к чтению книги</Link>
+      </Button>
+    </div>
   )
 }

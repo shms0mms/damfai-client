@@ -40,7 +40,7 @@ const formSchema = z.object({
 })
 type FormSchema = z.infer<typeof formSchema>
 export function EditProfile() {
-  const { user } = useContext(AuthContext)
+  const ctx = useContext(AuthContext)
   const form = useForm<FormSchema>({})
   const queryClient = useQueryClient()
   const { mutate } = useMutation({
@@ -68,7 +68,7 @@ export function EditProfile() {
           <FormField
             control={form.control}
             name="email"
-            defaultValue={user?.email}
+            defaultValue={ctx?.user?.email}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Почта</FormLabel>
@@ -82,7 +82,7 @@ export function EditProfile() {
           <FormField
             control={form.control}
             name="name"
-            defaultValue={user?.name}
+            defaultValue={ctx?.user?.name}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Имя</FormLabel>
@@ -96,7 +96,7 @@ export function EditProfile() {
           <FormField
             control={form.control}
             name="surname"
-            defaultValue={user?.surname}
+            defaultValue={ctx?.user?.surname}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Фамилия</FormLabel>

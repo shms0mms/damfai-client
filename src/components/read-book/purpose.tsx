@@ -101,7 +101,6 @@ export function Purpose({
                     type="number"
                     {...field}
                     onChange={e => field.onChange(+e.target.value)}
-                    min={1}
                   />
                 </FormControl>
                 <FormMessage />
@@ -120,7 +119,6 @@ export function Purpose({
                     type="number"
                     {...field}
                     onChange={e => field.onChange(Number(e.target.value))}
-                    min={1}
                   />
                 </FormControl>
                 <FormMessage />

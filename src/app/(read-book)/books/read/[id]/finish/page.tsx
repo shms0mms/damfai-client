@@ -45,7 +45,7 @@ export default function FinishBookPage({
     queryKey: ["book", id],
     queryFn: () => bookService.getById(+id)
   })
-  const { user } = useContext(AuthContext)
+  const ctx = useContext(AuthContext)
 
   const date = useMemo(() => new Date().toLocaleDateString("ru-RU"), [])
   const isLoading = isBookLoading || isFinishLoading
@@ -84,7 +84,7 @@ export default function FinishBookPage({
                   Настоящим подтверждается, что
                 </p>
                 <h2 className="text-3xl font-bold text-primary">
-                  {user?.name} {user?.surname}
+                  {ctx?.user?.name} {ctx?.user?.surname}
                 </h2>
               </div>
 

@@ -27,9 +27,9 @@ import {
 import { cn } from "@/lib/utils"
 
 export const UserNav = () => {
-  const { user, isLoading, logout } = useContext(AuthContext)
+  const ctx = useContext(AuthContext)
 
-  return !isLoading && user ? (
+  return !ctx?.isLoading && ctx?.user ? (
     <DropdownMenu>
       <TooltipProvider disableHoverableContent>
         <Tooltip delayDuration={100}>
@@ -41,7 +41,7 @@ export const UserNav = () => {
               >
                 <Avatar className="h-8 w-8">
                   <AvatarFallback>
-                    {user?.name?.slice(0, 2)?.toUpperCase()}
+                    {ctx?.user?.name?.slice(0, 2)?.toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
                 <span className="sr-only">Открыть ваше меню</span>
@@ -59,9 +59,11 @@ export const UserNav = () => {
       >
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{user.name}</p>
+            <p className="text-sm font-medium leading-none">
+              {ctx?.user?.name}
+            </p>
             <p className="text-xs leading-none text-muted-foreground">
-              {user.email}
+              {ctx?.user?.email}
             </p>
           </div>
         </DropdownMenuLabel>
@@ -81,7 +83,7 @@ export const UserNav = () => {
         <DropdownMenuGroup>
           <DropdownMenuItem
             onClick={async () => {
-              await logout()
+              await ctx?.logout()
             }}
             className="hover:cursor-pointer"
           >

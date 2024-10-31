@@ -12,7 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 
 export function Profile() {
-  const { user, isLoading } = useContext(AuthContext)
+  const ctx = useContext(AuthContext)
   const { data, isLoading: isLoadingGanre } = useFavouriteGanres()
   const ganre = data?.data
 
@@ -33,18 +33,18 @@ export function Profile() {
         </Avatar>
         <div className="flex flex-col items-center gap-2 text-center">
           <h2 className="text-xl font-bold">
-            {user?.name ||
-              (isLoading && <Skeleton className="h-[20px] w-[100px]" />)}
+            {ctx?.user?.name ||
+              (ctx?.isLoading && <Skeleton className="h-[20px] w-[100px]" />)}
           </h2>
           <div className="text-sm text-muted-foreground">
-            {user?.email ||
-              (isLoading && <Skeleton className="h-[20px] w-[200px]" />)}
+            {ctx?.user?.email ||
+              (ctx?.isLoading && <Skeleton className="h-[20px] w-[200px]" />)}
           </div>
           <div className="text-sm text-muted-foreground">
             На сайте с:{" "}
-            {user?.created_at
-              ? new Date(user?.created_at)?.toLocaleDateString?.()
-              : isLoading && <Skeleton className="h-[20px] w-[200px]" />}
+            {ctx?.user?.created_at
+              ? new Date(ctx?.user?.created_at)?.toLocaleDateString?.()
+              : ctx?.isLoading && <Skeleton className="h-[20px] w-[200px]" />}
           </div>
           <div className="text-sm text-muted-foreground">
             Любимый жанр:{" "}

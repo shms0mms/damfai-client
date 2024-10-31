@@ -35,8 +35,8 @@ export function ThemeToggle({
   iconSize = 16,
   expanded = false
 }: ThemeToggleProps) {
-  const { user } = useContext(AuthContext)
-  const haveCustomThemeExtension = !!user?.extensions?.find(
+  const ctx = useContext(AuthContext)
+  const haveCustomThemeExtension = !!ctx?.user?.extensions?.find(
     e => e.slug === "custom-theme"
   )
 

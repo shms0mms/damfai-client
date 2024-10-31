@@ -32,33 +32,35 @@ export function BookList({ books: data }: BookListProps) {
                               ? `/books/read/${b.id}`
                               : `/books/${b.id}`
                           return (
-                            <Link
-                              href={href}
-                              key={b.id}
-                              className="flex min-w-[160px] flex-col gap-2"
-                            >
-                              <img
-                                src={imageUrl}
-                                alt={b.title}
-                                width={220}
-                                className="max-h-[280px] min-h-[280px] rounded-md"
-                              />
-                              <h3 className="text-muted-foreground">
-                                {b.author}
-                              </h3>
-                              <h4 className="text-sm">{b.title}</h4>
-                              {(b?.progress || b?.progress == 0) && (
-                                <div className="flex flex-col gap-1">
-                                  <p className="text-xs">
-                                    Прогресс {b.progress}%
-                                  </p>
-                                  <Progress value={b.progress} />
-                                </div>
-                              )}
-                              <div className="flex items-center justify-between gap-5">
+                            <article>
+                              <Link
+                                href={href}
+                                key={b.id}
+                                className="flex min-w-[160px] flex-col gap-2"
+                              >
+                                <img
+                                  src={imageUrl}
+                                  alt={b.title}
+                                  width={220}
+                                  className="max-h-[280px] min-h-[280px] rounded-md"
+                                />
+                                <h3 className="text-muted-foreground">
+                                  {b.author}
+                                </h3>
+                                <h4 className="text-sm">{b.title}</h4>
+                                {(b?.progress || b?.progress == 0) && (
+                                  <div className="flex flex-col gap-1">
+                                    <p className="text-xs">
+                                      Прогресс {b.progress}%
+                                    </p>
+                                    <Progress value={b.progress} />
+                                  </div>
+                                )}
+                              </Link>
+                              <div className="mt-2 flex items-center justify-between gap-5">
                                 <FavouriteButton book_id={b.id} />
                               </div>
-                            </Link>
+                            </article>
                           )
                         })
                       : null}

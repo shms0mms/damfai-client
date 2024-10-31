@@ -1,15 +1,15 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { add } from "date-fns"
 import { type FC } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { type Book as TBook } from "@/types/book"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
+import { Checkbox } from "@/components/ui/checkbox"
 import {
   Form,
+  FormControl,
   FormDescription,
   FormField,
   FormItem,
@@ -18,47 +18,67 @@ import {
 } from "@/components/ui/form"
 import { cn } from "@/lib/utils"
 
-type BookFormProps = {
-  book: TBook
-  className?: string
-}
-
 const formSchema = z.object({
-  dates: z.object({ from: z.date(), to: z.date() })
+  target_of_date: z.date(),
+  withTarget: z.boolean().default(false).optional()
 })
 
-type FormSchema = z.infer<typeof formSchema>
+export type FormSchema = z.infer<typeof formSchema>
+type BookFormProps = {
+  className?: string
+  onSubmit: (data: FormSchema) => void
+  canToggleChecking?: boolean
+}
 
-export const BookForm: FC<BookFormProps> = ({ book: _book, className }) => {
+export const BookForm: FC<BookFormProps> = ({
+  className,
+  onSubmit,
+  canToggleChecking
+}) => {
   const form = useForm<FormSchema>({
-    defaultValues: {
-      dates: {
-        from: new Date(),
-        to: add(new Date(), {
-          days: 7
-        })
-      }
-    },
-    resolver: zodResolver(formSchema)
+    resolver: zodResolver(formSchema),
+    defaultValues: { target_of_date: new Date(), withTarget: true }
   })
+  const withTarget = form.getValues("withTarget")
 
-  const onSubmit = (data: FormSchema) => {
-    console.log(data)
+  const onSubmitFunc = (data: FormSchema) => {
+    onSubmit?.(data)
   }
+
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit(onSubmitFunc)}
         className={cn("flex flex-col gap-8", className)}
       >
+        {canToggleChecking && (
+          <FormField
+            control={form.control}
+            name="withTarget"
+            render={({ field }) => (
+              <FormItem className="flex items-center gap-2 space-y-0">
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <FormLabel>Поставить цель</FormLabel>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        )}
         <FormField
           control={form.control}
-          name="dates"
+          name="target_of_date"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Сроки для прочтения книги</FormLabel>
+              <FormLabel>
+                Выберите дату в которую хотите прочитать книгу
+              </FormLabel>
               <Calendar
-                mode="range"
+                mode="single"
                 selected={field.value}
                 onSelect={field.onChange}
                 className="w-auto"
@@ -78,14 +98,18 @@ export const BookForm: FC<BookFormProps> = ({ book: _book, className }) => {
                 }}
               />
               <FormDescription>
-                Сроки в которые вы хотите прочитать эту книгу, мы будем Вам
+                Выберите дату в которую хотите прочитать книгу, мы будем Вам
                 напоминать об этом
               </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button className="mt-full w-full">Начать читать книгу</Button>
+        <Button className="mt-full w-full">
+          {withTarget
+            ? "Начать читать с целью"
+            : "Начать читать в своё удовольствие"}
+        </Button>
       </form>
     </Form>
   )

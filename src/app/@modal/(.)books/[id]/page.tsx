@@ -1,4 +1,4 @@
-import { PurposeForm } from "@/components/books/purpose-form"
+import { PurposeForm } from "@/components/books/set-target-form"
 import { Modal } from "@/components/modal"
 import { bookService } from "@/services/book.service"
 
@@ -9,15 +9,15 @@ export default async function BookModalPage({ params }: BookModalPageProps) {
 
   return (
     <Modal
-      title={book.title}
-      description={book.desc}
+      title={book?.title}
+      description={book?.desc}
       classNames={{
         content: "px-4 flex flex-col mb-4",
         description: "max-w-lg overflow-hidden truncate",
         header: "px-0"
       }}
     >
-      <PurposeForm params={params} />
+      <PurposeForm book={book!} params={params} />
     </Modal>
   )
 }

@@ -1,4 +1,4 @@
-import { SetPurpose } from "@/components/books/book-form/set-purpose"
+import { PurposeForm } from "@/components/books/set-target-form"
 import {
   Card,
   CardContent,
@@ -35,7 +35,7 @@ export default async function BookPage({ params }: BookPageProps) {
           />
         </CardHeader>
         <CardContent className="pl-5">
-          <SetPurpose id={+params.id} />
+          <PurposeForm book={book!} params={params} />
         </CardContent>
       </div>
       <div className="flex justify-end">

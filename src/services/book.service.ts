@@ -100,10 +100,11 @@ class BookService {
     chapterId: number
     page: number
     size: number
+    id_book: number
   }) {
     const response = (
       await axiosWithAuth.get<Page>(
-        `${this.BASE_URL}/get_pages_by_chapter/${options.chapterId}?page=${options.page}&size=1`
+        `${this.BASE_URL}/get_pages_by_chapter/${options.chapterId}?page=${options.page}&size=1&id_book=${options.id_book}`
       )
     ).data
 

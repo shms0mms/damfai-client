@@ -20,7 +20,7 @@ import {
   SheetHeader,
   SheetTitle
 } from "@/components/ui/sheet"
-import { Purpose, PurposeFormData } from "./purpose"
+import { BookForm, FormSchema } from "../books/book-form"
 import { cn } from "@/lib/utils"
 import { readBookService } from "@/services/read-book.service"
 
@@ -43,8 +43,8 @@ export function Menu({
     queryFn: () => readBookService.getTarget(+bookId!)
   })
   const { mutate } = useMutation({
-    mutationFn: (data: PurposeFormData) =>
-      readBookService.makeTargetBook(+bookId!, data.minDays, data.maxDays),
+    mutationFn: (data: FormSchema) =>
+      readBookService.updateTarget(+bookId!, data),
     onSuccess: async () => {
       toast.success("Вы успешно сменили цель чтения!")
       await refetch()
@@ -90,13 +90,10 @@ export function Menu({
                 : null}
             </SelectContent>
           </Select> */}
-          <Purpose
-            type="edit"
-            submitCallback={data => {
+          <BookForm
+            onSubmit={(data: FormSchema) => {
               mutate(data)
             }}
-            initialMinDays={data?.min_days}
-            initialMaxDays={data?.max_days}
           />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

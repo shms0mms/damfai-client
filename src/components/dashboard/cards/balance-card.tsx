@@ -15,7 +15,7 @@ import { LogoCircle } from "@/components/ui/logo-circle"
 import { ToCoins } from "@/components/ui/to-coins"
 
 export function BalanceCard() {
-  const { user } = useContext(AuthContext)
+  const ctx = useContext(AuthContext)
 
   return (
     <Card className="max-xl:col-span-2">
@@ -33,7 +33,7 @@ export function BalanceCard() {
           </Button>
           <span className="flex items-center gap-0.5 font-semibold">
             Коины:
-            {user ? <ToCoins balance={user.balance ?? 0} /> : null}
+            {ctx?.user ? <ToCoins balance={ctx?.user?.balance ?? 0} /> : null}
           </span>
         </div>
       </CardContent>

@@ -22,6 +22,7 @@ export const useReadBookData = ({
   const response = useQuery({
     initialData: undefined,
     queryKey: ["read-book", +params.id],
+    retry: false,
     queryFn: async () => {
       const chaptersResponse = await bookService.getAllChapters(+params.id)
 
@@ -35,7 +36,8 @@ export const useReadBookData = ({
           ? +searchParams.chapter
           : currentChapter.id,
         page: currentPage,
-        size: 1
+        size: 1,
+        id_book: +params.id
       })
 
       const data = {

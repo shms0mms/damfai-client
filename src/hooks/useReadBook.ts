@@ -19,12 +19,14 @@ export function useReadBook({ params, searchParams }: ReadBookPageProps) {
   const {
     data: readBookData,
     refetch,
-    isLoading
+    isLoading,
+    error
   } = useReadBookData({
     currentPage,
     params,
     searchParams
   })
+
   const currentChapter = useCurrentChapter(readBookData, searchParams)
 
   const timeString = `${padStart(secondsToHours(readTime))}:${padStart(secondsToMinutes(readTime))}:${padStart(readTime > 59 ? readTime - 60 * secondsToMinutes(readTime) : readTime)}`
@@ -74,6 +76,7 @@ export function useReadBook({ params, searchParams }: ReadBookPageProps) {
     isLoading,
     open,
     setOpen,
+    error,
     navigation: {
       handleChapterChange
     }
