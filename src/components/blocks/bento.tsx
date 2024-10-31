@@ -36,7 +36,7 @@ export const books = [
   }
 ]
 
-const features = [
+export const features = [
   {
     Icon: FileTextIcon,
     name: "Большой список книг",

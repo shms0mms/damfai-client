@@ -1,98 +1,82 @@
 import Link from "next/link"
+import { ReactNode } from "react"
 import type { Book } from "@/types/book"
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious
-} from "@/components/ui/carousel"
-import { Rating } from "@/components/ui/rating"
+import { Progress } from "../ui/progress"
 import { FavouriteButton } from "./favourite-button"
 import { env } from "@/env"
-import { cn } from "@/lib/utils"
 
 type BookListProps = {
-  books: Book[]
+  books: { title: string; books: Book[]; block?: ReactNode }[]
 }
 
-export function BookList({ books }: BookListProps) {
-  const bookGanres = Array.from(new Set(books.map(book => book.ganres).flat()))
-  const ganreAndBook: Record<string, Book[]> = {}
-  bookGanres.forEach(ganre => {
-    ganreAndBook[ganre.ganre] = books.filter(book =>
-      book.ganres.includes(ganre)
-    )
-  })
-  const keys = Object.keys(ganreAndBook)
-
+export function BookList({ books: data }: BookListProps) {
   return (
-    <div className="flex flex-col justify-between sm:container">
-      <ul className="flex flex-col gap-4">
-        {keys?.length
-          ? keys.map(ganre => {
-              const books = ganreAndBook[ganre]!
-              return (
-                <li className="h-full w-full" key={ganre}>
-                  <h2 className="mb-2 text-3xl font-semibold">{ganre}</h2>
-                  <Carousel>
-                    <CarouselContent className="mx-4 py-2">
-                      {books?.length
-                        ? books.map((book, i) => (
-                            <CarouselItem
-                              className={cn(
-                                "basis-[16rem] rounded-lg px-3 py-8 shadow-md",
-                                {
-                                  "max-sm:pl-0": i === 0
-                                }
-                              )}
-                              key={book.id}
+    <div className="">
+      <div className="flex flex-col gap-[100px]">
+        {data.map(d => {
+          const books = d.books
+
+          return (
+            !!books?.length && (
+              <div className="flex flex-col gap-[100px]" key={d.title}>
+                <section className="container">
+                  <h2 className="mb-2 text-xl font-semibold">{d.title}</h2>
+                  <div className="flex h-full gap-2 overflow-x-auto py-2">
+                    {books?.length
+                      ? books.map(b => {
+                          const imageUrl = b.image
+                            ? b.image
+                            : `${env.NEXT_PUBLIC_SERVER_URL}/books/img/${b.id}`
+                          const href =
+                            b.progress || b.progress == 0
+                              ? `/books/read/${b.id}`
+                              : `/books/${b.id}`
+                          return (
+                            <article
+                              key={b.id}
+                              className="flex min-w-[160px] flex-col gap-2"
                             >
-                              <Link
-                                className="flex h-full flex-col gap-2"
-                                href={`/books/${book.id}`}
-                              >
-                                <img
-                                  className="overflow-hidden rounded-md"
-                                  src={
-                                    book.image
-                                      ? book.image
-                                      : `${env.NEXT_PUBLIC_SERVER_URL}/books/img/${book.id}`
-                                  }
-                                  alt={book.title}
-                                  width={220}
-                                  height={300}
-                                />
-                                <div className="flex items-center justify-between">
-                                  <h3 className="overflow-hidden text-ellipsis whitespace-nowrap text-lg font-semibold sm:text-xl">
-                                    {book.title}
-                                  </h3>
-                                </div>
-                                <div className="flex justify-between">
-                                  <p className="text-foreground/75">
-                                    {book.author}
+                              <img
+                                src={imageUrl}
+                                alt={b.title}
+                                width={220}
+                                className="max-h-[280px] min-h-[280px] rounded-md"
+                              />
+                              <h3 className="text-muted-foreground">
+                                {b.author}
+                              </h3>
+                              <h4 className="text-sm">{b.title}</h4>
+                              {(b?.progress || b?.progress == 0) && (
+                                <div className="flex flex-col gap-1">
+                                  <p className="text-xs">
+                                    Прогресс {b.progress}%
                                   </p>
+                                  <Progress value={b.progress} />
                                 </div>
-                                <Rating
-                                  rating={4.5}
-                                  showText={false}
-                                  disabled
-                                  size={10}
-                                />
-                              </Link>
-                              <FavouriteButton book={book} />
-                            </CarouselItem>
-                          ))
-                        : null}
-                    </CarouselContent>
-                    <CarouselNext className="hidden sm:inline-flex" />
-                    <CarouselPrevious className="hidden sm:inline-flex" />
-                  </Carousel>
-                </li>
-              )
-            })
-          : null}
-      </ul>
+                              )}{" "}
+                              <div className="flex items-center justify-between gap-5">
+                                <Link
+                                  href={href}
+                                  className="text-xs text-blue-500 underline"
+                                >
+                                  Подробнее
+                                </Link>{" "}
+                                <FavouriteButton book_id={b.id} />
+                              </div>
+                            </article>
+                          )
+                        })
+                      : null}
+                  </div>
+                </section>
+                {d?.block && (
+                  <section className="h-full w-full">{d.block}</section>
+                )}
+              </div>
+            )
+          )
+        })}
+      </div>
     </div>
   )
 }
