@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { type FC } from "react"
 import { useForm } from "react-hook-form"
-import { Button } from "@/components/ui/button"
+import { Button } from "../../components/ui/button"
 import {
   Form,
   FormControl,
@@ -10,17 +10,17 @@ import {
   FormItem,
   FormLabel,
   FormMessage
-} from "@/components/ui/form"
+} from "../../components/ui/form"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue
-} from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
-import { SummarizeFormSchema, summarizeFormSchema } from "@/lib/schemas"
-import { cn } from "@/lib/utils"
+} from "../../components/ui/select"
+import { Textarea } from "../../components/ui/textarea"
+import { SummarizeFormSchema, summarizeFormSchema } from "../../lib/schemas"
+import { cn } from "../../lib/utils"
 
 type SummarizeFormProps = {
   onSubmit: (data: SummarizeFormSchema) => void
@@ -91,7 +91,9 @@ export const SummarizeForm: FC<SummarizeFormProps> = ({
             </FormItem>
           )}
         />
-        <Button>Суммаризировать</Button>
+        <Button type="submit" data-testid="button">
+          Суммаризировать
+        </Button>
       </form>
     </Form>
   )

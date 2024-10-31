@@ -1,61 +1,41 @@
 "use client"
 
+import { useMutation } from "@tanstack/react-query"
 import { AnimatePresence, motion } from "framer-motion"
-import {
-  Angry,
-  Check,
-  Frown,
-  Heart,
-  LucideProps,
-  Meh,
-  Smile,
-  X
-} from "lucide-react"
-import {
-  type ForwardRefExoticComponent,
-  createElement,
-  useEffect,
-  useState
-} from "react"
+import { Check, X } from "lucide-react"
+import { createElement, useEffect, useState } from "react"
 import { toast } from "sonner"
+import { EmoteEnum, moodIcons } from "@/types/book"
 import { Button } from "@/components/ui/button"
-
-type MoodText =
-  | "Счастливый"
-  | "Грустный"
-  | "Нейтральный"
-  | "Влюбленный"
-  | "Сердитый"
-
-type Mood = "happy" | "sad" | "neutral" | "lover" | "angry"
+import { emotesBooksService } from "@/services/emotes-books.service"
 
 interface MoodTrackerProps {
-  onMoodSelected?: (mood: Mood) => void
+  onMoodSelected?: (mood: EmoteEnum) => void
   delayBeforeShow?: number
 }
-type Moods = Record<
-  Mood,
-  {
-    icon: ForwardRefExoticComponent<LucideProps>
-    color: string
-    text: MoodText
-  }
->
-const moodIcons = {
-  happy: { icon: Smile, color: "text-yellow-500", text: "Счастливый" },
-  sad: { icon: Frown, color: "text-blue-500", text: "Грустный" },
-  neutral: { icon: Meh, color: "text-gray-500", text: "Нейтральный" },
-  lover: { icon: Heart, color: "text-red-500", text: "Влюбленный" },
-  angry: { icon: Angry, color: "text-orange-500", text: "Сердитый" }
-} satisfies Moods
 
 export function MoodTracker({
   onMoodSelected,
-  delayBeforeShow = 5000
+  delayBeforeShow: delayBeforeShowProp = 5000
 }: MoodTrackerProps) {
   const [showMoodTracker, setShowMoodTracker] = useState(false)
   const [showCheckmark, setShowCheckmark] = useState(false)
+  const { mutate, isPending } = useMutation({
+    mutationFn: (emote: EmoteEnum) => emotesBooksService.saveEmote(emote),
+    onSuccess: (data: { emote: EmoteEnum }) => {
+      setShowCheckmark(true)
+      setTimeout(() => {
+        setShowCheckmark(false)
+        setShowMoodTracker(false)
+        onMoodSelected?.(data.emote)
 
+        toast.success(
+          `Ваше настроение "${moodIcons[data.emote].text}" сохранено!`
+        )
+      }, 1000)
+    }
+  })
+  const delayBeforeShow = delayBeforeShowProp || 1000
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowMoodTracker(true)
@@ -63,16 +43,6 @@ export function MoodTracker({
 
     return () => clearTimeout(timer)
   }, [delayBeforeShow])
-
-  const handleMoodSelection = (mood: Mood, text: MoodText) => {
-    setShowCheckmark(true)
-
-    setTimeout(() => {
-      setShowMoodTracker(false)
-      onMoodSelected?.(mood)
-      toast.success(`Ваше настроение "${text}" сохранено!`)
-    }, 1500)
-  }
 
   return (
     <AnimatePresence>
@@ -93,14 +63,12 @@ export function MoodTracker({
                 </button>
               </h3>
               <div className="flex justify-between">
-                {(Object.keys(moodIcons) as Mood[]).map(mood => (
+                {(Object.keys(moodIcons) as EmoteEnum[]).map(mood => (
                   <Button
                     key={mood}
                     variant="ghost"
                     size="icon"
-                    onClick={() =>
-                      handleMoodSelection(mood, moodIcons[mood].text)
-                    }
+                    onClick={() => mutate(mood)}
                   >
                     {createElement(moodIcons[mood].icon, {
                       className: `h-6 w-6 ${moodIcons[mood].color}`
