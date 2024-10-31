@@ -5,6 +5,7 @@ export const useUserThemes = () => {
   return useQuery({
     initialData: undefined,
     queryKey: ["user", "themes"],
-    queryFn: themeService.getUserThemes
+    queryFn: themeService.getUserThemes,
+    retry: false
   })
 }

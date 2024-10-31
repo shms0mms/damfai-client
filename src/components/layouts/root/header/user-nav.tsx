@@ -1,9 +1,7 @@
 "use client"
 
-import { useQueryClient } from "@tanstack/react-query"
 import { LogOut, UserIcon } from "lucide-react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
 import { useContext } from "react"
 import { ROUTES } from "@/config/route.config"
 import { AuthContext } from "@/components/providers/auth-provider"
@@ -26,13 +24,10 @@ import {
   TooltipProvider,
   TooltipTrigger
 } from "@/components/ui/tooltip"
-import { removeAccessTokenFromStorage } from "@/lib/auth"
 import { cn } from "@/lib/utils"
 
 export const UserNav = () => {
-  const { user, isLoading } = useContext(AuthContext)
-  const queryClient = useQueryClient()
-  const router = useRouter()
+  const { user, isLoading, logout } = useContext(AuthContext)
 
   return !isLoading && user ? (
     <DropdownMenu>
@@ -86,13 +81,7 @@ export const UserNav = () => {
         <DropdownMenuGroup>
           <DropdownMenuItem
             onClick={async () => {
-              localStorage.removeItem("read_time")
-              localStorage.removeItem("last_read_book")
-              removeAccessTokenFromStorage()
-              await queryClient.invalidateQueries({
-                queryKey: ["user"]
-              })
-              router.push("/")
+              await logout()
             }}
             className="hover:cursor-pointer"
           >

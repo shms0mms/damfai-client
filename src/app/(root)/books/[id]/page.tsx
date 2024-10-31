@@ -1,4 +1,4 @@
-import { Purpose } from "@/components/read-book/purpose"
+import { SetPurpose } from "@/components/books/book-form/set-purpose"
 import {
   Card,
   CardContent,
@@ -20,37 +20,32 @@ export default async function BookPage({ params }: BookPageProps) {
       <div className="grid h-full grid-cols-1 md:grid-rows-[10rem_1fr]">
         <CardHeader className="relative mb-8 pl-5">
           <CardTitle className="max-w-[14rem] overflow-hidden truncate">
-            {book.title}
+            {book?.title}
           </CardTitle>
-          <p className="-mb-1 text-foreground/95">{book.author}</p>
+          <p className="-mb-1 text-foreground/95">{book?.author}</p>
           <CardDescription className="max-w-full overflow-hidden truncate">
-            {book.desc}
+            {book?.desc}
           </CardDescription>
           <Rating
             className="absolute right-0 top-3"
-            rating={book.ratings}
+            rating={book?.ratings! || 0}
             disabled
             showText={false}
             variant="yellow"
           />
         </CardHeader>
         <CardContent className="pl-5">
-          {/* <BookForm book={book} className="mt-auto" /> */}
-          <Purpose
-            canToggleChecking
-            className="flex h-full flex-col justify-end"
-            type="set"
-          />
+          <SetPurpose id={+params.id} />
         </CardContent>
       </div>
       <div className="flex justify-end">
         <img
           src={
-            book.image
-              ? book.image
-              : `${env.NEXT_PUBLIC_SERVER_URL}/books/img/${book.id}`
+            book?.image
+              ? book?.image
+              : `${env.NEXT_PUBLIC_SERVER_URL}/books/img/${book?.id}`
           }
-          alt={book.title}
+          alt={book?.title}
           className={"overflow-hidden rounded-lg"}
         />
       </div>

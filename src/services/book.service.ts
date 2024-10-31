@@ -54,8 +54,15 @@ class BookService {
     return response.map(r => r.ganre)
   }
   async getById(id: number) {
-    return (await axiosDefault.get<Book>(`${this.BASE_URL}/get/book/${id}`))
-      .data
+    try {
+      const data = (
+        await axiosDefault.get<Book>(`${this.BASE_URL}/get/book/${id}`)
+      ).data
+
+      return data
+    } catch {
+      return null
+    }
   }
 
   async getUserBooks() {

@@ -2,7 +2,6 @@ import { Book } from "@/types/book"
 import { features } from "@/components/blocks/bento"
 import { BookList } from "@/components/books"
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid"
-import { VelocityScroll } from "@/components/ui/scroll-based-velocity"
 import { bookService } from "@/services/book.service"
 import { emotesBooksService } from "@/services/emotes-books.service"
 import { recommendationsService } from "@/services/recommendations.service"
@@ -28,14 +27,7 @@ export default async function BooksPage() {
   const mainBooks = [
     {
       title: "Вы не дочитали",
-      books: userBooks,
-      block: (
-        <VelocityScroll
-          text="DamfAI Chappi"
-          default_velocity={2}
-          className="font-display text-center text-5xl font-bold tracking-[-0.02em] text-black opacity-10 drop-shadow-sm dark:text-white"
-        />
-      )
+      books: userBooks
     },
     {
       title: "Книги по эмоциям",

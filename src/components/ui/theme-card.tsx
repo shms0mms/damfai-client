@@ -28,7 +28,7 @@ import {
   AlertDialogTrigger
 } from "./alert-dialog"
 import { ToCoins } from "./to-coins"
-import { themeService } from "@/services/themes.service"
+import { shopService } from "@/services/shop.service"
 
 type ThemeCardProps = {
   theme: Theme
@@ -49,12 +49,19 @@ const themeExampleColorsLabels: Record<string, string> = {
 
 export function ThemeCard({ theme }: ThemeCardProps) {
   const { mutate: buyTheme } = useMutation({
-    mutationFn: themeService.addThemeToUser,
+    mutationFn: shopService.buyTheme,
     onSuccess: () => {
       toast.success(`${theme.name} успешно куплена`)
     },
-    onError: () => {
-      toast.error(`${theme.name} не удалось купить. Повторите позже.`)
+    onError: err => {
+      const statusCode = err.response?.status
+
+      if (statusCode === 400)
+        toast.error(`${theme.name} не удалось купить. Недостаточно средств.`)
+      else if (statusCode === 403)
+        toast.error(`${theme.name} не удалось купить. Войдите в аккаунт.`)
+      else
+        toast.error(`${theme.name} не удалось купить. Повторите попытку позже.`)
     }
   })
 

@@ -9,7 +9,7 @@ import { ThemeCard } from "@/components/ui/theme-card"
 import { shopService } from "@/services/shop.service"
 
 export default async function Shop() {
-  const { data: extensions } = await shopService.getExtensions()
+  const extensions = await shopService.getExtensions()
   const themes = await shopService.getThemes()
   const merch = await shopService.getMockMerch()
   const title = "mb-7 text-5xl font-bold"

@@ -38,7 +38,8 @@ export function Hotkeys() {
   const [openEx, setOpenEx] = useState(false)
   const { data } = useQuery({
     queryKey: ["/extensions/user"],
-    queryFn: () => extensionsService.getUserExtensions()
+    queryFn: () => extensionsService.getUserExtensions(),
+    retry: false
   })
   const haveEx = data?.data?.find((e: Extension) => e.slug === "hotkeys")
   return (

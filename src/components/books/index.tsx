@@ -32,7 +32,8 @@ export function BookList({ books: data }: BookListProps) {
                               ? `/books/read/${b.id}`
                               : `/books/${b.id}`
                           return (
-                            <article
+                            <Link
+                              href={href}
                               key={b.id}
                               className="flex min-w-[160px] flex-col gap-2"
                             >
@@ -53,17 +54,11 @@ export function BookList({ books: data }: BookListProps) {
                                   </p>
                                   <Progress value={b.progress} />
                                 </div>
-                              )}{" "}
+                              )}
                               <div className="flex items-center justify-between gap-5">
-                                <Link
-                                  href={href}
-                                  className="text-xs text-blue-500 underline"
-                                >
-                                  Подробнее
-                                </Link>{" "}
                                 <FavouriteButton book_id={b.id} />
                               </div>
-                            </article>
+                            </Link>
                           )
                         })
                       : null}

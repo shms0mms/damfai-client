@@ -1,16 +1,24 @@
 import type { Merch } from "@/types/shop"
+import { axiosWithAuth } from "@/api/interceptors"
 import { extensionsService } from "./extensions.service"
 import { themeService } from "./themes.service"
 
 class ShopService {
+  private BASE_URL = "/shop"
+
   async getExtensions() {
     try {
       return await extensionsService.getAll()
     } catch {
-      return { data: [] }
+      return []
     }
   }
-
+  async buyTheme(theme_id: number) {
+    return (await axiosWithAuth.get(`shop/buy/user/themes/${theme_id}`)).data
+  }
+  async sellTheme(theme_id: number) {
+    return (await axiosWithAuth.get(`shop/sell/user/themes/${theme_id}`)).data
+  }
   getMockMerch() {
     return Promise.resolve<Merch[]>([
       {

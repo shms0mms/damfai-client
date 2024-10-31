@@ -14,7 +14,8 @@ export function ExtensionDetail({ extension }: { extension: Extension }) {
   const { isAuth } = useContext(AuthContext)
   const { data, refetch } = useQuery({
     queryKey: ["/extensions/user"],
-    queryFn: () => extensionsService.getUserExtensions()
+    queryFn: () => extensionsService.getUserExtensions(),
+    retry: false
   })
   const { mutate } = useMutation({
     mutationFn: (extensionId: number) =>
@@ -47,10 +48,12 @@ export function ExtensionDetail({ extension }: { extension: Extension }) {
         </div>,
         {
           position: "top-center",
-          className: "w-[60px] left-1/2 -translate-x-1/2",
-          duration: 5000
+          className: "w-[60px] left-1/2 -translate-x-1/2"
         }
       )
+    },
+    onError() {
+      toast.error("Произшошла ошибка, повторите позже!")
     }
   })
   const inCollection = !!data?.data?.find(

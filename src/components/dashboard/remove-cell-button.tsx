@@ -7,7 +7,7 @@ import { toast } from "sonner"
 import { ConfirmationModal } from "@/components/ui/confirmation-modal"
 import { TableCell } from "@/components/ui/table"
 import { extensionsService } from "@/services/extensions.service"
-import { themeService } from "@/services/themes.service"
+import { shopService } from "@/services/shop.service"
 
 export function RemoveCellButton({
   refetch,
@@ -25,7 +25,7 @@ export function RemoveCellButton({
       if (is === "extension") {
         await extensionsService.removeExtensionFromUser(id)
       } else {
-        await themeService.removeThemeFromUser(id)
+        await shopService.sellTheme(id)
       }
     },
     onSuccess: () => {

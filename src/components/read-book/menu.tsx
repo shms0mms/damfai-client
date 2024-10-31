@@ -1,7 +1,9 @@
 "use client"
 
+import { useMutation, useQuery } from "@tanstack/react-query"
 import Link from "next/link"
 import { useParams } from "next/navigation"
+import { toast } from "sonner"
 import { Chapter } from "@/types/book"
 import { ReadBookData } from "@/hooks/useReadBookData"
 import { Button } from "@/components/ui/button"
@@ -18,8 +20,9 @@ import {
   SheetHeader,
   SheetTitle
 } from "@/components/ui/sheet"
-import { Purpose } from "./purpose"
+import { Purpose, PurposeFormData } from "./purpose"
 import { cn } from "@/lib/utils"
+import { readBookService } from "@/services/read-book.service"
 
 type MenuProps = {
   open: boolean
@@ -35,6 +38,22 @@ export function Menu({
   currentChapter
 }: MenuProps) {
   const { id: bookId } = useParams()
+  const { data, refetch } = useQuery({
+    queryKey: ["purpose", bookId],
+    queryFn: () => readBookService.getTarget(+bookId!)
+  })
+  const { mutate } = useMutation({
+    mutationFn: (data: PurposeFormData) =>
+      readBookService.makeTargetBook(+bookId!, data.minDays, data.maxDays),
+    onSuccess: async () => {
+      toast.success("Вы успешно сменили цель чтения!")
+      await refetch()
+    },
+    onError: () => {
+      toast.error("Произошла ошибка, повторите попытку позже!")
+    }
+  })
+
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetContent
@@ -71,7 +90,14 @@ export function Menu({
                 : null}
             </SelectContent>
           </Select> */}
-          <Purpose type="edit" />
+          <Purpose
+            type="edit"
+            submitCallback={data => {
+              mutate(data)
+            }}
+            initialMinDays={data?.min_days}
+            initialMaxDays={data?.max_days}
+          />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button

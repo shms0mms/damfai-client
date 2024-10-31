@@ -13,7 +13,8 @@ export function TablesCard() {
   } = useQuery({
     queryKey: ["/extensions/user"],
     queryFn: () => extensionsService.getUserExtensions(),
-    select: data => data.data
+    select: data => data.data,
+    retry: false
   })
   const {
     data: themes,
@@ -21,7 +22,8 @@ export function TablesCard() {
     refetch: refetchThemes
   } = useQuery({
     queryKey: ["/themes/user"],
-    queryFn: () => themeService.getUserThemes()
+    queryFn: () => themeService.getUserThemes(),
+    retry: false
   })
   return (
     <>

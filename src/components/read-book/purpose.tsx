@@ -35,7 +35,7 @@ export type PurposeFormData = z.infer<typeof purposeSchema>
 
 type PurposeProps = {
   type: "set" | "edit"
-  onSubmit?: (data: PurposeFormData) => void
+  submitCallback?: (data: PurposeFormData) => void
   initialMinDays?: number
   initialMaxDays?: number
   className?: string
@@ -44,7 +44,7 @@ type PurposeProps = {
 
 export function Purpose({
   type,
-  onSubmit,
+  submitCallback,
   initialMinDays = 1,
   initialMaxDays = 7,
   className,
@@ -60,7 +60,7 @@ export function Purpose({
   })
 
   const handleSubmit = (data: PurposeFormData) => {
-    onSubmit?.(data)
+    submitCallback && submitCallback(data)
   }
   const isChecking = form.getValues("isChecking")
 

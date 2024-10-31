@@ -4,15 +4,17 @@ import { useQuery } from "@tanstack/react-query"
 import { Lock } from "lucide-react"
 import { useEffect } from "react"
 import { toast } from "sonner"
+import { Extension } from "@/types/shop"
 import { Hotkey } from "./useHotkeys"
 import { extensionsService } from "@/services/extensions.service"
 
 export const useHotkeysActions = async (hotkeys: Hotkey[]) => {
   const { data } = useQuery({
     queryKey: ["/extensions/user"],
-    queryFn: () => extensionsService.getUserExtensions()
+    queryFn: () => extensionsService.getUserExtensions(),
+    retry: false
   })
-  const haveExtension = data?.data?.find(e => e.slug === "hotkeys")
+  const haveExtension = data?.data?.find((e: Extension) => e.slug === "hotkeys")
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const keydownKey = event.key
