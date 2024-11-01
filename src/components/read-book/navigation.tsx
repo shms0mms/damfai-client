@@ -89,7 +89,7 @@ export const ReadBookNavigation: FC<ReadBookNavigationProps> = ({
         book_id: +params.id,
         page: page,
         chapter_id: currentChapter.id,
-        time_minutes: minutes
+        time_minutes: secondsToMinutes(readTime) || 0
       })
       router.push(
         `/books/read/${params?.id}?page=${page}&chapter=${currentChapter.id}`
@@ -98,7 +98,7 @@ export const ReadBookNavigation: FC<ReadBookNavigationProps> = ({
       currentChapter.numberOfChapter < readBookData?.chapters?.length
     ) {
       setCurrentPage(currentPage + 1)
-      const minutes = secondsToMinutes(readTime) || 1
+      const minutes = secondsToMinutes(readTime) || 0
       finishPage({
         book_id: +params.id,
         page: currentPage + 1,

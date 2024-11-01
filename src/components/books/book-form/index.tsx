@@ -28,16 +28,23 @@ type BookFormProps = {
   className?: string
   onSubmit: (data: FormSchema) => void
   canToggleChecking?: boolean
+  initialTargetOfDate?: Date
 }
 
 export const BookForm: FC<BookFormProps> = ({
   className,
   onSubmit,
-  canToggleChecking
+  canToggleChecking,
+  initialTargetOfDate
 }) => {
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
-    defaultValues: { target_of_date: new Date(), withTarget: true }
+    defaultValues: {
+      target_of_date: initialTargetOfDate
+        ? new Date(initialTargetOfDate)
+        : new Date(),
+      withTarget: true
+    }
   })
   const withTarget = form.getValues("withTarget")
 
@@ -107,7 +114,7 @@ export const BookForm: FC<BookFormProps> = ({
         />
         <Button className="mt-full w-full">
           {withTarget
-            ? "Начать читать с целью"
+            ? "Начать читать с этой целью"
             : "Начать читать в своё удовольствие"}
         </Button>
       </form>

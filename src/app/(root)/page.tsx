@@ -6,7 +6,6 @@ import Balance from "react-wrap-balancer"
 import { siteConfig } from "@/config/site.config"
 import { BentoDemo } from "@/components/blocks/bento"
 import { FeaturesSection } from "@/components/blocks/features-section"
-import { MoodTracker } from "@/components/layouts/root/mood-tracker"
 import { AuthContext } from "@/components/providers/auth-provider"
 import { Button } from "@/components/ui/button"
 import { FlipWords } from "@/components/ui/flip-words"
@@ -68,7 +67,6 @@ export default function HomePage() {
             src={"/dashboard.jpeg"}
             className="md:!pt-20"
           />
-          {isAuth && <MoodTracker />}
         </div>
       )
     },

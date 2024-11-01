@@ -50,7 +50,7 @@ export function useReadBook({ params, searchParams }: ReadBookPageProps) {
       setReadTime(prev => prev + 1)
     }, 1000)
     return () => clearInterval(interval)
-  }, [])
+  }, [currentPage, currentChapter?.id])
 
   useEffect(() => {
     if (currentChapter?.id && currentPage && readBookData?.title) {
