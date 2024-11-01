@@ -55,7 +55,7 @@ export function useReadBook({ params, searchParams }: ReadBookPageProps) {
   useEffect(() => {
     if (currentChapter?.id && currentPage && readBookData?.title) {
       localStorage.setItem(
-        "last_read_book",
+        "lastReadBook",
         JSON.stringify({
           title: readBookData?.title,
           id: params.id,

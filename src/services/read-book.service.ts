@@ -19,41 +19,41 @@ export class ReadBookService {
     return await axiosWithAuth.get<Book[]>(`${this.BASE_URL}/reading_books`)
   }
 
-  async startRead(book_id: number, data?: FormSchema) {
+  async startRead(bookId: number, data?: FormSchema) {
     const searchParams = data
-      ? `?target_of_date=${this.toFormatDate(data.target_of_date)}`
+      ? `?target_of_date=${this.toFormatDate(data.targetOfDate)}`
       : ""
     return (
       await axiosWithAuth.post(
-        `${this.BASE_URL}/start_to_read/${book_id}${searchParams}`
+        `${this.BASE_URL}/start_to_read/${bookId}${searchParams}`
       )
     ).data
   }
 
-  async updateTarget(book_id: number, data: FormSchema) {
+  async updateTarget(bookId: number, data: FormSchema) {
     return (
       await axiosWithAuth.put(
-        `${this.BASE_URL}/update_target?book_id=${book_id}&target_of_date=${this.toFormatDate(data.target_of_date)}`
+        `${this.BASE_URL}/update_target?book_id=${bookId}&target_of_date=${this.toFormatDate(data.targetOfDate)}`
       )
     ).data
   }
   async readPage(
-    page: number,
-    book_id: number,
-    chapter_id: number,
-    time_minutes: number
+    pageId: number,
+    bookId: number,
+    chapterId: number,
+    timeMinutes: number
   ) {
     return await axiosWithAuth.get(
-      `${this.BASE_URL}/read_page?page=${page}&book_id=${book_id}&chapter_id=${chapter_id}&time_minutes=${time_minutes || 0}`
+      `${this.BASE_URL}/read_page?page_id=${pageId}&book_id=${bookId}&chapter_id=${chapterId}&time_minutes=${timeMinutes || 0}`
     )
   }
-  async finishBook(book_id: number) {
+  async finishBook(bookId: number) {
     return await axiosWithAuth.get(
-      `${this.BASE_URL}/finish_book?book_id=${book_id}`
+      `${this.BASE_URL}/finish_book?bookId=${bookId}`
     )
   }
-  async getTarget(book_id: number) {
-    return (await axiosWithAuth.get(`${this.BASE_URL}/target/${book_id}`)).data
+  async getTarget(bookId: number) {
+    return (await axiosWithAuth.get(`${this.BASE_URL}/target/${bookId}`)).data
   }
 }
 

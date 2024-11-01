@@ -10,8 +10,12 @@ class FavouriteService {
   async update(id: number) {
     return await axiosWithAuth.put(`${this.BASE_URL}/favourite/${id}`)
   }
-  async is_favourite(id: number) {
-    return (await axiosWithAuth.get(`${this.BASE_URL}/is_favourite/${id}`)).data
+  async isFavourite(id: number) {
+    return (
+      await axiosWithAuth.get<{ isFavourite: boolean }>(
+        `${this.BASE_URL}/is_favourite/${id}`
+      )
+    ).data
   }
 }
 

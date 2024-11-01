@@ -37,20 +37,20 @@ export const ReadBookNavigation: FC<ReadBookNavigationProps> = ({
   const { mutate: finishPage } = useMutation({
     mutationFn: ({
       page,
-      book_id,
-      time_minutes,
-      chapter_id
+      bookId,
+      timeMinutes,
+      chapterId
     }: {
       page: number
-      book_id: number
-      time_minutes: number
-      chapter_id: number
-    }) => readBookService.readPage(page, book_id, chapter_id, time_minutes)
+      bookId: number
+      timeMinutes: number
+      chapterId: number
+    }) => readBookService.readPage(page, bookId, chapterId, timeMinutes)
   })
 
   const { mutate: updateSpeedOfRead } = useMutation({
     mutationFn: (speed: number) =>
-      analyticsService.update_speed_words_per_minute(speed)
+      analyticsService.updateSpeedWordsPerMinute(speed)
   })
 
   const handlePrevPage = () => {
@@ -86,10 +86,10 @@ export const ReadBookNavigation: FC<ReadBookNavigationProps> = ({
       localStorage.setItem("read_time", read_time.toString())
 
       finishPage({
-        book_id: +params.id,
+        bookId: +params.id,
         page: page,
-        chapter_id: currentChapter.id,
-        time_minutes: secondsToMinutes(readTime) || 0
+        chapterId: currentChapter.id,
+        timeMinutes: minutes
       })
       router.push(
         `/books/read/${params?.id}?page=${page}&chapter=${currentChapter.id}`
@@ -100,10 +100,10 @@ export const ReadBookNavigation: FC<ReadBookNavigationProps> = ({
       setCurrentPage(currentPage + 1)
       const minutes = secondsToMinutes(readTime) || 0
       finishPage({
-        book_id: +params.id,
+        bookId: +params.id,
         page: currentPage + 1,
-        chapter_id: currentChapter.id,
-        time_minutes: minutes
+        chapterId: currentChapter.id,
+        timeMinutes: minutes
       })
       router.push(
         `/books/read/${params?.id}?page=${currentPage + 1}&chapter=${currentChapter.id + 1}`

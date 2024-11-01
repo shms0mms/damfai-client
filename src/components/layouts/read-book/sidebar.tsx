@@ -6,18 +6,18 @@ import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar"
 export function SideBar({
   pages: _pages,
   currentChapterId,
-  book_id
+  bookId
 }: {
   pages: number
   currentChapterId: string
-  book_id: string
+  bookId: string
 }) {
   const pages = Array.from({ length: _pages }, (_, i) => i + 1)
   const links = pages?.length
     ? pages.map(p => ({
         label: "Страница",
         icon: p.toString(),
-        href: `/books/read/${book_id}?chapter=${currentChapterId}&page=${p}`
+        href: `/books/read/${bookId}?chapter=${currentChapterId}&page=${p}`
       }))
     : []
 

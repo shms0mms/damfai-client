@@ -4,14 +4,15 @@ import { useMutation, useQuery } from "@tanstack/react-query"
 import { toast } from "sonner"
 import { favouriteService } from "@/services/favourite.service"
 
-export function useFavourite(book_id: number) {
+export function useFavourite(bookId: number) {
   const query = useQuery({
-    queryKey: ["favourite", book_id],
-    queryFn: () => favouriteService.is_favourite(book_id),
-    retry: false
+    queryKey: ["favourite", bookId],
+    queryFn: () => favouriteService.isFavourite(bookId),
+    retry: false,
+    select: data => data.isFavourite
   })
   const mutation = useMutation({
-    mutationFn: (book_id: number) => favouriteService.update(book_id),
+    mutationFn: (bookId: number) => favouriteService.update(bookId),
     async onSuccess({ data }) {
       await query.refetch()
       if (data) toast.success("Успешно добавлено в избранное!")

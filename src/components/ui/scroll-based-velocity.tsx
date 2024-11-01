@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils"
 
 type VelocityScrollProps = {
   text: string
-  default_velocity?: number
+  defaultVelocity?: number
   className?: string
 }
 
@@ -31,7 +31,7 @@ export const wrap = (min: number, max: number, v: number) => {
 
 export function VelocityScroll({
   text,
-  default_velocity = 5,
+  defaultVelocity = 5,
   className
 }: VelocityScrollProps) {
   function ParallaxText({
@@ -96,7 +96,7 @@ export function VelocityScroll({
         <motion.div className={cn("inline-block", className)} style={{ x }}>
           {Array.from({ length: repetitions }).map((_, i) => (
             <span key={i} ref={i === 0 ? textRef : null}>
-              {children}{" "}
+              {children}
             </span>
           ))}
         </motion.div>
@@ -106,10 +106,10 @@ export function VelocityScroll({
 
   return (
     <section className="relative w-full">
-      <ParallaxText baseVelocity={default_velocity} className={className}>
+      <ParallaxText baseVelocity={defaultVelocity} className={className}>
         {text}
       </ParallaxText>
-      <ParallaxText baseVelocity={-default_velocity} className={className}>
+      <ParallaxText baseVelocity={-defaultVelocity} className={className}>
         {text}
       </ParallaxText>
     </section>

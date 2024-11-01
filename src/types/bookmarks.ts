@@ -3,12 +3,12 @@ export type Bookmark = {
   title: string
   author: string
   desc: string
-  writen_date: Date
-  age_of_book: number
+  writenDate: Date
+  ageOfBook: number
   // Текущие данные о книге, которую читаю
-  id_current_chapter?: number
-  current_page?: number
-  current_number_of_page?: number
+  idCurrentChapter?: number
+  currentPage?: number
+  currentNumberOfPage?: number
 }
 
 export interface BookmarkComponent extends Bookmark {

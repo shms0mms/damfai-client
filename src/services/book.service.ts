@@ -1,4 +1,4 @@
-import type { Book, Chapter, Page } from "@/types/book"
+import { type Book, type Chapter, EmoteEnum, type Page } from "@/types/book"
 import { axiosDefault, axiosWithAuth } from "@/api/interceptors"
 import { books } from "@/components/blocks/bento"
 import { randomNumber } from "@/lib/utils"
@@ -83,7 +83,8 @@ class BookService {
             }
           ],
           image: mockBookImages[randomNumber(0, mockBookImages.length - 1)],
-          progress: 100.0
+          progress: 100.0,
+          emote: EmoteEnum.happy
         }))
       )
     )
@@ -100,11 +101,11 @@ class BookService {
     chapterId: number
     page: number
     size: number
-    id_book: number
+    bookId: number
   }) {
     const response = (
       await axiosWithAuth.get<Page>(
-        `${this.BASE_URL}/get_pages_by_chapter/${options.chapterId}?page=${options.page}&size=1&id_book=${options.id_book}`
+        `${this.BASE_URL}/get_pages_by_chapter/${options.chapterId}?page=${options.page}&size=1&bookId=${options.bookId}`
       )
     ).data
 

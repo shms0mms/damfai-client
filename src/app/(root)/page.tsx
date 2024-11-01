@@ -87,7 +87,7 @@ export default function HomePage() {
       content: (
         <VelocityScroll
           text="DamfAI Chappi"
-          default_velocity={2}
+          defaultVelocity={2}
           className="font-display text-center text-5xl font-bold tracking-[-0.02em] text-black opacity-10 drop-shadow-sm dark:text-white"
         />
       )

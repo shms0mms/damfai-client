@@ -1,6 +1,6 @@
 "use client"
 
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { ArrowLeft } from "lucide-react"
 import { useTheme } from "next-themes"
 import Link from "next/link"
@@ -48,10 +48,14 @@ const themeExampleColorsLabels: Record<string, string> = {
 }
 
 export function ThemeCard({ theme }: ThemeCardProps) {
+  const queryClient = useQueryClient()
   const { mutate: buyTheme } = useMutation({
     mutationFn: shopService.buyTheme,
     onSuccess: () => {
       toast.success(`${theme.name} успешно куплена`)
+      queryClient.invalidateQueries({
+        queryKey: ["user", "themes"]
+      })
     },
     onError: err => {
       const statusCode = err.response?.status

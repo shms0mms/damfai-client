@@ -18,7 +18,7 @@ export function Notify() {
 
   useEffect(() => {
     // Проверка, что мы находимся в браузере, и загрузка данных из localStorage
-    const storedBook = window.localStorage.getItem("last_read_book")
+    const storedBook = window.localStorage.getItem("lastReadBook")
     if (storedBook) {
       const parsedBook = JSON.parse(storedBook)
       setLastReadBook(parsedBook)
@@ -48,7 +48,7 @@ export function Notify() {
             type="button"
             onClick={() => {
               setIsOpen(false)
-              localStorage.removeItem("last_read_book")
+              localStorage.removeItem("lastReadBook")
             }}
           >
             <X />

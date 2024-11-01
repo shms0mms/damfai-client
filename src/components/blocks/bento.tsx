@@ -84,7 +84,7 @@ export const features = [
     cta: "Подробнее",
     className: "col-span-3 lg:col-span-2",
     background: (
-      <AnimatedListDemo className="absolute right-2 top-4 h-[300px] w-full border-none bg-white transition-all duration-300 ease-out [mask-image:linear-gradient(to_top,transparent_10%,#000_100%)] group-hover:scale-105 dark:bg-black" />
+      <AnimatedListDemo className="absolute right-2 top-4 h-[300px] w-full border-none bg-white transition-all duration-300 ease-out [mask-image:linear-gradient(totop,transparent_10%,#000_100%)] group-hover:scale-105 dark:bg-black" />
     )
   },
   {
