@@ -43,8 +43,8 @@ export function BookList({ sections }: BookListProps) {
                           ))
                         : null}
                     </CarouselContent>
-                    <CarouselPrevious className="invisible left-6 bg-muted opacity-0 transition-all group-hover:visible group-hover:opacity-100" />
-                    <CarouselNext className="invisible right-6 bg-muted opacity-0 transition-all group-hover:visible group-hover:opacity-100" />
+                    <CarouselPrevious className="pointer-events-auto invisible left-6 z-[50] bg-muted opacity-0 transition-all disabled:hidden group-hover:visible group-hover:opacity-100" />
+                    <CarouselNext className="pointer-events-auto invisible right-6 z-[50] bg-muted opacity-0 transition-all disabled:hidden group-hover:visible group-hover:opacity-100" />
                   </Carousel>
                 </section>
                 {section?.block && (

@@ -1,7 +1,5 @@
 import { Book } from "@/types/book"
-import { features } from "@/components/blocks/bento"
 import { BookList } from "@/components/books"
-import { BentoCard, BentoGrid } from "@/components/ui/bento-grid"
 import { bookService } from "@/services/book.service"
 import { emotesBooksService } from "@/services/emotes-books.service"
 import { recommendationsService } from "@/services/recommendations.service"
@@ -31,15 +29,15 @@ export default async function BooksPage() {
     },
     {
       title: "Книги по эмоциям",
-      books: emotesBooks,
-      block: (
-        <div className="container">
-          <BentoGrid>
-            <BentoCard {...features[0]!} />
-            <BentoCard {...features[2]!} />
-          </BentoGrid>
-        </div>
-      )
+      books: emotesBooks
+      // block: (
+      //   <div className="container">
+      //     <BentoGrid>
+      //       <BentoCard {...features[0]!} />
+      //       <BentoCard {...features[2]!} />
+      //     </BentoGrid>
+      //   </div>
+      // )
     },
     {
       title: "Вам может понравиться",

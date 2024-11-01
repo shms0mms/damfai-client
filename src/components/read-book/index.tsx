@@ -111,7 +111,7 @@ export function ReadBook({ params, searchParams }: ReadBookPageProps) {
     </>
   ) : (
     <div className="flex h-full w-full flex-col items-center justify-center gap-5">
-      <h1 className="text-7xl font-semibold text-muted">403</h1>
+      <h1 className="text-7xl font-semibold text-foreground/70">403</h1>
       <p className="max-w-[20rem] text-center text-muted-foreground">
         Начните читать данную книгу, для получения доступа к данной странице по
         кнопке ниже
