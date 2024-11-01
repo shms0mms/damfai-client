@@ -13,6 +13,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 export function Profile() {
   const ctx = useContext(AuthContext)
+  if (!ctx) return null
   const { data, isLoading: isLoadingGanre } = useFavouriteGanres()
   const ganre = data?.data
 

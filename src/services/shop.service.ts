@@ -17,7 +17,7 @@ class ShopService {
     return (await axiosWithAuth.get(`shop/buy/user/themes/${themeId}`)).data
   }
   async sellTheme(themeId: number) {
-    return (await axiosWithAuth.get(`shop/sell/user/themes/${themeId}`)).data
+    return (await axiosWithAuth.delete(`shop/sell/user/themes/${themeId}`)).data
   }
   getMockMerch() {
     return Promise.resolve<Merch[]>([

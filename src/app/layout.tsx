@@ -39,8 +39,10 @@ export default function RootLayout({
         className={`${didactGothic.variable} ${geistMono.variable} ${geistSans.variable} antialiased`}
       >
         <Providers>
-          {children}
-          {modal}
+          <>
+            {children}
+            {modal}
+          </>
         </Providers>
       </body>
     </html>

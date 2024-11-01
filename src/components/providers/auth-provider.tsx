@@ -24,10 +24,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     localStorage.removeItem("readTime")
     localStorage.removeItem("lastReadBook")
     removeAccessTokenFromStorage()
-
-    await refetch()
+    queryClient.setQueryData(["user"], null)
     router.push("/")
   }
+
   useEffect(() => {
     accessToken && refetch()
   }, [accessToken])

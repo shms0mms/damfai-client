@@ -1,7 +1,6 @@
-import { type Book, type Chapter, EmoteEnum, type Page } from "@/types/book"
+import { type Book, type Chapter, type Page } from "@/types/book"
 import { axiosDefault, axiosWithAuth } from "@/api/interceptors"
-import { books } from "@/components/blocks/bento"
-import { randomNumber } from "@/lib/utils"
+import { readBookService } from "./read-book.service"
 
 type GetAllGanresResponse = {
   id: number
@@ -66,28 +65,7 @@ class BookService {
   }
 
   async getUserBooks() {
-    return new Promise<Book[]>(res =>
-      res(
-        Array.from({ length: 10 }).map((_, i) => ({
-          id: i + 1,
-          title: books[randomNumber(0, books.length - 1)]!.title,
-          author: books[randomNumber(0, books.length - 1)]!.author,
-          writen_date: new Date(),
-          chapters: randomNumber(0, 500),
-          desc: books[randomNumber(0, books.length - 1)]!.body,
-          ratings: Math.random() * 5,
-          ganres: [
-            {
-              id: randomNumber(0, mockGanres.length - 1),
-              ganre: mockGanres[randomNumber(0, mockGanres.length - 1)]!
-            }
-          ],
-          image: mockBookImages[randomNumber(0, mockBookImages.length - 1)],
-          progress: 100.0,
-          emote: EmoteEnum.happy
-        }))
-      )
-    )
+    return (await readBookService.getAll()).data
   }
 
   async getAllChapters(id: number) {
@@ -105,7 +83,7 @@ class BookService {
   }) {
     const response = (
       await axiosWithAuth.get<Page>(
-        `${this.BASE_URL}/get_pages_by_chapter/${options.chapterId}?page=${options.page}&size=1&bookId=${options.bookId}`
+        `${this.BASE_URL}/get_pages_by_chapter/${options.chapterId}?page=${options.page}&size=1&id_book=${options.bookId}`
       )
     ).data
 

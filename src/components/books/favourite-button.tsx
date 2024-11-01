@@ -6,12 +6,13 @@ import { Button } from "../ui/button"
 
 export function FavouriteButton({ bookId }: { bookId: number }) {
   const { mutate: toggle, data: isFavourite } = useFavourite(bookId)
+
   return (
     <Button
       size={"icon"}
       variant={"outline"}
       type="button"
-      className="h-6 w-6"
+      className="h-auto min-h-6 w-auto min-w-6"
       onClick={() => toggle(bookId)}
     >
       {isFavourite ? (

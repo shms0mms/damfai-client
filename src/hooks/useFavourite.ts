@@ -9,7 +9,7 @@ export function useFavourite(bookId: number) {
     queryKey: ["favourite", bookId],
     queryFn: () => favouriteService.isFavourite(bookId),
     retry: false,
-    select: data => data.isFavourite
+    select: data => data.is_favourite
   })
   const mutation = useMutation({
     mutationFn: (bookId: number) => favouriteService.update(bookId),

@@ -98,7 +98,7 @@ export const ReadBookNavigation: FC<ReadBookNavigationProps> = ({
       currentChapter.numberOfChapter < readBookData?.chapters?.length
     ) {
       setCurrentPage(currentPage + 1)
-      const minutes = secondsToMinutes(readTime) || 1
+      const minutes = secondsToMinutes(readTime) || 0
       finishPage({
         bookId: +params.id,
         page: currentPage + 1,

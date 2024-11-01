@@ -94,6 +94,7 @@ export function Menu({
             onSubmit={(data: FormSchema) => {
               mutate(data)
             }}
+            initialTargetOfDate={data?.target_of_date}
           />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

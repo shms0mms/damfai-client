@@ -58,7 +58,7 @@ export default function AuthForm() {
       push(ROUTES.DASHBOARD)
     },
     onError(error) {
-      toast.error(error.message)
+      toast.error("Пароль или почта неправильные!  Попробуйте еще раз.")
     }
   })
   const onSubmit: SubmitHandler<FormSchema> = values => {

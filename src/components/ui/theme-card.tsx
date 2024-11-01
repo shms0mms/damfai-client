@@ -51,9 +51,9 @@ export function ThemeCard({ theme }: ThemeCardProps) {
   const queryClient = useQueryClient()
   const { mutate: buyTheme } = useMutation({
     mutationFn: shopService.buyTheme,
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success(`${theme.name} успешно куплена`)
-      queryClient.invalidateQueries({
+      await queryClient.invalidateQueries({
         queryKey: ["user", "themes"]
       })
     },

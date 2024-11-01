@@ -100,8 +100,7 @@ export const features = [
   {
     Icon: CalendarIcon,
     name: "Календарь",
-    description:
-      "Используйте календарь чтобы поставить цель чтения книги (в скором времени).",
+    description: "Используйте календарь чтобы поставить цель чтения книги!",
     className: "col-span-3 lg:col-span-1",
     href: ROUTES.DASHBOARD,
     cta: "Подробнее",

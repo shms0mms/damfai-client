@@ -1,13 +1,11 @@
 "use client"
 
 import Link from "next/link"
-import { useContext } from "react"
 import Balance from "react-wrap-balancer"
 import { siteConfig } from "@/config/site.config"
 import { BentoDemo } from "@/components/blocks/bento"
 import { FeaturesSection } from "@/components/blocks/features-section"
-import { MoodTracker } from "@/components/layouts/root/mood-tracker"
-import { AuthContext } from "@/components/providers/auth-provider"
+import Heading from "@/components/blocks/heading"
 import { Button } from "@/components/ui/button"
 import { FlipWords } from "@/components/ui/flip-words"
 import { Beam } from "@/components/ui/grid-beam"
@@ -18,7 +16,6 @@ import { TextGenerateEffect } from "@/components/ui/text-generate-effect"
 import { cn } from "@/lib/utils"
 
 export default function HomePage() {
-  const { isAuth } = useContext(AuthContext)
   const SECTIONS = [
     {
       id: "1",
@@ -68,7 +65,6 @@ export default function HomePage() {
             src={"/dashboard.jpeg"}
             className="md:!pt-20"
           />
-          {isAuth && <MoodTracker />}
         </div>
       )
     },
@@ -84,13 +80,18 @@ export default function HomePage() {
         </div>
       )
     },
+
+    {
+      id: "4",
+      content: <></>
+    },
     {
       id: "6",
       content: (
         <VelocityScroll
           text="DamfAI Chappi"
           defaultVelocity={2}
-          className="font-display text-center text-5xl font-bold tracking-[-0.02em] text-black opacity-10 drop-shadow-sm dark:text-white"
+          className="font-display text-center text-5xl font-bold tracking-[-0.02em] text-black opacity-[0.03] drop-shadow-sm dark:text-white"
         />
       )
     },
@@ -102,6 +103,11 @@ export default function HomePage() {
           <BentoDemo />
         </div>
       )
+    },
+
+    {
+      id: "7",
+      content: <Heading />
     }
   ]
   return (

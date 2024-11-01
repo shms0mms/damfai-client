@@ -1,6 +1,6 @@
 "use client"
 
-import { useQuery } from "@tanstack/react-query"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { TableCard } from "./table-card"
 import { extensionsService } from "@/services/extensions.service"
 import { themeService } from "@/services/themes.service"
@@ -25,16 +25,27 @@ export function TablesCard() {
     queryFn: () => themeService.getUserThemes(),
     retry: false
   })
+  const queryClient = useQueryClient()
   return (
     <>
       <TableCard
-        refetch={refetchExtensions}
+        refetch={async () => {
+          refetchExtensions()
+          await queryClient.invalidateQueries({
+            queryKey: ["user"]
+          })
+        }}
         isLoading={isExtensionLoading}
         data={extensions}
         is="extension"
       />
       <TableCard
-        refetch={refetchThemes}
+        refetch={async () => {
+          refetchThemes()
+          await queryClient.invalidateQueries({
+            queryKey: ["user"]
+          })
+        }}
         isLoading={isThemeLoading}
         data={themes}
         is="theme"

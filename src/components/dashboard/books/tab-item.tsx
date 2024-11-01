@@ -19,34 +19,36 @@ export function TabItem<TBook extends Book | Bookmark | Favourite>({
   isLoading
 }: TabItemProps<TBook>) {
   return (
-    <TabsContent className="flex w-full flex-col gap-2" value={value}>
-      {books?.length ? (
-        books?.map(book => (
-          <BookItem
-            key={book.id}
-            {...(book as BookmarkComponent &
-              FavouriteComponent &
-              BookComponent)}
-            icon={icon}
-          />
-        ))
-      ) : isLoading ? (
-        <div className="flex flex-col gap-2">
-          {Array.from({ length: 8 }, (_, i) => (
-            <Skeleton
-              key={i}
-              className="h-[30px]"
-              style={{
-                width: randomNumber(100, 150)
-              }}
+    <TabsContent className="" value={value}>
+      <div className="flex w-full flex-col gap-2">
+        {books?.length ? (
+          books?.map(book => (
+            <BookItem
+              key={book.id}
+              {...(book as BookmarkComponent &
+                FavouriteComponent &
+                BookComponent)}
+              icon={icon}
             />
-          ))}
-        </div>
-      ) : (
-        <div className="flex h-full w-full items-center justify-center">
-          В данном разделе нету книг
-        </div>
-      )}
+          ))
+        ) : isLoading ? (
+          <div className="flex flex-col gap-2">
+            {Array.from({ length: 8 }, (_, i) => (
+              <Skeleton
+                key={i}
+                className="h-[30px]"
+                style={{
+                  width: randomNumber(100, 150)
+                }}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="flex min-h-[340px] w-full items-center justify-center">
+            В данном разделе нету книг
+          </div>
+        )}
+      </div>
     </TabsContent>
   )
 }

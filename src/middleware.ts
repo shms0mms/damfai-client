@@ -13,7 +13,7 @@ export async function middleware(req: NextRequest) {
   let isAuthorized = !!accessToken
   try {
     const user = await authService.me()
-    if (user) isAuthorized = true
+    if (user?.id) isAuthorized = true
   } catch {
     isAuthorized = false
   }
@@ -22,7 +22,7 @@ export async function middleware(req: NextRequest) {
     isAuthorized &&
     preventLoggedInRoutes.some(route => req.nextUrl.pathname.startsWith(route))
   ) {
-    return NextResponse.redirect(new URL("/not_found", req.url))
+    return NextResponse.redirect(new URL("/not-found", req.url))
   }
 
   if (
