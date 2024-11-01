@@ -67,7 +67,6 @@ export function Questions() {
   }, [message?.length])
 
   const isQuestionsGenerating = questionsCount != questions?.length
-  console.log(questions)
 
   const onSubmit = (_data: FormSchema) => {
     // TODO: save on backend (for race)

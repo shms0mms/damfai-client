@@ -8,7 +8,10 @@ import { useReadBookData } from "./useReadBookData"
 import { type ReadBookPageProps } from "@/app/(read-book)/books/read/[id]/page"
 import { padStart } from "@/lib/utils"
 
-export function useReadBook({ params, searchParams }: ReadBookPageProps) {
+export function useReadBook({
+  params,
+  searchParams
+}: Omit<ReadBookPageProps, "data">) {
   const router = useRouter()
   const [readTime, setReadTime] = useState(0)
   const [open, setOpen] = useState(false)

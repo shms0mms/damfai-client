@@ -65,7 +65,7 @@ type BookProps = {
 function Book({ book }: BookProps) {
   const imageUrl = book.image
     ? book.image
-    : `${env.NEXT_PUBLIC_SERVER_URL}/books/img/${book.id}`
+    : `${env.NEXT_PUBLIC_SERVER_URL}/books/get/book/img/${book.id}`
   const href =
     book.progress || book.progress == 0
       ? `/books/read/${book.id}`

@@ -49,7 +49,7 @@ export class ReadBookService {
   }
   async finishBook(bookId: number) {
     return await axiosWithAuth.get(
-      `${this.BASE_URL}/finish_book?bookId=${bookId}`
+      `${this.BASE_URL}/finish_book?book_id=${bookId}`
     )
   }
   async getTarget(bookId: number) {
