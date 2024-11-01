@@ -1,6 +1,6 @@
 "use client"
 
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { Minus } from "lucide-react"
 import { useState } from "react"
 import { toast } from "sonner"
@@ -18,14 +18,28 @@ export function RemoveCellButton({
   is: "extension" | "theme"
   id: number
 }) {
+  const queryClient = useQueryClient()
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const { mutate } = useMutation({
     mutationFn: async (id: number) => {
       if (is === "extension") {
-        await extensionsService.removeExtensionFromUser(id)
+        await Promise.all([
+          await extensionsService.removeExtensionFromUser(id),
+          await queryClient.invalidateQueries({
+            queryKey: ["user", "extensions"]
+          })
+        ])
       } else {
-        await shopService.sellTheme(id)
+        await Promise.all([
+          await shopService.sellTheme(id),
+          await queryClient.invalidateQueries({
+            queryKey: ["user", "themes"]
+          }),
+          await queryClient.invalidateQueries({
+            queryKey: ["theme", id]
+          })
+        ])
       }
     },
     onSuccess: () => {
