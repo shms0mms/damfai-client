@@ -15,7 +15,7 @@ export async function middleware(req: NextRequest) {
     const user = await authService.me()
     if (user) isAuthorized = true
   } catch {
-    // removeFromStorage()
+    isAuthorized = false
   }
 
   if (

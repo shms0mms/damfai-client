@@ -17,6 +17,6 @@ export const saveAccessToken = async (accessToken: string) => {
   })
 }
 
-export const removeFromStorage = async () => {
+export const removeAccessTokenFromStorage = async () => {
   serverCookies().delete(ACCESS_TOKEN.nameOnClient)
 }

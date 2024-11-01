@@ -24,7 +24,7 @@ export default async function BooksPage() {
   })
   const ganres = Object.keys(ganreAndBook)
 
-  const mainBooks = [
+  const sections = [
     {
       title: "Вы не дочитали",
       books: userBooks
@@ -41,7 +41,6 @@ export default async function BooksPage() {
         </div>
       )
     },
-
     {
       title: "Вам может понравиться",
       books
@@ -54,7 +53,7 @@ export default async function BooksPage() {
 
   return (
     <div className="py-8">
-      <BookList books={mainBooks} />
+      <BookList sections={sections} />
     </div>
   )
 }
