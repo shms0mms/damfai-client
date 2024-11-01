@@ -3,6 +3,7 @@
 import Link from "next/link"
 import Balance from "react-wrap-balancer"
 import { siteConfig } from "@/config/site.config"
+import AppPromo from "@/components/blocks/app-promo"
 import { BentoDemo } from "@/components/blocks/bento"
 import { FeaturesSection } from "@/components/blocks/features-section"
 import Heading from "@/components/blocks/heading"
@@ -83,7 +84,7 @@ export default function HomePage() {
 
     {
       id: "4",
-      content: <></>
+      content: <AppPromo />
     },
     {
       id: "6",
