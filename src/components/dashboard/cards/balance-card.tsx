@@ -11,7 +11,7 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card"
-import { LogoCircle } from "@/components/ui/logo-circle"
+import { ChappiCoin } from "@/components/ui/chappi-coin"
 import { ToCoins } from "@/components/ui/to-coins"
 
 export function BalanceCard() {
@@ -29,7 +29,7 @@ export function BalanceCard() {
       <CardContent>
         <div className="flex min-h-[200px] flex-col items-center justify-center gap-5">
           <Button className="h-auto w-auto" variant={"link"}>
-            <LogoCircle />
+            <ChappiCoin />
           </Button>
           <span className="flex items-center gap-0.5 font-semibold">
             Коины:

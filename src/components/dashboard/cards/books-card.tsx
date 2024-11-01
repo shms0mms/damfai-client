@@ -12,10 +12,7 @@ export function BooksCard() {
   useEffect(() => void books.get(), [])
   return (
     <Card className="max-xl:col-span-2">
-      <Tabs
-        defaultValue="current"
-        className="flex h-full w-full flex-col gap-2"
-      >
+      <Tabs defaultValue="current" className="flex h-full w-full flex-col">
         <CardHeader>
           <div className="flex items-center justify-between gap-2 max-md:flex-col max-md:items-start">
             <CardTitle>Книги</CardTitle>

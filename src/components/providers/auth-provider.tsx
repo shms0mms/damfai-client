@@ -20,12 +20,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const { data: user, refetch, isLoading } = useProfile()
   const router = useRouter()
   const queryClient = useQueryClient()
-  const logout = async () => {
+  const logout = () => {
     localStorage.removeItem("readTime")
     localStorage.removeItem("lastReadBook")
     removeAccessTokenFromStorage()
 
-    await refetch()
+    refetch()
     router.push("/")
   }
   useEffect(() => {

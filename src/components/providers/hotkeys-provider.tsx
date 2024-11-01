@@ -1,3 +1,5 @@
+"use client"
+
 import type { FC, PropsWithChildren } from "react"
 import { useHotkeys } from "@/hooks/useHotkeys"
 import { useHotkeysActions } from "@/hooks/useHotkeysActions"
