@@ -1,12 +1,15 @@
+import { axiosDefault } from "@/api/interceptors"
+import { LangEnum, LevelEnum } from "@/lib/schemas"
+
 class SummarizeService {
-  private BASE_URL = "/summarize"
+  private BASE_URL = "/second_stage"
 
-  async summarize(text: string, level: string) {
-    await new Promise(resolve => setTimeout(resolve, 10000))
-
-    return Promise.resolve({
-      text: `Это текст суммаризированный на уровне ${level}`
-    })
+  async summarize(text: string, level: LevelEnum, lang: LangEnum) {
+    return (
+      await axiosDefault.get(
+        `${this.BASE_URL}/sum_text?text=${text}&level=${level}&lang=${lang}`
+      )
+    ).data
   }
 }
 

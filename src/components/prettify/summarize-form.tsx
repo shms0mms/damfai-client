@@ -19,7 +19,12 @@ import {
   SelectValue
 } from "../../components/ui/select"
 import { Textarea } from "../../components/ui/textarea"
-import { SummarizeFormSchema, summarizeFormSchema } from "../../lib/schemas"
+import {
+  LangEnum,
+  LevelEnum,
+  SummarizeFormSchema,
+  summarizeFormSchema
+} from "../../lib/schemas"
 import { cn } from "../../lib/utils"
 
 type SummarizeFormProps = {
@@ -32,7 +37,11 @@ export const SummarizeForm: FC<SummarizeFormProps> = ({
   onSubmit
 }) => {
   const form = useForm<SummarizeFormSchema>({
-    resolver: zodResolver(summarizeFormSchema)
+    resolver: zodResolver(summarizeFormSchema),
+    defaultValues: {
+      level: LevelEnum.medium,
+      lang: LangEnum.ru
+    }
   })
 
   return (
@@ -41,9 +50,9 @@ export const SummarizeForm: FC<SummarizeFormProps> = ({
         className={cn("flex flex-col gap-6", className)}
         onSubmit={form.handleSubmit(data => {
           onSubmit(data)
-          form.reset({
-            text: ""
-          })
+          // form.reset({
+          //   text: ""
+          // })
         })}
       >
         <FormField
@@ -59,13 +68,38 @@ export const SummarizeForm: FC<SummarizeFormProps> = ({
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="strong">Сильно</SelectItem>
-                  <SelectItem value="medium">Средне</SelectItem>
-                  <SelectItem value="small">Слабо</SelectItem>
+                  <SelectItem value={LevelEnum.strong}>Сильно</SelectItem>
+                  <SelectItem value={LevelEnum.medium}>Средне</SelectItem>
+                  <SelectItem value={LevelEnum.small}>Слабо</SelectItem>
                 </SelectContent>
               </Select>
               <FormDescription>
                 Выберите насколько сильно нужно сжать введенный текст
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          name="lang"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Язык для сжатия</FormLabel>
+              <Select onValueChange={field.onChange} value={field.value ?? ""}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Выберите язык сжатия" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value={LangEnum.ru}>Русский</SelectItem>
+                  <SelectItem value={LangEnum.en}>Английский</SelectItem>
+                  <SelectItem value={LangEnum.zh}>Китайский</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormDescription>
+                Выберите язык для сжатого текста
               </FormDescription>
               <FormMessage />
             </FormItem>
