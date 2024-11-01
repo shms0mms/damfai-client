@@ -67,6 +67,7 @@ export function Questions() {
   }, [message?.length])
 
   const isQuestionsGenerating = questionsCount != questions?.length
+  console.log(questions)
 
   const onSubmit = (_data: FormSchema) => {
     // TODO: save on backend (for race)
@@ -115,9 +116,9 @@ export function Questions() {
                               )?.key
                               const submitCount = form.formState.submitCount
                               const isCorrect =
-                                submitCount && currentKey === key
+                                submitCount && key === question.answer
                               const isInCorrect =
-                                submitCount && currentKey !== key
+                                submitCount && key !== question.answer
 
                               return (
                                 <div

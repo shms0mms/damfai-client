@@ -86,7 +86,7 @@ export function ChappiChat({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "relative flex min-h-[600px] w-full flex-col rounded-lg shadow-lg dark:shadow-none",
+        "relative flex min-h-[600px] w-full flex-col overflow-auto rounded-lg shadow-lg dark:shadow-none",
         className
       )}
     >
@@ -104,7 +104,10 @@ export function ChappiChat({ className }: { className?: string }) {
           <p className="text-sm opacity-75">Всегда онлайн</p>
         </div>
       </div>
-      <ScrollArea className="flex-grow bg-white p-4" ref={scrollAreaRef}>
+      <ScrollArea
+        className="max-h-[500px] flex-grow overflow-auto bg-white p-4"
+        ref={scrollAreaRef}
+      >
         {messages.map(message => (
           <div
             key={message.id}

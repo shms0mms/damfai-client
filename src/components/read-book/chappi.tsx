@@ -46,7 +46,7 @@ export function Chappi() {
           className="origin-bottom-right"
           animate={open ? { opacity: 1, scale: 1, pointerEvents: "auto" } : {}}
         >
-          <ChappiChat className="min-w-[400px]" />
+          <ChappiChat className="min-w-[400px] max-w-[400px]" />
         </motion.div>
         <Button
           size="icon"
