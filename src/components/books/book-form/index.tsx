@@ -19,7 +19,7 @@ import {
 import { cn } from "@/lib/utils"
 
 const formSchema = z.object({
-  target_of_date: z.date(),
+  targetOfDate: z.date(),
   withTarget: z.boolean().default(false).optional()
 })
 
@@ -37,7 +37,7 @@ export const BookForm: FC<BookFormProps> = ({
 }) => {
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
-    defaultValues: { target_of_date: new Date(), withTarget: true }
+    defaultValues: { targetOfDate: new Date(), withTarget: true }
   })
   const withTarget = form.getValues("withTarget")
 
@@ -71,7 +71,7 @@ export const BookForm: FC<BookFormProps> = ({
         )}
         <FormField
           control={form.control}
-          name="target_of_date"
+          name="targetOfDate"
           render={({ field }) => (
             <FormItem>
               <FormLabel>

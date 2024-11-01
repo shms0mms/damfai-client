@@ -53,8 +53,8 @@ export function ChappiChat({ className }: { className?: string }) {
   const [inputMessage, setInputMessage] = useState("")
   const [isTyping, setIsTyping] = useState(false)
   const scrollAreaRef = useRef<HTMLDivElement>(null)
-  const { id: book_id } = useParams()
-  const { message, send } = useChappiChat(String(book_id))
+  const { id: bookId } = useParams()
+  const { message, send } = useChappiChat(String(bookId))
   const handleSendMessage = () => {
     if (inputMessage.trim() !== "") {
       const newMessage: Message = {

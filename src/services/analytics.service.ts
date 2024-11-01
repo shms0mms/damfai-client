@@ -44,12 +44,12 @@ class AnalyticsService {
     return await axiosWithAuth.get<string>(`${this.BASE_URL}/favourite_ganres`)
   }
 
-  async add_minutes_per_day(minutes: number) {
+  async addMinutesPerDay(minutes: number) {
     return await axiosWithAuth.post(
       `${this.BASE_URL}/minutes_per_day/add?time_minutes=${minutes}`
     )
   }
-  async update_speed_words_per_minute(speed: number) {
+  async updateSpeedWordsPerMinute(speed: number) {
     return await axiosWithAuth.put(
       `${this.BASE_URL}/update_sped_words_per_minute?speed=${speed}`
     )

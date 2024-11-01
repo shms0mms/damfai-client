@@ -16,8 +16,8 @@ export function PurposeForm({
 }) {
   const { push } = useRouter()
   const { mutate } = useMutation({
-    mutationFn: ({ data, book_id }: { data?: FormSchema; book_id: number }) =>
-      readBookService.startRead(book_id, data),
+    mutationFn: ({ data, bookId }: { data?: FormSchema; bookId: number }) =>
+      readBookService.startRead(bookId, data),
     onSuccess: () => {
       push(`/books/read/${params.id}`)
       toast.success("Вы успешно открыли новую книгу!")
@@ -35,7 +35,7 @@ export function PurposeForm({
   })
   const onSubmit = async (data: FormSchema) => {
     mutate(
-      data.withTarget ? { book_id: +params.id, data } : { book_id: +params.id }
+      data.withTarget ? { bookId: +params.id, data } : { bookId: +params.id }
     )
   }
   return (

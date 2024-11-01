@@ -5,14 +5,14 @@ import { analyticsService } from "@/services/analytics.service"
 export const useAddMinutesPerDay = () => {
   const { mutate } = useMutation({
     mutationFn: async () => {
-      const secondsReadTime = +localStorage.getItem("read_time")! || 0
+      const secondsReadTime = +localStorage.getItem("readTime")! || 0
       const minutes = secondsReadTime / 60
-      if (minutes) await analyticsService.add_minutes_per_day(minutes)
+      if (minutes) await analyticsService.addMinutesPerDay(minutes)
     }
   })
   const handle = (event: BeforeUnloadEvent) => {
     mutate()
-    localStorage.removeItem("read_time")
+    localStorage.removeItem("readTime")
     event.preventDefault()
     event.returnValue = ""
   }
@@ -21,7 +21,7 @@ export const useAddMinutesPerDay = () => {
     return () => {
       window.removeEventListener("beforeunload", handle)
       mutate()
-      localStorage.removeItem("read_time")
+      localStorage.removeItem("readTime")
     }
   }, [])
   return mutate

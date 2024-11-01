@@ -4,9 +4,9 @@ import { useEffect } from "react"
 import useWebSocket from "react-use-websocket"
 import { env } from "@/env"
 
-export const useChappiChat = (book_id: string) => {
+export const useChappiChat = (bookId: string) => {
   const { sendMessage, getWebSocket, lastMessage } = useWebSocket(
-    `${env.NEXT_PUBLIC_WS_URL}/gigachat/ws/ask_question/${book_id}`
+    `${env.NEXT_PUBLIC_WS_URL}/gigachat/ws/ask_question/${bookId}`
   )
   const socket = getWebSocket()
   const send = (message: string) => {

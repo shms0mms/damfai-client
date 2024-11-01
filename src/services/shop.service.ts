@@ -13,11 +13,11 @@ class ShopService {
       return []
     }
   }
-  async buyTheme(theme_id: number) {
-    return (await axiosWithAuth.get(`shop/buy/user/themes/${theme_id}`)).data
+  async buyTheme(themeId: number) {
+    return (await axiosWithAuth.get(`shop/buy/user/themes/${themeId}`)).data
   }
-  async sellTheme(theme_id: number) {
-    return (await axiosWithAuth.get(`shop/sell/user/themes/${theme_id}`)).data
+  async sellTheme(themeId: number) {
+    return (await axiosWithAuth.get(`shop/sell/user/themes/${themeId}`)).data
   }
   getMockMerch() {
     return Promise.resolve<Merch[]>([

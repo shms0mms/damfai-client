@@ -58,7 +58,7 @@ export function BookList({ books: data }: BookListProps) {
                                 )}
                               </Link>
                               <div className="mt-2 flex items-center justify-between gap-5">
-                                <FavouriteButton book_id={b.id} />
+                                <FavouriteButton bookId={b.id} />
                               </div>
                             </article>
                           )

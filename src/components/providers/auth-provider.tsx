@@ -21,8 +21,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter()
   const queryClient = useQueryClient()
   const logout = async () => {
-    localStorage.removeItem("read_time")
-    localStorage.removeItem("last_read_book")
+    localStorage.removeItem("readTime")
+    localStorage.removeItem("lastReadBook")
     removeAccessTokenFromStorage()
 
     await refetch()

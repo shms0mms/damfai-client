@@ -7,8 +7,8 @@ import { bookmarksService } from "@/services/bookmarks.service"
 export function Bookmark({ currentPage }: { currentPage: number | undefined }) {
   const page = currentPage || 1
   const { data, refetch } = useQuery({
-    queryKey: [`is_bookmark`, page],
-    queryFn: () => bookmarksService.is_bookmark(page!)
+    queryKey: [`isBookmark`, page],
+    queryFn: () => bookmarksService.isBookmark(page!)
   })
   const { id } = useParams()
   const { mutate } = useMutation({
@@ -19,7 +19,7 @@ export function Bookmark({ currentPage }: { currentPage: number | undefined }) {
     }
   })
 
-  const isBookmark = data?.data?.is_bookmark
+  const isBookmark = data?.data?.isBookmark
   return (
     <>
       <Button

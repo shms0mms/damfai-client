@@ -37,7 +37,7 @@ export const useReadBookData = ({
           : currentChapter.id,
         page: currentPage,
         size: 1,
-        id_book: +params.id
+        bookId: +params.id
       })
 
       const data = {

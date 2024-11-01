@@ -10,7 +10,7 @@ class BookmarksService {
   async update(id: number, page: number) {
     return await axiosWithAuth.put(`${this.BASE_URL}/${page}`)
   }
-  async is_bookmark(id: number) {
+  async isBookmark(id: number) {
     return await axiosWithAuth.get(`${this.BASE_URL}/is_bookmark/${id}`)
   }
 }
