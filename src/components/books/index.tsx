@@ -18,43 +18,39 @@ type BookListProps = {
 
 export function BookList({ sections }: BookListProps) {
   return (
-    <div className="">
-      <div className="flex flex-col gap-[100px]">
-        {sections.map(section => {
-          const books = section.books
+    <div className="flex flex-col gap-[100px]">
+      {sections.map(section => {
+        const books = section.books
 
-          return (
-            !!books?.length && (
-              <div key={section.title} className="flex flex-col gap-[100px]">
-                <section className="container">
-                  <h2 className="mb-2 text-xl font-semibold">
-                    {section.title}
-                  </h2>
-                  <Carousel className="group flex h-full py-2">
-                    <CarouselContent className="-ml-5">
-                      {books?.length
-                        ? books.map(book => (
-                            <CarouselItem
-                              key={book.id}
-                              className="xs:basis-[52%] max-xs:basis-[60%] pl-5 sm:basis-[40%] md:basis-[28%] lg:basis-[18%] xl:basis-[15%]"
-                            >
-                              <Book book={book} />
-                            </CarouselItem>
-                          ))
-                        : null}
-                    </CarouselContent>
-                    <CarouselPrevious className="pointer-events-auto invisible left-6 z-[50] bg-muted opacity-0 transition-all disabled:hidden group-hover:visible group-hover:opacity-100" />
-                    <CarouselNext className="pointer-events-auto invisible right-6 z-[50] bg-muted opacity-0 transition-all disabled:hidden group-hover:visible group-hover:opacity-100" />
-                  </Carousel>
-                </section>
-                {section?.block && (
-                  <section className="h-full w-full">{section.block}</section>
-                )}
-              </div>
-            )
+        return (
+          !!books?.length && (
+            <div key={section.title} className="flex flex-col gap-[100px]">
+              <section className="container">
+                <h2 className="mb-2 text-xl font-semibold">{section.title}</h2>
+                <Carousel className="group flex h-full py-2">
+                  <CarouselContent className="-ml-5">
+                    {books?.length
+                      ? books.map(book => (
+                          <CarouselItem
+                            key={book.id}
+                            className="xs:basis-[52%] max-xs:basis-[60%] pl-5 sm:basis-[40%] md:basis-[28%] lg:basis-[18%] xl:basis-[15%]"
+                          >
+                            <Book book={book} />
+                          </CarouselItem>
+                        ))
+                      : null}
+                  </CarouselContent>
+                  <CarouselPrevious className="pointer-events-auto invisible left-6 z-[50] bg-muted opacity-0 transition-all disabled:hidden group-hover:visible group-hover:opacity-100" />
+                  <CarouselNext className="pointer-events-auto invisible right-6 z-[50] bg-muted opacity-0 transition-all disabled:hidden group-hover:visible group-hover:opacity-100" />
+                </Carousel>
+              </section>
+              {section?.block && (
+                <section className="h-full w-full">{section.block}</section>
+              )}
+            </div>
           )
-        })}
-      </div>
+        )
+      })}
     </div>
   )
 }

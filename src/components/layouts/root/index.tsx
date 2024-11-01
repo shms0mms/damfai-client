@@ -10,7 +10,7 @@ export const RootLayout: FC<PropsWithChildren> = ({ children }) => {
     <MoodProvider>
       <div className="relative flex h-full flex-col">
         <Header />
-        <div className="flex-[1_1_auto]">{children}</div>
+        <main className="flex-[1_1_auto]">{children}</main>
         <Footer />
       </div>
     </MoodProvider>
