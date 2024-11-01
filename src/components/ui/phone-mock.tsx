@@ -43,7 +43,7 @@ export function PhoneMock() {
       </div>
 
       {/* App content */}
-      <div className="space-y-6 p-5 pb-20 text-background">
+      <div className="space-y-6 p-5 pb-20 text-black">
         <div className="flex items-center justify-between">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -136,7 +136,7 @@ export function PhoneMock() {
       </div>
 
       {/* Bottom navigation */}
-      <div className="absolute bottom-0 left-0 right-0 flex justify-around border-t bg-white py-4 text-background">
+      <div className="absolute bottom-0 left-0 right-0 flex justify-around border-t bg-white py-4 text-black">
         <Home className="h-6 w-6" />
         <Book className="h-6 w-6" />
         <Heart className="h-6 w-6" />

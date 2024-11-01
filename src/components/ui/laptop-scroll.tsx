@@ -3,24 +3,24 @@
 import {
   IconBrightnessDown,
   IconBrightnessUp,
+  IconCaretDownFilled,
+  IconCaretLeftFilled,
   IconCaretRightFilled,
   IconCaretUpFilled,
   IconChevronUp,
+  IconCommand,
   IconMicrophone,
   IconMoon,
   IconPlayerSkipForward,
   IconPlayerTrackNext,
   IconPlayerTrackPrev,
+  IconSearch,
   IconTable,
   IconVolume,
   IconVolume2,
-  IconVolume3
+  IconVolume3,
+  IconWorld
 } from "@tabler/icons-react"
-import { IconSearch } from "@tabler/icons-react"
-import { IconWorld } from "@tabler/icons-react"
-import { IconCommand } from "@tabler/icons-react"
-import { IconCaretLeftFilled } from "@tabler/icons-react"
-import { IconCaretDownFilled } from "@tabler/icons-react"
 import { MotionValue, motion, useScroll, useTransform } from "framer-motion"
 import Image from "next/image"
 import { type FC, useRef } from "react"
@@ -171,7 +171,7 @@ export const Lid: FC<LidProps> = ({
           src={src as string}
           alt="aceternity logo"
           fill
-          className="absolute inset-0 h-full w-full rounded-lg object-cover object-left-top"
+          className="absolute inset-0 h-full w-full rounded-lg object-cover object-left-top opacity-80 dark:opacity-15"
         />
       </motion.div>
     </div>

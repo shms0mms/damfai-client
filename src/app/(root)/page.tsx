@@ -63,7 +63,7 @@ export default function HomePage() {
           </div>
           <LaptopScroll
             badge={<Icons.icon width={40} height={40} />}
-            src={"/dashboard.jpeg"}
+            src={"/dashboard.png"}
             className="md:!pt-20"
           />
         </div>
@@ -100,7 +100,7 @@ export default function HomePage() {
     {
       id: "5",
       content: (
-        <div>
+        <div className="container">
           <BentoDemo />
         </div>
       )
