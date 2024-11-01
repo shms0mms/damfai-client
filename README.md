@@ -33,8 +33,6 @@ pnpm dev
 
 ### Репозитории проекта
 
-###### Сейчас ведется работа над основным проектом, его репозиторий находятся здесь:
-
 - [Damfai server](https://github.com/1Dambek1/damfai-server)
 - [Damfai client](https://github.com/shms0mms/damfai-client)
 - [Damfai telegram bot](https://github.com/shms0mms/damfai-bot)
