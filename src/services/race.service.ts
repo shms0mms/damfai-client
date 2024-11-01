@@ -1,5 +1,5 @@
-import type { GetMonthlyAuthorResponse, Leader } from "@/types/race"
-import { randomNumber } from "@/lib/utils"
+import type { ActiveRace, LeaderBoard } from "@/types/race"
+import { axiosWithAuth } from "@/api/interceptors"
 
 const mockNames = [
   "Максим Южиков",
@@ -12,39 +12,16 @@ const mockNames = [
 ]
 
 class RaceService {
-  private BASE_URL = "/race"
+  private BASE_URL = "/running"
 
-  async getMonthlyAuthor(): Promise<GetMonthlyAuthorResponse> {
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    return Promise.resolve({
-      author: "Фёдор Миха́йлович Достое́вский",
-      description:
-        "Русский писатель, мыслитель, философ и публицист. Член-корреспондент Петербургской академии наук с 1877 года."
-    })
+  async getActiveRace(): Promise<ActiveRace> {
+    return (await axiosWithAuth.get<ActiveRace>(`${this.BASE_URL}/active`)).data
   }
 
-  async getLeaderBoard(): Promise<Leader[]> {
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    return Promise.resolve<Leader[]>(
-      Array.from({ length: 100 }).map((_, index) => ({
-        id: index + 1,
-        place: index + 1,
-        name: mockNames[randomNumber(0, mockNames.length - 1)]!,
-        points: 1000 - index * 10,
-        reward: index < 3 ? `${(3 - (index + 1)) * 50 + 50} Чаппи коинов` : "-"
-      }))
-    )
-  }
-
-  async getUserPlace(): Promise<Leader> {
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    return Promise.resolve({
-      id: 1421,
-      place: 10,
-      name: "Олег Олегович",
-      points: 431,
-      reward: "-"
-    })
+  async getLeaderBoard(): Promise<LeaderBoard> {
+    return (
+      await axiosWithAuth.get<LeaderBoard>(`${this.BASE_URL}/leaderboard`)
+    ).data
   }
 }
 

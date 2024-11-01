@@ -1,10 +1,7 @@
 import { Suspense } from "react"
 import Balancer from "react-wrap-balancer"
 import { LeaderBoard, LeaderBoardSkeleton } from "@/components/race/leaderboard"
-import {
-  MonthlyAuthor,
-  MonthlyAuthorSkeleton
-} from "@/components/race/monthly-author"
+import { RaceInformationSkeleton } from "@/components/race/race-information"
 
 export default async function RacePage() {
   return (
@@ -20,10 +17,14 @@ export default async function RacePage() {
           </Balancer>
         </p>
       </div>
-      <Suspense fallback={<MonthlyAuthorSkeleton />}>
-        <MonthlyAuthor />
-      </Suspense>
-      <Suspense fallback={<LeaderBoardSkeleton />}>
+      <Suspense
+        fallback={
+          <>
+            <LeaderBoardSkeleton />
+            <RaceInformationSkeleton />
+          </>
+        }
+      >
         <LeaderBoard />
       </Suspense>
     </div>
