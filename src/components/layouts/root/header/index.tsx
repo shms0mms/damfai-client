@@ -12,6 +12,9 @@ import { UserNav } from "./user-nav"
 
 export const Header = () => {
   const ctx = useContext(AuthContext)
+  if (!ctx) {
+    return null
+  }
   return (
     <header className="font-comfortaa sticky top-0 z-50 w-full bg-muted backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:bg-muted/25 dark:shadow-secondary">
       <div className="flex min-h-14 items-center justify-between gap-4 px-4 sm:mx-8 md:gap-8">
