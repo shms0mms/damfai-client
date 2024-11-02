@@ -12,7 +12,7 @@ import { UserNav } from "./user-nav"
 
 export const Header = () => {
   const ctx = useContext(AuthContext)
-  if (!ctx?.user?.id) {
+  if (!ctx) {
     return null
   }
   return (
