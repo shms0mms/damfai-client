@@ -1,18 +1,9 @@
-import {
-  ArrowRight,
-  BarChart2,
-  Book,
-  Download,
-  Globe,
-  Star,
-  Zap
-} from "lucide-react"
-import { toast } from "sonner"
-import { Button } from "@/components/ui/button"
+import { BarChart2, Book, Download, Globe, Star, Zap } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { PhoneMock } from "../ui/phone-mock"
+import { PhoneMock } from "@/components/ui/phone-mock"
+import { DownloadAppButton } from "./download-app-button"
 
-export default function AppPromo() {
+export function AppPromo() {
   return (
     <div className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
       <div className="grid gap-12 lg:grid-cols-2 xl:grid-cols-3">
@@ -60,19 +51,7 @@ export default function AppPromo() {
               Скачайте наше приложение и получите доступ к тысячам книг. Добро
               пожаловать в мир с Чаппи!
             </p>
-            <Button
-              onClick={() =>
-                toast(
-                  "К сожалению на данный момент мобильное приложение в разработке и мы не можем предоставить вам доступ к скачиванию!",
-                  { position: "top-center" }
-                )
-              }
-              className="group"
-              size="lg"
-            >
-              Скачать приложение
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Button>
+            <DownloadAppButton />
           </div>
         </div>
         <div className="relative flex items-center justify-center">
