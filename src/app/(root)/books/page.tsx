@@ -5,14 +5,12 @@ import { emotesBooksService } from "@/services/emotes-books.service"
 import { recommendationsService } from "@/services/recommendations.service"
 
 export default async function BooksPage() {
-  // Рекомендации (книги по жанрам)
-  const books = await recommendationsService.getRecommendations()
-  // Книги по эмоциям
-  const emotesBooks = await emotesBooksService.getEmotesBooks()
-  // Пользовательские книги
-  const userBooks = await bookService.getUserBooks()
+  const [books, emotesBooks, userBooks] = await Promise.all([
+    recommendationsService.getRecommendations(),
+    emotesBooksService.getEmotesBooks(),
+    bookService.getUserBooks()
+  ])
 
-  // Книги по жанрам
   const bookGanres = Array.from(new Set(books.map(book => book.ganres).flat()))
   const ganreAndBook: Record<string, Book[]> = {}
   bookGanres.forEach(ganre => {
@@ -28,7 +26,7 @@ export default async function BooksPage() {
       books: userBooks
     },
     {
-      title: "Книги по эмоциям",
+      title: "Книги по вашему настроению",
       books: emotesBooks
       // block: (
       //   <div className="container">

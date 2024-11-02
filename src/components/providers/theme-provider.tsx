@@ -3,7 +3,8 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { ThemeProvider as NextThemesProvider } from "next-themes"
 import { type ThemeProviderProps } from "next-themes/dist/types"
-import { createContext, useContext, useEffect, useState } from "react"
+import { createContext, useContext, useState } from "react"
+import { useColorTheme } from "@/hooks/useColorTheme"
 import { useUserThemes } from "@/hooks/useUserThemes"
 import { CustomizeThemeFormSchema } from "@/components/blocks/customize-theme"
 import { THEMES } from "@/lib/constants"
@@ -73,21 +74,19 @@ function ColorThemeProvider({ children }: React.PropsWithChildren) {
     enabled: colorThemeId !== -1
   })
 
-  const setColorTheme = (colorThemeId: number) => {
+  const setColorTheme = (newColorThemeId: number) => {
     const colorThemeKey = userThemes?.find(
-      theme => theme.id === colorThemeId
+      theme => theme.id === newColorThemeId
     )?.key
 
+    localStorage.setItem("colorThemeId", `${newColorThemeId}`)
     setColorThemeKey(colorThemeKey)
-    setColorThemeId(colorThemeId)
+    setColorThemeId(newColorThemeId)
 
     queryClient.refetchQueries({
-      queryKey: ["theme", colorThemeId]
+      queryKey: ["theme", newColorThemeId]
     })
-
-    localStorage.setItem("colorThemeId", `${colorThemeId}`)
   }
-
   const removeColorTheme = () => {
     document.querySelector(`#styles-${colorThemeKey}`)?.remove()
     localStorage.removeItem("colorThemeId")
@@ -97,36 +96,13 @@ function ColorThemeProvider({ children }: React.PropsWithChildren) {
   }
 
   // change color theme visualy
-  useEffect(() => {
-    if (colorTheme && !isLoadingColorTheme) {
-      setColorThemeId(colorTheme.id)
-
-      document.documentElement.classList.add(colorTheme.key)
-
-      const styles = document.createElement("style")
-      styles.innerHTML = `
-:root.${colorTheme.key} {
-  ${Object.entries(colorTheme.light)
-    .map(
-      ([key, value]) => `
-    --${key}: ${value};`
-    )
-    .join("")}
-}
-:root.dark.${colorTheme.key} { 
-  ${Object.entries(colorTheme.dark)
-    .map(
-      ([key, value]) => `
-    --${key}: ${value};`
-    )
-    .join("")}
-}
-      `
-      styles.id = `styles-${colorTheme.key}`
-
-      document.head.appendChild(styles)
-    }
-  }, [colorTheme, isLoadingColorTheme])
+  useColorTheme({
+    userThemes,
+    colorTheme,
+    isLoadingColorTheme,
+    setColorThemeId,
+    colorThemeId
+  })
 
   return (
     <ColorThemeContext.Provider

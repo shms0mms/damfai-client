@@ -1,10 +1,6 @@
-"use client"
-
 import { ExternalLink } from "lucide-react"
 import Link from "next/link"
 import { PropsWithChildren } from "react"
-import { useMediaQuery } from "usehooks-ts"
-import { MEDIA } from "@/config/media.config"
 import { ROUTES } from "@/config/route.config"
 import { siteConfig } from "@/config/site.config"
 import { ThemeToggle } from "@/components/theme-toggle"
@@ -142,32 +138,28 @@ export const Footer = () => {
       ]
     }
   ]
-  const isResponsive = useMediaQuery(MEDIA.md)
   return (
     <footer className="py-20 md:px-8">
       <div className="container py-4">
         <div className="flex flex-col items-end justify-between gap-4">
           <nav className="w-full">
-            {isResponsive ? (
-              <Accordion type="multiple">
-                {navItems.map(i => (
-                  <AccordionItem value={i.title} key={i.title}>
-                    <AccordionTrigger>
-                      <NavItemTrigger title={i.title} />
-                    </AccordionTrigger>
-                    <AccordionContent>
-                      <NavItemLinks items={i.items} />
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            ) : (
-              <div className="grid w-full grid-cols-8 gap-5">
-                {navItems.map(i => (
-                  <NavItem key={i.title} {...i} />
-                ))}
-              </div>
-            )}
+            <Accordion className="md:hidden" type="multiple">
+              {navItems.map(i => (
+                <AccordionItem value={i.title} key={i.title}>
+                  <AccordionTrigger>
+                    <NavItemTrigger title={i.title} />
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <NavItemLinks items={i.items} />
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+            <div className="hidden w-full grid-cols-8 gap-5 md:grid">
+              {navItems.map(i => (
+                <NavItem key={i.title} {...i} />
+              ))}
+            </div>
           </nav>
           <p className="text-muted-foregrund flex items-center gap-2 text-balance text-right text-sm leading-loose md:text-left">
             Built by {siteConfig.author}.

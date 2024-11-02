@@ -1,5 +1,3 @@
-"use client"
-
 import { type FC, type PropsWithChildren } from "react"
 import { MoodProvider } from "@/components/providers/mood-provider"
 import { Footer } from "./footer"

@@ -1,8 +1,7 @@
 "use client"
 
-import { useQuery } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { BooksFilters } from "@/types/book"
 import { useFiltersFromParams } from "@/hooks/useFiltersFromParams"
 import { Button } from "@/components/ui/button"
@@ -35,15 +34,12 @@ import { Slider } from "@/components/ui/slider"
 import {
   type BookFilter,
   RangeValue,
-  getBooksFilter
+  getBooksFilters
 } from "@/lib/books-filters"
 
 function BooksFiltersComponent() {
-  const { data: booksFilters, isLoading } = useQuery({
-    initialData: undefined,
-    queryKey: ["book-filters"],
-    queryFn: getBooksFilter
-  })
+  const booksFilers = useMemo(() => getBooksFilters(), [])
+
   // Getting default filters from URL
   const defaultFilters = useFiltersFromParams()
   const [filters, setFilters] = useState<BooksFilters>(defaultFilters)
@@ -132,8 +128,8 @@ function BooksFiltersComponent() {
   const filterContent = (
     <div>
       <div className="flex flex-col gap-4">
-        {booksFilters && !isLoading
-          ? booksFilters.map(renderFilter)
+        {booksFilers
+          ? booksFilers.map(renderFilter)
           : Array.from({ length: 4 })
               .fill(null)
               .map((_, i) => (

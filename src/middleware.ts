@@ -4,7 +4,7 @@ import { ROUTES } from "./config/route.config"
 import { authService } from "./services/auth.service"
 import { getAccessToken } from "@/lib/auth.server"
 
-const protectedRoutes = [ROUTES.DASHBOARD, "/books/read/"]
+const protectedRoutes = [ROUTES.DASHBOARD, ROUTES.RACE, "/books/read/"]
 const preventLoggedInRoutes = ["/auth/sign-in", "/auth/sign-up"]
 
 export async function middleware(req: NextRequest) {

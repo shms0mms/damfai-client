@@ -1,12 +1,10 @@
-"use client"
-
 import Link from "next/link"
 import Balance from "react-wrap-balancer"
 import { siteConfig } from "@/config/site.config"
-import AppPromo from "@/components/blocks/app-promo"
+import { AppPromo } from "@/components/blocks/app-promo"
 import { BentoDemo } from "@/components/blocks/bento"
 import { FeaturesSection } from "@/components/blocks/features-section"
-import Heading from "@/components/blocks/heading"
+import { Heading } from "@/components/blocks/heading"
 import { Button } from "@/components/ui/button"
 import { FlipWords } from "@/components/ui/flip-words"
 import { Beam } from "@/components/ui/grid-beam"
@@ -16,11 +14,50 @@ import { VelocityScroll } from "@/components/ui/scroll-based-velocity"
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect"
 import { cn } from "@/lib/utils"
 
+const sections = [
+  {
+    id: "1",
+    content: (
+      <div className="relative flex h-full w-full flex-col justify-center">
+        <Beam className="-mt-[5rem] hidden xl:ml-28 xl:block" />
+        <h2 className="mb-4 text-center text-2xl font-bold md:mb-6 md:text-4xl">
+          Наши возможности
+        </h2>
+        <FeaturesSection />
+      </div>
+    )
+  },
+  {
+    id: "2",
+    content: <AppPromo />
+  },
+  {
+    id: "3",
+    content: (
+      <VelocityScroll
+        text="DamfAI Chappi"
+        defaultVelocity={2}
+        className="font-display text-center text-5xl font-bold tracking-[-0.02em] text-black opacity-[0.03] drop-shadow-sm dark:text-white"
+      />
+    )
+  },
+  {
+    id: "4",
+    content: (
+      <div className="container">
+        <BentoDemo />
+      </div>
+    )
+  },
+  {
+    id: "5",
+    content: <Heading />
+  }
+]
 export default function HomePage() {
-  const SECTIONS = [
-    {
-      id: "1",
-      content: (
+  return (
+    <div className="dark:bg-grid-white/[0.02] h-full">
+      <section className="overflow-hidden">
         <div className="flex h-full w-full flex-col items-center py-6 md:py-10">
           <div>
             <h1 className="bg-gradient-to-b from-foreground/25 to-foreground bg-clip-text text-center text-5xl font-bold text-transparent dark:from-neutral-200 dark:to-neutral-600 md:text-7xl">
@@ -67,57 +104,11 @@ export default function HomePage() {
             className="md:!pt-20"
           />
         </div>
-      )
-    },
-    {
-      id: "2",
-      content: (
-        <div className="relative flex h-full w-full flex-col justify-center">
-          <Beam className="-mt-[5rem] hidden xl:ml-28 xl:block" />
-          <h2 className="mb-4 text-center text-2xl font-bold md:mb-6 md:text-4xl">
-            Наши возможности
-          </h2>
-          <FeaturesSection />
-        </div>
-      )
-    },
-
-    {
-      id: "4",
-      content: <AppPromo />
-    },
-    {
-      id: "6",
-      content: (
-        <VelocityScroll
-          text="DamfAI Chappi"
-          defaultVelocity={2}
-          className="font-display text-center text-5xl font-bold tracking-[-0.02em] text-black opacity-[0.03] drop-shadow-sm dark:text-white"
-        />
-      )
-    },
-
-    {
-      id: "5",
-      content: (
-        <div className="container">
-          <BentoDemo />
-        </div>
-      )
-    },
-
-    {
-      id: "7",
-      content: <Heading />
-    }
-  ]
-  return (
-    <div className="dark:bg-grid-white/[0.02] h-full">
-      <section className="overflow-hidden">{SECTIONS[0]?.content}</section>
+      </section>
       <div className="">
         <div className="relative h-full w-full">
           <div className="h-full w-full">
-            {SECTIONS.slice(1).map(s => (
+            {sections.map(s => (
               <section
                 className="flex w-full items-center justify-center py-20"
                 key={s.id}

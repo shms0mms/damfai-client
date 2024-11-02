@@ -1,18 +1,9 @@
-import {
-  ArrowRight,
-  BarChart2,
-  Book,
-  Download,
-  Globe,
-  Star,
-  Zap
-} from "lucide-react"
-import { toast } from "sonner"
-import { Button } from "@/components/ui/button"
+import { BarChart2, Book, Download, Globe, Star, Zap } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { PhoneMock } from "../ui/phone-mock"
+import { PhoneMock } from "@/components/ui/phone-mock"
+import { DownloadAppButton } from "./download-app-button"
 
-export default function AppPromo() {
+export function AppPromo() {
   return (
     <div className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
       <div className="grid gap-12 lg:grid-cols-2 xl:grid-cols-3">
@@ -22,32 +13,32 @@ export default function AppPromo() {
           </h2>
           <div className="grid grid-cols-3 gap-8 max-xl:grid-cols-2 max-sm:grid-cols-1">
             <FeatureCard
-              icon={<BarChart2 className="h-8 w-8 text-primary" />}
+              icon={<BarChart2 className="h-6 w-6 text-primary" />}
               title="Аналитика чтения"
               description="Отслеживайте свой прогресс и статистику чтения в реальном времени"
             />
             <FeatureCard
-              icon={<Book className="h-8 w-8 text-primary" />}
+              icon={<Book className="h-6 w-6 text-primary" />}
               title="Библиотека всегда с вами"
               description="Доступ к книгам в любое время и в любом месте"
             />
             <FeatureCard
-              icon={<Star className="h-8 w-8 text-primary" />}
+              icon={<Star className="h-6 w-6 text-primary" />}
               title="Персональные рекомендации"
               description="Получайте предложения книг на основе ваших интересов и истории чтения"
             />
             <FeatureCard
-              icon={<Download className="h-8 w-8 text-primary" />}
+              icon={<Download className="h-6 w-6 text-primary" />}
               title="Быстрая синхронизация"
               description="Мгновенная синхронизация прогресса чтения между всеми вашими устройствами"
             />
             <FeatureCard
-              icon={<Zap className="h-8 w-8 text-primary" />}
+              icon={<Zap className="h-6 w-6 text-primary" />}
               title="Режим быстрого чтения"
               description="Увеличьте скорость чтения благодаря сжатию книги"
             />
             <FeatureCard
-              icon={<Globe className="h-8 w-8 text-primary" />}
+              icon={<Globe className="h-6 w-6 text-primary" />}
               title="Удобство пользования"
               description="С приложением читать книги станет в разы проще!"
             />
@@ -60,19 +51,7 @@ export default function AppPromo() {
               Скачайте наше приложение и получите доступ к тысячам книг. Добро
               пожаловать в мир с Чаппи!
             </p>
-            <Button
-              onClick={() =>
-                toast(
-                  "К сожалению на данный момент мобильное приложение в разработке и мы не можем предоставить вам доступ к скачиванию!",
-                  { position: "top-center" }
-                )
-              }
-              className="group"
-              size="lg"
-            >
-              Скачать приложение
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Button>
+            <DownloadAppButton />
           </div>
         </div>
         <div className="relative flex items-center justify-center">
@@ -96,15 +75,15 @@ function FeatureCard({
   description: string
 }) {
   return (
-    <Card>
-      <CardHeader>
+    <Card className="py-4">
+      <CardHeader className="flex flex-row items-center gap-1 px-3">
+        {icon}
         <CardTitle className="flex items-center space-x-3">
-          {icon}
           <span>{title}</span>
         </CardTitle>
       </CardHeader>
-      <CardContent>
-        <p className="text-gray-600">{description}</p>
+      <CardContent className="mt-2">
+        <p className="text-sm text-foreground/40">{description}</p>
       </CardContent>
     </Card>
   )

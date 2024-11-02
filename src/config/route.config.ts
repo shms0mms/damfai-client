@@ -2,6 +2,7 @@ export const ROUTES = {
   HOME: "/",
   SIGN_IN: "/auth/sign-in",
   SIGN_UP: "/auth/sign-up",
+  RACE: "/race",
   V0: "https://v0.dev/",
   FIGMA: "https://www.figma.com/",
   GITHUB: "https://github.com/shms0mms/damfai-client",
@@ -14,7 +15,6 @@ export const ROUTES = {
     MMS: "https://t.me/shmsmms"
   },
   FAST_API: "https://fastapi.tiangolo.com/",
-  RECOMMEND: "/recommends",
   BOOKS: "/books",
   GIGA_CHAT: "https://giga.chat/",
   GIGA_CHAIN:

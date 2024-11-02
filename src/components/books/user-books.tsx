@@ -8,7 +8,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious
-} from "../ui/carousel"
+} from "@/components/ui/carousel"
 import { UserBookProgress } from "./user-book-progress"
 import { env } from "@/env"
 import { cn, randomNumber } from "@/lib/utils"

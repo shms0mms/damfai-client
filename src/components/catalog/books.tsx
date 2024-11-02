@@ -24,7 +24,7 @@ export const Books: FC<BooksProps> = ({ books }) => {
               imageUrl={
                 book.image
                   ? book.image
-                  : `${env.NEXT_PUBLIC_SERVER_URL}/books/img/${book.id}`
+                  : `${env.NEXT_PUBLIC_SERVER_URL}/books/get/book/img/${book.id}`
               }
             >
               <h4 className="text-lg font-semibold">{book.title}</h4>
