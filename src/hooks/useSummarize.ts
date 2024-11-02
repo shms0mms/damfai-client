@@ -4,7 +4,7 @@ import { summarizeService } from "@/services/summarize.service"
 
 export function useSummarize() {
   return useMutation({
-    mutationFn: ({ text, level }: SummarizeFormSchema) =>
-      summarizeService.summarize(text, level)
+    mutationFn: ({ text, level, lang }: SummarizeFormSchema) =>
+      summarizeService.summarize(text, level, lang)
   })
 }

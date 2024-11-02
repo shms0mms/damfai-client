@@ -44,12 +44,12 @@ export class ReadBookService {
     timeMinutes: number
   ) {
     return await axiosWithAuth.get(
-      `${this.BASE_URL}/read_page?page_id=${pageId}&book_id=${bookId}&chapter_id=${chapterId}&time_minutes=${timeMinutes || 0}`
+      `${this.BASE_URL}/read_page?page=${pageId}&book_id=${bookId}&chapter_id=${chapterId}&time_minutes=${timeMinutes || 0}`
     )
   }
   async finishBook(bookId: number) {
     return await axiosWithAuth.get(
-      `${this.BASE_URL}/finish_book?bookId=${bookId}`
+      `${this.BASE_URL}/finish_book?book_id=${bookId}`
     )
   }
   async getTarget(bookId: number) {

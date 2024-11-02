@@ -18,7 +18,7 @@ export const useReadBookData = ({
   searchParams,
   params,
   currentPage
-}: ReadBookPageProps & UseReadBookData) => {
+}: Omit<ReadBookPageProps, "data"> & UseReadBookData) => {
   const response = useQuery({
     initialData: undefined,
     queryKey: ["read-book", +params.id],

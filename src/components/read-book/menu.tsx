@@ -5,6 +5,7 @@ import Link from "next/link"
 import { useParams } from "next/navigation"
 import { toast } from "sonner"
 import { Chapter } from "@/types/book"
+import { useCustomSearchParams } from "@/hooks/useCustomSearchParams"
 import { ReadBookData } from "@/hooks/useReadBookData"
 import { Button } from "@/components/ui/button"
 import {
@@ -27,9 +28,9 @@ import { readBookService } from "@/services/read-book.service"
 type MenuProps = {
   open: boolean
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
-  handleChapterChange: (value: string) => void
+  handleChapterChange?: (value: string) => void
   readBookData: ReadBookData
-  currentChapter: Chapter
+  currentChapter?: Chapter
 }
 export function Menu({
   readBookData,
@@ -53,6 +54,7 @@ export function Menu({
       toast.error("Произошла ошибка, повторите попытку позже!")
     }
   })
+  const { searchParams } = useCustomSearchParams()
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -104,7 +106,7 @@ export function Menu({
                   "flex h-auto w-full items-center justify-start gap-3 rounded-sm"
                 )}
               >
-                Сменить формат
+                Сменить формат чтения
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align={"start"} className="w-[215px]">
@@ -118,7 +120,7 @@ export function Menu({
           </DropdownMenu>
           <Button asChild className="w-full" type="button">
             <Link
-              href={`/books/read/${bookId}?page=${readBookData?.page?.id}&chapter=${currentChapter?.id}&questions=generate`}
+              href={`/books/read/${bookId}?questions=generate&${searchParams}`}
             >
               Перейти сразу к вопросам
             </Link>

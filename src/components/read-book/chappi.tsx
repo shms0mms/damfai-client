@@ -5,8 +5,9 @@ import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { LogoCircle } from "@/components/ui/logo-circle"
 import { ChappiChat } from "./chappi-chat"
+import { cn } from "@/lib/utils"
 
-export function Chappi() {
+export function Chappi({ className }: { className?: string }) {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
@@ -31,7 +32,7 @@ export function Chappi() {
   }, [])
   return (
     <div
-      className={`fixed bottom-20 right-6 max-2xl:static`}
+      className={cn(`fixed bottom-20 right-6 max-2xl:static`, className)}
       style={{
         zIndex: open ? 50 : 1
       }}
@@ -46,7 +47,7 @@ export function Chappi() {
           className="origin-bottom-right"
           animate={open ? { opacity: 1, scale: 1, pointerEvents: "auto" } : {}}
         >
-          <ChappiChat className="min-w-[400px]" />
+          <ChappiChat className="min-w-[400px] max-w-[400px]" />
         </motion.div>
         <Button
           size="icon"

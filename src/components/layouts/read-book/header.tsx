@@ -10,7 +10,7 @@ import { Bookmark } from "./bookmark"
 type Props = {
   readBookData: ReadBookData
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
-  time: string
+  time?: string
 }
 export const Header = ({ readBookData, setOpen, time }: Props) => {
   return (
@@ -26,10 +26,14 @@ export const Header = ({ readBookData, setOpen, time }: Props) => {
           {readBookData?.title}
         </h1>
         <div className="flex items-center space-x-2">
-          <div className="flex min-w-[100px] items-center gap-x-1">
-            <span className="max-md:text-[0px]">Время чтения:</span> {time}
-          </div>
-          <Bookmark currentPage={readBookData?.page?.id} />
+          {!!time && (
+            <div className="flex min-w-[100px] items-center gap-x-1">
+              <span className="max-md:text-[0px]">Время чтения:</span> {time}
+            </div>
+          )}
+          {!!readBookData?.page?.id && (
+            <Bookmark currentPage={readBookData?.page?.id} />
+          )}
           <ThemeToggle />
         </div>
       </header>

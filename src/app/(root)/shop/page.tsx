@@ -1,6 +1,5 @@
 import { Extension } from "@/components/ui/extension"
 import { InDevelopment } from "@/components/ui/in-dev"
-import { LetterPullup } from "@/components/ui/letter-pullup"
 import { MarchCard } from "@/components/ui/merch-card"
 import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -18,14 +17,17 @@ export default async function Shop() {
     <Skeleton key={i} className="min-h-[400px] w-full rounded-md" />
   ))
   return (
-    <div className="flex h-full w-full flex-col gap-[100px]">
+    <div className="flex h-full w-full flex-col gap-[100px] pt-[100px]">
       <section className="container">
-        <h1 className="text-center">
+        {/* <h1 className="text-center">
           <LetterPullup
             className="font-bold"
             words={"Магазин damfai"}
             delay={0.2}
           />
+        </h1> */}
+        <h1 className="mb-2 bg-gradient-to-b from-foreground/25 to-foreground bg-clip-text text-center text-5xl font-bold text-transparent dark:from-neutral-200 dark:to-neutral-600 md:text-7xl">
+          Магазин damfai
         </h1>
         <h2 className="flex w-full justify-center">
           <TextGenerateEffect

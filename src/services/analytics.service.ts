@@ -51,7 +51,7 @@ class AnalyticsService {
   }
   async updateSpeedWordsPerMinute(speed: number) {
     return await axiosWithAuth.put(
-      `${this.BASE_URL}/update_sped_words_per_minute?speed=${speed}`
+      `${this.BASE_URL}/update_speed_words_per_minute?speed=${speed}`
     )
   }
 }

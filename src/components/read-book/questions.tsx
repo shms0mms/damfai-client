@@ -115,9 +115,9 @@ export function Questions() {
                               )?.key
                               const submitCount = form.formState.submitCount
                               const isCorrect =
-                                submitCount && currentKey === key
+                                submitCount && key === question.answer
                               const isInCorrect =
-                                submitCount && currentKey !== key
+                                submitCount && key !== question.answer
 
                               return (
                                 <div

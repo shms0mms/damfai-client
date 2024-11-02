@@ -3,7 +3,6 @@
 import { AnimatePresence, motion } from "framer-motion"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { useReadBook } from "@/hooks/useReadBook"
 import { Header } from "@/components/layouts/read-book/header"
 import { Chappi } from "@/components/read-book/chappi"
 import { Menu } from "@/components/read-book/menu"
@@ -16,23 +15,25 @@ import { ReadBookPageProps } from "@/app/(read-book)/books/read/[id]/page"
 // DONE: Questions answers - 2
 // DONE: Finish book page - 1
 // TODO: Zip text - 3
-export function ReadBook({ params, searchParams }: ReadBookPageProps) {
-  const router = useRouter()
-  const {
-    readBookData,
-    timeString,
+export function ReadBook({
+  params,
+  searchParams,
+  data: {
+    currentChapter,
+    currentPage,
+    readTime,
+    setCurrentPage,
     isLoading,
+    readBookData,
+    error,
     open,
     setOpen,
-    navigation,
-    error,
-    ...navigationProps
-  } = useReadBook({
-    params,
-    searchParams
-  })
+    timeString,
+    navigation
+  }
+}: ReadBookPageProps) {
   const startGenerateQuestions = searchParams?.questions === "generate"
-
+  const router = useRouter()
   return error?.response?.status !== 403 ? (
     <>
       {startGenerateQuestions ? (
@@ -40,7 +41,7 @@ export function ReadBook({ params, searchParams }: ReadBookPageProps) {
           defaultOpen
           onOpenChange={() => {
             router.push(
-              `/books/read/${params.id}?page=${navigationProps.currentPage}&chapter=${navigationProps.currentChapter.id}`
+              `/books/read/${params.id}?page=${currentPage}&chapter=${currentChapter.id}`
             )
           }}
         >
@@ -63,7 +64,7 @@ export function ReadBook({ params, searchParams }: ReadBookPageProps) {
           <main className="flex flex-grow items-center justify-center p-4 pt-16">
             <AnimatePresence mode="wait">
               <motion.div
-                key={`${navigationProps.currentChapter.id}-${navigationProps.currentPage}`}
+                key={`${currentChapter.id}-${currentPage}`}
                 initial={{ opacity: 0, x: 300 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -300 }}
@@ -71,23 +72,20 @@ export function ReadBook({ params, searchParams }: ReadBookPageProps) {
                 className="mx-auto w-full max-w-4xl rounded-lg bg-card py-6 shadow-lg max-md:max-w-7xl"
               >
                 <h2 className="mb-4 text-2xl font-semibold">
-                  {
-                    readBookData.chapters[navigationProps.currentChapter.id - 1]
-                      ?.title
-                  }
+                  {readBookData.chapters[currentChapter.id - 1]?.title}
                 </h2>
                 <p
                   className="mb-6 text-lg leading-relaxed"
                   dangerouslySetInnerHTML={{
-                    __html: readBookData.page.text.replaceAll("\n", "<br />")!
+                    __html: readBookData?.page?.text?.replaceAll(
+                      "\n",
+                      "<br />"
+                    )!
                   }}
                 />
                 <p className="text-sm text-muted-foreground">
-                  Страница {navigationProps.currentPage} из{" "}
-                  {
-                    readBookData.chapters[navigationProps.currentChapter.id - 1]
-                      ?.pages
-                  }
+                  Страница {currentPage} из{" "}
+                  {readBookData.chapters[currentChapter.id - 1]?.pages}
                 </p>
               </motion.div>
             </AnimatePresence>
@@ -95,10 +93,13 @@ export function ReadBook({ params, searchParams }: ReadBookPageProps) {
 
           <ReadBookNavigation
             readBookData={readBookData}
-            {...navigationProps}
+            currentChapter={currentChapter}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            readTime={readTime}
           />
           <Menu
-            currentChapter={navigationProps.currentChapter}
+            currentChapter={currentChapter}
             readBookData={readBookData}
             open={open}
             setOpen={setOpen}

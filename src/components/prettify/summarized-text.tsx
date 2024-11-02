@@ -7,7 +7,7 @@ import { randomNumber } from "../../lib/utils"
 
 type SummarizedTextProps = {
   isPending: boolean
-  data: { text: string } | undefined
+  data: { sum_text: string } | undefined
 }
 
 export const SummarizedText: FC<SummarizedTextProps> = ({
@@ -35,7 +35,7 @@ export const SummarizedText: FC<SummarizedTextProps> = ({
   )
 
   return (
-    <motion.div {...motionProps}>
+    <motion.div className="min-h-full" {...motionProps}>
       <h3 className="mb-4 text-sm text-foreground/50">
         Суммаризированный текст:
       </h3>
@@ -48,12 +48,12 @@ export const SummarizedText: FC<SummarizedTextProps> = ({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="flex flex-col"
+          className="flex min-h-full flex-col"
         >
-          <ScrollArea className="h-72">
-            <p data-testid="summarized-text">{data.text}</p>
+          <ScrollArea className="min-h-full">
+            <p data-testid="summarized-text">{data.sum_text}</p>
           </ScrollArea>
-          <CopyButton text={data.text} />
+          <CopyButton text={data.sum_text} />
         </motion.div>
       )}
     </motion.div>
@@ -67,7 +67,7 @@ function SummarizeLoadingState(props: SummarizeLoadingStateProps) {
     <motion.div className="flex flex-wrap gap-2" {...props}>
       {Array.from({ length: 100 }).map((_, i) => (
         <motion.div
-          className="h-4 animate-pulse rounded-full bg-muted"
+          className="h-4 animate-pulse rounded-full bg-foreground"
           initial={{ opacity: 0, width: 0 }}
           animate={{
             opacity: 1,
