@@ -42,10 +42,12 @@ export type Book = {
   writen_date?: Date
   chapters: number
   ratings: number // float, can be filtered
-  ganres: {
-    id: number
-    ganre: string
-  }[]
+  ganres: string[] //
+
+  // {id: number
+  //   ganre: string
+  // }[]
+
   progress: number
   is_favourite?: boolean
   age_of_book?: string
