@@ -22,6 +22,7 @@ import {
   IconWorld
 } from "@tabler/icons-react"
 import { MotionValue, motion, useScroll, useTransform } from "framer-motion"
+import { useTheme } from "next-themes"
 import Image from "next/image"
 import { type FC, useRef } from "react"
 import { useMediaQuery } from "usehooks-ts"
@@ -29,7 +30,8 @@ import { MEDIA } from "@/config/media.config"
 import { cn } from "@/lib/utils"
 
 type LaptopScrollProps = {
-  src?: string
+  lightSrc: string
+  darkSrc: string
   showGradient?: boolean
   title?: string | React.ReactNode
   badge?: React.ReactNode
@@ -37,7 +39,8 @@ type LaptopScrollProps = {
 }
 
 export const LaptopScroll: FC<LaptopScrollProps> = ({
-  src,
+  lightSrc,
+  darkSrc,
   showGradient,
   title,
   badge,
@@ -85,7 +88,8 @@ export const LaptopScroll: FC<LaptopScrollProps> = ({
       </motion.h2>
       {/* Lid */}
       <Lid
-        src={src}
+        lightSrc={lightSrc}
+        darkSrc={darkSrc}
         scaleX={scaleX}
         scaleY={scaleY}
         rotate={rotate}
@@ -120,7 +124,8 @@ export const LaptopScroll: FC<LaptopScrollProps> = ({
 }
 
 type LidProps = {
-  src?: string
+  lightSrc: string
+  darkSrc: string
   scaleX: MotionValue<number>
   scaleY: MotionValue<number>
   rotate: MotionValue<number>
@@ -132,7 +137,8 @@ export const Lid: FC<LidProps> = ({
   scaleY,
   rotate,
   translate,
-  src
+  darkSrc,
+  lightSrc
 }) => {
   return (
     <div className="relative [perspective:800px]">
@@ -168,10 +174,16 @@ export const Lid: FC<LidProps> = ({
       >
         <div className="absolute inset-0 rounded-lg bg-[#272729]" />
         <Image
-          src={src as string}
+          src={darkSrc}
           alt="aceternity logo"
+          className="absolute inset-0 hidden h-full w-full rounded-lg object-cover object-left-top dark:block"
           fill
-          className="absolute inset-0 h-full w-full rounded-lg object-cover object-left-top opacity-80 dark:opacity-15"
+        />
+        <Image
+          src={lightSrc}
+          alt="aceternity logo"
+          className="absolute inset-0 block h-full w-full rounded-lg object-cover object-left-top dark:hidden"
+          fill
         />
       </motion.div>
     </div>
