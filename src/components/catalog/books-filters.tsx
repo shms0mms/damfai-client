@@ -68,7 +68,9 @@ function BooksFiltersComponent() {
     const filtersAsMatrix = Object.entries(processedFilters).map(
       ([key, value]) => [key, value.toString()]
     )
-    router.push(`/catalog?${new URLSearchParams(filtersAsMatrix).toString()}`)
+    const searchParams = new URLSearchParams(filtersAsMatrix).toString()
+    console.log(searchParams)
+    router.push(`/catalog?${searchParams}`)
   }
 
   const handleFilterChange = (
@@ -118,11 +120,17 @@ function BooksFiltersComponent() {
                 />
               </SelectTrigger>
               <SelectContent>
-                {filter.options.map(option => (
-                  <SelectItem key={option} value={option}>
-                    {option}
-                  </SelectItem>
-                ))}
+                {filter.options.map(option => {
+                  const key = typeof option === "string" ? option : option.id
+                  const value =
+                    typeof option === "string" ? option : `${option.id}`
+
+                  return (
+                    <SelectItem key={key} value={value}>
+                      {typeof option === "string" ? option : option.value}
+                    </SelectItem>
+                  )
+                })}
               </SelectContent>
             </Select>
           </div>

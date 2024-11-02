@@ -26,10 +26,11 @@ class RecommendationsService {
       return (
         await axiosWithAuth.post<Pagination<Book>>(
           `${this.BASE_URL}/books/search`,
-          [],
+          "ganre" in options.filters ? [+options.filters.ganre] : undefined,
           {
             params: {
               ...options.filters,
+              ganre: undefined,
               page: options.page,
               size: options.size
             }
