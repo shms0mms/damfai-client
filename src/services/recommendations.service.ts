@@ -1,18 +1,49 @@
 import { Book } from "@/types/book"
 import { axiosWithAuth } from "@/api/interceptors"
+import { Pagination } from "@/types"
 
 class RecommendationsService {
-  private BASE_URL = "/recomendations"
+  private BASE_URL = "/recommendations"
 
   async getRecommendations() {
     try {
       return (
-        await axiosWithAuth<Book[]>(
+        await axiosWithAuth.get<Book[]>(
           `${this.BASE_URL}/books/get_reccomendations`
         )
       ).data
     } catch (error) {
       return []
+    }
+  }
+
+  async searchBooks(options: {
+    page: number
+    size: number
+    filters: Record<string, string>
+  }) {
+    try {
+      return (
+        await axiosWithAuth.post<Pagination<Book>>(
+          `${this.BASE_URL}/books/search`,
+          [],
+          {
+            params: {
+              ...options.filters,
+              page: options.page,
+              size: options.size
+            }
+          }
+        )
+      ).data
+    } catch (error) {
+      return {
+        items: [],
+        pages: 0,
+        page: options.page,
+        size: options.size,
+        total: 0
+      } satisfies Pagination<Book>
     }
   }
 }
