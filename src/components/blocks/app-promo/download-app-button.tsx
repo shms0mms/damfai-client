@@ -8,7 +8,7 @@ export const DownloadAppButton = () => {
   return (
     <Button
       onClick={() =>
-        toast(
+        toast.error(
           "К сожалению на данный момент мобильное приложение в разработке и мы не можем предоставить вам доступ к скачиванию!",
           { position: "top-center" }
         )
