@@ -39,7 +39,12 @@ export const BookForm: FC<BookFormProps> = ({
 }) => {
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
-    defaultValues: { targetOfDate: new Date(), withTarget: true }
+    defaultValues: {
+      targetOfDate: initialTargetOfDate
+        ? new Date(initialTargetOfDate)
+        : new Date(),
+      withTarget: true
+    }
   })
   const withTarget = form.getValues("withTarget")
 

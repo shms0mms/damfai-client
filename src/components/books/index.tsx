@@ -79,7 +79,7 @@ function Book({ book }: BookProps) {
         <h4 className="text-sm">{book.title}</h4>
         {(book?.progress || book?.progress == 0) && (
           <div className="flex flex-col gap-1">
-            <p className="text-xs">Прогресс {book.progress}%</p>
+            <p className="text-xs">Прогресс {book.progress?.toFixed(0)}%</p>
             <Progress value={book.progress} />
           </div>
         )}

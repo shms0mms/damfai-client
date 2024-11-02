@@ -7,7 +7,7 @@ export function useReadBookCompressed({
   params,
   searchParams
 }: Omit<ReadBookPageProps, "data">) {
-  const [text, setText] = useState<string | undefined>(undefined)
+  const [text, setText] = useState<string>("")
   const { message } = useCompressedBook(+params.id)
   const [open, setOpen] = useState(false)
   const query = useReadBookData({
@@ -16,8 +16,8 @@ export function useReadBookCompressed({
     searchParams
   })
   useEffect(() => {
-    if (message?.text) setText(message.text)
-  }, [message])
+    if (message?.text) setText(prev => (prev += `\n${message.text}\n`))
+  }, [message?.text])
 
   return { text, setText, query, open, setOpen }
 }

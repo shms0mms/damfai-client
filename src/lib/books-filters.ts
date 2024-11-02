@@ -1,3 +1,5 @@
+import { bookService } from "@/services/book.service"
+
 export type BookFilter = {
   id: string
   label: string
@@ -16,11 +18,13 @@ export type MinValue = number
 export type MaxValue = number
 export type RangeValue = [MinValue, MaxValue]
 
-export const getBooksFilters = (): BookFilter[] => {
+export const getBooksFilters = async (): Promise<BookFilter[]> => {
+  const {} = await bookService.getAllGanres()
+
   return [
     {
       id: "size",
-      label: "Размер страницы",
+      label: "Количество книг для получения",
       type: "enum",
       options: ["4", "12", "25", "32", "50"]
     },
@@ -41,11 +45,5 @@ export const getBooksFilters = (): BookFilter[] => {
       minValue: 0.0,
       maxValue: 5.0
     }
-    // {
-    //   id: "ganre",
-    //   label: "Жанр",
-    //   type: "enum",
-    //   options: ganres
-    // }
   ]
 }

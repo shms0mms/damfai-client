@@ -28,6 +28,7 @@ export const useGenerateQuestions = (
   useEffect(() => {
     return () => disconnect()
   }, [])
+
   const message = lastMessage?.data ? eval(lastMessage?.data) : null
   return {
     send,

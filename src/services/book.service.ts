@@ -17,10 +17,11 @@ class BookService {
   private BASE_URL = "/books"
 
   async getAllGanres() {
-    const response = await new Promise<GetAllGanresResponse>(res =>
-      res([{ id: 1, ganre: "Фэнтези" }])
-    )
-    return response.map(r => r.ganre)
+    return (
+      await axiosWithAuth.get<GetAllGanresResponse>(
+        `${this.BASE_URL}/ganres/all`
+      )
+    ).data
   }
   async getById(id: number) {
     try {
@@ -35,7 +36,11 @@ class BookService {
   }
 
   async getUserBooks() {
-    return (await readBookService.getAll()).data
+    try {
+      return (await readBookService.getAll()).data
+    } catch (error) {
+      return []
+    }
   }
 
   async getAllChapters(id: number) {
