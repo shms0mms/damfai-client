@@ -62,7 +62,7 @@ export const SummarizedText: FC<SummarizedTextProps> = ({
 
 type SummarizeLoadingStateProps = MotionProps
 
-function SummarizeLoadingState(props: SummarizeLoadingStateProps) {
+export function SummarizeLoadingState(props: SummarizeLoadingStateProps) {
   return (
     <motion.div className="flex flex-wrap gap-2" {...props}>
       {Array.from({ length: 100 }).map((_, i) => (

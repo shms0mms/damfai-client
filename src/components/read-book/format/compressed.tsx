@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { useReadBookCompressed } from "@/hooks/useReadBookCompressed"
 import { ReadBookData } from "@/hooks/useReadBookData"
 import { Header } from "@/components/layouts/read-book/header"
+import { SummarizeLoadingState } from "@/components/prettify/summarized-text"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog"
 import { Chappi } from "../chappi"
@@ -52,12 +53,18 @@ export default function CompressedFormat({
           <Header readBookData={readBookData} setOpen={setOpen} />
           <main className="pt-24">
             <div className="container max-w-4xl max-md:max-w-7xl">
-              <p
-                className="mb-6 text-lg leading-relaxed"
-                dangerouslySetInnerHTML={{
-                  __html: text?.replaceAll("\n", "<br />")!
-                }}
-              />
+              {text ? (
+                <p
+                  className="mb-6 text-lg leading-relaxed"
+                  dangerouslySetInnerHTML={{
+                    __html: text?.replaceAll("\n", "<br />")!
+                  }}
+                />
+              ) : (
+                <div className="flex h-screen w-screen items-center justify-center">
+                  <SummarizeLoadingState />
+                </div>
+              )}
             </div>
           </main>
           <Menu readBookData={readBookData} open={open} setOpen={setOpen} />
