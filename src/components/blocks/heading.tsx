@@ -3,7 +3,7 @@ import { User } from "lucide-react"
 export function Heading() {
   return (
     <section className="bg-transparent py-24 sm:py-32">
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="container relative px-6 lg:px-8">
         <div className="mb-20 mr-auto max-w-2xl text-left">
           <h2 className="mb-20 text-4xl font-semibold tracking-tighter text-foreground/70 sm:text-6xl">
             Что говорят другие
