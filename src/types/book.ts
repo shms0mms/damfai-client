@@ -1,6 +1,6 @@
+import { RangeValue } from "@/lib/books-filters"
 import { Angry, Frown, Heart, LucideProps, Meh, Smile } from "lucide-react"
 import { ForwardRefExoticComponent } from "react"
-import { RangeValue } from "@/lib/books-filters"
 
 export enum EmoteEnum {
   happy = "happy",
@@ -42,11 +42,7 @@ export type Book = {
   writen_date?: Date
   chapters: number
   ratings: number // float, can be filtered
-  ganres: string[] //
-
-  // {id: number
-  //   ganre: string
-  // }[]
+  ganres: string[]
 
   progress: number
   is_favourite?: boolean

@@ -5,17 +5,20 @@ import { emotesBooksService } from "@/services/emotes-books.service"
 import { recommendationsService } from "@/services/recommendations.service"
 
 export default async function BooksPage() {
-  const [books, emotesBooks, userBooks] = await Promise.all([
-    recommendationsService.getRecommendations(),
-    emotesBooksService.getEmotesBooks(),
-    bookService.getUserBooks()
-  ])
+  const books = await recommendationsService.getRecommendations()
+  const emotesBooks = await emotesBooksService.getEmotesBooks()
+  const userBooks = await bookService.getUserBooks()
 
-  const bookGanres = Array.from(new Set(books.map(book => book.ganres).flat()))
+  const bookGanres = books.map(book => book.ganres).flat()
+
   const ganreAndBook: Record<string, Book[]> = {}
+
   bookGanres.forEach(ganre => {
-    ganreAndBook[ganre] = books.filter(book => book.ganres.includes(ganre))
+    ganreAndBook[ganre] = books.filter(book => {
+      return book.ganres.includes(ganre)
+    })
   })
+
   const ganres = Object.keys(ganreAndBook)
 
   const sections = [

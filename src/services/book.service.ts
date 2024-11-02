@@ -35,7 +35,11 @@ class BookService {
   }
 
   async getUserBooks() {
-    return (await readBookService.getAll()).data
+    try {
+      return (await readBookService.getAll()).data
+    } catch (error) {
+      return []
+    }
   }
 
   async getAllChapters(id: number) {

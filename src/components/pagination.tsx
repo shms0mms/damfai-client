@@ -94,7 +94,7 @@ export function Pagination({ pagination, searchParams }: PaginationProps) {
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
-            href={`?page=${pagination.page > 0 ? pagination.page : 1}&${searchParamsAsString}`}
+            href={`?page=${pagination.page > 1 ? pagination.page - 1 : 1}&${searchParamsAsString}`}
             aria-disabled={pagination.page === 1}
             isActive={pagination.page === 1}
             tabIndex={pagination.page === 1 ? -1 : 0}
@@ -103,7 +103,7 @@ export function Pagination({ pagination, searchParams }: PaginationProps) {
         {renderPageNumbers()}
         <PaginationItem>
           <PaginationNext
-            href={`?page=${pagination.page < pagination.pages ? pagination.page : pagination.pages}&${searchParamsAsString}`}
+            href={`?page=${pagination.page < pagination.pages ? pagination.page + 1 : pagination.pages}&${searchParamsAsString}`}
             isActive={pagination.page === pagination.pages}
             aria-disabled={pagination.page === pagination.pages}
             tabIndex={pagination.page === pagination.pages ? -1 : 0}
