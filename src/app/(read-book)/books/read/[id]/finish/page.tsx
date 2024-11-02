@@ -1,6 +1,7 @@
 "use client"
 
 import { useQuery } from "@tanstack/react-query"
+// @ts-expect-error don't have types
 import html2pdf from "html2pdf.js"
 import { Award, BookOpen, Download } from "lucide-react"
 import { useContext, useMemo, useRef } from "react"
@@ -65,58 +66,60 @@ export default function FinishBookPage({
         </div>
       ) : (
         <div className="flex min-h-screen flex-col items-center justify-center bg-background p-4">
-          <Card ref={certificateRef} className="w-[800px] bg-card">
-            <CardHeader className="text-center">
-              <CardTitle className="text-4xl font-bold tracking-tight">
-                Сертификат о прочтении
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-10 pt-4">
-              <div className="flex justify-center">
-                <Badge variant="secondary" className="px-4 py-1 text-xl">
-                  <BookOpen className="mr-2 h-4 w-4" />
-                  Достижение
-                </Badge>
-              </div>
+          <Card className="w-[800px] bg-card">
+            <div ref={certificateRef}>
+              <CardHeader className="text-center">
+                <CardTitle className="text-4xl font-bold tracking-tight">
+                  Сертификат о прочтении
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-10 pt-4">
+                <div className="flex justify-center">
+                  <Badge variant="secondary" className="px-4 py-1 text-xl">
+                    <BookOpen className="mr-2 h-4 w-4" />
+                    Достижение
+                  </Badge>
+                </div>
 
-              <div className="space-y-2 text-center">
-                <p className="text-xl text-muted-foreground">
-                  Настоящим подтверждается, что
+                <div className="space-y-2 text-center">
+                  <p className="text-xl text-muted-foreground">
+                    Настоящим подтверждается, что
+                  </p>
+                  <h2 className="text-3xl font-bold text-primary">
+                    {ctx?.user?.name} {ctx?.user?.surname}
+                  </h2>
+                </div>
+
+                <Separator />
+
+                <div className="space-y-2 text-center">
+                  <p className="text-xl text-muted-foreground">
+                    успешно прочитал(а) книгу
+                  </p>
+                  <h3 className="text-2xl font-semibold">"{book.title}"</h3>
+                  <p className="text-lg text-muted-foreground">
+                    автора {book.author}
+                  </p>
+                </div>
+
+                <div className="flex justify-center">
+                  <Badge variant="outline" className="px-4 py-1 text-lg">
+                    100% прочитано
+                  </Badge>
+                </div>
+
+                <p className="text-center text-lg text-muted-foreground">
+                  Поздравляем с успешным прочтением книги!
                 </p>
-                <h2 className="text-3xl font-bold text-primary">
-                  {ctx?.user?.name} {ctx?.user?.surname}
-                </h2>
-              </div>
 
-              <Separator />
-
-              <div className="space-y-2 text-center">
-                <p className="text-xl text-muted-foreground">
-                  успешно прочитал(а) книгу
-                </p>
-                <h3 className="text-2xl font-semibold">"{book.title}"</h3>
-                <p className="text-lg text-muted-foreground">
-                  автора {book.author}
-                </p>
-              </div>
-
-              <div className="flex justify-center">
-                <Badge variant="outline" className="px-4 py-1 text-lg">
-                  100% прочитано
-                </Badge>
-              </div>
-
-              <p className="text-center text-lg text-muted-foreground">
-                Поздравляем с успешным прочтением книги!
-              </p>
-
-              <div className="flex items-center justify-between">
-                <p className="text-sm text-muted-foreground">
-                  Дата выдачи: {date}
-                </p>
-                <Award className="h-16 w-16 text-primary opacity-20" />
-              </div>
-            </CardContent>
+                <div className="flex items-center justify-between">
+                  <p className="text-sm text-muted-foreground">
+                    Дата выдачи: {date}
+                  </p>
+                  <Award className="h-16 w-16 text-primary opacity-20" />
+                </div>
+              </CardContent>
+            </div>
             <CardFooter className="justify-center">
               <Button onClick={downloadPDF} variant="outline">
                 <Download className="mr-2 h-4 w-4" />

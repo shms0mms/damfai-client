@@ -16,7 +16,7 @@ export default function Dashboard() {
   return (
     <>
       <Header />
-      <div className="container mx-auto space-y-8 p-6">
+      <div className="container mx-auto space-y-8 p-6 pt-[calc(var(--header-size)+2rem)]">
         <Notify />
         <div className="grid grid-cols-1 gap-y-4 xl:grid-cols-3 xl:gap-x-4">
           <Profile />

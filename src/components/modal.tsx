@@ -1,7 +1,5 @@
 "use client"
 
-import { useRouter } from "next/navigation"
-import type { FC, PropsWithChildren } from "react"
 import {
   Credenza,
   CredenzaContent,
@@ -9,6 +7,8 @@ import {
   CredenzaHeader,
   CredenzaTitle
 } from "@/components/ui/credenza"
+import { useRouter } from "next/navigation"
+import type { FC, PropsWithChildren } from "react"
 
 type ModalProps = {
   title: React.ReactNode
