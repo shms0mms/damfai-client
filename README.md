@@ -1,3 +1,8 @@
+## Репозитории проекта
+
+- [Damfai server](https://github.com/1Dambek1/damfai-server)
+- [Damfai client](https://github.com/shms0mms/damfai-client)
+
 # Интерфейс приложения
 
 ## В части второго этапа мы реализовали
@@ -61,8 +66,3 @@ npm run dev
 ```
 
 - Теперь клиент запущен на http://localhost:3000
-
-## Репозитории проекта
-
-- [Damfai server](https://github.com/1Dambek1/damfai-server)
-- [Damfai client](https://github.com/shms0mms/damfai-client)
