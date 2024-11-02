@@ -1,3 +1,5 @@
+"use client"
+
 import { zodResolver } from "@hookform/resolvers/zod"
 import hslToHex from "hsl-to-hex"
 import { Pipette } from "lucide-react"

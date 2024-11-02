@@ -96,28 +96,35 @@ export function ThemeToggle({
           <DropdownMenuItem onClick={() => setTheme("dark")}>
             Темная
           </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          {userThemes?.map(theme => (
-            <DropdownMenuItem
-              key={theme.id}
-              onClick={() =>
-                colorThemeKey !== theme.key && setColorTheme(theme.id)
-              }
-              className="flex items-center justify-between gap-2"
-            >
-              {theme.name}
+          {userThemes?.length ? (
+            <>
+              <DropdownMenuSeparator />
+              {userThemes.map(theme => (
+                <DropdownMenuItem
+                  key={theme.id}
+                  onClick={() =>
+                    colorThemeKey !== theme.key && setColorTheme(theme.id)
+                  }
+                  className="flex items-center justify-between gap-2"
+                >
+                  {theme.name}
 
-              {theme.id === colorThemeIdLoading ? (
-                <Loader className="h-4 w-4 animate-spin" />
-              ) : null}
-              {!colorThemeIdLoading && colorThemeKey === theme.key ? (
-                <Check size={16} className="text-foreground/75" />
-              ) : null}
-            </DropdownMenuItem>
-          ))}
-          <DropdownMenuItem onClick={() => removeColorTheme()}>
-            Убрать цветовую тему
-          </DropdownMenuItem>
+                  {theme.id === colorThemeIdLoading ? (
+                    <Loader className="h-4 w-4 animate-spin" />
+                  ) : null}
+                  {!colorThemeIdLoading && colorThemeKey === theme.key ? (
+                    <Check size={16} className="text-foreground/75" />
+                  ) : null}
+                </DropdownMenuItem>
+              ))}
+              <DropdownMenuItem
+                className={cn({ "opacity-50": !colorThemeKey })}
+                onClick={() => removeColorTheme()}
+              >
+                Убрать цветовую тему
+              </DropdownMenuItem>
+            </>
+          ) : null}
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={() => {
