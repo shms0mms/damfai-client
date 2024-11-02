@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
-import { RoleEnum, UserSignUp } from "@/types/user"
+import { UserSignUp } from "@/types/user"
 import { OPTIONS } from "@/config/options.config"
 import { ROUTES } from "@/config/route.config"
 import { Button } from "@/components/ui/button"
@@ -52,18 +52,14 @@ const formSchema = z.object({
   }),
   dob: z.date({
     required_error: "Дата рождения обязательная."
-  }),
-  role: z.nativeEnum(RoleEnum)
+  })
 })
 
 type FormSchema = z.infer<typeof formSchema>
 
 export default function AuthForm() {
   const form = useForm<FormSchema>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      role: RoleEnum.user
-    }
+    resolver: zodResolver(formSchema)
   })
   const queryClient = useQueryClient()
   const router = useRouter()
