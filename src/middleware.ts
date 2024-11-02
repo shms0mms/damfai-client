@@ -9,6 +9,7 @@ const protectedRoutes = [
   ROUTES.DASHBOARD,
   ROUTES.RACE,
   ROUTES.BOOKS,
+  "/pass",
   "/books/read/"
 ]
 const preventLoggedInRoutes = ["/auth/sign-in", "/auth/sign-up"]
