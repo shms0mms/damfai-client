@@ -15,7 +15,6 @@ export const ROUTES = {
     MMS: "https://t.me/shmsmms"
   },
   FAST_API: "https://fastapi.tiangolo.com/",
-  RECOMMEND: "/recommends",
   BOOKS: "/books",
   GIGA_CHAT: "https://giga.chat/",
   GIGA_CHAIN:

@@ -22,32 +22,32 @@ export default function AppPromo() {
           </h2>
           <div className="grid grid-cols-3 gap-8 max-xl:grid-cols-2 max-sm:grid-cols-1">
             <FeatureCard
-              icon={<BarChart2 className="h-8 w-8 text-primary" />}
+              icon={<BarChart2 className="h-6 w-6 text-primary" />}
               title="Аналитика чтения"
               description="Отслеживайте свой прогресс и статистику чтения в реальном времени"
             />
             <FeatureCard
-              icon={<Book className="h-8 w-8 text-primary" />}
+              icon={<Book className="h-6 w-6 text-primary" />}
               title="Библиотека всегда с вами"
               description="Доступ к книгам в любое время и в любом месте"
             />
             <FeatureCard
-              icon={<Star className="h-8 w-8 text-primary" />}
+              icon={<Star className="h-6 w-6 text-primary" />}
               title="Персональные рекомендации"
               description="Получайте предложения книг на основе ваших интересов и истории чтения"
             />
             <FeatureCard
-              icon={<Download className="h-8 w-8 text-primary" />}
+              icon={<Download className="h-6 w-6 text-primary" />}
               title="Быстрая синхронизация"
               description="Мгновенная синхронизация прогресса чтения между всеми вашими устройствами"
             />
             <FeatureCard
-              icon={<Zap className="h-8 w-8 text-primary" />}
+              icon={<Zap className="h-6 w-6 text-primary" />}
               title="Режим быстрого чтения"
               description="Увеличьте скорость чтения благодаря сжатию книги"
             />
             <FeatureCard
-              icon={<Globe className="h-8 w-8 text-primary" />}
+              icon={<Globe className="h-6 w-6 text-primary" />}
               title="Удобство пользования"
               description="С приложением читать книги станет в разы проще!"
             />
@@ -96,15 +96,15 @@ function FeatureCard({
   description: string
 }) {
   return (
-    <Card>
-      <CardHeader>
+    <Card className="py-4">
+      <CardHeader className="flex flex-row items-center gap-1 px-3">
+        {icon}
         <CardTitle className="flex items-center space-x-3">
-          {icon}
           <span>{title}</span>
         </CardTitle>
       </CardHeader>
-      <CardContent>
-        <p className="text-gray-600">{description}</p>
+      <CardContent className="mt-2">
+        <p className="text-sm text-foreground/40">{description}</p>
       </CardContent>
     </Card>
   )
