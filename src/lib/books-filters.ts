@@ -20,7 +20,7 @@ export const getBooksFilters = (): BookFilter[] => {
   return [
     {
       id: "size",
-      label: "Размер страницы",
+      label: "Количество книг для получения",
       type: "enum",
       options: ["4", "12", "25", "32", "50"]
     },
@@ -41,11 +41,5 @@ export const getBooksFilters = (): BookFilter[] => {
       minValue: 0.0,
       maxValue: 5.0
     }
-    // {
-    //   id: "ganre",
-    //   label: "Жанр",
-    //   type: "enum",
-    //   options: ganres
-    // }
   ]
 }
