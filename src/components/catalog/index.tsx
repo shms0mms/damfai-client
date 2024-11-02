@@ -14,6 +14,7 @@ type CatalogProps = {
 export const Catalog: FC<CatalogProps> = async options => {
   const { items: books, ...pagination }: TPagination<Book> =
     await recommendationsService.searchBooks(options)
+
   return (
     <>
       <Books books={books} />
