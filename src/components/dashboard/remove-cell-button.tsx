@@ -2,8 +2,9 @@
 
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { Minus } from "lucide-react"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { toast } from "sonner"
+import { ColorThemeContext } from "@/components/providers/theme-provider"
 import { ConfirmationModal } from "@/components/ui/confirmation-modal"
 import { TableCell } from "@/components/ui/table"
 import { extensionsService } from "@/services/extensions.service"
@@ -18,6 +19,7 @@ export function RemoveCellButton({
   is: "extension" | "theme"
   id: number
 }) {
+  const { removeColorTheme } = useContext(ColorThemeContext)
   const queryClient = useQueryClient()
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -31,6 +33,8 @@ export function RemoveCellButton({
           })
         ])
       } else {
+        removeColorTheme()
+
         await Promise.all([
           await shopService.sellTheme(id),
           await queryClient.invalidateQueries({
