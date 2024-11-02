@@ -5,7 +5,13 @@ import { env } from "./env"
 import type { User } from "./types/user"
 import { getAccessToken } from "@/lib/auth.server"
 
-const protectedRoutes = [ROUTES.DASHBOARD, ROUTES.RACE, "/books/read/"]
+const protectedRoutes = [
+  ROUTES.DASHBOARD,
+  ROUTES.RACE,
+  ROUTES.BOOKS,
+  "/pass",
+  "/books/read/"
+]
 const preventLoggedInRoutes = ["/auth/sign-in", "/auth/sign-up"]
 
 export async function middleware(req: NextRequest) {
