@@ -1,18 +1,19 @@
 "use client"
 
 import { Menu } from "lucide-react"
+import { type FC } from "react"
 import { ReadBookData } from "@/hooks/useReadBookData"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Button } from "@/components/ui/button"
 import { Logo } from "@/components/ui/logo"
 import { Bookmark } from "./bookmark"
 
-type Props = {
-  readBookData: ReadBookData
+type HeaderProps = {
+  readBookData: Partial<ReadBookData>
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
   time?: string
 }
-export const Header = ({ readBookData, setOpen, time }: Props) => {
+export const Header: FC<HeaderProps> = ({ readBookData, setOpen, time }) => {
   return (
     <>
       <header className="fixed left-0 right-0 top-0 z-10 flex items-center justify-between bg-background p-4 max-lg:bg-background">

@@ -28,7 +28,7 @@ export default async function BookPage({ params }: BookPageProps) {
           </CardDescription>
           <Rating
             className="absolute right-0 top-3"
-            rating={book?.ratings! || 0}
+            rating={book?.ratings ?? 0}
             disabled
             showText={false}
             variant="yellow"

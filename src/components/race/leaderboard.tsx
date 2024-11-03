@@ -63,7 +63,7 @@ export const LeaderBoard = async () => {
               {userReward?.chappi_tokens ?? "-"}
             </TableCell>
           </TableRow>
-          {topUsers.map((leader, i) => {
+          {topUsers.map(leader => {
             const leaderReward = race.prizes.find(
               prize => prize.place === leader.place
             )

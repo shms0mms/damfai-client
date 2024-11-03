@@ -75,7 +75,7 @@ export default function AuthForm() {
 
       router.push(ROUTES.DASHBOARD)
     },
-    onError(error) {
+    onError() {
       toast.error(
         "Такой пользователь уже существует! Попробуйте ввести другие данные."
       )

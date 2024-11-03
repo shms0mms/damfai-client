@@ -38,7 +38,7 @@ class BookService {
   async getUserBooks() {
     try {
       return (await readBookService.getAll()).data
-    } catch (error) {
+    } catch {
       return []
     }
   }
