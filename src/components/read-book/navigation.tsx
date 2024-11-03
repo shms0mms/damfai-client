@@ -74,6 +74,7 @@ export const ReadBookNavigation: FC<ReadBookNavigationProps> = ({
   }
   const handleNextPage = () => {
     // Getting last numberOfPage in chapter
+
     if (currentPage < currentChapter.lastNumberOfPage) {
       const page = currentPage + 1
       setCurrentPage(page)
@@ -87,7 +88,7 @@ export const ReadBookNavigation: FC<ReadBookNavigationProps> = ({
 
       finishPage({
         bookId: +params.id,
-        page: page,
+        page: currentPage,
         chapterId: currentChapter.id,
         timeMinutes: minutes
       })
@@ -97,16 +98,17 @@ export const ReadBookNavigation: FC<ReadBookNavigationProps> = ({
     } else if (
       currentChapter.numberOfChapter < readBookData?.chapters?.length
     ) {
-      setCurrentPage(currentPage + 1)
+      const page = currentPage + 1
+      setCurrentPage(page)
       const minutes = secondsToMinutes(readTime) || 0
       finishPage({
         bookId: +params.id,
-        page: currentPage + 1,
+        page: currentPage,
         chapterId: currentChapter.id,
         timeMinutes: minutes
       })
       router.push(
-        `/books/read/${params?.id}?page=${currentPage + 1}&chapter=${currentChapter.id + 1}`
+        `/books/read/${params?.id}?page=${page}&chapter=${currentChapter.id + 1}`
       )
     }
   }

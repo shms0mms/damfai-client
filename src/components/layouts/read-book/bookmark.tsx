@@ -19,7 +19,7 @@ export function Bookmark({ currentPage }: { currentPage: number | undefined }) {
     }
   })
 
-  const isBookmark = data?.data?.isBookmark
+  const isBookmark = data?.data?.is_bookmark
   return (
     <>
       <Button

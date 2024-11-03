@@ -23,7 +23,7 @@ export const summarizeFormSchema = z.object({
 
   text: z
     .string({ required_error })
-    .min(24, { message: "Минимальная длина текста не менее 24 символов" })
+    .min(350, { message: "Минимальная длина текста не менее 350 символов" })
 })
 
 export type SummarizeFormSchema = z.infer<typeof summarizeFormSchema>

@@ -6,11 +6,15 @@ import { DownloadAppButton } from "./download-app-button"
 export function AppPromo() {
   return (
     <div className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
-      <div className="grid gap-12 lg:grid-cols-2 xl:grid-cols-3">
+      <div className="relative grid gap-12 lg:grid-cols-2 xl:grid-cols-3">
         <div className="space-y-8 xl:col-span-2">
           <h2 className="text-4xl font-bold tracking-tight lg:text-5xl">
             Удобнее в приложении
           </h2>
+          <div
+            className="absolute left-0 top-0 h-72 w-[70%] overflow-x-hidden bg-[rgb(54,157,253)] bg-opacity-20 opacity-55 blur-[337.4px]"
+            style={{ transform: "rotate(45deg)" }}
+          />
           <div className="grid grid-cols-3 gap-8 max-xl:grid-cols-2 max-sm:grid-cols-1">
             <FeatureCard
               icon={<BarChart2 className="h-6 w-6 text-primary" />}
@@ -75,7 +79,7 @@ function FeatureCard({
   description: string
 }) {
   return (
-    <Card className="py-4">
+    <Card className="bg-muted py-4 backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:bg-muted/25">
       <CardHeader className="flex flex-row items-center gap-1 px-3">
         {icon}
         <CardTitle className="flex items-center space-x-3">

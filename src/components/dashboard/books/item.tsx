@@ -13,14 +13,14 @@ export function BookItem({
   title,
   author,
   icon,
-  currentNumberOfPage,
-  idCurrentChapter,
+  current_number_of_page,
+  id_current_chapter,
   isLoading,
   progress,
   id
 }: BookItemProps) {
-  const href = currentNumberOfPage
-    ? `/books/read/${id}/?page=${currentNumberOfPage}&chapter=${idCurrentChapter}`
+  const href = current_number_of_page
+    ? `/books/read/${id}/?page=${current_number_of_page}&chapter=${id_current_chapter}`
     : !!progress || progress == 0
       ? `/books/read/${id}`
       : `/books/${id}`
@@ -38,9 +38,9 @@ export function BookItem({
           </div>
 
           <div className="flex w-1/2 items-center justify-end space-x-2">
-            {!!currentNumberOfPage && (
+            {!!current_number_of_page && (
               <span className="whitespace-nowrap text-sm text-muted-foreground">
-                Страница: {currentNumberOfPage}
+                Страница: {current_number_of_page}
               </span>
             )}{" "}
             {(!!progress || progress == 0) && (
