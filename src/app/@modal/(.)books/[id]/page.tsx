@@ -6,7 +6,6 @@ type BookModalPageProps = { params: { id: string } }
 
 export default async function BookModalPage({ params }: BookModalPageProps) {
   const book = await bookService.getById(+params.id)
-
   return (
     <Modal
       title={book?.title}
