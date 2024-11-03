@@ -1,6 +1,5 @@
 "use client"
 
-import { add, format } from "date-fns"
 import { Menu } from "lucide-react"
 import { type FC, useEffect, useState } from "react"
 import { ReadBookData } from "@/hooks/useReadBookData"
@@ -8,6 +7,7 @@ import { ThemeToggle } from "@/components/theme-toggle"
 import { Button } from "@/components/ui/button"
 import { Logo } from "@/components/ui/logo"
 import { Bookmark } from "./bookmark"
+import { padStart } from "@/lib/utils"
 
 type HeaderProps = {
   readBookData: Partial<ReadBookData>
@@ -17,16 +17,16 @@ export const Header: FC<HeaderProps> = ({ readBookData, setOpen }) => {
   const [time, setTime] = useState<number>(0)
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const timer = setInterval(() => {
       setTime(prev => prev + 1)
     }, 1000)
 
-    return () => clearTimeout(timer)
+    return () => clearInterval(timer)
   }, [])
 
-  const hours = Math.floor(time / 3600)
-  const minutes = Math.floor((time % 3600) / 60)
-  const seconds = Math.floor(time % 60)
+  const hours = padStart(Math.floor(time / 3600))
+  const minutes = padStart(Math.floor((time % 3600) / 60))
+  const seconds = padStart(Math.floor(time % 60))
 
   return (
     <>
