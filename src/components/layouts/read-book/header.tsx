@@ -1,6 +1,6 @@
 "use client"
 
-import { format } from "date-fns"
+import { add, format } from "date-fns"
 import { Menu } from "lucide-react"
 import { type FC, useEffect, useState } from "react"
 import { ReadBookData } from "@/hooks/useReadBookData"
@@ -14,11 +14,11 @@ type HeaderProps = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 export const Header: FC<HeaderProps> = ({ readBookData, setOpen }) => {
-  const [time, setTime] = useState<string>()
+  const [time, setTime] = useState<number>(0)
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setTime(format(new Date(), "HH:mm"))
+      setTime(prev => prev + 1)
     }, 1000)
 
     return () => clearTimeout(timer)
@@ -39,7 +39,8 @@ export const Header: FC<HeaderProps> = ({ readBookData, setOpen }) => {
         <div className="flex items-center space-x-2">
           {!!time && (
             <div className="flex min-w-[100px] items-center gap-x-1">
-              <span className="max-md:text-[0px]">Время чтения:</span> {time}
+              <span className="max-md:text-[0px]">Время чтения:</span>{" "}
+              {format(time, "HH:mm:ss")}
             </div>
           )}
           {!!readBookData?.page?.id && (
