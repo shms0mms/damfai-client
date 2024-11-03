@@ -16,11 +16,11 @@ export const Header: FC<HeaderProps> = ({ readBookData, setOpen }) => {
   const [time, setTime] = useState<number>(0)
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const timer = setInterval(() => {
       setTime(prev => prev + 1)
     }, 1000)
 
-    return () => clearTimeout(timer)
+    return () => clearInterval(timer)
   }, [])
 
   const hours = Math.floor(time / 3600)
