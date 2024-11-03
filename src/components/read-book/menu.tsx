@@ -111,13 +111,13 @@ export function Menu({ readBookData, open, setOpen }: MenuProps) {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          <Button asChild className="w-full" type="button">
+          {/* <Button asChild className="w-full" type="button">
             <Link
               href={`/books/read/${bookId}?questions=generate&${searchParams}`}
             >
               Перейти сразу к вопросам
             </Link>
-          </Button>
+          </Button> */}
         </div>
       </SheetContent>
     </Sheet>

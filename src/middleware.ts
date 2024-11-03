@@ -2,7 +2,6 @@ import type { NextRequest } from "next/server"
 import { NextResponse } from "next/server"
 import { ROUTES } from "./config/route.config"
 import { env } from "./env"
-import type { User } from "./types/user"
 import { getAccessToken } from "@/lib/auth.server"
 
 const protectedRoutes = [
@@ -19,15 +18,16 @@ export async function middleware(req: NextRequest) {
 
   let isAuthorized = !!accessToken
   try {
-    const user = (await fetch(`${env.NEXT_PUBLIC_SERVER_URL}/auth/me`, {
+    const user = await fetch(`${env.NEXT_PUBLIC_SERVER_URL}/auth/me`, {
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`
       }
-    }).then(res => res.json())) as User
+    }).then(res => res.json())
 
     if (user?.id) isAuthorized = true
+    else if (user?.detail?.status === 426) isAuthorized = false
   } catch {
     isAuthorized = false
   }

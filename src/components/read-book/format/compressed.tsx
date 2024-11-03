@@ -61,7 +61,7 @@ export default function CompressedFormat({
                   }}
                 />
               ) : (
-                <div className="flex h-screen w-screen items-center justify-center">
+                <div className="flex h-screen items-center justify-center">
                   <SummarizeLoadingState />
                 </div>
               )}

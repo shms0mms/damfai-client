@@ -33,7 +33,7 @@ export function BookList({ sections }: BookListProps) {
                       ? books.map(book => (
                           <CarouselItem
                             key={book.id}
-                            className="xs:basis-[52%] max-xs:basis-[60%] pl-5 sm:basis-[40%] md:basis-[28%] lg:basis-[18%] xl:basis-[15%]"
+                            className="pl-5 max-xs:basis-[60%] xs:basis-[52%] sm:basis-[40%] md:basis-[28%] lg:basis-[18%] xl:basis-[15%]"
                           >
                             <Book book={book} />
                           </CarouselItem>
@@ -77,7 +77,7 @@ function Book({ book }: BookProps) {
         />
         <h3 className="text-muted-foreground">{book.author}</h3>
         <h4 className="text-sm">{book.title}</h4>
-        {(book?.progress || book?.progress == 0) && (
+        {(book?.progress || book?.progress == 0) && book?.progress < 100 && (
           <div className="flex flex-col gap-1">
             <p className="text-xs">Прогресс {book.progress?.toFixed(0)}%</p>
             <Progress value={book.progress} />
