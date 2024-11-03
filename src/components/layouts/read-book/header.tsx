@@ -1,6 +1,5 @@
 "use client"
 
-import { add, format } from "date-fns"
 import { Menu } from "lucide-react"
 import { type FC, useEffect, useState } from "react"
 import { ReadBookData } from "@/hooks/useReadBookData"
@@ -45,7 +44,7 @@ export const Header: FC<HeaderProps> = ({ readBookData, setOpen }) => {
             <div className="flex min-w-[100px] items-center gap-x-1">
               <span className="max-md:text-[0px]">Время чтения:</span>
               <span>
-                {hours}:{minutes}:{seconds}
+                {`${Math.floor(hours / 10)}${hours % 10}:${Math.floor(minutes / 10)}${minutes % 10}:${Math.floor(seconds / 10)}${seconds % 10}`}
               </span>
             </div>
           )}
