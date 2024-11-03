@@ -24,6 +24,10 @@ export const Header: FC<HeaderProps> = ({ readBookData, setOpen }) => {
     return () => clearTimeout(timer)
   }, [])
 
+  const hours = Math.floor(time / 3600)
+  const minutes = Math.floor((time % 3600) / 60)
+  const seconds = Math.floor(time % 60)
+
   return (
     <>
       <header className="fixed left-0 right-0 top-0 z-10 flex items-center justify-between bg-background p-4 max-lg:bg-background">
@@ -39,8 +43,10 @@ export const Header: FC<HeaderProps> = ({ readBookData, setOpen }) => {
         <div className="flex items-center space-x-2">
           {!!time && (
             <div className="flex min-w-[100px] items-center gap-x-1">
-              <span className="max-md:text-[0px]">Время чтения:</span>{" "}
-              {format(time, "HH:mm:ss")}
+              <span className="max-md:text-[0px]">Время чтения:</span>
+              <span>
+                {hours}:{minutes}:{seconds}
+              </span>
             </div>
           )}
           {!!readBookData?.page?.id && (
