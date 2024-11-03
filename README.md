@@ -3,7 +3,7 @@
 ## Репозитории проекта
 
 - [Damfai server](https://github.com/1Dambek1/damfai-server) - backend, серверная часть
-- [Damfai client](https://github.com/shms0mms/damfai-client) - frontend, визуальная часть  
+- [Damfai client](https://github.com/shms0mms/damfai-client) - frontend, визуальная часть
 
 ### В части второго этапа мы реализовали
 
@@ -11,6 +11,10 @@
 - [x] Суммаризировать введенный текст на
 - [x] Скопировать суммаризированный текст в буфер обмена
 - [x] Сжатие текста на любой из предложенных языков(английский, русский, китайский)
+
+### Код для второго этапа
+
+[ссылка](https://github.com/shms0mms/damfai-client/blob/main/src/components/prettify/index.tsx)
 
 ### Создали сервис damfai, где в основном интерфейсе можно
 
