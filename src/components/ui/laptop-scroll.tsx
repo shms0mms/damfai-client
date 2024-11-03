@@ -22,7 +22,6 @@ import {
   IconWorld
 } from "@tabler/icons-react"
 import { MotionValue, motion, useScroll, useTransform } from "framer-motion"
-import { useTheme } from "next-themes"
 import Image from "next/image"
 import { type FC, useRef } from "react"
 import { useMediaQuery } from "usehooks-ts"

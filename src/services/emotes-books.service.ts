@@ -7,7 +7,7 @@ export class EmotesBooksService {
   async getEmotesBooks() {
     try {
       return (await axiosWithAuth.get(`${this.BASE_URL}/all`)).data
-    } catch (error) {
+    } catch {
       return []
     }
   }

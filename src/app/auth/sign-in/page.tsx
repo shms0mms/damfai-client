@@ -57,7 +57,7 @@ export default function AuthForm() {
 
       push(ROUTES.DASHBOARD)
     },
-    onError(error) {
+    onError() {
       toast.error("Пароль или почта неправильные!  Попробуйте еще раз.")
     }
   })

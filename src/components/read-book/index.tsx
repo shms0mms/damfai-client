@@ -3,35 +3,37 @@
 import { AnimatePresence, motion } from "framer-motion"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { useReadBook } from "@/hooks/useReadBook"
 import { Header } from "@/components/layouts/read-book/header"
 import { Chappi } from "@/components/read-book/chappi"
 import { Menu } from "@/components/read-book/menu"
 import { ReadBookNavigation } from "@/components/read-book/navigation"
 import { Questions } from "@/components/read-book/questions"
+import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog"
-import { Button } from "../ui/button"
 import { ReadBookPageProps } from "@/app/(read-book)/books/read/[id]/page"
 
 // DONE: Questions answers - 2
 // DONE: Finish book page - 1
 // TODO: Zip text - 3
-export function ReadBook({
-  params,
-  searchParams,
-  data: {
+export function ReadBook({ params, searchParams }: ReadBookPageProps) {
+  const {
     currentChapter,
     currentPage,
-    readTime,
-    setCurrentPage,
-    isLoading,
-    readBookData,
     error,
-    open,
-    setOpen,
+    isLoading,
+    readTime,
+    readBookData,
+    setCurrentPage,
+    navigation,
     timeString,
-    navigation
-  }
-}: ReadBookPageProps) {
+    open,
+    setOpen
+  } = useReadBook({
+    params,
+    searchParams
+  })
+
   const startGenerateQuestions = searchParams?.questions === "generate"
   const router = useRouter()
   return error?.response?.status !== 403 ? (
@@ -77,10 +79,7 @@ export function ReadBook({
                 <p
                   className="mb-6 text-lg leading-relaxed"
                   dangerouslySetInnerHTML={{
-                    __html: readBookData?.page?.text?.replaceAll(
-                      "\n",
-                      "<br />"
-                    )!
+                    __html: readBookData.page.text.replaceAll("\n", "<br />")
                   }}
                 />
                 <p className="text-sm text-muted-foreground">
@@ -99,7 +98,6 @@ export function ReadBook({
             readTime={readTime}
           />
           <Menu
-            currentChapter={currentChapter}
             readBookData={readBookData}
             open={open}
             setOpen={setOpen}

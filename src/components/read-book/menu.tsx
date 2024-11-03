@@ -4,7 +4,6 @@ import { useMutation, useQuery } from "@tanstack/react-query"
 import Link from "next/link"
 import { useParams } from "next/navigation"
 import { toast } from "sonner"
-import { Chapter } from "@/types/book"
 import { useCustomSearchParams } from "@/hooks/useCustomSearchParams"
 import { ReadBookData } from "@/hooks/useReadBookData"
 import { Button } from "@/components/ui/button"
@@ -29,15 +28,9 @@ type MenuProps = {
   open: boolean
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
   handleChapterChange?: (value: string) => void
-  readBookData: ReadBookData
-  currentChapter?: Chapter
+  readBookData: Partial<ReadBookData>
 }
-export function Menu({
-  readBookData,
-  open,
-  setOpen,
-  currentChapter
-}: MenuProps) {
+export function Menu({ readBookData, open, setOpen }: MenuProps) {
   const { id: bookId } = useParams()
   const { data, refetch } = useQuery({
     queryKey: ["purpose", bookId],

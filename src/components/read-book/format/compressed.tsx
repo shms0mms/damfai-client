@@ -24,12 +24,12 @@ export default function CompressedFormat({
   const startGenerateQuestions = searchParams?.questions === "generate"
   const router = useRouter()
 
-  const readBookData = {
-    author: query.data?.author!,
-    chapters: query.data?.chapters!,
-    title: query.data?.title!,
+  const readBookData: Partial<ReadBookData> = {
+    author: query.data?.author,
+    chapters: query.data?.chapters,
+    title: query.data?.title,
     page: undefined
-  } satisfies ReadBookData
+  }
 
   return (
     <>
@@ -57,7 +57,7 @@ export default function CompressedFormat({
                 <p
                   className="mb-6 text-lg leading-relaxed"
                   dangerouslySetInnerHTML={{
-                    __html: text?.replaceAll("\n", "<br />")!
+                    __html: text.replaceAll("\n", "<br />")
                   }}
                 />
               ) : (

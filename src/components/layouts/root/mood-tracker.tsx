@@ -20,7 +20,7 @@ export function MoodTracker({
 }: MoodTrackerProps) {
   const [showMoodTracker, setShowMoodTracker] = useState(false)
   const [showCheckmark, setShowCheckmark] = useState(false)
-  const { mutate, isPending } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: (emote: EmoteEnum) => emotesBooksService.saveEmote(emote),
     onSuccess: (data: { emote: EmoteEnum }) => {
       setShowCheckmark(true)

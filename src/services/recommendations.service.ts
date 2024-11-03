@@ -12,7 +12,7 @@ class RecommendationsService {
           `${this.BASE_URL}/books/get_reccomendations`
         )
       ).data
-    } catch (error) {
+    } catch {
       return []
     }
   }
@@ -37,7 +37,7 @@ class RecommendationsService {
           }
         )
       ).data
-    } catch (error) {
+    } catch {
       return {
         items: [],
         pages: 0,

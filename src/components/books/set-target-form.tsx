@@ -9,7 +9,7 @@ import { readBookService } from "@/services/read-book.service"
 
 export function PurposeForm({
   params,
-  book
+  book: _book
 }: {
   book: Book
   params: { id: string }

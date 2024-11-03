@@ -27,8 +27,8 @@ export function RemoveCellButton({
     mutationFn: async (id: number) => {
       if (is === "extension") {
         await Promise.all([
-          await extensionsService.removeExtensionFromUser(id),
-          await queryClient.invalidateQueries({
+          extensionsService.removeExtensionFromUser(id),
+          queryClient.invalidateQueries({
             queryKey: ["user", "extensions"]
           })
         ])
@@ -36,11 +36,11 @@ export function RemoveCellButton({
         removeColorTheme()
 
         await Promise.all([
-          await shopService.sellTheme(id),
-          await queryClient.invalidateQueries({
+          shopService.sellTheme(id),
+          queryClient.invalidateQueries({
             queryKey: ["user", "themes"]
           }),
-          await queryClient.invalidateQueries({
+          queryClient.invalidateQueries({
             queryKey: ["theme", id]
           })
         ])

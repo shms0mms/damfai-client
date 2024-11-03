@@ -110,9 +110,6 @@ export function Questions() {
                         >
                           {Object.entries(question.options).map(
                             ([key, value]) => {
-                              const currentKey = answers.find(
-                                a => a.questionId === i
-                              )?.key
                               const submitCount = form.formState.submitCount
                               const isCorrect =
                                 submitCount && key === question.answer
