@@ -58,11 +58,7 @@ export function ReadBook({ params, searchParams }: ReadBookPageProps) {
 
       {readBookData && !isLoading ? (
         <div className="flex min-h-screen flex-col">
-          <Header
-            readBookData={readBookData}
-            time={timeString}
-            setOpen={setOpen}
-          />
+          <Header readBookData={readBookData} setOpen={setOpen} />
           <main className="flex flex-grow items-center justify-center p-4 pt-16">
             <AnimatePresence mode="wait">
               <motion.div

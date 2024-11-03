@@ -1,7 +1,8 @@
 "use client"
 
+import { format } from "date-fns"
 import { Menu } from "lucide-react"
-import { type FC } from "react"
+import { type FC, useEffect, useState } from "react"
 import { ReadBookData } from "@/hooks/useReadBookData"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Button } from "@/components/ui/button"
@@ -11,9 +12,18 @@ import { Bookmark } from "./bookmark"
 type HeaderProps = {
   readBookData: Partial<ReadBookData>
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
-  time?: string
 }
-export const Header: FC<HeaderProps> = ({ readBookData, setOpen, time }) => {
+export const Header: FC<HeaderProps> = ({ readBookData, setOpen }) => {
+  const [time, setTime] = useState<string>()
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setTime(format(new Date(), "HH:mm"))
+    }, 1000)
+
+    return () => clearTimeout(timer)
+  }, [])
+
   return (
     <>
       <header className="fixed left-0 right-0 top-0 z-10 flex items-center justify-between bg-background p-4 max-lg:bg-background">
